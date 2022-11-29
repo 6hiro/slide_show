@@ -1,0 +1,16 @@
+.getMoreBtn {
+    margin: 10px auto;
+    width: 300px;
+    text-align: center;
+    background: $buttonColor;
+    color: $white;
+    font-weight: 800;
+    padding: 10px;
+    opacity: 0.8;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background: $buttonHoverColor;
+    }
+}

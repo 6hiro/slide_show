@@ -1,0 +1,32 @@
+.desciption_textarea_container {
+    position: relative;
+
+    .desciption_textarea{
+        line-height: 24px;
+        width: 100%;
+        resize: none;
+        height: 0px;
+        border: none;
+        outline: none;
+        padding: 15px;
+        font-size: 16px;
+        margin-top: 20px;
+        border-radius: 5px;
+        caret-color: #4671EA;
+        border: 1px solid #bfbfbf;
+    }
+    
+    .desciption_textarea:focus, .desciption_textarea:valid{
+        background: #fff;
+        color: $subColor;
+    }
+
+    .desciption_textarea::placeholder {
+        color: $subColor;
+        opacity: 0.8;
+    }
+    .text_count {
+        text-align: right;
+        padding-right: 10px;
+    }
+}

@@ -1,0 +1,394 @@
+.prof_container {
+    margin-top: 20px;
+    min-height: calc(100vh - 150px);
+    width: 100%;
+}
+
+.prof_card {
+    position: relative;
+    width: 750px;
+    height: 80vh;
+    background: #fff;
+    color: $subColor;
+    box-shadow: 4px 4px 0px $subColor;
+    border: 3px solid $subColor;
+    border-radius: 25px;
+    transition: all 0.6s ease-in-out;
+    margin: 0px auto;
+    padding: 0px 5px;
+    overflow-y: scroll;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+    
+    .header_section {
+        @include flex(center, center);
+        padding: 10px 0;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+        font-size: 18px;
+        font-weight: 700;
+        max-width: 600px;
+        margin: 0 auto;
+
+        .nickname {
+            padding: 3px;
+            border: 3px solid $subColor;
+            border-radius: 5px;
+            text-align: center;
+            min-width: 200px;
+
+        }
+    }
+
+    .profile {
+        background: $subColor;
+        border-radius: 6px;
+        padding: 10px 0;
+        color: $white;
+
+        .img_box{
+            user-select: none;
+
+            position: relative;
+            @include flex(center, center);
+            // font-size: 8px;
+            // font-family: cursive;
+            font-size: 50px;
+            color: $subColor;
+            background: $white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50px;
+            border: 3px solid #ddd;
+            margin: 0px auto ;
+            overflow: hidden;
+
+
+            & > img {
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+        }
+        .username {
+            margin: 15px 0 5px 0;
+            text-align: center
+        }
+        .descirption {
+            margin: 15px 18px 0px;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+            color: #eee;
+        }
+        .middle_info {
+            .user_list {
+                position: fixed;
+                right: 10px;
+                bottom: 15px;
+                z-index: 300;
+                color: $subColor;
+
+                .overlay{
+                    width: 100vw;
+                    height: 100vh;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    position: fixed;
+                    z-index: 290;
+                    background: rgba(255, 255, 255, 0.7);
+                }
+
+                .formContainer{
+                    z-index: 320;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    margin: 0;
+                    max-height: 620px;
+                    width: calc(100vw - 50px);
+                    overflow-y: scroll;
+                    background: #fff;
+                    border: 3px solid #24292f;
+                    box-shadow: $boxShadow;
+                    border-radius: 5px;
+
+                    .closeForm {
+                        width: 30px;
+                        height: 30px;
+                        border: 3px solid #24292f;
+                        border-radius: 50%;
+                        @include flex(center, center);
+                        position: absolute;
+                        right: 5px;
+                        top: 5px;
+                        font-size: 30px;
+                        cursor: pointer;
+                    }
+                    .form {
+                        margin: 40px 30px 20px;
+                    }
+
+                }
+
+            }
+        }
+        .post_followers_following {
+            user-select: none;
+
+            @include flex(center, space-around);
+            height: 90px;
+            text-align: center;
+            
+            .post, .followers, .following {
+                width: 215px;
+                border: 2px solid $white;
+                border-radius: 6px;
+            }
+        }
+        .follow_button {
+            user-select: none;
+
+            @include flex(center, space-around);
+
+            & > button {
+                width: 95%;
+                border: none;
+                outline: none;
+                border-radius: 6px;
+                cursor: pointer;
+                background: $mainColor;
+                color: $white;
+                font-size: 20px;
+                font-weight: 600;
+                padding: 4px 0;
+
+                &:hover {
+                    background: #E32D91;
+                }
+            } 
+            // .followed {
+            //     background: $green;
+            //     // color: $mainColor;
+
+            //     &:hover {
+            //         background: $lightBlue;
+            //         color: $white;
+            //     }
+            // }
+
+
+            .editForm {
+                position: fixed;
+                right: 10px;
+                bottom: 15px;
+                z-index: 300;
+                color: $subColor;
+
+                .overlay{
+                    width: 100vw;
+                    height: 100vh;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    position: fixed;
+                    z-index: 290;
+                    // background-color: #ecf0f3;
+                    // background: rgba(50, 50, 50, 0.7);
+                    background: rgba(255, 255, 255, 0.7);
+                    // backdrop-filter: blur(2px);
+                    // -webkit-backdrop-filter: blur(2px);
+                }
+
+                .formContainer{
+                    z-index: 320;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+
+                    margin: 0;
+                    // height: calc(100vh - 80px);
+                    max-height: 620px;
+                    width: calc(100vw - 20px);
+                    max-width: 600px;
+
+                    overflow-y: scroll;
+
+                    background: #fff;
+                    border: 3px solid #24292f;
+                    box-shadow: $boxShadow;
+                    border-radius: 5px;
+
+                    .closeForm {
+                        width: 30px;
+                        height: 30px;
+                        border: 3px solid #24292f;
+                        border-radius: 50%;
+                        @include flex(center, center);
+                        position: absolute;
+                        right: 5px;
+                        top: 5px;
+                        font-size: 30px;
+                        cursor: pointer;
+                    }
+                    .form {
+                        margin: 40px 30px 20px;
+
+                    }
+
+
+
+                    // transform: translate(0, -50%) ;
+
+
+                }
+
+            }
+        }
+
+    }
+    .nav {
+        @include flex(center, space-around);
+        position: sticky;
+        z-index: 100;
+        top: 0px;
+        background: $white;
+        opacity: 0.98;
+        padding: 10px;
+        overflow-x: auto;
+        font-weight: 700;
+        color: #adadad;
+
+        .nav_itme{
+            width: 64px;
+        }
+
+        .active_nav_itme {
+            color: $subColor;
+            border-bottom: 2px solid $subColor;
+        }
+    }
+    .lower_section{
+        width: 100%;
+        margin-bottom: 40px;
+        overflow-y: scroll;
+        position: relative;
+    
+        
+        .prof_content_container{
+            padding: 40px 0px; 
+
+            .prof_content {
+                text-align: center; 
+            }
+        }
+
+        .vlide_container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+    
+            .vlide_list{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                max-width: 1000px;
+        
+                .vlide_card {
+                    margin: 0.5rem;
+                    width: 300px;
+                }
+                
+            }
+            
+        }
+
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+    .prof_card {
+        width: 90%;
+        max-width: 750px;
+        border-radius: 20px;
+    }
+    .profile {
+        .post_followers_following {
+            margin: 0 5px;
+
+            .post, .followers, .following {
+                width: 60px;
+                margin: 5px;
+            }
+
+        }
+
+        .follow_button {
+            & > button {
+                width: 90%;
+            }        
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    .prof_container {
+        margin-top: 0px;
+    }
+
+    .prof_card {
+        width: 100%;
+        height: unset;
+        margin-bottom: 0;
+        border: none;
+        border-radius: unset;
+        box-shadow: none;
+        padding: 0;
+
+        .header_section {
+            .nickname {
+                font-size: 16px;
+                width: 90%;
+                border: none;
+            }
+        }
+
+        .profile {
+            border-radius: 0;
+
+            .middle_info {
+                .user_list {
+                    .formContainer{
+                        width: calc(100vw - 10px);
+                        .form {
+                            margin: 25px 10px;
+                        }
+                    }
+                }
+            }
+
+            .post_followers_following {
+                .post, .followers, .following {
+                    width:  100px;
+                }
+            }
+
+            .follow_button {
+                & > button {
+                    width: 90%;
+                }        
+            }
+        }
+    }
+}

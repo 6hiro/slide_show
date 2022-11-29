@@ -1,0 +1,40 @@
+.loading_screen_wrapper {
+    width: 240px;
+    @include flex(center, space-around);
+
+    .loader__ball{
+        --size: 30px;
+        width: var(--size);
+        height: var(--size);
+        border-radius: 50%;
+        border: 3.5px solid $subColor;
+        animation: bounce .7s alternate infinite;
+    }
+    .loader__ball:nth-child(1){
+        background: $buttonColor;
+    }
+    .loader__ball:nth-child(2){
+        background: $orange;
+        animation-delay: .1s;
+    }
+    .loader__ball:nth-child(3){
+        background: $green;
+        animation-delay: .2s;
+    }
+    .loader__ball:nth-child(4){
+        background: $purple;
+        background: $mainColor;
+        background: $red;
+
+        animation-delay: .3s;
+    }
+    @keyframes bounce{
+        from{
+            transform: scaleX(1.2);
+        }
+        to{
+            transform: translateY(-50px) scale(1);
+        }
+    }
+}
+

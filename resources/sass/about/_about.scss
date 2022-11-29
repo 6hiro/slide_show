@@ -1,0 +1,43 @@
+.about_container {
+	padding: 2rem 0;
+	margin: 0 auto;
+	max-width: 900px;
+
+	.title {
+		margin: 0;
+		font-size: 2.2rem;
+		text-align: center;
+		text-decoration: underline;
+		line-height: 1.15;
+	}
+
+    .title_description {
+		margin: 1rem 0 2rem 0;
+		padding: 1rem 2.5rem;
+		background: #ddd5;
+		line-height: 1.8;
+		font-size: 1.1rem;
+		border-radius: 5px;
+	}
+
+	.content_container {
+
+		.description {
+			margin: 0.5rem 0 2rem 0;
+			padding: 1rem 2.5rem;
+			background: #ddd5;
+			line-height: 1.8;
+			font-size: 1.1rem;
+			border-radius: 5px;
+		}
+	
+		.sub_title{
+			margin: 2.5rem 1rem 0;
+			color: $subColor;
+			font-size: 1.6rem;
+			font-weight: 600;
+		}
+	}
+	
+
+}

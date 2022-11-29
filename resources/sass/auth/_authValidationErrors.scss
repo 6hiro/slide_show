@@ -1,0 +1,59 @@
+.validation_errors {
+    position: fixed;
+    z-index: 100;
+    top: 70px;
+    right: 20px;
+
+    .validation_error_messages {
+        position:relative;
+        overflow: hidden;
+        flex-direction: column;
+        
+        .validation_error_message {
+            max-height: 70px;
+            @include flex(center, unset);
+
+            pointer-events: none;
+            overflow-y: scroll;
+            background: $white;
+            color: $red;
+            font-weight: 600;
+            border: 2px solid $red;
+            overflow-y: scroll;
+            border-radius: 8px;
+            margin: 8px 0px 8px 10px;
+            opacity: 0;
+            max-width: 350px;
+            pointer-events: auto;
+            padding: 5px 15px;
+            animation: erorr_animate 3s linear;
+
+            @keyframes erorr_animate {
+                0% {
+                    transform: translate3d(0, -200%, 0) scale(.6); 
+                    opacity: .2
+                }
+                1%{
+                    transform: translate3d(0, -100%, 0) scale(.6); 
+                    opacity: 0.4;
+                }
+                10%, 90% {
+                    transform: translate3d(0,0,0) scale(1); 
+                    opacity:1;
+                }
+
+                99% {
+                    transform: translate3d(0, -100%, 0) scale(.6); 
+                    opacity: 0.4;
+                }
+                100% {
+                    transform: translate3d(0, -200%, 0) scale(.6); 
+                    opacity: .2
+                }
+
+            }
+
+        }
+    }
+    
+}

@@ -1,0 +1,19 @@
+.dots_button {
+    --size: 30px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+        background: #f2f2f2;
+        transition: 1s;
+    }
+}
+
+.dots_button > svg {
+    font-size: 20px;
+    cursor: pointer;
+    transition: 1s;
+}

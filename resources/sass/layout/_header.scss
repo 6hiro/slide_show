@@ -1,0 +1,292 @@
+.header {
+    position: fixed;
+    width: 100%;
+    height: $headerHeight;
+    padding: 12px 15px;
+    font-size: 20px;
+    z-index: 900;
+    background-color: #FFF;
+    color: #24292f;
+    border-bottom: 3px solid #24292f;
+
+    &__nav {
+        @include flex(unset, space-between);
+
+        .logo_wapper{
+            width: 160px;
+        
+            .logo {
+                display: flex;
+                column-gap: 5px;
+                font-weight: 700;
+                width: 115px;
+                padding: 1px 8px;
+                border-radius:5px;
+                
+                svg{
+                    border-radius: 5px;
+                }
+            }
+        }
+        .links {
+            min-width: 200px;
+            @include flex(unset, space-between);
+            user-select: none;
+            column-gap: 20px;
+
+            .link {
+                padding: 0 5px;
+                font-weight: 600;
+                font-size: 16px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                &:hover{
+                    border-bottom: 2px solid $subColor;
+                }
+            }
+        }
+        .auth_btns {
+            @include flex(unset, flex-end);
+
+            gap: 10px;
+            width: 160px;
+
+            .auth_btn {
+                cursor: pointer;
+                user-select: none;
+                font-weight: 700;
+                font-size: 14px;
+                padding: 1px 1px;
+                width: 80px;
+        
+                @include flex(center, center);
+
+                
+                &:hover{
+                    border-bottom: 2px solid $subColor;
+                }
+            }
+            .sign_up_btn{
+                color: #fff;
+                background-color: #24292f;
+                border-radius: 5px;
+            }
+
+        }
+        .menu_btn_wrapper {
+            display: none;
+
+            .icon {
+                padding: 0 0 0 10px;
+                cursor: pointer;
+            }
+
+            .menu_btn {
+                & > span {
+                    position: absolute;
+                    top: 14px;
+                    width: 24px;
+                    height: 3px;
+                    background: #24292f;
+                    border-radius: 4px;
+                    transition: 0.5s;
+                    &:nth-child(1) {
+                        transform: translateY(-7px);
+                    }
+                    &:nth-child(2) {
+                        transform: translateY(7px);
+                    }
+
+                }
+            }
+            .active {
+                & > span {
+                    &:nth-child(1) {
+                        transform: translateY(0px) rotate(45deg);
+                        background-color: $mainColor;
+                    }
+                    &:nth-child(2) {
+                        /* transform: translateY(0px) rotate(-45deg); */
+                        transform: translateY(0px) rotate(315deg);
+                        background-color: $mainHoverColor;
+                    }
+                    &:nth-child(3) {
+                        transform: translateX(30px);
+                    }
+                }
+            }
+        }
+    }
+    .menubar_wrapper{
+        position: absolute;
+        display: none;
+        top: $headerHeight;
+        right: 0;
+        width: 100vw;
+        height: calc(100vh - $headerHeight);
+        background: #ddd5;
+        opacity: 1;
+        // backdrop-filter: blur(2px);
+        // -webkit-backdrop-filter: blur(2px);
+        color: $white;
+        
+        .menubar {
+            position: absolute;
+            right: 0;
+            width: 260px;
+            padding: 10px 5px;
+            background: $subColor;
+            height: 100%;
+
+  
+            .links {
+                padding: 15px 0px;
+                font-size: 26px;
+                font-weight: 700;
+                user-select: none;
+    
+                .link {
+                    margin: 20px 15px;
+                    cursor: pointer;
+                    @include flex(center, unset);
+                    column-gap: 10px;
+                
+                    &:hover{
+                      color: $mainColor;
+                    }
+                }
+                .login_btn {
+                    @include flex(center, center);
+                    margin: 30px 10px 0 10px;
+                    color: $mainColor;
+                    border: 2px solid $mainColor;
+                    border-radius: 5px;
+    
+                    &:hover{
+                        color: $subColor;
+                        background: $mainColor;
+                    }
+                }
+                
+                .logout_btn {
+                    @include flex(center, center);
+                    position: absolute;
+                    bottom: 10px;
+                    right: 0;
+                    margin: 20px 0px;
+                    color: $white;
+                    border: 2px solid $white;
+                    border-right: unset;
+
+                    border-radius: 5px 0 0 5px;   
+                    width: 220px;
+                    
+                    &:hover {
+                        color: $subColor;
+                        background-color: $mainColor;
+                        border: 2px solid $mainColor;
+
+                    }
+                }
+    
+                .sign_up_btn {
+                    @include flex(center, center);
+                    margin: 20px 10px;
+                    color: $white;
+                    border: 2px solid $white;
+                    border-radius: 5px;
+                    text-align: center;
+
+                    &:hover {
+                        color: $subColor;
+                        background-color: $white;
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    .new_vlide_form_container {
+        position: fixed;
+        right: 10px;
+        bottom: 15px;
+        z-index: 300;
+    
+        .overlay{
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: fixed;
+            z-index: 290;
+            background: rgba(255, 255, 255, 0.7);
+        }
+    
+        .form_container{
+            z-index: 320;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+    
+            margin: 0;
+            max-height: 620px;
+            width: calc(100vw - 20px);
+            overflow-y: scroll;
+    
+            background: #fff;
+            border: 3px solid #24292f;
+            box-shadow: $boxShadow;
+            border-radius: 5px;
+    
+            .close_form {
+                width: 30px;
+                height: 30px;
+                border: 3px solid #24292f;
+                border-radius: 50%;
+                @include flex(center, center);
+                position: absolute;
+                z-index: 500;
+                right: 5px;
+                top: 5px;
+                font-size: 30px;
+                cursor: pointer;
+            }
+            .form_wrapper {
+                margin: 40px 30px 20px;
+    
+            }
+        }
+    }
+}
+
+
+
+@media screen and (max-width: 767px) {
+    .header .header__nav .menu_btn_wrapper{
+        display: block;
+    }
+    .header .header__nav .menu_btn_wrapper .menu_btn {
+        position: relative;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        cursor: pointer;
+        overflow: hidden;
+    }
+    .header .auth_btns {
+        display: none;
+    }
+    .header .menubar_wrapper {
+        display: block;
+    }
+    .header .header__nav .links {
+        display: none;
+    }
+}

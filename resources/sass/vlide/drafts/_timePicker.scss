@@ -1,0 +1,39 @@
+.timePicker{
+    width: 120px;
+    border: 2px solid $subColor;
+    padding: 10px;
+    border-radius: 6px;
+    user-select: none; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .separator{
+        padding: 0 8px;
+        font-weight: 900;
+    }
+    
+    &_select{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: block; 
+        width: 0 auto;
+        height: 0 auto;
+        text-align: center;
+        font-size: 14px;
+        padding: 0px 6px;
+        outline: none;
+        border: none;
+        border-bottom: 2px solid #ddd;
+        color: $subColor;
+        cursor: pointer;
+        font-size: 18px;
+
+        option{
+            font-size: 16px;
+            display: block;
+        }
+
+    }
+}

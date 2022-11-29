@@ -1,0 +1,49 @@
+.tag_form{
+
+    .field {
+        padding: 10px 5px;
+        margin-bottom: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        outline: none;
+        border: none;
+        border-bottom: 2px solid $subColor;
+
+        &::placeholder {
+            color: $subColor;
+        }
+    }
+    .tag_list {
+        column-gap: 20px;
+
+        .tag{
+            font-size: 18px;
+            margin: 15px 0;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+            font-weight: 600;
+            height: 35px;
+            @include flex(center, flex-start);
+
+            .delete_button {
+                color: $mainColor;
+                padding-right: 5px;
+                font-size: 18px;
+                height: 24px;
+                width: 24px;
+                cursor: pointer;
+                @include flex(center, center);    
+            }
+        }
+    
+    
+    }
+
+    
+    .rule{
+        color: #999;
+        font-size: 15px;
+        padding: 8px 0px;
+        width: 100%;
+    }
+}

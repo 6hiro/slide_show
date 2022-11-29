@@ -1,0 +1,295 @@
+.clip_card_container {
+    background: $white;
+    border-bottom: 2px solid #ddd6;
+    border-radius: 10px;
+    background: #eee3;
+    margin: 5px auto;
+    width: 340px;
+    padding: 0 0 0 5px;
+
+    .clip__shared_by {
+        padding: 0.2rem 0.8rem;
+        font-size: 14px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .clip__reply_to{
+        color: $blue;
+        font-size: 13px;
+        padding: 5px 0px 0px 10px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.clip_card {
+    display: flex;
+
+    .clip_icon {
+        margin: 13px 8px 0 0;
+        width: 40px;
+        height: 40px;
+        @include flex(center, center);    
+        border: 2px solid $subColor;
+        font-size: 25px;
+        text-transform: uppercase;
+        background: #ddd3;
+        background: $white;
+        color: $subColor;
+        border-radius: 50%;
+    }
+
+    .clip_main {
+        width: calc(100% - 40px);
+        padding: 10px 5px;
+
+        .clip_main__header {
+            display: flex;
+            justify-content: space-between;
+            &__left{
+                display: flex;
+
+                .clip_nick_name {
+                    font-size: 1rem;
+                    padding: 8px 0;
+                    text-decoration: none;
+                    color: $subColor;
+                    font-size: 14px;
+                    font-weight: 600;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    width: 125px;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+
+                    .clip_user_name {
+                        font-size: 0.9rem;
+                        font-weight: 400;
+                        overflow-x: hidden;
+                        overflow-wrap: normal;
+                    }
+                }
+    
+                .cliped_at {
+                    font-size: 13px;
+                    color: rgb(88, 94, 78);
+                    padding: 10px 7px;
+                }
+            }
+            &__right{
+                position: relative;
+                .overlay{
+                    width: 100vw;
+                    height: 100vh;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    position: fixed;
+                    z-index: 9000;
+                    background-color: #ecf0f3;
+                    background: rgba(255, 255, 255, 0);
+                }
+
+                // メニュー画面
+                &__menu{
+                    position: absolute;
+                    z-index: 9999;
+                    width: 130px;
+                    padding: 10px;
+                    background: $white;
+                    box-shadow: rgb(101 119 134 / 20%) 0px 0px 15px, rgb(101 119 134 / 15%) 0px 0px 3px 1px;
+                    border-radius: 4px;
+                    right: 0;
+                    display: none;
+    
+                    li{
+                        padding: 2px;
+                        font-size: 14px;
+                        cursor: pointer;
+                    }
+                    li:hover{
+                        color: $green;
+                    }
+    
+                }
+                .show_menu{
+                    display: block;
+                }
+
+                .delete_overlay{
+                    backdrop-filter: blur(2px);
+                    -webkit-backdrop-filter: blur(2px);
+                    background: #6663;
+                }
+                &__delete{
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 9999;
+                    max-width: 360px;
+                    width: 90%;
+                    padding: 20px 10px;
+                    background: $white;
+                    box-shadow: rgb(101 119 134 / 20%) 0px 0px 15px, rgb(101 119 134 / 15%) 0px 0px 3px 1px;
+                    border-radius: 4px;
+                    display: none;
+    
+                    &__content {
+                        margin: 14px 14px 30px 14px;
+                    }
+    
+                    .selects{
+                        display: flex;
+                        justify-content: space-around;
+                        margin-top: 10px;
+                        text-align: center;
+    
+                        .no{
+                            cursor: pointer;
+                            border: 1px solid;
+                            border-radius: 8px;
+                            padding: 2px 4px;
+                            color: $white;
+                            background: $subColor;
+                            border: 2px solid $subColor;
+                            width: 95px;
+                            &:hover {
+                                opacity: 0.7;
+                            }
+                        }
+                        .yes{
+                            cursor: pointer;
+                            color: $white;
+                            background: $red;
+                            border: 2px solid $red;
+                            border-radius: 8px;
+                            padding: 2px 4px;
+                            width: 95px;
+                            &:hover {
+                                opacity: 0.7;
+                            }
+                        }
+                        
+                    }
+                }
+                .show_delete{
+                    display: block;
+                }
+            }
+
+        }
+    }
+    .clip_quote {
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+        border-left: 3px solid #adadad;
+        padding: 10px 5px 10px 7px;
+        margin-bottom: 5px;
+        background: #ddd8;
+        border-radius: 0 5px 5px 0;
+        font-weight: 600;
+        font-size: 13.5px;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .clip_text {
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+        padding: 5px 5px 5px 10px;
+        margin-bottom: 20px;
+        font-size: 16px;
+
+        .clip_hashtag {
+            cursor: pointer;
+            color: blue;
+        }
+    }
+    .cliped_at {
+        color: rgb(88, 94, 78);
+        padding-right: 10px;
+        text-align: right;
+    }
+
+    .clip_additional_elements {
+        position: relative;
+        padding: 0px 8px;
+        padding-top: 0;
+        padding-bottom: 0;
+        display: flex;
+        justify-content: space-between;
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .clip_comment_btn_container,
+        .clip_share_btn_container,
+        .clip_like_btn_container {
+            @include flex(center, center);
+            width: 60px;
+            height: 25px;
+            
+            .clip_likes {
+                position: relative;
+                @include flex(center, center);
+                width: 22px;
+                height: 22px;
+                margin-left: 2px;
+                font-size: 18px;
+            }
+        }
+        .clip_comment_btn_container {
+            svg {
+                cursor: pointer;
+            }
+            &:hover {
+                svg {
+                    color: $green;
+                }
+            }
+        }
+        .clip_share_btn_container {
+            svg {
+                cursor: pointer;
+            }
+            &:hover {
+                svg {
+                    color: $orange;
+                }
+            }
+        }
+        .clip_like_btn_container {
+            svg {
+                cursor: pointer;
+            }
+            .liked {
+                color: $mainColor;
+            }
+            &:hover {
+                svg {
+                    color: $mainColor;
+                }
+            }
+        }
+
+
+    }
+}

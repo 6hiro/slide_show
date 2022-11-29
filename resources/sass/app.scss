@@ -1,0 +1,110 @@
+@use "./abstracts/" as *;
+
+// layout
+@import 'layout/layout';
+@import 'layout/header';
+@import 'layout/loader';
+@import 'layout/getMoreButton';
+@import 'layout/loader';
+@import 'layout/loadingScreen';
+@import 'layout/searchForm';
+
+// auth
+@import 'auth/authPage';
+@import 'auth/changePasswordForm';
+@import 'auth/loginCard';
+@import 'auth/registerCard';
+@import 'auth/deleteAccountForm';
+@import 'auth/changePasswordForm';
+@import 'auth/passwordInput';
+@import 'auth/authValidationErrors';
+@import 'auth/usernameInput';
+
+// profile
+@import 'prof/editProfileForm';
+@import 'prof/desciptionTextarea';
+@import 'prof/profCard';
+
+// clip
+@import 'clip/addClipForm';
+@import 'clip/clip';
+@import 'clip/newClip';
+@import 'clip/detailClip';
+
+// Vlide
+@import 'vlide/drafts/titleInput';
+@import 'vlide/drafts/tagForm';
+@import 'vlide/drafts/audioInput';
+@import 'vlide/drafts/autoSizeTextarea';
+@import 'vlide/drafts/help';
+@import 'vlide/drafts/editVlide';
+@import 'vlide/drafts/newVlideForm';
+@import 'vlide/drafts/RadioButton';
+@import 'vlide/drafts/radioButton';
+@import 'vlide/drafts/timePicker';
+@import 'vlide/detail';
+@import 'vlide/vlideCard';
+@import 'vlide/slide';
+@import 'vlide/timeController';
+@import 'vlide/toc';
+
+
+// home
+@import 'home/home';
+@import 'home/clips';
+
+// prof
+@import 'prof/userCell';
+@import 'prof/userList';
+
+// search
+@import 'search/search';
+
+// settings
+@import 'settings/settings';
+
+// about
+@import 'about/about';
+
+// notifications
+@import 'notifications/notifications';
+
+// button
+@import 'button/button';
+
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $fontFamily;
+  -webkit-font-smoothing: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  color: unset;
+  text-decoration: none;
+}
+
+img,picture,video,canvas,svg {
+  max-width:100%
+}
+
+ul,
+li {
+    list-style-type: none;
+}
+::selection {
+  background: rgba(79, 101, 241, 0.25);
+}

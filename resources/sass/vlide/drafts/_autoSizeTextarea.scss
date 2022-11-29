@@ -1,0 +1,36 @@
+.textareaWrapper {
+
+    .textarea{
+        line-height: 1.5em;
+        line-height: 24px;
+        width: 100%;
+        resize: none;
+        height: 0px;
+        outline: none;
+        padding: 15px;
+        font-size: 16px;
+        margin-top: 20px;
+        border-radius: 5px;
+        caret-color: #4671EA;
+        border: 1px solid #bfbfbf;
+    }
+
+    .textarea::placeholder{
+        color: #b3b3b3;
+    }
+    .textarea:is(:focus, :valid){
+        padding: 14px;
+        border: 2px solid $subColor;
+
+    }
+    .textarea::-webkit-scrollbar{
+        width: 0px;
+        height: 0px;
+    }
+    .rule{
+        color: #999;
+        font-size: 15px;
+        padding: 8px 0px;
+        width: 100%;
+    }
+}

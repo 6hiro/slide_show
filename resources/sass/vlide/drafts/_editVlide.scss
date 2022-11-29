@@ -1,0 +1,121 @@
+.newPostContainer{
+    display: grid;
+    grid-template-columns: 1fr 500px;
+    position: relative;
+    padding: 10px 0;
+
+    .inputCotnainer{
+        width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+
+        .rule{
+            color: #999;
+            font-size: 15px;
+            padding: 8px 0px;
+            width: 100%;
+        }
+        .text_count{
+            text-align: right;
+            color: #999;
+            font-size: 15px;
+            padding: 8px 0px;
+            width: 100%;
+        }
+
+        .submit_button {
+            border: none;
+            outline: none;
+            color: $subColor;
+            font-size: 14px;
+            font-weight: 900;
+            background: $mainColor;
+            box-shadow:  4px 2px 2px $mainColor;
+            color: $white;
+            margin: 0 0 0 auto;
+            padding: 10px;
+            border-radius: 10px;
+            letter-spacing: 2px;
+            transition: 0.5s;
+            cursor: pointer;
+            width: 100%;
+    
+            &:hover:not(:disabled){
+                opacity: 0.9;
+            }
+            &:disabled{
+                box-shadow:  4px 2px 2px $subColor;
+                background: #666;
+            }
+        }
+        .audio_delete_button_wrapper {
+            width: 100%;
+            // margin: 0 0 0 auto;
+            @include flex(center, flex-end);
+
+            
+            .audio_delete_button {
+                width: 180px;
+                padding: 10px;
+                @include flex(center, center);
+                border-radius: 10px;
+                color: $white;
+                background: $subColor;
+                cursor: pointer;
+            }
+
+        }
+    }
+    .contentContainer{
+        background-color: #fff;
+        border-left: 1px solid #3333;
+    }
+}
+.loader_wrapper {
+    right: 10px;
+    bottom: 15px;
+    z-index: 900;
+
+    .overlay{
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        z-index: 290;
+        background: rgba(255, 255, 255, 0.3);
+    }
+    .loader{
+        z-index: 900;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        margin: 0;
+    }
+}
+@media screen and (max-width: 767px) {
+    
+    .newPostContainer{
+        grid-template-columns: unset;
+        overflow-y: scroll;
+        display: block;
+
+        .inputCotnainer{
+            margin-top: 0;
+            padding-bottom: 60px;
+    		border-bottom: 2px solid #ddd5;
+        }
+        .contentContainer{
+            margin-top: 0;
+        }
+
+    }
+}

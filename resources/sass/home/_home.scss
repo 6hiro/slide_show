@@ -1,0 +1,88 @@
+.home_container {
+	min-height: 100vh;
+	padding: 1.5rem 0;
+	
+	.title {
+		margin: 0;
+		line-height: 1.15;
+		font-size: 2.2rem;
+		text-decoration: underline;
+		text-align: center;
+	}
+	
+	.description {
+		margin: 2rem auto;
+		padding: 1rem 3rem;
+		max-width: 900px;
+		line-height: 1.8;
+		font-size: 1.1rem;
+		background: #ddd5;
+	}
+
+	.sub_title{
+		font-size: 1.5rem;
+		font-weight: 700;
+		margin-top: 20px;
+		margin: 20px auto 0;
+		text-align: center;
+		color: $subColor;
+		width: 200px;
+		border-bottom: 2px solid $subColor;
+	}
+
+	.navigation {
+		@include flex(center, space-between);
+		width: 200px;
+		margin: 0px auto 2px;
+		font-weight: 600;
+
+		.nav_item {
+			color: #adadad;
+
+			&:hover {
+				color: $subColor;
+				border-bottom: 2px solid $subColor;
+				// text-decoration: underline;
+			}
+		}
+		.active_nav_item {
+			color: $subColor;
+			border-bottom: 2px solid $subColor;
+			// text-decoration: underline;
+		}
+	}
+	.vlide_container{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		width: 100vw;
+
+		.vlide_list{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-wrap: wrap;
+			max-width: 1000px;
+
+			.vlide_no_contents {
+				margin: 200px 0;
+				font-weight: 600;
+			}
+
+			.vlide_card {
+				margin: 0.5rem;
+				width: 300px;
+			}
+		}
+	}
+}
+
+
+
+@media (max-width: 600px) {
+	.grid {
+		width: 100%;
+		flex-direction: column;
+  	}
+}

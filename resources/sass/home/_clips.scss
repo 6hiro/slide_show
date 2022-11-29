@@ -1,0 +1,44 @@
+.feed_clips_container{
+    min-height: 100vh;
+    padding: 1.5rem 0;
+
+	.navigation {
+		@include flex(center, space-between);
+		width: 200px;
+		margin: 0px auto 2px;
+		font-weight: 600;
+
+		.nav_item {
+			color: #adadad;
+
+			&:hover {
+				color: $subColor;
+				border-bottom: 2px solid $subColor;
+				// text-decoration: underline;
+			}
+		}
+		.active_nav_item {
+			color: $subColor;
+			border-bottom: 2px solid $subColor;
+			// text-decoration: underline;
+		}
+	}
+
+    .clips_container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		width: 100vw;
+
+		.clip_list{
+			max-width: 1000px;
+
+			.clip_no_contents {
+				margin: 200px 0;
+				font-weight: 600;
+			}
+		}
+    }
+
+}

@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+
+$bodyBg: #fff;
+$mainBg: #fff;
+$mainColor: #e4007f;
+$mainHoverColor: #7b2a55;
+$subColor: #24292f;
+$txtColor: #000;
+$buttonColor: #5d62fb;
+$buttonHoverColor: #4246c2;
+
+$white: #fff;
+$black: #000;
+$red: #f42115;
+$blue: #0000ff;
+$lightBlue: #54c7ec;
+$green: #72c09c;
+$pink: #e10098;
+$orange: #ffa801;
+$purple: #853bce;
+$fontFamily: "Nunito", sans-serif;
+$boxShadow: 0 0 0 1px #000, 0 30px 30px rgb(0 0 0 / 7%), 0 15px 15px rgb(0 0 0 / 6%), 0 10px 8px rgb(0 0 0 / 5%), 0 4px 4px rgb(0 0 0 / 4%), 0 2px 2px rgb(0 0 0 / 3%);
+
+// fontsize
+$fontSizeTitle: 1.8rem;
+$fontSizeLarge: 1.5rem;
+$fontSizeMedium: 1.2rem;
+$fontSizeNormal: 0.9rem;
+$fontSizetiny: 0.625rem; 
+
+// footer header
+$headerHeight: 54px;
+$footerHeight: 55px;
+
+$mobile-width: 600px;
+$tablet-width: 767px;

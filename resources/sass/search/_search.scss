@@ -1,0 +1,30 @@
+.search_container{
+    
+    .vlide_container{
+        @include flex(center, center);       
+        position: relative;
+        width: 100vw;
+    
+        .vlide_list{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1000px;
+    
+            .vlide_card {
+                margin: 0.5rem;
+                width: 300px;
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .search_container{
+        .grid {
+            width: 100%;
+            flex-direction: column;
+          }
+    }
+}

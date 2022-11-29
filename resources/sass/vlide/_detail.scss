@@ -1,0 +1,202 @@
+.detailContainer{
+    position: relative;
+    margin-bottom: 90px;
+
+    .contentContainer{
+        max-width: 1000px;
+        margin: 0 auto;
+
+        .vlide__dates {
+            font-size: 16px;
+            font-weight: 700;
+            color: #585e4e;
+            @include flex(unset, flex-start);    
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .vlide__author {
+            @include flex(center, flex-end);    
+            padding-bottom: 5px;
+            margin-right: 10px;
+            position: relative;
+
+            &__icon {
+                width: 32px;
+                height: 32px;
+                @include flex(center, center);    
+                border: 2px solid #ccc;
+                background: #ddd3;
+                color: #585e4e;
+                border-radius: 50%;
+                font-size: 16px;
+                font-weight: 600;
+                text-transform: uppercase;
+                margin: 0 8px;
+            }
+            &__name {
+                font-size: 16px;
+                max-width: calc(100% - 50px);
+                color: $subColor;
+                overflow: hidden;
+                // white-space: nowrap;
+                text-overflow: ellipsis;
+                color: #585e4e;
+                font-weight: 600;
+                
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .vlide__title {
+            position: relative;
+            color: $subColor;
+            font-size: 36px;
+            padding: 5px 10px 0px 8px;
+            margin-left: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #585e4e;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .tag_list_wrapper {
+            padding: 25px 20px 25px 25px;
+            user-select: none;
+
+            .tag_list {
+                @include flex(center, flex-start);    
+                flex-wrap: wrap;
+
+                .tag {
+                    position: relative;
+                    margin: 3px 10px 3px 0px;
+                    padding: 0 8px;
+                    font-weight: 900;
+                    min-height: 30px;
+
+                    color: #3339;
+                    font-size: 18px;
+                    overflow-wrap: break-word;
+                    white-space: pre-wrap;
+                    border: 1px solid #ddd5;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    @include flex(center, flex-start);
+
+                    &:hover {
+                        color: #333;
+                        border: 1px solid #3335;
+                    }
+                }
+            }
+        }
+    }
+
+
+    .clips_container {        
+        .clips_title {
+    		border-top: 2px solid #ddd5;
+    		border-bottom: 2px solid #ddd5;
+            padding: 8px 0;
+
+            button {
+                @include flex(center, center);
+                width: 100vw;
+                margin: 0 auto;
+                background: none;
+                outline: none;
+                border: none;
+                font-size: 16px;
+                font-weight: 600;
+                color: #555;
+
+                &:hover {
+                    color: $green;
+                }
+            }
+        }
+
+        .clips_wrapper {
+            width: 100%;
+            margin: 0 auto;
+        }
+    }
+
+    .button{
+        --size: 38px;
+        width: var(--size);
+        height: var(--size);
+        position: fixed;
+        bottom: 15px;
+        border-radius: 50%;
+        @include flex(center, center); 
+        background: #f7f7f7;
+        box-shadow: 3px 2px 2px #555;
+        z-index: 200;
+
+        &:hover {
+            background: #f2f2f2;
+            transition: 1s;
+        }
+  
+        svg {
+            padding: 1px;
+            font-size: 25px;
+            cursor: pointer;
+        }
+    }
+    .bookmark_button {
+        right: 10px;
+
+        &:hover {
+            color: $orange;
+            transition: 0.2s;
+        }
+
+        .bookmarked {
+            color: $orange;
+        }
+    }
+    .clips_button {
+        right: 70px;
+
+        &:hover {
+            color: $green;
+            transition: 0.2s;
+        }
+    }
+    .new_clip_button {
+        right: 130px;
+    }
+    .new_clip_button_pushed svg {
+        color: $mainColor;
+    }
+
+    .clip_form {
+        position: fixed;
+        z-index: 290;
+        padding: 15px;
+        right: 5px;
+        bottom: 60px;
+        background: $white;
+        border-radius: 5px;
+        overflow-y: scroll;
+        max-height: 80vh;
+        min-width: 300px;
+        max-width: 360px;
+        border: 2px solid $subColor;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+
+        .clip_quote {
+            background: #f2f2f2;
+            margin-bottom: 15px;
+            padding: 8px;
+            border-radius: 5px;
+            min-width: 300px;
+            max-width: 400px;
+        }
+    }
+}

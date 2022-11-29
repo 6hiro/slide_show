@@ -1,0 +1,30 @@
+.main {
+    /* padding: 65px 12px 30px 12px; */
+    // padding: 40px 0px 10px 0px;
+    padding: $headerHeight 0px 10px 0px;
+    min-height: calc(100vh - $headerHeight - 1px);
+}
+.footer {
+    // font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    height: $footerHeight;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #eaeaea;
+    background: rgba(0, 0, 0, 0.02);
+
+    .privacy,
+    .tos {
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+  
+// .footer a {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     flex-grow: 1;
+// }

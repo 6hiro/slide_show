@@ -1,0 +1,36 @@
+.user_name_input{
+    position: relative;
+
+    input[type=text]{
+        border: none;
+        border-bottom: 3px solid $subColor;
+        outline: none;
+        color: #000;
+        font-size: 1.5rem;
+        font-weight: 800;
+        background: rgba(255, 255, 255, 0.4);
+        padding: 10px 5px;
+        margin-bottom: 8px;
+        width: 100%;
+        transition: backgroud 0.5s;
+    }
+    
+    input:focus, input:valid{
+        background: #fff;
+        color: $subColor;
+    }
+    input::placeholder {
+        color: $subColor;
+        opacity: 0.8;
+    }
+    .rule{
+        color: #999;
+        font-size: 15px;
+        padding: 8px 0px;
+        width: 100%;
+    }
+    .text_count {
+        text-align: right;
+        padding-right: 10px;
+    }
+}

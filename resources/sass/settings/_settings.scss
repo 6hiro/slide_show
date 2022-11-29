@@ -1,0 +1,111 @@
+.settings {
+    width: 320px;
+    margin: 50px auto 0 auto;
+
+    .editForm {
+        position: fixed;
+        right: 10px;
+        bottom: 15px;
+        z-index: 300;
+        color: $subColor;
+
+        .overlay{
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: fixed;
+            z-index: 290;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .formContainer{
+            z-index: 320;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            margin: 0;
+            max-height: 620px;
+            width: calc(100vw - 20px);
+            max-width: 800px;
+            overflow-y: scroll;
+
+            background: #fff;
+            border: 3px solid #24292f;
+            box-shadow: $boxShadow;
+            border-radius: 5px;
+
+            .closeForm {
+                width: 30px;
+                height: 30px;
+                border: 3px solid #24292f;
+                border-radius: 50%;
+                @include flex(center, center);
+                position: absolute;
+                right: 5px;
+                top: 5px;
+                font-size: 30px;
+                cursor: pointer;
+            }
+            .form {
+                margin: 40px 30px 20px;
+
+            }
+        }
+
+    }
+
+    .settings_title {
+        margin-top: 10px;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: $subColor;
+        @include flex(center, center);
+
+        .setting_title_text {
+            margin-left: 3px;
+        }
+    }
+    .sub_title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-top: 40px;
+    }
+    .edit_account_button,
+    .change_password_button,
+    .delete_account_button {
+        display: relative;
+        cursor: pointer;
+        margin: 10px auto 0 auto;
+        width: 320px;
+        transition: 0.3s;
+        
+
+        button {
+            width: 100%;
+            height: 100%;
+            padding: 0.5rem 0.5rem;
+            color: $white;
+            background: $buttonColor;
+            font-size: 15px;
+            font-weight: 800;
+            text-align: center;
+            outline: none;
+            border: none;
+            border-radius: 50px;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+    .delete_account_button {
+        button {
+            background: $red;
+        }
+    }
+}

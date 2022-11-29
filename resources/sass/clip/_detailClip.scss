@@ -1,0 +1,31 @@
+.clip_detail_container {
+    padding-top: 25px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    column-gap: 50px;
+    width: 100%;
+
+    .reply_title {
+        padding: 0 10px;
+        margin: 20px auto 2px;
+        width: 320px;
+        color: #888;
+        font-weight: 600;
+    }
+    .reply_form {
+        width: 340px; 
+        margin: 30px auto 20px; 
+        padding: 10px; 
+        background: rgba(238, 238, 238, 0.2);
+    }
+    .replies_container {
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .clip_detail_container{
+        display: block;
+    }
+}
