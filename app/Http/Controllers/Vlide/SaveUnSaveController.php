@@ -28,7 +28,5 @@ class SaveUnsaveController extends Controller
         );
 
         return $result;
-
-
     }
 }
