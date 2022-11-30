@@ -35,7 +35,7 @@ class UserController extends Controller
             $since
         );
         // $user =  User::where('id', $request->user()->id)->first();
-        $user = $request->user();
+        // $user = $request->user();
         // $audio_file_names = array_filter( 
         //     $user->vlides()->get()->pluck("audio_file_name")->toArray() 
         // );
