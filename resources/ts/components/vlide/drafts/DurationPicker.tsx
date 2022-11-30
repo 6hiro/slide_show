@@ -14,11 +14,10 @@ const DurationPicker = (props: DurationPickerProps) => {
     const maxTime = 600;
     // const maxTime = 0 * 60 * 60 + 10 * 60 + 0;
 
-    // console.log(props.durationTime)
     useEffect(() => {
-        console.log(
-            props.durationTime
-        )
+        // console.log(
+        //     props.durationTime
+        // )
     }, [props.durationTime]);
 
     return (
@@ -32,7 +31,7 @@ const DurationPicker = (props: DurationPickerProps) => {
                 onChange={e => 
                     props.setDurationTime(
                         (prev) => { 
-                            console.log(Math.floor(prev / 60 % 60) )
+                            // console.log(Math.floor(prev / 60 % 60) )
                             if( Number(e.target.value)*60 >= maxTime) return maxTime;
                             return prev - ( Math.floor(prev / 60 % 60) )* 60 + Number(e.target.value) * 60 ;
                         }

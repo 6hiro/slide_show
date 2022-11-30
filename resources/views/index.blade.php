@@ -12,8 +12,8 @@
         @vite([
             // 'resources/sass/app.scss', 
             'resources/ts/index.tsx'
-        ]) --}}
-        
+        ])
+         --}}
         <link rel="icon" href="/images/Logo.png">
 
         <link rel="stylesheet" href="/build/assets/index.64cb8e40.css">
@@ -23,5 +23,5 @@
         <div id="app"></div>
     </body>
 
-    <script src="/build/assets/index.d549ab1d.js"></script>
+    <script src="/build/assets/index.e9361456.js"></script>
 </html>

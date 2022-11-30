@@ -51,6 +51,7 @@ const EditVlide = () => {
     const { vlide_id } = useParams();
 
     const {
+        user,
         title,
         setTitle,
         content, 
@@ -150,7 +151,12 @@ const EditVlide = () => {
             });
 
             setIsLoading(false);
-            navigate(`/vlide/${vlide_id}`)
+            if(isPublic) {
+                navigate(`/vlide/${vlide_id}`);
+            }else{
+                navigate(`/prof/${user.name}`);
+
+            }
         }
     };
 

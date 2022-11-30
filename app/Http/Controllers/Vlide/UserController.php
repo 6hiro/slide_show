@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Vlide;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 use App\Services\VlideService;
 use Illuminate\Http\Request;
@@ -33,13 +34,17 @@ class UserController extends Controller
             $per_page, 
             $since
         );
+        // $user =  User::where('id', $request->user()->id)->first();
+        $user = $request->user();
+        // $audio_file_names = array_filter( 
+        //     $user->vlides()->get()->pluck("audio_file_name")->toArray() 
+        // );
 
         return [
             'next_page_link'=>$vlides->count()>$per_page 
                 ? $request->url()."?since=".$vlides[count($vlides)-2]["published_at"]->format('Y-m-d H:i:s.v') 
                 : null,
             'data' => VlideResource::collection($vlides->take($per_page)),
-            // 'data' => $vlides->take($per_page),
         ];
     }
 }

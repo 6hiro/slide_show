@@ -18,6 +18,17 @@ class CreateController extends Controller
      */
     public function __invoke(CreateRequest $request, VlideService $vlideService)
     {
+        $vlide_count = $vlideService->getUserVlideCount(
+            $request->user()->id
+        );
+        if($vlide_count >= 3)
+        {
+            return response()->json([
+                    'count' => $vlide_count,
+                    'status'=>'over',
+                ], 403);
+        }
+
         $vlide_id = $vlideService->create(
             $request->user()->id,
             $request->title(),
@@ -28,6 +39,7 @@ class CreateController extends Controller
         return response()->json([
                 'id' => $vlide_id,
                 'status'=>'success',
+                // 'a' => $vlide_count
             ], 201);
             
     }

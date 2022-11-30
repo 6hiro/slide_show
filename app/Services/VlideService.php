@@ -15,6 +15,12 @@ use DateTimeZone;
 
 class VlideService
 {
+    public function getUservlideCount(string $userId)
+    {
+        return Vlide::whereHas('user', function($q) use ($userId){
+                $q->where('user_id', $userId);
+            })->count();
+    }
     public function getVlides(int $per_page, ?string $since)
     {
         if($since){
@@ -300,14 +306,14 @@ class VlideService
         DB::transaction(function () use($vlideId) {
             $vlide = Vlide::where('id', $vlideId)->firstOrFail();
 
-            $vlide->images()->each(function ($image) use ($vlide) {
-                $filePath = 'public/images'.$vlide->name;
-                if(Storage::exists($filePath)){
-                    Storage::delete($filePath);
-                }
-                $vlide->images()->detach($image->id);
-                $image->delete();
-            });
+            // $vlide->images()->each(function ($image) use ($vlide) {
+            //     $filePath = 'public/images'.$vlide->name;
+            //     if(Storage::exists($filePath)){
+            //         Storage::delete($filePath);
+            //     }
+            //     $vlide->images()->detach($image->id);
+            //     $image->delete();
+            // });
 
             if($vlide->audio_file_name){
                 $filePath = 'public/audios/'.$vlide->audio_file_name;

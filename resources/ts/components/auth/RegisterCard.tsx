@@ -150,7 +150,6 @@ const RegisterCard = (props:RegisterCardProps) => {
                             password !== password_confirmation ||
                             isRegisting
                         }
-
                     >
                         ユーザー登録
                     </button>

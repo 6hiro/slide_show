@@ -4,10 +4,15 @@ import { AxiosResponse } from 'axios';
 
 import axios from '../libs/axios';
 import { NEW_VLIDE, UPDATE_VLIDE, UPLOAD_AUDIO } from '../types/vlide';
+import { useAuth } from './useAuth';
 // import { useNavigate } from 'react-router-dom';
 
 export const useDraftVlide = () => {
     // let navigate = useNavigate();
+            
+    const { 
+        user, 
+    } = useAuth();
 
     const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string>("");
@@ -161,6 +166,7 @@ export const useDraftVlide = () => {
     // }, [title, tagList]);
 
     return {
+        user,
         title,
         setTitle,
         content, 

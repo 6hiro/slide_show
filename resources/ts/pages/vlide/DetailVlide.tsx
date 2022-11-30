@@ -294,10 +294,11 @@ const Detail = () => {
                         setIsRunning={setIsRunning}
                         timeStamps={timeStamps}
                         src={
-                            vlide.audio_file_name.slice(0,16) !== "/api/v1/audio?f=" 
+                            vlide.audio_file_name.slice(0,16) === "/api/v1/audio?f=" 
                                 ? vlide.audio_file_name 
                                 : ""
                         }
+                        // src={vlide.audio_file_name}
                         />
                     : null
                 }

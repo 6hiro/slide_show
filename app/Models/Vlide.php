@@ -65,6 +65,11 @@ class Vlide extends Model
             : null;
 
     }
+    public function vlides(): HasMany
+    {
+        return $this->hasMany('App\Models\Vlide');
+    }
+
     public function images(): BelongsToMany
     {
         // using リレーションの中間テーブルを表す、カスタムモデルを定義

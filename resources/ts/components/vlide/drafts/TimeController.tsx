@@ -95,7 +95,7 @@ const TimeController = ( props: TimeControllerProps) => {
             }
         , [props.durationTime]);
 
-    console.log(audioState.time)
+    // console.log(audioState.time)
 
     const handleKeyDown =  (e: React.KeyboardEvent<HTMLDivElement> | KeyboardEvent) => {
         const tagName = document.activeElement?.tagName.toLowerCase();

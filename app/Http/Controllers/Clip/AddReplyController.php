@@ -21,6 +21,17 @@ class AddReplyController extends Controller
     {
         $is_public = true;
 
+        $clip_count = $clipService->getUserClipCount(
+            $request->user()->id
+        );
+        if($clip_count >= 10)
+        {
+            return response()->json([
+                    'count' => $clip_count,
+                    'status'=>'over',
+                ], 403);
+        }
+
         // return $request->content();
         $clip = $clipService->addReply(
             $request->user()->id,
