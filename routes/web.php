@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Route::get('/{any?}', function(){ 
-//     return view('index')->where('any', '(?!api).+');
-// });
+
 Route::get('/mail', function () {
     return view('emails.changePassword');
 });
@@ -84,3 +82,8 @@ Route::get('/clip/{clipId}', function () {
 
 
 require __DIR__.'/auth.php';
+
+
+Route::get('/{any}', function () {
+    return view('index');
+})->where('any', '.*');

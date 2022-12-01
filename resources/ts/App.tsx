@@ -1,9 +1,9 @@
-import React from "react";
+import React, {  } from "react";
 import {
   BrowserRouter,
   Routes,
   Route,
-//   ScrollRestoration
+//   ScrollRestoration,
 } from "react-router-dom";
 import {
     QueryClient,
@@ -26,6 +26,8 @@ import Tag from "./pages/tag";
 import DetailClip from "./pages/clip/DetailClip";
 import Profile from "./pages/prof";
 import VerificationLinkSent from "./pages/auth/VerificationLinkSent";
+import NotFound from "./pages/NotFound";
+import ScrollToTop from "./components/layout/ScrollToTop";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -38,62 +40,67 @@ const queryClient = new QueryClient({
 });
 
 const App: React.FC = () => {
-  
     return (
-        <QueryClientProvider client={queryClient}>
+        <div>
 
-            {/* ページ遷移時にスクロール位置をトップに */}
-            {/* <ScrollRestoration /> */}
-
-            <BrowserRouter>
-                <Routes>
-
-                    <Route path="/" element={<Layout />}>
-                        {/* Home Page */}
-                        <Route index element={<Home />} />
-                        <Route path="/clips" element={<Clips />} />
-
-                        {/* Prof */}
-                        <Route path="/prof/:username" element={<Profile />} />
-                        
-                        {/* Auth Page */}
-                        <Route path="/auth/register" element={<Register />} />
-                        <Route path="/auth/login" element={<Login />} />
-                        <Route path="/verification-link-sent" element={<VerificationLinkSent />} />
-                        {/* <Route path="/auth/forgot-password" element={<ForgotPassword />} /> */}
-
-                        {/* Settings */}
-                        <Route path="/settings" element={<Settings />} />
-                        
-                        {/* Clip */}
-                        {/* <Route path="/clip/new" element={<AddClip />} /> */}
-
-                        {/* Search */}
-                        <Route path="/search" element={<Search />} />
-                        {/* Tag */}
-                        <Route path="/tag" element={<Tag />} />
+            <QueryClientProvider client={queryClient}>
 
 
-                        {/* About */}
-                        <Route path="/about" element={<About />} />
+                <BrowserRouter>
+                    {/* ページ遷移時にスクロール位置をトップに */}
 
-                        {/* Notifications */}
-                        <Route path="/notifications" element={<Notifications />} />
+                    <ScrollToTop />
+                    {/* <ScrollRestoration /> */}
+
+                    <Routes>
+                        <Route path="/" element={<Layout />}>
+                            {/* Home Page */}
+                            <Route index element={<Home />} />
+                            <Route path="/clips" element={<Clips />} />
+
+                            {/* Prof */}
+                            <Route path="/prof/:username" element={<Profile />} />
+                            
+                            {/* Auth Page */}
+                            <Route path="/auth/register" element={<Register />} />
+                            <Route path="/auth/login" element={<Login />} />
+                            <Route path="/verification-link-sent" element={<VerificationLinkSent />} />
+                            {/* <Route path="/auth/forgot-password" element={<ForgotPassword />} /> */}
+
+                            {/* Settings */}
+                            <Route path="/settings" element={<Settings />} />
+                            
+                            {/* Clip */}
+                            {/* <Route path="/clip/new" element={<AddClip />} /> */}
+
+                            {/* Search */}
+                            <Route path="/search" element={<Search />} />
+                            {/* Tag */}
+                            <Route path="/tag" element={<Tag />} />
 
 
-                        {/* Vlide */}
-                        <Route path="/drafts/vlide/:vlide_id" element={<EditVlide />} />
-                        <Route path="/vlide/:vlide_id" element={<Detail />} />
+                            {/* About */}
+                            <Route path="/about" element={<About />} />
 
-                        {/* clip */}
-                        <Route path="/clip/:clip_id" element={<DetailClip />} />
+                            {/* Notifications */}
+                            <Route path="/notifications" element={<Notifications />} />
 
-                    </Route>
-                </Routes>
 
-            </BrowserRouter>
-        </QueryClientProvider>
-    );
+                            {/* Vlide */}
+                            <Route path="/drafts/vlide/:vlide_id" element={<EditVlide />} />
+                            <Route path="/vlide/:vlide_id" element={<Detail />} />
+
+                            {/* clip */}
+                            <Route path="/clip/:clip_id" element={<DetailClip />} />
+                            <Route path="*" element={<NotFound />} />
+                        </Route>
+                    </Routes>
+
+                </BrowserRouter>
+           </QueryClientProvider>
+        </div>
+
+    )
 };
 
 export default App;
