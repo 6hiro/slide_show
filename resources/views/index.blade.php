@@ -16,12 +16,12 @@
          --}}
         <link rel="icon" href="/images/Logo.png">
 
-        <link rel="stylesheet" href="/build/assets/index.64cb8e40.css">
+        <link rel="stylesheet" href="/css/index.css">
     </head>
 
     <body class="">
         <div id="app"></div>
     </body>
 
-    <script src="/build/assets/index.e9361456.js"></script>
+    <script src="/js/index.js"></script>
 </html>
