@@ -99,6 +99,8 @@ const EditVlide = () => {
 
     // ファイルがアップロードされたときの処理
     const handleChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => { 
+        setIsLoading(true);
+
         const { currentTarget } = e;
 
         if( !currentTarget.files ){
@@ -151,6 +153,7 @@ const EditVlide = () => {
             });
 
             setIsLoading(false);
+
             if(isPublic) {
                 navigate(`/vlide/${vlide_id}`);
             }else{
@@ -234,7 +237,7 @@ const EditVlide = () => {
                         />
                                         {/* { src?.split("=")[1]} */}
 
-                        {src?.split("=")[1] && vlide_id
+                        {src && src.length > 106 && vlide_id
                             ?   <div className='audio_delete_button_wrapper'>
 
                                     <div
@@ -265,7 +268,7 @@ const EditVlide = () => {
 
                     <button 
                         className="submit_button"
-                        disabled={ !title.length || !content }
+                        disabled={ (!title.length || !content) && !isLoading }
                     >
                         {isPublic ? "公開する" : "下書きとして保存"}
                     </button>
@@ -281,7 +284,12 @@ const EditVlide = () => {
                                 isRunning={isRunning}
                                 setIsRunning={setIsRunning}
                                 timeStamps={timeStamps}
-                                src={src}
+                                // src={src}
+                                src={
+                                    (src && src.slice(0,16) === "/api/v1/audio?f="  && src.length > 16)
+                                        ? src 
+                                        : ""
+                                }
                             />
                         : null
                     }

@@ -68,6 +68,7 @@ export const useDraftVlide = () => {
                 // const fileName = "/api/v1/audio?f=" + data.audio_file_name;
 
                 setSrc(data.audio_file_name);
+                // console.log(data.audio_file_name)
                 // setSrc('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')
 
             });
@@ -77,7 +78,7 @@ export const useDraftVlide = () => {
         { ...props }: NEW_VLIDE
     ) => {
         const res = await axios
-            .post('/api/v1/vlide', props)
+            .post('/api/v1/vlide', props);
             
         return res;
     };
@@ -86,13 +87,12 @@ export const useDraftVlide = () => {
         {...props}: UPLOAD_AUDIO
     ) => {
         let uploadData = new FormData();
-        uploadData.append('audio', props.audio, props.audio.name)
+        uploadData.append('audio', props.audio, props.audio.name);
 
         const res =  await axios.post(
             `/api/v1/vlide/${props.id}/audio`, 
             uploadData,
             {
-                // baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
                 headers: {
                     "X-Requested-With": "XMLHttpRequest",
                     "Accept": "application/json",

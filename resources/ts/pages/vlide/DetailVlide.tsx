@@ -97,9 +97,11 @@ const Detail = () => {
     }, [vlide?.content]);
 
     useEffect(() => { // urlからこのページに遷移してきた場合
-        document.getElementById(`${hash}`)?.scrollIntoView({ 
-            behavior: 'smooth',
-        });
+        if(hash){
+            document.getElementById(`${hash}`)?.scrollIntoView({ 
+                behavior: 'smooth',
+            });
+        }
     }, [hash]);
 
     const [loading, setLoading] = useState(false);
@@ -294,7 +296,7 @@ const Detail = () => {
                         setIsRunning={setIsRunning}
                         timeStamps={timeStamps}
                         src={
-                            vlide.audio_file_name.slice(0,16) === "/api/v1/audio?f=" 
+                            (vlide.audio_file_name.slice(0,16) === "/api/v1/audio?f="  && vlide.audio_file_name.length > 16)
                                 ? vlide.audio_file_name 
                                 : ""
                         }

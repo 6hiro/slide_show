@@ -33,8 +33,11 @@ class DeleteAudioController extends Controller
             if($vlide->audio_file_name){
                 $filePath = 'public/audios/'.$vlide->audio_file_name;
                 
-                if(Storage::exists($filePath)) {
-                    Storage::delete($filePath);
+                if(Storage::disk('s3')->exists($filePath)) {
+                // if(Storage::exists($filePath)) {
+                    // Storage::delete($filePath);
+                    Storage::disk('s3')->delete($filePath);
+
                 }
             }
             

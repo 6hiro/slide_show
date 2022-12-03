@@ -36,6 +36,7 @@ const TimeController = ( props: TimeControllerProps) => {
         loop:false,
         id: 'audio'
     });
+    
     useEffect(() => {
         // Audio の src を変えるたびに Audio と TimeController を止める。
         audioControls.pause();

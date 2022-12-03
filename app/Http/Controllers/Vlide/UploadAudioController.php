@@ -30,23 +30,31 @@ class UploadAudioController extends Controller
             $vlide = Vlide::where('id', $vlideId)->firstOrFail();
 
             if($vlide->audio_file_name){
+                // $filePath = 'public/audios/'.$vlide->audio_file_name;
+                // $filePath = 'audios/'.$vlide->audio_file_name;
                 $filePath = 'public/audios/'.$vlide->audio_file_name;
                 
-                if(Storage::exists($filePath)) {
-                    Storage::delete($filePath);
+                if(Storage::disk('s3')->exists($filePath)) {
+                    Storage::disk('s3')->delete($filePath);
                 }
             }
-            Storage::putFileAs('public/audios', $audio, $filename);
-            
+
+            // Storage::putFileAs('public/audios', $audio, $filename);
+            $path = Storage::disk('s3')->putFileAs('public/audios', $audio, $filename);
+            // $path = Storage::disk('s3')->putFile('audios', $audio, 'public');
+            // $path = Storage::disk('s3')->put('audios', $audio, 'public');
             $vlide->audio_file_name = $filename;
             $vlide->save();
 
             return $vlide->audio_file_name;
+            // return $path;
         });
 
         return response()->json([
             'audio'=> $request->file('audio')->getClientOriginalName(),
-            'filePath' => $target
+            'filePath' => $target,
+            // 'filePath'=>Storage::disk('s3')->url($target)
+            // Storage::disk('s3')->url('public/audios/'.$this->audio_file_name)
         ], 201);
 
 

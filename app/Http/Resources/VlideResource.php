@@ -21,6 +21,9 @@ class VlideResource extends JsonResource
         // return parent::toArray($request);
         // $published_at = $this->published_at != null ? $this->published_at->format('Y/m/d') : null;
         // (gettype($this->published_at) === "string") ? $this->published_at->format('Y/m/d') : null;
+        $audio_file_name = $this->audio_file_name 
+            ? '/api/v1/audio?f='.$this->audio_file_name
+            : "";
 
         return [
             'id' => $this->id,
@@ -28,12 +31,13 @@ class VlideResource extends JsonResource
             'content' => $this->content,
             'duration' => $this->duration,
             'heading_file_name' => $this->header_file_name,
-            // 'audio_file_name' => "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-            'audio_file_name' => '/api/v1/audio?f='.$this->audio_file_name,
-            // 'audio_file_name' => optional($this->audio_file_name) 
-            //     ? optional('/api/v1/audio?f='.$this->audio_file_name)->format('Y/m/d') 
-            //     : '',
-            // 'audio_file_name' => $this->audio_file_name,
+
+            'audio_file_name' => $audio_file_name,
+            // 'audio_file_name' =>  Storage::disk('s3')->url('public/audios/'.$this->audio_file_name),
+            // 'audio_file_name' => base64_encode(
+            //                         Storage::disk('s3')->get('public/audios/'. $this->audio_file_name)
+            //                     ),
+
             'is_public' => $this->is_public,
             // 'created_at' => $this->created_at->format('Y/m/d'),
             'updated_at' => $this->updated_at->format('Y/m/d'),

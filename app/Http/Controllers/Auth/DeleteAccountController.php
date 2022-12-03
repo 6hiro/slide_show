@@ -38,16 +38,15 @@ class DeleteAccountController extends Controller
             foreach($audio_file_names as $audio_file_name){
                 $filePath = 'public/audios/'.$audio_file_name;
 
-                if(Storage::exists($filePath)) {
-                    Storage::delete($filePath);
+                if(Storage::disk('s3')->exists($filePath)) {
+                // if(Storage::exists($filePath)) {
+                    // Storage::delete($filePath);
+                    Storage::disk('s3')->delete($filePath);
                 }
             }
             
             $user->delete();
         });
-
-        // return response()->json($user->id);
-
 
         // return $user->delete()
         //     ? response()->json($user)

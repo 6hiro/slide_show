@@ -28,18 +28,32 @@ class GetAudioController extends Controller
     public function __invoke(Request $request, VlideService $vlideService)  // Single Action Controller
     {
         $filename = $request->f;
-        $pathToFile = storage_path('app/public')."/audios/" . $filename;       
-        
+        // $pathToFile = storage_path('app/public')."/audios/" . $filename;   
+        // $pathToFile = Storage::disk('s3')->url('public/audios/'.$filename);
+
+        $audio =  Storage::disk('s3')->get('public/audios/'.$filename);
+        // $mimeType = Storage::disk('s3')->mimeType($filename);
+        $filesize = Storage::disk('s3')->size('public/audios/'.$filename);
+
+
+        // return $audio;
+
         // これがないとChrome/Egdeではaudioタグでシークできない
         // header('Accept-Ranges: bytes'); 
         
         $headers = [
-            // 'Content-Length' => 'filesize($pathToFile)',
-            // 'Content-Type' => 'audio/mpeg',
-            // 'Accept-Ranges' => 'bytes'
+            'Content-Length' => $filesize,
+            'Content-Type' => 'audio/mpeg',
+            'Accept-Ranges' => 'bytes'
         ];
 
-        $response = response()->file($pathToFile, $headers);
+        return response()->make($audio, 200, $headers);
+
+        // $response = response()
+        //                 ->file(
+        //                     base64_encode($pathToFile), 
+        //                     $headers
+        //                 );
 
         return $response;
     }
