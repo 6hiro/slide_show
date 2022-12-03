@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // https://qiita.com/ghibi/items/cb4faa2d86f5866cbfd4
+        if (\App::environment(['production'])) {
+            \URL::forceScheme('https');
+        }
     }
 }
