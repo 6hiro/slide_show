@@ -12,7 +12,11 @@ class TrustProxies extends Middleware
      *
      * @var array<int, string>|string|null
      */
-    protected $proxies;
+    // protected $proxies;
+
+    // https://stackoverflow.com/questions/72241902/laravel-9-email-verification-invalid-signature
+    // https://laravel.com/docs/9.x/requests#configuring-trusted-proxies
+    protected $proxies = '*';
 
     /**
      * The headers that should be used to detect proxies.
