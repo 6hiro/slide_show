@@ -237,7 +237,7 @@ const EditVlide = () => {
                         />
                                         {/* { src?.split("=")[1]} */}
 
-                        {src && src.length > 106 && vlide_id
+                        {src && src.length > 16 && vlide_id
                             ?   <div className='audio_delete_button_wrapper'>
 
                                     <div
