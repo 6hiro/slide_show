@@ -76,7 +76,10 @@ export const useAuth = (
 
         axios
             .post('/forgot-password', { email })
-            .then((response: any) => setStatus(response.data.status))
+            .then((response: any) => {
+                setStatus([response.data.status]);
+                console.log(response.data.status)
+            })
             .catch((error: any) => {
                 if (error.response.status !== 422) throw error;
 
@@ -87,17 +90,21 @@ export const useAuth = (
     const resetPassword = async ({ setErrors, setStatus, ...props }: {
         setErrors: Dispatch<SetStateAction<any>>, 
         setStatus: Dispatch<SetStateAction<any>>,
-        props: any[]
+        email: string,
+        password: string,
+        password_confirmation: string,
+        token: string,
     }) => {
         await csrf();
 
         setErrors([]);
         setStatus(null);
-        const token = new URLSearchParams(search).get('token');
+        // const token = new URLSearchParams(search).get('token');
 
         axios
-            .post('/reset-password', { token: token, ...props })
-            .then((response:any) => navigate('/login?reset=' + btoa(response.data.status)))
+            .post('/reset-password', { ...props })
+            // .post('/reset-password', { token: token, ...props })
+            .then((response:any) => navigate('/auth/login?reset=' + btoa(response.data.status)))
             .catch((error: any) => {
                 if (error.response.status !== 422) throw error;
 

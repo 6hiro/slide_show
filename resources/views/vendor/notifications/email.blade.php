@@ -12,10 +12,10 @@
 @endif
 
 {{-- Intro Lines --}}
-{{-- @foreach ($introLines as $line)
+@foreach ($introLines as $line)
 {{ $line }}
-@endforeach --}}
-メールアドレスを確認するには、以下のボタンをクリックしてください。
+@endforeach
+{{-- メールアドレスを確認するには、以下のボタンをクリックしてください。 --}}
 
 {{-- Action Button --}}
 @isset($actionText)
@@ -26,17 +26,17 @@
     };
 ?>
 @component('mail::button', ['url' => $actionUrl, 'color' => $color])
-{{-- {{ $actionText }} --}}
-メール認証
+{{ $actionText }}
+{{-- メール認証 --}}
 @endcomponent
 @endisset
 
 {{-- Outro Lines --}}
-{{-- @foreach ($outroLines as $line)
+@foreach ($outroLines as $line)
 {{ $line }}
-@endforeach --}}
+@endforeach
 
-アカウント作成にお心当たりがない場合は、このメールを無視してください。
+{{-- アカウント作成にお心当たりがない場合は、このメールを無視してください。 --}}
 
 {{-- Salutation --}}
 @if (! empty($salutation))

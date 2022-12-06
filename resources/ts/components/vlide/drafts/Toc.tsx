@@ -11,6 +11,7 @@ type TocProps = {
         time: string;
     }[] | undefined
 };
+
 const Toc = (props:TocProps) => {
     let navigate = useNavigate();
 

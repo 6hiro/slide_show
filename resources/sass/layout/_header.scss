@@ -7,7 +7,7 @@
     z-index: 900;
     background-color: #FFF;
     color: #24292f;
-    border-bottom: 3px solid #24292f;
+    border-bottom: 2.2px solid #24292f;
 
     &__nav {
         @include flex(unset, space-between);
@@ -110,7 +110,7 @@
                     &:nth-child(2) {
                         /* transform: translateY(0px) rotate(-45deg); */
                         transform: translateY(0px) rotate(315deg);
-                        background-color: $mainHoverColor;
+                        background-color: $subColor;
                     }
                     &:nth-child(3) {
                         transform: translateX(30px);

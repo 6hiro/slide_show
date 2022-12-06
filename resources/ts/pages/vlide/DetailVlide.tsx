@@ -203,9 +203,9 @@ const Detail = () => {
                         </li>
 
                         <li>
-                            <ul onPointerUp={handleSelect} >
+                            <div onPointerUp={handleSelect} >
                                 { contentArray?.map((t, index) => (
-                                    <li 
+                                    <div 
                                         key={index} 
                                         id={String(convertToSeconds(t.time)) + "s"}
                                         style={{ 
@@ -223,9 +223,9 @@ const Detail = () => {
                                         }}
                                     >
                                         <Slide type={t.type} content={t.content} time={t.time} toc={toc} />
-                                    </li>
+                                    </div>
                                 ))}
-                            </ul>
+                            </div>
                         </li>
 
                         <li className="tag_list_wrapper">

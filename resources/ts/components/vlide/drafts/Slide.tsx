@@ -1,5 +1,6 @@
 import React from 'react';
 import { BiCopy, BiMessageSquareError } from 'react-icons/bi';
+import { DecoratedText } from '../../../utils/markdown-inline/Render';
 import Toc from './Toc';
 
 type SlideProps = {
@@ -19,7 +20,8 @@ const Slide = ( props:SlideProps ) => {
         if(t.type==='text' || t.type === ''){
             return (
                 <p className='slide'>
-                    {t.content}
+                    {/* {t.content} */}
+                    <DecoratedText content={t.content} />
                 </p>
             )
         }else if(t.type==='toc'){

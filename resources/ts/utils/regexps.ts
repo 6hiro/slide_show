@@ -1,6 +1,7 @@
 const USERNAME_PATTERN = /^[0-9a-zA-Z_]+$/;
 const PASSWORD_PATTERN = /^[0-9a-zA-Z@$!%*?&]+$/;
-// const PASSWORD_REGEXP = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+const PASSWORD_REGEXP = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+const EMAIL_REGEXP  = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/
 
 const inlineRegexps = [
     // code RegExp
@@ -16,16 +17,18 @@ const inlineRegexps = [
     // delete RegExp
     { elmType: 'del', regexp: /~~(.+?)~~/ },
     // br RegExp
-    { elmType: 'br', regexp: /(\n)/ },
+    // { elmType: 'br', regexp: /(\n)/ },
     // image RegExp
-    { elmType: 'img', regexp: /\!\[(.*)\]\((.+)\)/ },
+    { elmType: 'img', regexp: /\!\[(.*)\]\(((https)?(\:\/\/).*)\)/},
+    // { elmType: 'img', regexp: /\!\[(.*)\]\(((http)(?:s)?(\:\/\/).*)\)/},
     // link RegExp
-    // { elmType: 'link', regexp: /\[(.*)\]\((.*)\)/},x
-    { elmType: 'link', regexp: /(\[.*\])(\((http)(?:s)?(\:\/\/).*\))/},
+    { elmType: 'link', regexp: /\[(.*)\]\(((https)?(\:\/\/).*)\)/ },
 ];
 
 export {
     USERNAME_PATTERN,
     PASSWORD_PATTERN,
+    PASSWORD_REGEXP,
+    EMAIL_REGEXP,
     inlineRegexps
 };

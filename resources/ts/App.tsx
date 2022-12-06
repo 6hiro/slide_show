@@ -13,7 +13,7 @@ import {
 import Layout from "./components/layout/Layout";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
-// import ForgotPassword from "./pages/auth/ForgotPassword";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 import Search from "./pages/search";
 import Settings from "./pages/settings";
 import EditVlide from "./pages/vlide/EditVlide";
@@ -28,6 +28,7 @@ import Profile from "./pages/prof";
 import VerificationLinkSent from "./pages/auth/VerificationLinkSent";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/layout/ScrollToTop";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -65,7 +66,8 @@ const App: React.FC = () => {
                             <Route path="/auth/register" element={<Register />} />
                             <Route path="/auth/login" element={<Login />} />
                             <Route path="/verification-link-sent" element={<VerificationLinkSent />} />
-                            {/* <Route path="/auth/forgot-password" element={<ForgotPassword />} /> */}
+                            <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+                            <Route path="/auth/reset-password/:token" element={<ResetPassword />} />
 
                             {/* Settings */}
                             <Route path="/settings" element={<Settings />} />

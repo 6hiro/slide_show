@@ -34,7 +34,7 @@
             font-size: 14px;
             font-weight: 900;
             background: $mainColor;
-            box-shadow:  4px 2px 2px $mainColor;
+            // box-shadow:  4px 2px 2px $mainColor;
             color: $white;
             margin: 0 0 0 auto;
             padding: 10px;
@@ -48,7 +48,7 @@
                 opacity: 0.9;
             }
             &:disabled{
-                box-shadow:  4px 2px 2px $subColor;
+                // box-shadow:  4px 2px 2px $subColor;
                 background: #666;
             }
         }

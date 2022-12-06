@@ -19,6 +19,7 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request)
     {
+        // https://readouble.com/laravel/9.x/ja/passwords.html
         $request->validate([
             'email' => ['required', 'email'],
         ]);

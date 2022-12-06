@@ -294,9 +294,9 @@ const EditVlide = () => {
                         : null
                     }
 
-                    <ul>
+                    <div>
                         { contentArray?.map((t, index) => (
-                            <li 
+                            <div 
                                 key={index} 
                                 id={String(convertToSeconds(t.time)) + "s"}
                                 style={{ 
@@ -316,9 +316,9 @@ const EditVlide = () => {
                                 }}
                             >
                                 <Slide type={t.type} content={t.content} time={t.time} toc={toc} />
-                            </li>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 </div>
 
             </div>

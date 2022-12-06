@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Notifications\ResetPasswordNotification;
+use App\Notifications\VerifyEmailJP;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -60,6 +63,23 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var string
      */
     protected $dateFormat = 'Y-m-d H:i:s.v';
+
+    public function sendEmailVerificationNotification()
+    {
+        // $this->notify(new VerifyEmail);
+        $this->notify(new VerifyEmailJP);
+        // $this->notify(new EmailVerificationNotification($url));
+
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+
+        $url = env('FRONTEND_URL') . '/auth/reset-password/' . $token;
+        // $url = env('FRONTEND_URL') . '/auth/reset-password?token=' . $token;
+
+        $this->notify(new ResetPasswordNotification($url));
+    }
 
     // Follow関係
     public function followers(): BelongsToMany

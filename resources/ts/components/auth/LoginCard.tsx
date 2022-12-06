@@ -108,10 +108,10 @@ const LoginCard = (props:LoginCardProps) => {
                     <Link to="/auth/register" >登録</Link>
                 </div>
 
-                {/* <div className="login_card_footer" >
+                <div className="login_card_footer" >
                     パスワードをお忘れた場合は
                     <Link to="/auth/forgot-password" >こちら</Link>
-                </div> */}
+                </div>
             </div>
 
         </div>

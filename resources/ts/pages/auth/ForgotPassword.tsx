@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 import { siteTitle } from '../../constants/site';
-// import ForgotPasswordCard from '../../components/auth/ForgotPasswordCard';
+import ForgotPasswordCard from '../../components/auth/ForgotPasswordCard';
 
 
 const ForgotPassword = () => {
@@ -19,7 +19,7 @@ const ForgotPassword = () => {
             </Helmet>
 
             <div className="auth_page_container">
-                {/* <ForgotPasswordCard /> */}
+                <ForgotPasswordCard />
             </div>
         </React.Fragment>
 
