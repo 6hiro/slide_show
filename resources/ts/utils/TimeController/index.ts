@@ -2,8 +2,8 @@
 // const slideRegExp = /---(.*)\n([\s\S]*?)---(([0-9]?[0-9]:)?([0-9]?[0-9]:)?[0-9]?[0-9])\n?/; 
 // 00:00:01
 
-const slideBlockRegExp = /---(.*)\n([\s\S]*?)---(([0-9]?[0-9]:)?[0-9]?[0-9])\n?/gm; 
-const slideRegExp = /---(.*)\n([\s\S]*?)---(([0-9]?[0-9]:)?[0-9]?[0-9])\n?/; 
+const slideBlockRegExp = /---(.*)\n([\s\S]*?)---(([0-9]{1,2}:)?[0-9]{1,2})\n?/gm; 
+const slideRegExp = /---(.*)\n([\s\S]*?)---(([0-9]{1,2}:)?[0-9]{1,2})\n?/; 
 // 00:01
 // 01
 
@@ -67,6 +67,7 @@ export const parser = (text:string) => {
             };
         }
     })
+    console.log(slides)
     return slides;
 };
 
