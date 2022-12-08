@@ -26,17 +26,17 @@ class VerifyEmailController extends Controller
         //     return response()->json(["message" => "Invalid/Expired url provided."], 401);
         // }
 
-        $user = User::findOrFail($request->->route("id"));
-    
-        // if ($request->user()->hasVerifiedEmail()) {
-        if ($user->hasVerifiedEmail()) {
+        // $user = User::findOrFail($request->route("id"));
+        
+        // if ($user->hasVerifiedEmail()) {
+        if ($request->user()->hasVerifiedEmail()) {
             return redirect()->intended(
                 config('app.frontend_url').RouteServiceProvider::HOME.'?verified=1'
             );
         }
 
-        if ($user->markEmailAsVerified()) {
-        // if ($request->user()->markEmailAsVerified()) {
+        // if ($user->markEmailAsVerified()) {
+        if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 
