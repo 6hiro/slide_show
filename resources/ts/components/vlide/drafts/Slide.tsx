@@ -53,7 +53,8 @@ const Slide = ( props:SlideProps ) => {
                 <aside className='slide message'>
                     <BiMessageSquareError className='message_icon' />
                     <div className='message_content'>
-                        <p>{t.content}</p>
+                        {/* <p>{t.content}</p> */}
+                        <DecoratedText content={t.content} />
                     </div>
                 </aside>
             )
@@ -62,7 +63,8 @@ const Slide = ( props:SlideProps ) => {
                 <aside className='slide alert'>
                     <BiMessageSquareError className='message_icon' />
                     <div className='message_content'>
-                        <p>{t.content}</p>
+                        {/* <p>{t.content}</p> */}
+                        <DecoratedText content={t.content} />
                     </div>
                 </aside>
             )
@@ -98,7 +100,8 @@ const Slide = ( props:SlideProps ) => {
                 <>
                     <blockquote className='slide'>
                         <p>
-                            {t.content}
+                            {/* {t.content} */}
+                            <DecoratedText content={t.content} />
                         </p>
                         { t.type.split(":")[1] && 
                             <figcaption>— <cite>{t.type.split(":")[1]}</cite></figcaption>
