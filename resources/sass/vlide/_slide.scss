@@ -42,10 +42,6 @@ aside.slide{ // aleart message
                 text-decoration: underline;
             }
         }
-        strong {
-            // background: -webkit-linear-gradient( transparent 65%, rgba(79, 101, 241, 0.25) 0% );
-            background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
-        }
         code {
             background-color: rgba(0,0,0,.06);
             border-radius: 3px;
@@ -64,21 +60,17 @@ aside.alert{ // aleart
         flex: 1;
         margin-left: 0.6em;
         min-width: 0;
-        a{
-            color: $blue;
-            &:hover {
-                text-decoration: underline;
-            }
+    }
+    a{
+        color: $blue;
+        &:hover {
+            text-decoration: underline;
         }
-        strong {
-            // background: -webkit-linear-gradient( transparent 65%, rgba(79, 101, 241, 0.25) 0% );
-            background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
-        }
-        code {
-            background-color: rgba(0,0,0,.06);
-            border-radius: 3px;
-            padding: 0.1em 0.35em;
-        }
+    }
+    code {
+        background-color: rgba(0,0,0,.06);
+        border-radius: 3px;
+        padding: 0.1em 0.35em;
     }
 }
 h1.slide {
@@ -110,7 +102,7 @@ p.slide{
         padding: 0.1em 0.35em;
     }
 }
-blockquote{
+blockquote.slide{
     font-size: .97em;
     margin: 1.4rem 0;
     border-left: 3px solid #adadad;
@@ -124,10 +116,6 @@ blockquote{
         &:hover {
             text-decoration: underline;
         }
-    }
-    strong {
-        // background: -webkit-linear-gradient( transparent 65%, rgba(79, 101, 241, 0.25) 0% );
-        background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
     }
     code {
         background-color: rgba(0,0,0,.06);

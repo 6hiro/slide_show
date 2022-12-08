@@ -1,5 +1,41 @@
 @use "./abstracts/" as *;
 
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $fontFamily;
+  -webkit-font-smoothing: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  color: unset;
+  text-decoration: none;
+}
+
+img,picture,video,canvas,svg {
+  max-width:100%
+}
+
+ul,
+li {
+    list-style-type: none;
+}
+::selection {
+  background: rgba(79, 101, 241, 0.25);
+}
+
 // layout
 @import 'layout/layout';
 @import 'layout/header';
@@ -74,39 +110,3 @@
 // button
 @import 'button/button';
 
-
-html,
-body {
-  padding: 0;
-  margin: 0;
-}
-
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: $fontFamily;
-  -webkit-font-smoothing: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  color: inherit;
-  color: unset;
-  text-decoration: none;
-}
-
-img,picture,video,canvas,svg {
-  max-width:100%
-}
-
-ul,
-li {
-    list-style-type: none;
-}
-::selection {
-  background: rgba(79, 101, 241, 0.25);
-}
