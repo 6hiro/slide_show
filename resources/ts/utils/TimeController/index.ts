@@ -67,7 +67,6 @@ export const parser = (text:string) => {
             };
         }
     })
-    console.log(slides)
     return slides;
 };
 

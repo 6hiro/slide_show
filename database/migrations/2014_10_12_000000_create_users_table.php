@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('file_name')->nullable();
             $table->string('status')->nullable();
+            // $table->string('status')->nullable();
 
             $table->string('email')->unique();
             $table->dateTime('email_verified_at')->nullable();

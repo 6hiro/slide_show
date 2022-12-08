@@ -25,8 +25,9 @@ class CreateVlidesTable  extends Migration
             $table->string('audio_file_name')->nullable();
 
             $table->string('heading_file_name')->nullable();
-            $table->boolean('is_public')->default(false);
-            
+            $table->boolean('need_payment')->default(false);
+
+            $table->boolean('is_public')->default(false);            
             $table->dateTime('published_at', 3)->nullable();
 
             // Foreign key.

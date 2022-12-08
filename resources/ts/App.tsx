@@ -29,6 +29,7 @@ import VerificationLinkSent from "./pages/auth/VerificationLinkSent";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/layout/ScrollToTop";
 import ResetPassword from "./pages/auth/ResetPassword";
+import Subscription from "./pages/subscription";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -69,6 +70,12 @@ const App: React.FC = () => {
                             <Route path="/auth/forgot-password" element={<ForgotPassword />} />
                             <Route path="/auth/reset-password/:token" element={<ResetPassword />} />
 
+                            {/* Subscription */}
+                            {/* <Route path="/subscription" element={<StripWrapper />}> */}
+                                {/* <Route index element={<Subscription />} /> */}
+                            <Route path="/subscription" element={<Subscription />} />
+                            {/* </Route> */}
+
                             {/* Settings */}
                             <Route path="/settings" element={<Settings />} />
                             
@@ -91,6 +98,7 @@ const App: React.FC = () => {
                             {/* Vlide */}
                             <Route path="/drafts/vlide/:vlide_id" element={<EditVlide />} />
                             <Route path="/vlide/:vlide_id" element={<Detail />} />
+                            
 
                             {/* clip */}
                             <Route path="/clip/:clip_id" element={<DetailClip />} />

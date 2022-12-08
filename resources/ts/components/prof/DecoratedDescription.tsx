@@ -31,7 +31,7 @@ const DecoratedDescription:React.FC<{content: string}> = (props) => {
                            </Link>
                 }else if(value.match(/^(https?:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/)){
                     // URL
-                    return <a href={value} key={index} style={{color: "#1d9bf0"}} >{value}</a>
+                    return <a href={value} key={index} style={{color: "#1d9bf0"}} target="_blank" rel="noopener noreferrer" >{value}</a>
                 }else if(value.match(/\u0001/)){
                     // 改行の要素
                     return <br key={index}/>

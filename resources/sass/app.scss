@@ -20,6 +20,8 @@
 @import 'auth/authValidationErrors';
 @import 'auth/usernameInput';
 
+@import 'stripe/stripe';
+
 // profile
 @import 'prof/editProfileForm';
 @import 'prof/desciptionTextarea';

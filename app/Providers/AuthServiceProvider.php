@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Auth\Notifications\ResetPassword;
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+// use Laravel\Cashier\Cashier;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,8 @@ class AuthServiceProvider extends ServiceProvider
         ResetPassword::createUrlUsing(function ($notifiable, $token) {
             return config('app.frontend_url')."/auth/reset-password/$token?email={$notifiable->getEmailForPasswordReset()}";
         });
+
+        // Cashier::calculateTaxes();
         //
     }
 }

@@ -7,21 +7,21 @@
         <title>Vlides</title>
 
         {{-- react に変更があったとき自動で --}}
-        {{-- @viteReactRefresh
+        @viteReactRefresh
 
         @vite([
             // 'resources/sass/app.scss', 
             'resources/ts/index.tsx'
-        ]) --}}
+        ])
         
         <link rel="icon" href="/images/Logo.png">
 
-        <link rel="stylesheet" href="/css/index.css">
+        {{-- <link rel="stylesheet" href="/css/index.css"> --}}
     </head>
 
     <body class="">
         <div id="app"></div>
     </body>
 
-    <script src="/js/index.js"></script>
+    {{-- <script src="/js/index.js"></script> --}}
 </html>

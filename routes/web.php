@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StripePaymentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
-Route::get('/mail', function () {
-    return view('emails.changePassword');
-});
 
 Route::get('/auth/register', function () {
     return view('index');
@@ -79,6 +76,18 @@ Route::get('/clip/{clipId}', function () {
 })->where('clipId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
 
 
+
+// Route::get('/subscription', function () {
+//     return view('index');
+// })->middleware(['auth'])->name('subscription');
+
+// Route::prefix('payment')->group(function (){
+//     Route::get('/', [StripePaymentsController::class, 'index'])->name('stripe.index');
+
+//     Route::get('/payment', [StripePaymentsController::class, 'payment'])->name('stripe.payment');
+
+//     Route::get('/complete', [StripePaymentsController::class, 'complete'])->name('stripe.complete');
+// });
 
 
 require __DIR__.'/auth.php';

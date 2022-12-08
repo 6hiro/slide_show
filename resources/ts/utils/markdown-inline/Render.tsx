@@ -9,7 +9,7 @@ type Props = {
 export const DecoratedText = (props: Props) => {
     // 抽象構文木(AST)を作成
     const ast = tokenizer(props.content);
-    console.log(ast)
+
     if(ast.children?.length === 0) return null;
     if(ast.children?.length === 1) return <>{ast.children[0].content}</>
 
@@ -38,18 +38,23 @@ const _addElementRecursively = (token: Token) => {
                 }else if(token.elmType==="del"){
                     return <del key={token.id}>{_addElementRecursively(token)}</del>
                 }else if(token.elmType==="img"){
-                    return <img 
-                        key={token.id}
-                        style={{maxHeight: "100%", margin: "1rem 0", border: "1px solid rgba(0,0,0,.12)"}}
-                        src={token.attributes ? token.attributes[1].attrValue : ""}
-                        alt={token.attributes ? token.attributes[0].attrValue : ""}
-                    />
+                    return <a href={token.attributes ? token.attributes[1].attrValue : ""} target="_blank" rel="noopener noreferrer">
+                        <img 
+                            key={token.id}
+                            style={{maxHeight: "100%", margin: "1rem 0", border: "1px solid rgba(0,0,0,.12)"}}
+                            src={token.attributes ? token.attributes[1].attrValue : ""}
+                            alt={token.attributes ? token.attributes[0].attrValue : ""}
+                        />
+                    </a>
                 }else if(token.elmType==="link"){
                     return <a 
-                            key={token.id}
-                            href={token.attributes ? token.attributes[1].attrValue : ""}>
-                            {token.attributes ? token.attributes[0].attrValue : ""}
-                        </a>
+                                key={token.id}
+                                href={token.attributes ? token.attributes[1].attrValue : ""}
+                                // style={{color: "#00f"}}
+                                target="_blank" rel="noopener noreferrer"
+                            >
+                                {token.attributes ? token.attributes[0].attrValue : ""}
+                            </a>
                 }
 
                 return null

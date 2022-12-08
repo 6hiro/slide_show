@@ -52,7 +52,7 @@ const DecoratedClipContent:React.FC<{content: string}> = (props) => {
                                     key={index}
                                 ></iframe>
                     }else{
-                        return <a href={value} key={index} style={{color: "#00f"}} >{value}</a>
+                        return <a href={value} key={index} style={{color: "#00f"}} target="_blank" rel="noopener noreferrer">{value}</a>
                     }
                 }else if(value.match(/\u0001/)){
                     // 改行の要素

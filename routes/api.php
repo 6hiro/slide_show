@@ -6,6 +6,7 @@ use App\Http\Controllers\Vlide;
 use App\Http\Controllers\Clip;
 use App\Http\Controllers\User;
 use App\Http\Controllers\Auth;
+use App\Http\Controllers\StripePaymentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,11 @@ Route::prefix('v1')->group(function (){
             // For Feed Page
             Route::get('/followings/vlides', Vlide\FollowingsController::class)->name('followings.vlide');
             Route::get('/followings/clips', Clip\FollowingsController::class)->name('followings.clips');
+        });
+
+        // stripe
+        Route::prefix('payment')->group(function (){
+            Route::get('/setup-intent', [StripePaymentsController::class, 'index'])->name('vlide.auth.user');
         });
         
         Route::prefix('vlide')->group(function (){
