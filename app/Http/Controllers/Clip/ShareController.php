@@ -20,6 +20,15 @@ class ShareController extends Controller
         $user_id = $request->user()->id;
         $parent_id = $request->route('parent_id');
 
+        $clip_count = $clipService->getUserClipCount($user_id);
+        
+        if($clip_count >= 30)
+        {
+            return response()->json([
+                    'count' => $clip_count,
+                    'status'=>'over',
+                ], 403);
+        }
         
 
         $clip = $clipService->share(

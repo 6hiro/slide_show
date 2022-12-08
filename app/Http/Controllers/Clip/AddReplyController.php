@@ -24,7 +24,7 @@ class AddReplyController extends Controller
         $clip_count = $clipService->getUserClipCount(
             $request->user()->id
         );
-        if($clip_count >= 10)
+        if($clip_count >= 30)
         {
             return response()->json([
                     'count' => $clip_count,

@@ -203,7 +203,7 @@ const EditVlide = () => {
                             placeholder="内容" 
                             // autoFocus 
                             minLength={1}
-                            maxLength={2500}
+                            maxLength={3000}
                             minRows={1}
                             ref={textareaRef}
 
@@ -219,8 +219,8 @@ const EditVlide = () => {
 
                         <div className="text_count" >
                             {/* <BiMessageError /> */}
-                            {content.length} / {2500}
-                            {/* <span> テキストは 2,000 文字以内で入力できます</span> */}
+                            {content.length} / {3000}
+                            {/* <span> テキストは 3,000 文字以内で入力できます</span> */}
                         </div>     
                     </div>
 

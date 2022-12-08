@@ -21,7 +21,7 @@ class CreateController extends Controller
         $vlide_count = $vlideService->getUserVlideCount(
             $request->user()->id
         );
-        if($vlide_count >= 3)
+        if($vlide_count >= 4)
         {
             return response()->json([
                     'count' => $vlide_count,

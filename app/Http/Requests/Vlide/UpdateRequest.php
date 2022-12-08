@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|max:80',
-            'content'=>'nullable|max:2000',
+            'content'=>'nullable|max:3000',
             'tag_list'=>'nullable|array',
             'tag_list.*'=>'string',
             'duration' => 'required|integer|max:600',
