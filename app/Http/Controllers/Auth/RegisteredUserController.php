@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         // https://readouble.com/laravel/8.x/ja/authentication.html
-        // Auth::login($user);
+        Auth::login($user);
 
         // $mailer->to($user->email)
         //     ->send(new NewUserIntroduction());
