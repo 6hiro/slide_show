@@ -57,7 +57,7 @@ p.slide{
     overflow-wrap: break-word;
     white-space: pre-wrap;
     font-size: 18px;
-    margin: 0px 20px 14px;
+    margin: 30px 20px 30px;
 
     a{
         color: $blue;
@@ -65,19 +65,28 @@ p.slide{
             text-decoration: underline;
         }
     }
+    strong {
+        // background: -webkit-linear-gradient( transparent 65%, rgba(79, 101, 241, 0.25) 0% );
+        background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
+    }
+    code {
+        background-color: rgba(0,0,0,.06);
+        border-radius: 3px;
+        padding: 0.1em 0.35em;
+    }
 }
 blockquote{
-font-size: .97em;
-margin: 1.4rem 0;
-border-left: 3px solid #adadad;
-padding: 2px 0 2px 0.7em;
-color: #505c64;
-overflow-wrap: break-word;
-white-space: pre-wrap;
+    font-size: .97em;
+    margin: 1.4rem 0;
+    border-left: 3px solid #adadad;
+    padding: 2px 0 2px 0.7em;
+    color: #505c64;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 
-figcaption{
-    text-align: right;
-}
+    figcaption{
+        text-align: right;
+    }
 }
 pre {
     /* margin: 1.3rem 0;
