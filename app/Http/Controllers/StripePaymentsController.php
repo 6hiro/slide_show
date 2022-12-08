@@ -51,7 +51,7 @@ class StripePaymentsController extends Controller
 
     public function complete()
     {
-        return view('complete');
+        // return view('index');
     }
 
     public function afterpay(Request $request){
@@ -72,6 +72,6 @@ class StripePaymentsController extends Controller
         ->create($paymentMethod);
  
         // 処理後に'ルート設定'にページ移行
-        return redirect()->route('ルート設定');
+        // return redirect()->route('ルート設定');
     }
 }

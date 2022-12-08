@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Laravel\Cashier\Billable;
+// use Laravel\Cashier\Billable;
 
 use App\Notifications\ResetPasswordNotification;
 use App\Notifications\VerifyEmailJP;
@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasUuids;
-    use Billable;
+    // use Billable;
 
     /**
      * The attributes that are mass assignable.
