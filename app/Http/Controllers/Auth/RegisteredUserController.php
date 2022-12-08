@@ -32,7 +32,6 @@ class RegisteredUserController extends Controller
             // confirmed: password_confirmationと同値であるか否か
             'password' => ['required', 'confirmed', Rules\Password::defaults()], 
         ]);
-        // ->sendEmailVerificationNotification();
 
         $user = User::create([
             'name' => $request->name,
@@ -40,6 +39,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        // ->sendEmailVerificationNotification();
 
         event(new Registered($user));
 
