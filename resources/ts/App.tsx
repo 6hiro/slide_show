@@ -71,9 +71,9 @@ const App: React.FC = () => {
                             <Route path="/auth/reset-password/:token" element={<ResetPassword />} />
 
                             {/* Subscription */}
+                            {/* <Route path="/subscription" element={<Subscription />} /> */}
                             {/* <Route path="/subscription" element={<StripWrapper />}> */}
                                 {/* <Route index element={<Subscription />} /> */}
-                            <Route path="/subscription" element={<Subscription />} />
                             {/* </Route> */}
 
                             {/* Settings */}
