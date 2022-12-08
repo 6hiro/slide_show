@@ -53,12 +53,7 @@ h2.slide {
     font-size: 1.4rem;
         margin: 30px 20px 18px;
 }
-p.slide{
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
-    font-size: 18px;
-    margin: 30px 20px 30px;
-
+p.slide, blockquote, aside.slide, aside.alert{
     a{
         color: $blue;
         &:hover {
@@ -74,6 +69,12 @@ p.slide{
         border-radius: 3px;
         padding: 0.1em 0.35em;
     }
+}
+p.slide{
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    font-size: 18px;
+    margin: 30px 20px 30px;
 }
 blockquote{
     font-size: .97em;
