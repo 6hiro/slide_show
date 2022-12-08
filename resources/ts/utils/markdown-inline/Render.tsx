@@ -38,14 +38,23 @@ const _addElementRecursively = (token: Token) => {
                 }else if(token.elmType==="del"){
                     return <del key={token.id}>{_addElementRecursively(token)}</del>
                 }else if(token.elmType==="img"){
-                    return <a href={token.attributes ? token.attributes[1].attrValue : ""} target="_blank" rel="noopener noreferrer">
-                        <img 
-                            key={token.id}
-                            style={{maxHeight: "100%", margin: "1rem 0", border: "1px solid rgba(0,0,0,.12)"}}
-                            src={token.attributes ? token.attributes[1].attrValue : ""}
-                            alt={token.attributes ? token.attributes[0].attrValue : ""}
-                        />
-                    </a>
+                    return <a 
+                            href={token.attributes ? token.attributes[1].attrValue : ""} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            style={{display: "block", textAlign: "center"}}
+                        >
+                            <img 
+                                key={token.id}
+                                style={{
+                                    maxHeight: "100%", 
+                                    margin: "1rem 0", 
+                                    // border: "1px solid rgba(0,0,0,.12)"
+                                }}
+                                src={token.attributes ? token.attributes[1].attrValue : ""}
+                                alt={token.attributes ? token.attributes[0].attrValue : ""}
+                            />
+                        </a>
                 }else if(token.elmType==="link"){
                     return <a 
                                 key={token.id}
