@@ -77,9 +77,9 @@ Route::get('/clip/{clipId}', function () {
 
 
 
-// Route::get('/subscription', function () {
-//     return view('index');
-// })->middleware(['auth'])->name('subscription');
+Route::get('/subscription', function () {
+    return view('index');
+})->middleware(['auth'])->name('subscription');
 
 // Route::prefix('payment')->group(function (){
 //     Route::get('/', [StripePaymentsController::class, 'index'])->name('stripe.index');
