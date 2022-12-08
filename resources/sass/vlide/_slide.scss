@@ -1,6 +1,22 @@
 
 .slide{
     margin: 35px 20px;
+
+    a{
+        color: $blue;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    strong {
+        // background: -webkit-linear-gradient( transparent 65%, rgba(79, 101, 241, 0.25) 0% );
+        background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
+    }
+    code {
+        background-color: rgba(0,0,0,.06);
+        border-radius: 3px;
+        padding: 0.1em 0.35em;
+    }
 }
 .youtube {
     width: 90%;
@@ -53,23 +69,7 @@ h2.slide {
     font-size: 1.4rem;
         margin: 30px 20px 18px;
 }
-p.slide, blockquote, aside.slide, aside.alert{
-    a{
-        color: $blue;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    strong {
-        // background: -webkit-linear-gradient( transparent 65%, rgba(79, 101, 241, 0.25) 0% );
-        background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
-    }
-    code {
-        background-color: rgba(0,0,0,.06);
-        border-radius: 3px;
-        padding: 0.1em 0.35em;
-    }
-}
+
 p.slide{
     overflow-wrap: break-word;
     white-space: pre-wrap;
