@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\User;
-use Laravel\Cashier\Cashier;
+// use Laravel\Cashier\Cashier;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Cashier::useCustomerModel(User::class);
+        // Cashier::useCustomerModel(User::class);
         
         // https://qiita.com/ghibi/items/cb4faa2d86f5866cbfd4
         if (\App::environment(['production'])) {
