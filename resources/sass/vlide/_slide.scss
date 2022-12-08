@@ -1,22 +1,6 @@
 
 .slide{
     margin: 35px 20px;
-
-    a{
-        color: $blue;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    strong {
-        // background: -webkit-linear-gradient( transparent 65%, rgba(79, 101, 241, 0.25) 0% );
-        background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
-    }
-    code {
-        background-color: rgba(0,0,0,.06);
-        border-radius: 3px;
-        padding: 0.1em 0.35em;
-    }
 }
 .youtube {
     width: 90%;
@@ -52,6 +36,21 @@ aside.slide{ // aleart message
         flex: 1;
         margin-left: 0.6em;
         min-width: 0;
+        a{
+            color: $blue;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        strong {
+            // background: -webkit-linear-gradient( transparent 65%, rgba(79, 101, 241, 0.25) 0% );
+            background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
+        }
+        code {
+            background-color: rgba(0,0,0,.06);
+            border-radius: 3px;
+            padding: 0.1em 0.35em;
+        }
     }
 }
 aside.alert{ // aleart
@@ -60,6 +59,26 @@ aside.alert{ // aleart
 
     .message_icon{
         color: #ff6655;
+    }
+    .message_content{
+        flex: 1;
+        margin-left: 0.6em;
+        min-width: 0;
+        a{
+            color: $blue;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        strong {
+            // background: -webkit-linear-gradient( transparent 65%, rgba(79, 101, 241, 0.25) 0% );
+            background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
+        }
+        code {
+            background-color: rgba(0,0,0,.06);
+            border-radius: 3px;
+            padding: 0.1em 0.35em;
+        }
     }
 }
 h1.slide {
@@ -75,6 +94,21 @@ p.slide{
     white-space: pre-wrap;
     font-size: 18px;
     margin: 30px 20px 30px;
+    a{
+        color: $blue;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    strong {
+        // background: -webkit-linear-gradient( transparent 65%, rgba(79, 101, 241, 0.25) 0% );
+        background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
+    }
+    code {
+        background-color: rgba(0,0,0,.06);
+        border-radius: 3px;
+        padding: 0.1em 0.35em;
+    }
 }
 blockquote{
     font-size: .97em;
@@ -84,6 +118,22 @@ blockquote{
     color: #505c64;
     overflow-wrap: break-word;
     white-space: pre-wrap;
+
+    a{
+        color: $blue;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    strong {
+        // background: -webkit-linear-gradient( transparent 65%, rgba(79, 101, 241, 0.25) 0% );
+        background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
+    }
+    code {
+        background-color: rgba(0,0,0,.06);
+        border-radius: 3px;
+        padding: 0.1em 0.35em;
+    }
 
     figcaption{
         text-align: right;
