@@ -135,7 +135,7 @@ const Detail = () => {
         const selection = document.getSelection();
         const range = selection?.getRangeAt(0);
         
-        if( selection && selection.toString().trim().length >= 10){
+        if( selection && selection.toString().trim().length >= 10 && user){
             if(
                 range 
                 && e.currentTarget.contains(range.startContainer) 
@@ -166,7 +166,6 @@ const Detail = () => {
 
                 {/* <meta property="og:url" content={`${siteURL}/vlide/${vlide_id}`} />
 
-                <head prefix="og: https://ogp.me/ns#" />
                 <meta property="og:type" content="article" />
 
                 <meta property="og:title" content={`${vlide?.title ? vlide.title : "" } / ${siteTitle}`} />
