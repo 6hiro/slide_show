@@ -40,7 +40,7 @@ import Slide from '../../components/vlide/drafts/Slide';
 import TimeController from '../../components/vlide/drafts/TimeController';
 import AddClipForm from '../../components/clip/AddClipForm';
 import LoadingScreen from '../../components/layout/LoadingScreen';
-import { siteTitle } from '../../constants/site';
+import { siteTitle, siteURL } from '../../constants/site';
 import GetMoreButton from '../../components/layout/GetMoreButton';
 import Clip from '../../components/clip/Clip';
 import { convertToSeconds, parser } from '../../utils/TimeController';
@@ -162,6 +162,18 @@ const Detail = () => {
                     name="description"
                     content={vlide?.content?.slice(0,100) + "..."}
                 />
+
+
+                <head prefix="og: https://ogp.me/ns#" />
+                <meta property="og:url" content={`${siteURL}/vlide/${vlide.id}`} />
+                <meta property="og:type" content="article" />
+                <meta property="og:title" content={`${vlide?.title ? vlide.title : "" } / ${siteTitle}`} />
+                <meta property="og:description" content={`${vlide?.title ? vlide.title : "" }`} />
+                <meta property="og:site_name" content="Vlides" />
+                <meta property="og:image" content={`${siteURL}/vlide/images/LogoOGP.png`} />
+
+                <meta name="twitter:card" content="summary" /> 
+                <meta name="twitter:site" content="@Vlides_" />
             </Helmet>
             <div 
                 className="detailContainer" 
