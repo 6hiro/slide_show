@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StripePaymentsController;
+// use App\Http\Controllers\StripePaymentsController;
+use Illuminate\Http\Request;
+use App\Services\VlideService;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -67,9 +70,26 @@ Route::get('/prof/{username}', function () {
 Route::get('/drafts/vlide/{vlideId}', function () {
     return view('index');
 })->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
-Route::get('/vlide/{vlideId}', function () {
-    return view('index');
-})->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+
+Route::get('/vlide/{vlideId}', function (Request $request, string $vlideId, VlideService $vlideService) {
+    // $vlideService = new VlideService;
+    $vlide =  $vlideService->retriveVlide($vlideId);
+    
+    // https://laracasts.com/discuss/channels/laravel/attempt-to-read-property-id-on-null
+    // if($vlide->is_public || $vlide->user_id === optional($request->user())->id) {
+    if($vlide->is_public) {
+        return view('index')->with([
+            "vlide" => $vlide,
+        ]);
+    }else{
+        return view('index');
+    }
+
+    return view('index')->with([
+        "vlide" => $vlide,
+    ]);
+})
+->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
 
 Route::get('/clip/{clipId}', function () {
     return view('index');

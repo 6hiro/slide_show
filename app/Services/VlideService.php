@@ -210,6 +210,10 @@ class VlideService
                 // 'clips'
             ])
             // ->where('id', $vlideId)
+            // ->where(function($q) use ($user_id) {
+            //         $q->Where('is_public', true)
+            //         ->orWhere('user_id', $user_id);
+            // })
             // ->Where('is_public', true)
             // ->get();
             ->find($vlideId);
