@@ -222,7 +222,7 @@
     .vlide__additional_elements {
         @include flex(center, center);
         flex-wrap: wrap;
-        column-gap: 60px;
+        column-gap: 82px;
         --size: 32px;
 
         .vlide__clip{

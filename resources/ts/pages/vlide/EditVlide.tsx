@@ -256,11 +256,11 @@ const EditVlide = () => {
     
                         <div className="rule" >
                             <BiMessageError />
-                            <span> ファイルサイズは10メガバイトまでです</span>
+                            <span> ファイルサイズは 15 メガバイトまでです</span>
                         </div>    
                         <div className="rule" >
                             <BiMessageError />
-                            <span> mpeg, mpga, mp3, wav に対応しています</span>
+                            <span> mp3, aac に対応しています</span>
                         </div>    
                     </div>
 

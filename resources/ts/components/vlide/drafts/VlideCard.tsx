@@ -30,7 +30,6 @@ const VlideCard:React.FC<{
 
     // discussionの削除
     const deleteVlide = async() =>{
-        console.log("#####")
         props.destroy(props.vlide.id, setShowDelete)
         // setShowDelete(false);
     };
@@ -207,7 +206,7 @@ const VlideCard:React.FC<{
                             title={props.vlide.title}
                             className=""
                             // related={["GatsbyJS"]}
-                            hashtags={["vlide"]}
+                            hashtags={["Vlides"]}
                         >
                             <TwitterIcon size={35} round />
                         </TwitterShareButton>
