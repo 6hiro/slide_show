@@ -72,7 +72,6 @@ Route::get('/drafts/vlide/{vlideId}', function () {
 })->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
 
 Route::get('/vlide/{vlideId}', function (Request $request, string $vlideId, VlideService $vlideService) {
-    // $vlideService = new VlideService;
     $vlide =  $vlideService->retriveVlide($vlideId);
     
     // https://laracasts.com/discuss/channels/laravel/attempt-to-read-property-id-on-null

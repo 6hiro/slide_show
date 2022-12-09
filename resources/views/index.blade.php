@@ -8,12 +8,12 @@
         @if( isset($vlide) )
             <meta property="og:type" content="article" />
 
-            <meta property="og:title" content={{$vlide->title}}>
-            <meta property="og:description" content={{$vlide->title}}>
+            <meta property="og:title" content="{{$vlide->title}}">
+            <meta property="og:description" content="{{$vlide->title}}">
             <meta property="og:url" content={{"https://vlides.com/vlide/".$vlide->id}}>
 
-            <meta name="twitter:title" content={{$vlide->title}}>
-            <meta name="twitter:description" content={{$vlide->title}}>
+            <meta name="twitter:title" content="{{$vlide->title}}">
+            <meta name="twitter:description" content="{{$vlide->title}}">
             <meta name="twitter:card" content="summary">
         @else
             <meta property="og:type" content="website" >
