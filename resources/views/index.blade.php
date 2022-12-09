@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <head prefix="og: https://ogp.me/ns#" >
+        <meta property="og:type" content="website" >
 
         <meta property="og:title" content="Vlides">
         <meta property="og:description" content="Slides With Voice">
@@ -14,6 +15,7 @@
         <meta property="og:site_name" content="Vlides">
         <meta property="og:image:width" content="300">
         <meta property="og:image:height" content="300">
+        
         <meta name="twitter:title" content="Vlides">
         <meta name="twitter:description" content="Slides With Voice">
         <meta name="twitter:image" content="https://vlides.com/images/LogoOGP.png">

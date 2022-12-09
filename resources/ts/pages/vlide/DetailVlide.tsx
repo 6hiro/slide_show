@@ -164,16 +164,26 @@ const Detail = () => {
                 />
 
 
-                <head prefix="og: https://ogp.me/ns#" />
                 <meta property="og:url" content={`${siteURL}/vlide/${vlide.id}`} />
+
+                <head prefix="og: https://ogp.me/ns#" />
                 <meta property="og:type" content="article" />
+
                 <meta property="og:title" content={`${vlide?.title ? vlide.title : "" } / ${siteTitle}`} />
                 <meta property="og:description" content={`${vlide?.title ? vlide.title : "" }`} />
-                <meta property="og:site_name" content="Vlides" />
-                <meta property="og:image" content={`${siteURL}/vlide/images/LogoOGP.png`} />
+                <meta property="og:image" content="https://vlides.com/images/LogoOGP.png"/>
+                <meta property="og:image:secure_url" content="https://vlides.com/images/LogoOGP.png"/>
+                <meta property="og:url" content={`https://vlides.com/${vlide.id}`} />
+                <meta property="og:site_name" content="Vlides"/>
+                <meta property="og:image:width" content="300"/>
+                <meta property="og:image:height" content="300"/>
 
-                <meta name="twitter:card" content="summary" /> 
+                <meta name="twitter:title" content={`${vlide?.title ? vlide.title : "" } / ${siteTitle}`}/>
+                <meta name="twitter:description" content={`${vlide?.title ? vlide.title : "" }`} />
+                <meta name="twitter:image" content="https://vlides.com/images/LogoOGP.png"/>
+                <meta name="twitter:card" content="summary"/>
                 <meta name="twitter:site" content="@Vlides_" />
+
             </Helmet>
             <div 
                 className="detailContainer" 
