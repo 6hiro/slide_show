@@ -154,11 +154,11 @@ const TimeController = ( props: TimeControllerProps) => {
             }
 
             timerInterval = window.setInterval(() => {
-                console.log("audioState.duration")
-                console.log(audioState)
+                // console.log("audioState.duration")
+                // console.log(audioState)
 
                 if(src && !audioState.duration){ // AudioFileをまだロードできていない場合
-                    console.log(audioState.duration)
+                    // console.log(audioState.duration)
                     props.setIsRunning(false);
                 }else{
                     props.setCurrentTime( prevCurrentTime => {
