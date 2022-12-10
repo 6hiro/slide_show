@@ -3,6 +3,14 @@ const PASSWORD_PATTERN = /^[0-9a-zA-Z@$!%*?&]+$/;
 const PASSWORD_REGEXP = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 const EMAIL_REGEXP  = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/
 
+// const slideBlockRegExp = /---(.*)\n([\s\S]*?)---(([0-9]?[0-9]:)?([0-9]?[0-9]:)?[0-9]?[0-9])\n?/gm; 
+// const slideRegExp = /---(.*)\n([\s\S]*?)---(([0-9]?[0-9]:)?([0-9]?[0-9]:)?[0-9]?[0-9])\n?/; 
+// 00:00:01
+const slideBlockRegExp = /---(.*)\n([\s\S]*?)---(([0-9]{1,2}:)?[0-9]{1,2})\n?/gm; 
+const slideRegExp = /---(.*)\n([\s\S]*?)---(([0-9]{1,2}:)?[0-9]{1,2})\n?/; 
+// 00:01
+// 01
+
 const inlineRegexps = [
     // code RegExp
     { elmType: 'code', regexp: /`(.+?)`/ },
@@ -30,5 +38,7 @@ export {
     PASSWORD_PATTERN,
     PASSWORD_REGEXP,
     EMAIL_REGEXP,
+    slideBlockRegExp,
+    slideRegExp,
     inlineRegexps
 };

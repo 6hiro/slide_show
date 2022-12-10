@@ -44,6 +44,7 @@ import { siteTitle, siteURL } from '../../constants/site';
 import GetMoreButton from '../../components/layout/GetMoreButton';
 import Clip from '../../components/clip/Clip';
 import { convertToSeconds, parser } from '../../utils/TimeController';
+import { slideRegExp } from '../../utils/regexps';
 
 const Detail = () => {
     const { vlide_id } = useParams();
@@ -147,11 +148,14 @@ const Detail = () => {
         }
     };
 
+    const descriptionMatch = vlide?.content.match(slideRegExp);
+
     if ( !vlide?.id ) {
         return <div style={{width: "100%", height: "calc(100vh -   120px)", display:"flex", alignItems: "center", justifyContent: "center"}}>
             <LoadingScreen />
         </div>
     }
+
 
     return (
         <>
@@ -160,7 +164,10 @@ const Detail = () => {
                 <title>{vlide?.title ? vlide.title : "" } / {siteTitle}</title>
                 <meta
                     name="description"
-                    content={vlide?.content?.slice(0,100) + "..."}
+                    // content={vlide?.content?.slice(0,100) + "..."}
+                    content={descriptionMatch && descriptionMatch[2] ? descriptionMatch[2]  : vlide?.title}
+
+                    
                 />
 
 

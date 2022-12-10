@@ -10,10 +10,13 @@
 
             <meta property="og:title" content="{{$vlide->title}}">
             <meta property="og:description" content="Slides With Voice">
+            {{-- <meta property="og:description" content="{{ preg_match('/-{3}h[1-2]\n([\s\S]*?)-{3}([0-9]{1,2}:)?[0-9]{1,2}\n?/u', $vlide->content, $matches) ? $matches[1] : "Slides With Voice" }}"> --}}
             <meta property="og:url" content={{"https://vlides.com/vlide/".$vlide->id}}>
 
             <meta name="twitter:title" content="{{$vlide->title}}">
             <meta name="twitter:description" content="Slides With Voice">
+            {{-- <meta property="twitter:description" content="{{ preg_match('/-{3}h[1-2]\n([\s\S]*?)-{3}([0-9]{1,2}:)?[0-9]{1,2}\n?/u', $vlide->content, $matches) ? $matches[1] : "Slides With Voice" }}"> --}}
+
             <meta name="twitter:card" content="summary">
         @else
             <meta property="og:type" content="website" >
