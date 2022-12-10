@@ -41,7 +41,7 @@
 
         <meta name="twitter:image" content="https://vlides.com/images/LogoOGP.png">
 
-        {{-- <meta name="twitter:site" content="@Vlides_"> --}}
+        <meta name="twitter:site" content="@Vlides_com">
 
         <title>Vlides</title>
 
