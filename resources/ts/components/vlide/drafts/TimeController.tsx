@@ -111,7 +111,10 @@ const TimeController = ( props: TimeControllerProps) => {
                 if(audioState.playing){
                     audioControls.pause()
                 }else{
-                    audioControls.play()
+                    if(src && !audioState.duration){ // AudioFileをまだロードできていない場合
+                    }else{
+                        audioControls.play()
+                    }
                 }
                 break
             case "m":
@@ -151,10 +154,21 @@ const TimeController = ( props: TimeControllerProps) => {
             }
 
             timerInterval = window.setInterval(() => {
-                props.setCurrentTime( prevCurrentTime => {
-                    if(props.durationTime <= prevCurrentTime) return prevCurrentTime;
-                    return prevCurrentTime+1;
-                });
+                console.log("audioState.duration")
+                console.log(audioState)
+
+                if(src && !audioState.duration){ // AudioFileをまだロードできていない場合
+                    console.log(audioState.duration)
+                    props.setIsRunning(false);
+                }else{
+                    props.setCurrentTime( prevCurrentTime => {
+                        // if(src && !audioState.duration){ // AudioFileをまだロードできていない場合
+                        //     return prevCurrentTime
+                        // }
+                        if(props.durationTime <= prevCurrentTime) return prevCurrentTime;
+                        return prevCurrentTime+1;
+                    });
+                }
             }, 1000);
 
         }else{
@@ -283,7 +297,12 @@ const TimeController = ( props: TimeControllerProps) => {
                             className="btn"
                             id="playPauseBtn" 
                             draggable="false"
-                            onClick={() => {props.setIsRunning(!props.isRunning)}}
+                            onClick={() => {
+                                if(src && !audioState.duration){ // AudioFileをまだロードできていない場合
+                                }else{
+                                    props.setIsRunning(!props.isRunning)
+                                }
+                            }}
                         >
                             {
                                 !props.isRunning 
