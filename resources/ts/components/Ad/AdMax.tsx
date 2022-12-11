@@ -20,9 +20,10 @@ export const AdmaxSwitch: React.FC<{ id: string }> = (props) => {
         if (!admaxads.some(ad => ad.admax_id === props.id))
             admaxads.push({
                 admax_id: props.id,
-                type: "switch"
+                // type: "switch"
+                type: "banner"
             });
-            
+
         // 外部JSを読み込んで広告リストを実際に表示
         const tag = document.createElement('script');
         tag.src = 'https://adm.shinobi.jp/st/t.js';
