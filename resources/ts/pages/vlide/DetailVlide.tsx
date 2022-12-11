@@ -239,7 +239,7 @@ const Detail = () => {
                                         key={index} 
                                         id={String(convertToSeconds(t.time)) + "s"}
                                         style={{ 
-                                            scrollMarginTop: vlide.duration ? "140px" : "65px",
+                                            scrollMarginTop: vlide.duration ? "155px" : "65px",
                                             // scrollSnapAlign:"start",
                                             pointerEvents: ( Math.floor(currentTime) >= convertToSeconds(t.time) || !isRunning ) 
                                                 ? "unset" 

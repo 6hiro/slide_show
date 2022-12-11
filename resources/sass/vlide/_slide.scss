@@ -1,6 +1,6 @@
 
 .slide{
-    margin: 35px 20px;
+    margin: 45px 20px;
 }
 .youtube {
     width: 90%;
@@ -10,6 +10,46 @@
     iframe {
         width: 100%;
         height: 100%;
+    }
+}
+.slide_separator {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    margin: 25px 0;
+    &_dot {
+        --size : 5px;
+        width: var(--size);
+        height: var(--size);
+        margin-right: 20px;
+        background-color: $subColor;
+        opacity: 0.7;
+        border-radius: 50%;
+    }
+}
+.point{
+    position: relative;
+    margin: 45px 20px;
+    padding: 5px 10px;
+    border: 2px solid $buttonColor;
+    border-radius: 5px;
+
+    &_title{
+        position: absolute;
+        top: -10px;
+        left: 8px;
+        padding: 0 10px;
+        line-height: 1;
+        font-size: 18px;
+        background: $white;
+        color: $buttonColor;
+        font-weight: 600;
+    }
+    &_content {
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+        font-size: 18px;
+        margin: 10px
     }
 }
 aside.slide{ // aleart message
@@ -78,7 +118,7 @@ h1.slide {
 }
 h2.slide {
     font-size: 1.4rem;
-        margin: 30px 20px 18px;
+    margin: 30px 20px 18px;
 }
 
 p.slide{

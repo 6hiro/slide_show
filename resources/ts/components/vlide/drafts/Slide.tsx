@@ -48,9 +48,26 @@ const Slide = ( props:SlideProps ) => {
         //             {t.content}
         //         </h3>
         //     )
+        }else if(t.type==='hr'){
+            return (
+                <div className='slide_separator' role="separator">
+                    <span className='slide_separator_dot' ></span>
+                    <span className='slide_separator_dot' ></span>
+                    <span className='slide_separator_dot' ></span>
+                </div>
+            )
+        }else if(t.type==='point'){
+            return (
+                <div className='slide point'>
+                    <div className='point_title'>ポイント</div>
+                    <div className='point_content'>
+                        <DecoratedText content={t.content} />
+                    </div>
+                </div>
+            )
         }else if(t.type==='message'){
             return (
-                <aside className='slide message'>
+                <aside className='slide message' role="note">
                     <BiMessageSquareError className='message_icon' />
                     <div className='message_content'>
                         {/* <p>{t.content}</p> */}
@@ -60,7 +77,7 @@ const Slide = ( props:SlideProps ) => {
             )
         }else if(t.type==='alert'){
             return (
-                <aside className='slide alert'>
+                <aside className='slide alert' role="alert">
                     <BiMessageSquareError className='message_icon' />
                     <div className='message_content'>
                         {/* <p>{t.content}</p> */}

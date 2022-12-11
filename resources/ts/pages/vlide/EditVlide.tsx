@@ -301,7 +301,7 @@ const EditVlide = () => {
                                 id={String(convertToSeconds(t.time)) + "s"}
                                 style={{ 
                                     // scrollMarginTop: "150px",
-                                    scrollMarginTop: durationTime ? "140px" : "65px",
+                                    scrollMarginTop: durationTime ? "155px" : "65px",
                                     // scrollSnapAlign:"start",
                                     opacity: ( Math.floor(currentTime) >= convertToSeconds(t.time) || !isRunning ) 
                                         ? "1" 

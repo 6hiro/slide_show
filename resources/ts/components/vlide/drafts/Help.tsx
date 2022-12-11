@@ -60,6 +60,14 @@ const Help = () => {
                                 <strong>toc</strong>: 目次スライド
                             </p>
 
+                            <p style={{paddingLeft: "40px", margin:"8px 0"}}>
+                                <strong>hr</strong>: セパレートスライド
+                            </p>
+
+                            <p style={{paddingLeft: "40px", margin:"8px 0"}}>
+                                <strong>point</strong>: ポイントスライド
+                            </p>
+
                             {/* message */}
                             <p style={{paddingLeft: "40px", margin:"8px 0"}}>
                                 <strong>message</strong>: 注意文スライド
