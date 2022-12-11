@@ -319,8 +319,8 @@ const Detail = () => {
                         { ( clips && clipNextPageLink ) && 
                             <GetMoreButton nextPageLink={clipNextPageLink} gerMoreFunc={getMoreClip} />
                         }
-                        
-                        {clips && <div style={{margin: "15px auto" , width: "300px"}} ><AdmaxSwitch id={admaxId2} /></div>}
+
+                        <div style={{margin: "15px auto" , width: "300px"}} ><AdmaxSwitch id={admaxId2} /></div>
 
                         
                     </div>
