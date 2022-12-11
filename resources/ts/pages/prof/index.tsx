@@ -301,7 +301,7 @@ const Profile = () => {
                 </div>
 
                 <div style={{margin: "15px auto", width: "300px"}}>
-                        <AdmaxSwitch id={admaxId} />
+                    <AdmaxSwitch id={admaxId} />
                 </div>
 
             </div>

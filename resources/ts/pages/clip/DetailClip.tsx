@@ -84,9 +84,6 @@ const DetailClip = () => {
                     unShareClip={unShareClip}
                     deleteClip={deleteClip}
                 />
-
-                <div style={{margin: "15px auto", width: "300px"}} ><AdmaxSwitch id={admaxId} /></div>
-
                 
                 <div style={{ }} className="reply_form">
                     <AddClipForm
@@ -102,6 +99,9 @@ const DetailClip = () => {
                         autoFocus={false}
                     />
                 </div>
+
+                <div style={{margin: "15px auto", width: "300px"}} ><AdmaxSwitch id={admaxId} /></div>
+
             </div>
 
             <div>

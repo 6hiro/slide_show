@@ -148,8 +148,12 @@ const Tag = () => {
                     }
 
                     <div style={{margin: "15px auto", maxWidth: "700px"}} >
-                        <AdmaxSwitch id={admaxId} />
-                        <AdmaxSwitch id={admaxId2} />
+                        <div style={{margin: "0 10px", maxWidth: "300px"}} >
+                            <AdmaxSwitch id={admaxId} />
+                        </div>
+                        <div style={{margin: "0 10px", maxWidth: "300px"}} >
+                            <AdmaxSwitch id={admaxId2} />
+                        </div>
                     </div>
                     
                 </section>

@@ -86,7 +86,6 @@ const Clips = () => {
                                                 unShareClip={unShareClip} 
                                                 deleteClip={deleteClip}
                                             /> 
-                                            {/* {(i%6 === 0) && <div style={{margin: "15px auto", width: "300px"}} ><AdmaxSwitch id={admaxId} /></div>} */}
                                         </li>
                                     )
                                 : <div className="clip_no_contents">
