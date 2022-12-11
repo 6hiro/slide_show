@@ -40,7 +40,7 @@ import Slide from '../../components/vlide/drafts/Slide';
 import TimeController from '../../components/vlide/drafts/TimeController';
 import AddClipForm from '../../components/clip/AddClipForm';
 import LoadingScreen from '../../components/layout/LoadingScreen';
-import { admaxId, siteTitle, siteURL } from '../../constants/site';
+import { admaxId, admaxId2, siteTitle, siteURL } from '../../constants/site';
 import GetMoreButton from '../../components/layout/GetMoreButton';
 import Clip from '../../components/clip/Clip';
 import { convertToSeconds, parser } from '../../utils/TimeController';
@@ -276,8 +276,9 @@ const Detail = () => {
 
 
                     </ul>
-                    <AdmaxSwitch id={admaxId} />
-                    <AdmaxSwitch id={admaxId} />
+
+                    <div style={{margin: "15px auto", width: "300px"}} ><AdmaxSwitch id={admaxId} /></div>
+
                 </section>
 
 
@@ -319,7 +320,7 @@ const Detail = () => {
                             <GetMoreButton nextPageLink={clipNextPageLink} gerMoreFunc={getMoreClip} />
                         }
 
-                        <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>
+                        <div style={{margin: "15px auto" , width: "300px"}} ><AdmaxSwitch id={admaxId2} /></div>
                     </div>
 
                 </section>

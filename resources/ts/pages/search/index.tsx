@@ -6,7 +6,7 @@ import GetMoreButton from '../../components/layout/GetMoreButton';
 import SearchForm from '../../components/layout/SearchForm';
 import UserList from '../../components/prof/UserList';
 import VlideCard from '../../components/vlide/drafts/VlideCard';
-import { admaxId, siteTitle } from '../../constants/site';
+import { admaxId, admaxId2, siteTitle } from '../../constants/site';
 import { useSearch } from '../../hooks/useSearch';
 
 const Search = () => {
@@ -106,7 +106,6 @@ const Search = () => {
                     { ( vlides && vlideNextPageLink ) && 
                         <GetMoreButton nextPageLink={vlideNextPageLink} gerMoreFunc={getMoreVlide} />
                     }
-                    {/* {vlides && <div style={{margin: "15px auto", width: "300px"}} ><AdmaxSwitch id={admaxId} /></div>} */}
 
                     {/* CLIPS */}
                     {clips?.length
@@ -123,7 +122,6 @@ const Search = () => {
                                             deleteClip={deleteClip}
                                         /> 
 
-                                        {/* {(i%6 === 0) && <div style={{margin: "15px auto", width: "300px"}} ><AdmaxSwitch id={admaxId} /></div>} */}
                                     </li>
                                 )}
                         </div>
@@ -156,10 +154,11 @@ const Search = () => {
                         <GetMoreButton nextPageLink={userNextPageLink} gerMoreFunc={getMoreUser} />
                     }
 
-                    <div style={{margin: "15px auto", width: "300px"}}>
+      
+                    <div style={{margin: "15px auto", width: "700px"}} >
                         <AdmaxSwitch id={admaxId} />
+                        <AdmaxSwitch id={admaxId2} />
                     </div>
-                    
                 </section>
             </div>
 

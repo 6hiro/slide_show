@@ -5,7 +5,7 @@ import { AdmaxSwitch } from '../../components/Ad/AdMax';
 
 import AddClipForm from '../../components/clip/AddClipForm';
 import Clip from '../../components/clip/Clip';
-import { admaxId, siteTitle } from '../../constants/site';
+import { admaxId, admaxId2, siteTitle } from '../../constants/site';
 import { useAuth } from '../../hooks/useAuth';
 import { useClip } from '../../hooks/useClip';
 
@@ -116,9 +116,11 @@ const DetailClip = () => {
                                 unShareClip={unShareClip}
                                 deleteClip={deleteClip}
                             />
-                            {/* {(i%6 === 0) && <div style={{margin: "15px auto"}} ><AdmaxSwitch id={admaxId} /></div>} */}
                         </li>
                     ))}
+                    
+                    <div style={{margin: "15px auto"}} ><AdmaxSwitch id={admaxId2} /></div>
+
                 </ul>
             </div>
 

@@ -6,7 +6,7 @@ import { AdmaxSwitch } from '../../components/Ad/AdMax';
 import GetMoreButton from '../../components/layout/GetMoreButton';
 import Loader from '../../components/layout/Loader';
 import VlideCard from '../../components/vlide/drafts/VlideCard';
-import { admaxId, siteTitle } from '../../constants/site';
+import { admaxId, admaxId2, siteTitle } from '../../constants/site';
 import { useGetVlide } from '../../hooks/useGetVlide';
 
 const Home = () => {
@@ -89,8 +89,9 @@ const Home = () => {
                             </div>
                         </section>
                     }
-                    <div style={{margin: "15px auto", width: "300px"}}>
+                    <div style={{margin: "15px auto", maxWidth: "700px"}} >
                         <AdmaxSwitch id={admaxId} />
+                        <AdmaxSwitch id={admaxId2} />
                     </div>
                 </div>
             </div>
@@ -151,7 +152,11 @@ const Home = () => {
                                 <GetMoreButton nextPageLink={vlideNextPageLink} gerMoreFunc={getMoreVlide} />
                             }
 
-                            <div style={{margin: "15px auto", width: "300px"}} ><AdmaxSwitch id={admaxId} /></div>
+                            <div style={{margin: "15px auto", width: "300px"}} >
+                                <AdmaxSwitch id={admaxId} />
+                                {/* <AdmaxSwitch id={admaxId2} /> */}
+                            </div>
+
                         </ul>
                     </div>
                 </section>
