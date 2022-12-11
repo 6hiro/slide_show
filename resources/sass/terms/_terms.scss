@@ -1,0 +1,24 @@
+.terms_container {
+    max-width: 800px;
+     padding: 10px;
+     margin: 20px auto;
+    //  @include flex(center, center);
+    h1 {
+        margin-bottom: 15px;
+    }
+    h2 {
+        margin: 15px 0;
+        border-bottom: 1px solid #ddd;
+    }
+    ol, ul {
+        li {
+            margin: 10px 0 10px 16px;
+            list-style-type: decimal;
+        }
+    }
+    .date{
+        margin-top: 30px;
+        padding: 10px 0;
+        border-top: 1px solid #ddd;
+    }
+}

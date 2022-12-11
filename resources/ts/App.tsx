@@ -30,6 +30,7 @@ import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/layout/ScrollToTop";
 import ResetPassword from "./pages/auth/ResetPassword";
 import Subscription from "./pages/subscription";
+import Terms from "./pages/terms";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -69,6 +70,9 @@ const App: React.FC = () => {
                             <Route path="/verification-link-sent" element={<VerificationLinkSent />} />
                             <Route path="/auth/forgot-password" element={<ForgotPassword />} />
                             <Route path="/auth/reset-password/:token" element={<ResetPassword />} />
+
+
+                            <Route path="/terms" element={<Terms />} />
 
                             {/* Subscription */}
                             {/* <Route path="/subscription" element={<Subscription />} /> */}

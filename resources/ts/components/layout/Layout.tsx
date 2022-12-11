@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { siteTitle } from '../../constants/site';
 import Header from './Header';
+import { Link } from 'react-router-dom';
 
 const Footer = memo(() => {
     const year = new Date().getFullYear();
@@ -14,14 +15,14 @@ const Footer = memo(() => {
                 &copy; {year} {siteTitle}. 
                 {/* All rights reserved. */}
             </div>
-            <div className="privacy">
+            {/* <div className="privacy">
                 プライバシー
-            </div>
+            </div> */}
             <div className="tos">
                  {/* Terms of service */}
-                {/* <Link to=""> */}
+                <Link to="/terms">
                     利用規約
-                {/* </Link> */}
+                </Link>
             </div>
         </footer>
     )

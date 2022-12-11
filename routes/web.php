@@ -37,6 +37,11 @@ Route::get('/verification-link-sent', function () {
     return view('index');
 })->name('verification-link-sent');
 
+Route::get('/terms', function () {
+    return view('index');
+});
+
+
 Route::get('/', function () {
     return view('index');
 })->name('home');
