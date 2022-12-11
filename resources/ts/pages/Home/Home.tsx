@@ -89,7 +89,9 @@ const Home = () => {
                             </div>
                         </section>
                     }
-
+                    <div style={{margin: "15px auto"}}>
+                        <AdmaxSwitch id={admaxId} />
+                    </div>
                 </div>
             </div>
         )
@@ -149,7 +151,7 @@ const Home = () => {
                                 <GetMoreButton nextPageLink={vlideNextPageLink} gerMoreFunc={getMoreVlide} />
                             }
 
-                            <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>
+                            <div style={{margin: "15px auto"}} ><AdmaxSwitch id={admaxId} /></div>
                         </ul>
                     </div>
                 </section>

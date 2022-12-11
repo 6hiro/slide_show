@@ -85,7 +85,7 @@ const DetailClip = () => {
                     deleteClip={deleteClip}
                 />
 
-                <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>
+                <div style={{margin: "15px auto"}} ><AdmaxSwitch id={admaxId} /></div>
 
                 
                 <div style={{ }} className="reply_form">
@@ -116,7 +116,7 @@ const DetailClip = () => {
                                 unShareClip={unShareClip}
                                 deleteClip={deleteClip}
                             />
-                            {(i%6 === 0) && <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>}
+                            {/* {(i%6 === 0) && <div style={{margin: "15px auto"}} ><AdmaxSwitch id={admaxId} /></div>} */}
                         </li>
                     ))}
                 </ul>

@@ -272,7 +272,7 @@ const Profile = () => {
                                             unShareClip={unShareClip}
                                             deleteClip={deleteClip}
                                         /> 
-                                        {(i%6 === 0) && <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>}
+                                        {/* {(i%6 === 0) && <div style={{margin: "15px auto"}} ><AdmaxSwitch id={admaxId} /></div>} */}
                                     </li>
                                 )}
                         </div>
@@ -299,10 +299,12 @@ const Profile = () => {
                     { ( vlides && vlideNextPageLink ) && 
                         <GetMoreButton nextPageLink={vlideNextPageLink} gerMoreFunc={getMoreVlides} />
                     }
-                    { vlides && <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div> }
+                    {/* { vlides && <div style={{margin: "15px auto"}} ><AdmaxSwitch id={admaxId} /></div> } */}
                 </div>
-
-
+                
+                <div style={{margin: "15px auto"}}>
+                        <AdmaxSwitch id={admaxId} />
+                </div>
 
             </div>
             

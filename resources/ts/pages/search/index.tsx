@@ -106,7 +106,7 @@ const Search = () => {
                     { ( vlides && vlideNextPageLink ) && 
                         <GetMoreButton nextPageLink={vlideNextPageLink} gerMoreFunc={getMoreVlide} />
                     }
-                    {vlides && <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>}
+                    {/* {vlides && <div style={{margin: "15px auto"}} ><AdmaxSwitch id={admaxId} /></div>} */}
 
                     {/* CLIPS */}
                     {clips?.length
@@ -123,7 +123,7 @@ const Search = () => {
                                             deleteClip={deleteClip}
                                         /> 
 
-                                        {(i%6 === 0) && <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>}
+                                        {/* {(i%6 === 0) && <div style={{margin: "15px auto"}} ><AdmaxSwitch id={admaxId} /></div>} */}
                                     </li>
                                 )}
                         </div>
@@ -156,8 +156,10 @@ const Search = () => {
                         <GetMoreButton nextPageLink={userNextPageLink} gerMoreFunc={getMoreUser} />
                     }
 
-                    <AdmaxSwitch id={admaxId} />
-
+                    <div style={{margin: "15px auto"}}>
+                        <AdmaxSwitch id={admaxId} />
+                    </div>
+                    
                 </section>
             </div>
 

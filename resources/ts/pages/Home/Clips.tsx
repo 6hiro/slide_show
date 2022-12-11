@@ -86,7 +86,7 @@ const Clips = () => {
                                                 unShareClip={unShareClip} 
                                                 deleteClip={deleteClip}
                                             /> 
-                                            {(i%6 === 0) && <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>}
+                                            {/* {(i%6 === 0) && <div style={{margin: "15px auto"}} ><AdmaxSwitch id={admaxId} /></div>} */}
                                         </li>
                                     )
                                 : <div className="clip_no_contents">
@@ -97,6 +97,10 @@ const Clips = () => {
                             { ( clips && clipNextPageLink ) && 
                                 <GetMoreButton nextPageLink={clipNextPageLink} gerMoreFunc={getMoreClip} />
                             }
+                            <div style={{margin: "15px auto"}}>
+                                <AdmaxSwitch id={admaxId} />
+                            </div>
+                    
                         </ul>
                     </div>
                 </section>
