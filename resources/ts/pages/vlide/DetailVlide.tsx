@@ -277,7 +277,14 @@ const Detail = () => {
 
                     </ul>
 
-                    <div style={{margin: "15px auto", width: "300px"}} ><AdmaxSwitch id={admaxId} /></div>
+                    <div style={{margin: "15px auto", maxWidth: "650px", display: "flex",  flexWrap: "wrap"}} >
+                        <div style={{margin: "10px auto", width: "300px"}} >
+                            <AdmaxSwitch id={admaxId} />
+                        </div>
+                        <div style={{margin: "10px auto", width: "300px"}} >
+                            <AdmaxSwitch id={admaxId2} />
+                        </div>
+                    </div>
 
                 </section>
 
@@ -320,7 +327,7 @@ const Detail = () => {
                             <GetMoreButton nextPageLink={clipNextPageLink} gerMoreFunc={getMoreClip} />
                         }
 
-                        <div style={{margin: "15px auto" , width: "300px"}} ><AdmaxSwitch id={admaxId2} /></div>
+                        {/* <div style={{margin: "15px auto" , width: "300px"}} ><AdmaxSwitch id={admaxId2} /></div> */}
 
                         
                     </div>
