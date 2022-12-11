@@ -85,7 +85,7 @@ const DetailClip = () => {
                     deleteClip={deleteClip}
                 />
 
-                <div style={{margin: "15px auto"}} ><AdmaxSwitch id={admaxId} /></div>
+                <div style={{margin: "15px auto", width: "300px"}} ><AdmaxSwitch id={admaxId} /></div>
 
                 
                 <div style={{ }} className="reply_form">
