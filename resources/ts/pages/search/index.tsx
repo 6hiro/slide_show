@@ -1,11 +1,12 @@
 import { Helmet } from 'react-helmet';
+import { AdmaxSwitch } from '../../components/Ad/AdMax';
 
 import Clip from '../../components/clip/Clip';
 import GetMoreButton from '../../components/layout/GetMoreButton';
 import SearchForm from '../../components/layout/SearchForm';
 import UserList from '../../components/prof/UserList';
 import VlideCard from '../../components/vlide/drafts/VlideCard';
-import { siteTitle } from '../../constants/site';
+import { admaxId, siteTitle } from '../../constants/site';
 import { useSearch } from '../../hooks/useSearch';
 
 const Search = () => {
@@ -105,6 +106,8 @@ const Search = () => {
                     { ( vlides && vlideNextPageLink ) && 
                         <GetMoreButton nextPageLink={vlideNextPageLink} gerMoreFunc={getMoreVlide} />
                     }
+                    {vlides && <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>}
+
                     {/* CLIPS */}
                     {clips?.length
                         ? <div style={{width: "100%"}}>
@@ -119,6 +122,8 @@ const Search = () => {
                                             unShareClip={unShareClip}
                                             deleteClip={deleteClip}
                                         /> 
+
+                                        {(i%6 === 0) && <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>}
                                     </li>
                                 )}
                         </div>
@@ -151,6 +156,7 @@ const Search = () => {
                         <GetMoreButton nextPageLink={userNextPageLink} gerMoreFunc={getMoreUser} />
                     }
 
+                    <AdmaxSwitch id={admaxId} />
 
                 </section>
             </div>

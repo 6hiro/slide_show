@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
+import { AdmaxSwitch } from '../../components/Ad/AdMax';
 
 import AddClipForm from '../../components/clip/AddClipForm';
 import Clip from '../../components/clip/Clip';
-import { siteTitle } from '../../constants/site';
+import { admaxId, siteTitle } from '../../constants/site';
 import { useAuth } from '../../hooks/useAuth';
 import { useClip } from '../../hooks/useClip';
 
@@ -83,6 +84,9 @@ const DetailClip = () => {
                     unShareClip={unShareClip}
                     deleteClip={deleteClip}
                 />
+
+                <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>
+
                 
                 <div style={{ }} className="reply_form">
                     <AddClipForm
@@ -112,6 +116,7 @@ const DetailClip = () => {
                                 unShareClip={unShareClip}
                                 deleteClip={deleteClip}
                             />
+                            {(i%6 === 0) && <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>}
                         </li>
                     ))}
                 </ul>

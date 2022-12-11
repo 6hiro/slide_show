@@ -1,11 +1,12 @@
 import React, { useLayoutEffect } from 'react';
 import { Helmet } from "react-helmet";
 import { Link } from 'react-router-dom';
+import { AdmaxSwitch } from '../../components/Ad/AdMax';
 
 import GetMoreButton from '../../components/layout/GetMoreButton';
 import Loader from '../../components/layout/Loader';
 import VlideCard from '../../components/vlide/drafts/VlideCard';
-import { siteTitle } from '../../constants/site';
+import { admaxId, siteTitle } from '../../constants/site';
 import { useGetVlide } from '../../hooks/useGetVlide';
 
 const Home = () => {
@@ -147,6 +148,8 @@ const Home = () => {
                             { ( vlides && vlideNextPageLink ) && 
                                 <GetMoreButton nextPageLink={vlideNextPageLink} gerMoreFunc={getMoreVlide} />
                             }
+
+                            <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>
                         </ul>
                     </div>
                 </section>

@@ -5,7 +5,7 @@ import { BiX } from 'react-icons/bi';
 
 import useToggle from '../../hooks/useToggle';
 import { useProf } from '../../hooks/useProf';
-import { siteTitle } from '../../constants/site';
+import { admaxId, siteTitle } from '../../constants/site';
 import EditProfileForm from '../../components/user/EditProfileForm';
 import GetMoreButton from '../../components/layout/GetMoreButton';
 import VlideCard from '../../components/vlide/drafts/VlideCard';
@@ -14,6 +14,7 @@ import Clip from '../../components/clip/Clip';
 import UserList from '../../components/prof/UserList';
 import DecoratedDescription from '../../components/prof/DecoratedDescription';
 import Loader from '../../components/layout/Loader';
+import { AdmaxSwitch } from '../../components/Ad/AdMax';
 
 const Profile = () => {
     const [openEditForm, toggleEditForm] = useToggle(false);
@@ -271,6 +272,7 @@ const Profile = () => {
                                             unShareClip={unShareClip}
                                             deleteClip={deleteClip}
                                         /> 
+                                        {(i%6 === 0) && <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>}
                                     </li>
                                 )}
                         </div>
@@ -297,6 +299,7 @@ const Profile = () => {
                     { ( vlides && vlideNextPageLink ) && 
                         <GetMoreButton nextPageLink={vlideNextPageLink} gerMoreFunc={getMoreVlides} />
                     }
+                    { vlides && <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div> }
                 </div>
 
 

@@ -1,10 +1,11 @@
 import { useLayoutEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import { AdmaxSwitch } from "../../components/Ad/AdMax";
 import Clip from "../../components/clip/Clip";
 
 import GetMoreButton from "../../components/layout/GetMoreButton";
-import { siteTitle } from "../../constants/site";
+import { admaxId, siteTitle } from "../../constants/site";
 import { useAuth } from "../../hooks/useAuth";
 import { useClip } from "../../hooks/useClip";
 
@@ -85,6 +86,7 @@ const Clips = () => {
                                                 unShareClip={unShareClip} 
                                                 deleteClip={deleteClip}
                                             /> 
+                                            {(i%6 === 0) && <div style={{margin: "15px 0"}} ><AdmaxSwitch id={admaxId} /></div>}
                                         </li>
                                     )
                                 : <div className="clip_no_contents">
