@@ -24,7 +24,8 @@ class UploadAudioRequest extends FormRequest
     public function rules()
     {
         return [
-            'audio' => 'required|mimes:audio/acc,mp3|max:15360', // 15MB
+            // https://stackoverflow.com/questions/36032068/laravel-keep-rejecting-m4a-audio-format-how-to-fix-it
+            'audio' => 'required|mimes:m4a,audio/acc,mp3|max:25600', // 25MB
 
             // 'audio' => 'required|mimes:application/octet-stream,audio/mpeg,mpga,mp3,wav|max:15360', // 15MB
             // 'audio' => 'required|mimes:application/octet-stream,audio/mpeg,mpga,mp3,wav|max:10240', // 1024KB 1MB  １KB=1024バイト

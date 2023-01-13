@@ -1,18 +1,20 @@
 import { Helmet } from 'react-helmet';
-import { AdmaxSwitch } from '../../components/Ad/AdMax';
 
 import Clip from '../../components/clip/Clip';
 import GetMoreButton from '../../components/layout/GetMoreButton';
 import SearchForm from '../../components/layout/SearchForm';
 import UserList from '../../components/prof/UserList';
-import VlideCard from '../../components/vlide/drafts/VlideCard';
-import { admaxId, admaxId2, siteTitle } from '../../constants/site';
+import Vlide from '../../components/vlide/vlideCard/Vlide';
+import { siteTitle } from '../../constants/site';
 import { useSearch } from '../../hooks/useSearch';
 
-const Search = () => {
+type Props = {
+    user: any;
+}
+const Search = (props: Props) => {
+    const { user } = props;
 
     const {
-        user,
         message,
         vlides,
         vlideNextPageLink,
@@ -20,6 +22,8 @@ const Search = () => {
         clipNextPageLink,
         users,
         userNextPageLink,
+        clipUsers, 
+        clipUserNextPageLink,
         keyword, 
         setKeyword,
         order,
@@ -27,18 +31,23 @@ const Search = () => {
         section,
         setSection,
         search,
+        getlikeUsers,
+        getShareUsers,
         getMoreVlide,
         getMoreClip,
         getMoreUser,
+        getMoreClipUsers,
         savedUnsaved,
         likeUnlike,
         shareClip,
         unShareClip,
         followUnfollow,
-        destroy,
+        clipfollowUnfollow,
+        deleteVlide,
         deleteClip
     } = useSearch(
         { 
+            user,
             keyword: "", 
             order: "top", 
             section: "vlide", 
@@ -91,11 +100,11 @@ const Search = () => {
                                 <ul className="vlide_list">
                                     {vlides.map(( vlide, i ) => 
                                         <li key={i} className="vlide_card">
-                                            <VlideCard 
+                                            <Vlide 
                                                 vlide={vlide} 
                                                 loginId={user ? user.id : ""} 
                                                 savedUnsaved={savedUnsaved} 
-                                                destroy={destroy}
+                                                destroy={deleteVlide}
                                             /> 
                                         </li>
                                     )}
@@ -114,14 +123,19 @@ const Search = () => {
                                     <li key={i} className="clip_card">
                                         <Clip
                                             clip={clip} 
-                                            // user={user} 
                                             loginId={user ? user.id : ""}
                                             likeUnlike={likeUnlike} 
                                             shareClip={shareClip}
                                             unShareClip={unShareClip}
                                             deleteClip={deleteClip}
+                                            getShareUsers={getShareUsers}
+                                            getlikeUsers={getlikeUsers}
+                                            users={clipUsers}
+                                            userNextPageLink={clipUserNextPageLink}
+                                            getMoreUser={getMoreClipUsers}
+                                            followUnfollow={clipfollowUnfollow}
                                         /> 
-
+                                            
                                     </li>
                                 )}
                         </div>
@@ -140,12 +154,14 @@ const Search = () => {
                         ?   <div 
                                 style={{maxWidth: "800px", margin: "0 auto"}}
                             >
-                                <UserList 
-                                    accountId={user?.id} 
-                                    users={users} 
-                                    followUnfollow={followUnfollow} 
-                                    toggleUserList={()=>{}}
-                                />
+                                <div style={{ margin: "0 10px"}}>
+                                    <UserList 
+                                        loginId={user?.id} 
+                                        users={users} 
+                                        followUnfollow={followUnfollow} 
+                                        toggleUserList={()=>{}}
+                                    />
+                                </div>
                             </div>
                         : null
                     }
@@ -154,14 +170,14 @@ const Search = () => {
                         <GetMoreButton nextPageLink={userNextPageLink} gerMoreFunc={getMoreUser} />
                     }
 
-                    <div style={{margin: "15px auto", maxWidth: "650px", display: "flex",  flexWrap: "wrap"}} >
+                    {/* <div style={{margin: "15px auto", maxWidth: "650px", display: "flex",  flexWrap: "wrap"}} >
                         <div style={{margin: "10px auto", width: "300px"}} >
                             <AdmaxSwitch id={admaxId} />
                         </div>
                         <div style={{margin: "10px auto", width: "300px"}} >
                             <AdmaxSwitch id={admaxId2} />
                         </div>
-                    </div>
+                    </div> */}
                 </section>
             </div>
 

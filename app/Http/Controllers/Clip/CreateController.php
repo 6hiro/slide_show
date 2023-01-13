@@ -20,13 +20,20 @@ class CreateController extends Controller
     {
         // $vlide_id = $request->route('vlideId');
         $is_public = true;
+        $content = $request->content();
+        $quote = $request->quote();
 
+        if(!$content && !$quote) 
+        {
+            return response()->json([
+                'status'=>'need content or quote',
+            ], 403);
+        }
 
         $clip_count = $clipService->getUserClipCount(
             $request->user()->id
         );
-        if($clip_count >= 30)
-        {
+        if($clip_count >= 30) {
             return response()->json([
                     'count' => $clip_count,
                     'status'=>'over',
@@ -37,8 +44,8 @@ class CreateController extends Controller
             $request->user()->id,
             $request->route('vlideId'),
             $is_public,
-            $request->content(),
-            $request->quote(),
+            $content,
+            $quote,
         );
 
         return response()->json([

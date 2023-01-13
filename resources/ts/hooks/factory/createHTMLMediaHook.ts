@@ -15,16 +15,17 @@ export interface HTMLMediaState {
     time: number;
     volume: number;
     playing: boolean;
+    playbackRate: number;
 }
 
-export interface HTMLMediaControls {
-    play: () => Promise<void> | void;
-    pause: () => void;
-    mute: () => void;
-    unmute: () => void;
-    volume: (volume: number) => void;
-    seek: (time: number) => void;
-}
+// export interface HTMLMediaControls {
+//     play: () => Promise<void> | void;
+//     pause: () => void;
+//     mute: () => void;
+//     unmute: () => void;
+//     volume: (volume: number) => void;
+//     seek: (time: number) => void;
+// }
 
 type MediaPropsWithRef<T> = HTMLMediaProps & { ref?: React.MutableRefObject<T | null> };
 
@@ -50,6 +51,7 @@ export default function createHTMLMediaHook<T extends HTMLAudioElement | HTMLVid
         muted: false,
         volume: 1,
         playing: false,
+        playbackRate: 1, // 追加
     });
     const ref = useRef<T | null>(null);
 
@@ -102,6 +104,13 @@ export default function createHTMLMediaHook<T extends HTMLAudioElement | HTMLVid
       }
       setState({ buffered: parseTimeRanges(el.buffered) });
     };
+    const onRateChange = () => { // 追加
+      const el = ref.current;
+      if (!el) {
+        return;
+      }
+    };
+
 
     if (element) {
       element = React.cloneElement(element, {
@@ -116,6 +125,7 @@ export default function createHTMLMediaHook<T extends HTMLAudioElement | HTMLVid
         onDurationChange: wrapEvent(props.onDurationChange, onDurationChange),
         onTimeUpdate: wrapEvent(props.onTimeUpdate, onTimeUpdate),
         onProgress: wrapEvent(props.onProgress, onProgress),
+        onRateChange: wrapEvent(props.onRateChange, onRateChange), // 追加
       });
     } else {
       element = React.createElement(tag, {
@@ -130,6 +140,7 @@ export default function createHTMLMediaHook<T extends HTMLAudioElement | HTMLVid
         onDurationChange: wrapEvent(props.onDurationChange, onDurationChange),
         onTimeUpdate: wrapEvent(props.onTimeUpdate, onTimeUpdate),
         onProgress: wrapEvent(props.onProgress, onProgress),
+        onRateChange: wrapEvent(props.onRateChange, onRateChange), // 追加
       } as any); // TODO: fix this typing.
     }
 
@@ -201,6 +212,15 @@ export default function createHTMLMediaHook<T extends HTMLAudioElement | HTMLVid
         }
         el.muted = false;
       },
+      // playbackRate 再生速度の変更
+      playbackRate: (playbackRate: number) => {
+        const el = ref.current;
+        if (!el) {
+          return;
+        }
+        el.playbackRate = playbackRate;
+        setState({ ...state, playbackRate: playbackRate });
+      },
     };
 
     useEffect(() => {
@@ -229,7 +249,7 @@ export default function createHTMLMediaHook<T extends HTMLAudioElement | HTMLVid
         volume: el.volume,
         muted: el.muted,
         paused: el.paused,
-        // duration: el.duration // 追加
+        // duration: el.duration // コメントアウト
       });
 
       // Start media, if autoPlay requested.

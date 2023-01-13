@@ -1,6 +1,9 @@
 import { Dispatch, SetStateAction, useState } from 'react';
+
 import { USER } from '../../types/user';
 import UsernameInput from './UsernameInput';
+
+
 
 type Props = {
     user: USER;
@@ -25,7 +28,7 @@ const EditUserForm = (props: Props) => {
                 type='submit'
                 disabled={ username.length === 0 }
             >
-                ユーザーネームを変更
+                アカウント名を変更
             </button>
 
         </form>

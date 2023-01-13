@@ -1,17 +1,19 @@
 import { Helmet } from 'react-helmet';
-import { AdmaxSwitch } from '../../components/Ad/AdMax';
 
 import Clip from '../../components/clip/Clip';
 import GetMoreButton from '../../components/layout/GetMoreButton';
 import SearchForm from '../../components/layout/SearchForm';
 import UserList from '../../components/prof/UserList';
-import VlideCard from '../../components/vlide/drafts/VlideCard';
-import { admaxId, admaxId2, siteTitle } from '../../constants/site';
+import Vlide from '../../components/vlide/vlideCard/Vlide';
+import { siteTitle } from '../../constants/site';
 import { useTag } from '../../hooks/useTag';
 
-const Tag = () => {
+type Props = {
+    user: any
+};
+const Tag = (props: Props) => {
+    const { user } = props;
     const {
-        user,
         message,
         vlides,
         vlideNextPageLink,
@@ -19,6 +21,8 @@ const Tag = () => {
         clipNextPageLink,
         users,
         userNextPageLink,
+        clipUsers, 
+        clipUserNextPageLink,
         keyword, 
         setKeyword,
         order,
@@ -26,19 +30,24 @@ const Tag = () => {
         section,
         setSection,
         search,
+        getlikeUsers,
+        getShareUsers,
         getMoreVlide,
         getMoreClip,
         getMoreUser,
+        getMoreClipUsers,
         savedUnsaved,
         likeUnlike,
         shareClip,
         unShareClip,
         followUnfollow,
-        destroy,
+        clipfollowUnfollow,
+        deleteVlide,
         deleteClip
         
     } = useTag(
         { 
+            user,
             keyword: "", 
             order: "top", 
             section: "vlide", 
@@ -90,11 +99,11 @@ const Tag = () => {
                                 <ul className="vlide_list">
                                     {vlides.map(( vlide, i ) => 
                                         <li key={i} className="vlide_card">
-                                            <VlideCard 
+                                            <Vlide 
                                                 vlide={vlide} 
                                                 loginId={user ? user.id : ""} 
                                                 savedUnsaved={savedUnsaved} 
-                                                destroy={destroy}
+                                                destroy={deleteVlide}
                                             /> 
                                         </li>
                                     )}
@@ -120,6 +129,12 @@ const Tag = () => {
                                             shareClip={shareClip}
                                             unShareClip={unShareClip}
                                             deleteClip={deleteClip}
+                                            getlikeUsers={getlikeUsers}
+                                            getShareUsers={getShareUsers}
+                                            users={clipUsers}
+                                            userNextPageLink={clipUserNextPageLink}
+                                            getMoreUser={getMoreClipUsers}
+                                            followUnfollow={clipfollowUnfollow}
                                         /> 
                                     </li>
                                 )}
@@ -135,7 +150,7 @@ const Tag = () => {
                     {users?.length 
                         ?   <div>
                                 <UserList 
-                                    accountId={user?.id} 
+                                    loginId={user?.id} 
                                     users={users} 
                                     followUnfollow={followUnfollow} 
                                     toggleUserList={()=>{}}
@@ -147,14 +162,14 @@ const Tag = () => {
                         <GetMoreButton nextPageLink={userNextPageLink} gerMoreFunc={getMoreUser} />
                     }
 
-                    <div style={{margin: "15px auto", maxWidth: "650px", display: "flex",  flexWrap: "wrap"}} >
+                    {/* <div style={{margin: "15px auto", maxWidth: "650px", display: "flex",  flexWrap: "wrap"}} >
                         <div style={{margin: "10px auto", width: "300px"}} >
                             <AdmaxSwitch id={admaxId} />
                         </div>
                         <div style={{margin: "10px auto", width: "300px"}} >
                             <AdmaxSwitch id={admaxId2} />
                         </div>
-                    </div>
+                    </div> */}
                     
                 </section>
             </div>

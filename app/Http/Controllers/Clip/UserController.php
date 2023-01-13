@@ -20,7 +20,7 @@ class UserController extends Controller
      */
     public function __invoke(Request $request, ClipService $clipService)  // Single Action Controller
     {
-        $per_page = 5;
+        $per_page = 12;
         $since = $request->since;
         $user_id = $request->route('userId');
         // $user_id = $request->user()->id;
@@ -28,7 +28,7 @@ class UserController extends Controller
         $clips = $clipService->getUserClips($user_id, $per_page, $since);
 
         return [
-            'a' => $clips,
+            // 'a' => $clips,
 
             'next_page_link'=>$clips->count()>$per_page 
                 ? $request->url()."?since=".$clips[count($clips)-2]["created_at"]->format('Y-m-d H:i:s.v') 

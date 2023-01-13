@@ -1,63 +1,69 @@
 import React, { useState } from 'react';
 import { BiEnvelope, BiLock, BiLockOpen, BiUser } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
+
 import { siteTitle } from '../../constants/site';
 import useToggle from '../../hooks/useToggle';
 import { PASSWORD_PATTERN, USERNAME_PATTERN } from '../../utils/regexps';
-import AuthValidationErrors from './AuthValidationErrors';
+import { generateUid } from '../../utils/uid';
+import { ToastNotification } from '../toastNotification/ToastNotifications';
+
 
 
 type RegisterCardProps = {
-    errors: any[];
-    setErrors: React.Dispatch<React.SetStateAction<any[]>>;
+    setToastNotifications: React.Dispatch<React.SetStateAction<[] | ToastNotification[]>>
     register: Function;
 };
 
 const RegisterCard = (props:RegisterCardProps) => {
-    const [isRevealed, toggle] = useToggle(false);
+    const { register, setToastNotifications } = props;
 
+    const [isRevealed, toggle] = useToggle(false);
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [password_confirmation, setPasswordConfirmation] = useState<string>('');
     const [isRegisting, seIsRegisting] = useToggle(false);
 
+
     const submitForm = async(event: any) => {
         event.preventDefault();
-        await props.setErrors([]);
 
         if( !name.match(USERNAME_PATTERN) ) {
-
-            props.setErrors(
-                [ ["username.match"] ]
-            );
+            setToastNotifications(prev => {
+                return[
+                    ...prev,
+                    {id: generateUid(), type:"warning", message:"ユーザー名に使えるのは、半角英数字、アンダースコア（_）のみです"},
+                ];
+            });
             return;
         }
         if( !password.match(PASSWORD_PATTERN) ) {
-
-            props.setErrors(
-                [ ["password.match"] ]
-            );
+            setToastNotifications(prev => {
+                return[
+                    ...prev,
+                    {id: generateUid(), type:"warning", message:"パスワードに使えるのは、半角英数字と記号（ @, $, !, %, *, ?, & ）のみです"},
+                ];
+            });
             return;
         }
 
         if(password !== password_confirmation) {
             return;
         }
-        props.register({ setErrors: props.setErrors, name, email, password, password_confirmation })
+        register({ setToastNotifications, name, email, password, password_confirmation })
     };
 
 
     return (
-        <div className="login_card_container">
-            <AuthValidationErrors errors={props.errors} />
+        <div className="register_card_container">
 
-            <div className="login_card" >
-                <div className="login_card_header" >
+            <div className="register_card" >
+                <div className="register_card_header" >
                     <h1>{siteTitle}をはじめる</h1>
                 </div>
 
-                <form className="login_card_form" onSubmit={submitForm} >
+                <form className="register_card_form" onSubmit={submitForm} >
                     <div className="form_item" >
                         <span className="form_item_icon" >
                             <BiUser />
@@ -67,9 +73,7 @@ const RegisterCard = (props:RegisterCardProps) => {
                             type="text" 
                             value={name}
                             onChange={event => {
-                                // if( event.target.value.match(USERNAME_PATTERN) || event.target.value==="" ) {
-                                    setName(event.target.value);
-                                // }
+                                setName(event.target.value);
                             }}
                             placeholder='ユーザー名' 
                             required 
@@ -155,7 +159,15 @@ const RegisterCard = (props:RegisterCardProps) => {
                     </button>
 
                 </form>
-                <div className="login_card_footer" >
+                <div>
+                    <span>続行することで {siteTitle} の</span>
+                    <a href="/terms" target="_blank" rel="noopener noreferrer">利用規約</a>
+                    <span>に同意し、</span>
+                    <a href="/terms" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>
+                    <span>を読んだものとみなされます。</span>
+                    
+                </div>
+                <div className="register_card_footer" >
                     アカウントをお持ちの方は
                     <Link to="/auth/login">ログイン</Link>
                     してください。

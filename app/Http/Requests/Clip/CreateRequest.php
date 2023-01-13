@@ -24,19 +24,20 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|max:200',
-            'quote' => 'required|max:200',
+            // 'content' => 'required|max:200',
+            'content' => 'max:400',
+            // 'quote' => 'required|max:200',
+            'quote' => 'max:300',
             // 'is_public' => 'required|boolean',
         ];
     }
-    public function content(): string
+    public function content(): string | null
     {
         // $request->input('data', 'デフォルト値');
         return $this->input('content');
     }
-    public function quote(): string
+    public function quote(): string | null
     {
-        // $request->input('data', 'デフォルト値');
         return $this->input('quote');
     }
 }

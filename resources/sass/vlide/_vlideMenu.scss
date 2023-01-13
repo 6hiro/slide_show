@@ -1,0 +1,109 @@
+.vlide_menu__container{ 
+    position: relative;
+    z-index: 850;
+
+    .overlay{
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        z-index: 9000;
+    }
+
+    .vlide__menu{
+        position: absolute;
+        z-index: 9999;
+        width: 180px;
+        background: #ffffff99;
+        box-shadow: $boxShadowWhite;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: 4px;
+        right: 60px;
+        top: 20px;
+        display: none;
+    
+    
+        li{
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        li:hover{
+            background-color: #f2f2f2;
+        }
+    
+    }
+    .show_menu{
+        display: block;
+    }
+    
+    .delete_overlay{
+        // background: #ddd8;
+        background: #00000065;
+    }
+    
+    .vlide__delete{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        max-width: 360px;
+        width: 85%;
+        padding: 20px;
+        background: $white;
+        box-shadow: rgb(101 119 134 / 20%) 0px 0px 15px, rgb(101 119 134 / 15%) 0px 0px 3px 1px;
+        border-radius: 4px;
+        display: none;
+    
+        &__content {
+            background: #ddd6;
+            border-radius: 5px;
+            padding: 0 5px;
+        }
+    
+        .selects{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 30px;
+            text-align: center;
+            font-weight: 600;
+    
+            .no{
+                cursor: pointer;
+                color: $white;
+                background: $subColor;
+                width: 110px;
+
+                border: 2px solid $subColor;
+                border-radius: 17px;
+                padding: 4px;
+                &:hover{
+                    opacity: 0.7;
+                }
+            }
+            .yes{
+                cursor: pointer;
+                color: $white;
+                background: $red;
+                width: 110px;
+                border-radius: 17px;
+                border: 2px solid $red;
+                padding: 4px 4px;
+    
+                &:hover{
+                    // background: #dc1e29;
+                    opacity: 0.7;
+                }
+            }
+        }
+    }
+    .show_delete{
+        display: block;
+    }
+}

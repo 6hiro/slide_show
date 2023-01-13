@@ -25,11 +25,12 @@ class LatestTagController extends Controller
 
         $per_page = 12;
         $since = $request->since;
+        
         $vlides = $vlideService->getTag($tag_name, $per_page, $since);
 
         return [
             'next_page_link'=>$vlides->count()>$per_page 
-                ? $request->url()."?since=".$vlides[count($vlides)-2]["published_at"]
+                ? $request->url()."?tag_name=".$tag_name."&since=".$vlides[count($vlides)-2]["published_at"]
                 // ->format('Y-m-d H:i:s.v') 
                 : null,
             'data' => VlideResource::collection($vlides->take($per_page)),

@@ -22,7 +22,7 @@ class VlideController extends Controller
 
         $vlide_id = $request->route('vlideId');
 
-        $per_page = 5;
+        $per_page = 10;
         $since = $request->since;
         
         if($request->since){

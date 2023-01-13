@@ -1,0 +1,105 @@
+// @use "../abstracts/" as *;
+
+.draggble_tabs_container {
+    width: 100%;
+    background: $white;
+    opacity: 0.96;
+    overflow-x: hidden;
+    padding: 0 25px;
+    height: 42px;
+    position: relative;
+    // z-index: 220;
+    user-select: none;
+    @include flex(center, space-around);
+
+
+    .chevron_icon {
+        @include flex(center, unset);
+        position: absolute;
+        top: 0px;
+        height: 100%;
+        width: 50px;
+        // display: none;
+
+        &:first-child {
+            left: 0;
+            background: linear-gradient(90deg, #fff 70%, #fff0);
+        
+            svg {
+                margin-left: 15px;
+            }
+        }
+        &:last-child {
+            right: 0;
+            justify-content: flex-end;
+            background: linear-gradient(-90deg, #fff 70%, #fff0);
+            svg {
+                margin-right: 15px;
+            }
+        }
+
+        svg {
+            width: 27px;
+            height: 27px;
+            text-align: center;
+            // line-height: 35px;
+            border-radius: 50%;
+            background: $white;
+            box-shadow: 0 0 8px -5px rgb(0 0 0 / 47%);
+            cursor: pointer;
+            font-weight: 400;
+            color: #adadad;
+
+            &:hover {
+                background: #f2f2f2;
+            }
+        }
+    }
+
+    .unshow {
+        display: none;
+    }
+    .tabs_box {
+        @include flex(center, space-between);
+        list-style: none;
+        gap: 30px;
+        width: 100%;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        padding: 0 30px;
+        cursor: grab;
+
+
+        .tab {
+            cursor: pointer;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            background: #fff;
+            color: #adadad;
+            padding: 10px 5px;
+            height: 100%;
+            @include flex(center, center);
+
+            a {
+                cursor: pointer;
+                &:hover {
+                    color: $subColor;
+                    border-bottom: 2px solid $subColor;
+                }
+            }
+            // &:hover {
+            //     color: $subColor;
+            //     font-weight: 600;
+            // }
+        }    
+        .active_tab {
+            color: $subColor;
+            font-weight: 600;
+        }
+        
+    }
+    .dragging {
+        scroll-behavior: auto;
+        cursor: grabbing;
+    }
+}

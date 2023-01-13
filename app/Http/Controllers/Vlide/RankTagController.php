@@ -25,7 +25,7 @@ class RankTagController extends Controller
         $tag_name = $request->tag_name;
 
         $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
-        $since = $dateTime->modify('-1week')->format('Y-m-d H:i:s.v');
+        $since = $dateTime->modify('-1 month')->format('Y-m-d H:i:s.v');
         $vlides = $vlideService->getRankTag($tag_name, $per_page, $since);
 
         return [

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+use DateTime;
+use DateTimeZone;
 
 // use Ramsey\Uuid\Uuid;
 // sail artisan make:model Vlide 
@@ -41,15 +43,18 @@ class Vlide extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Tag', 'vlide_tag');
+        return $this->belongsToMany('App\Models\Tag', 'vlide_tag')
+            ->withPivot([
+                'created_at',
+            ]); 
         // ->withTimestamps();
     }
 
     public function saves(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\User', 'saves');
-            // ->withPivot(['created_at'])
-            // ->orderBy('pivot_created_at', 'desc')
+        return $this->belongsToMany('App\Models\User', 'saves')
+            ->withPivot(['created_at'])
+            ->orderBy('pivot_created_at', 'desc');
             // ->withTimestamps();
     }
     public function isSavedBy(?User $user): bool
@@ -65,18 +70,34 @@ class Vlide extends Model
             : null;
 
     }
-    public function vlides(): HasMany
+    public function getCountSavesAttribute(): int
     {
-        return $this->hasMany('App\Models\Vlide');
+        return $this->saves->count();
     }
+    // public function vlides(): HasMany
+    // {
+    //     return $this->hasMany('App\Models\Vlide');
+    // }
 
+    // public function images(): BelongsToMany
+    // {
+    //     // using リレーションの中間テーブルを表す、カスタムモデルを定義
+    //     return $this->belongsToMany(Image::class, 'vlide_image')
+    //         ->using(VlideImage::class);
+    // }
     public function images(): BelongsToMany
     {
-        // using リレーションの中間テーブルを表す、カスタムモデルを定義
-        return $this->belongsToMany(Image::class, 'vlide_image')
-            ->using(VlideImage::class);
+        return $this
+            ->belongsToMany('App\Models\Image', 'vlide_image')
+            ->withPivot(['created_at'])
+            ->orderBy('pivot_created_at', 'desc');
+            // ->withTimestamps();
     }
-    
+    public function getCountImagesAttribute(): int
+    // アクセサ（このメソッドを使う時は、$vlide->count_images）
+    {
+        return $this->images->count();
+    }
     // Clip関係
     public function clips(): HasMany
     {
@@ -85,5 +106,16 @@ class Vlide extends Model
     public function getCountClipsAttribute(): int
     {
         return $this->clips->count();
+    }
+    public function oneWeekclips(): HasMany
+    {
+        $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
+        $since = $dateTime->modify('-1 week')->format('Y-m-d H:i:s.v');
+        $until = $dateTime->modify('-20 minute')->format('Y-m-d H:i:s.v');
+        
+        return $this
+            ->hasMany('App\Models\Clip')
+            ->where('created_at', '>', $since) 
+            ->where('created_at', '<', $until);
     }
 }

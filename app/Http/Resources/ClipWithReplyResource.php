@@ -41,7 +41,9 @@ class ClipWithReplyResource extends JsonResource
                         return $this->replies->sortBy('created_at');
                     })
                 ),
-                'count_replies' => $this->count_replies,    
+                'count_replies' => $this->count_replies, 
+                'count_reclips' => $this->count_reclips,
+
                 'parent' => new ParentClipResource($this->parent),
                 'vlide_id' => $this->vlide_id,
 

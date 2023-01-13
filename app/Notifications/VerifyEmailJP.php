@@ -22,7 +22,8 @@ class VerifyEmailJP extends VerifyEmail
 
         return (new MailMessage)
             ->subject(Lang::get('本登録のご案内メール'))
-            ->line(Lang::get('下記のボタンをクリックして、仮登録をしたブラウザで、本登録を完了してください。'))
+            // ->line(Lang::get('下記のボタンをクリックして、仮登録をしたブラウザで、本登録を完了してください。'))
+            ->line(Lang::get('下記のボタンをクリックして、本登録を完了してください。'))
             ->action(Lang::get('メール認証'), $verificationUrl)
             ->line(Lang::get('アカウント作成にお心当たりがない場合は、このメールを無視してください。'));
     }

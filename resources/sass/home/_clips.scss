@@ -4,23 +4,31 @@
 
 	.navigation {
 		@include flex(center, space-between);
-		width: 200px;
-		margin: 0px auto 2px;
+		width: 300px;
+		height: 37px;
+		margin: 0px auto 20px;
 		font-weight: 600;
+		background: #ffffff43;
+		padding: 2.5px;
+		border-radius: 18px;
+		background: #ededed;
+		box-shadow: $boxShadowWhite;
 
 		.nav_item {
-			color: #adadad;
-
+			color: #666;
+			width: 150px;
+			height: 32px;
+			@include flex(center, center);
+			cursor: pointer;
+			
 			&:hover {
 				color: $subColor;
-				border-bottom: 2px solid $subColor;
-				// text-decoration: underline;
 			}
 		}
 		.active_nav_item {
+			border-radius: 15px;
+			background: $white;
 			color: $subColor;
-			border-bottom: 2px solid $subColor;
-			// text-decoration: underline;
 		}
 	}
 

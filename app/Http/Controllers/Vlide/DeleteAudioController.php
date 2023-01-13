@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use App\Models\Vlide;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 class DeleteAudioController extends Controller
 {
@@ -24,8 +25,9 @@ class DeleteAudioController extends Controller
         $vlideId = $request->route('vlideId');
         // $audioId = $request->route('audioId');
         
-
-        $vlideService->checkOwnVlide($request->user()->id, $vlideId);
+        if( !$vlideService->checkOwnVlide($request->user()->id, $vlideId) ){
+            throw new AccessDeniedException();
+        }
         
         $target =  DB::transaction(function () use($vlideId) {
             $vlide = Vlide::where('id', $vlideId)->firstOrFail();

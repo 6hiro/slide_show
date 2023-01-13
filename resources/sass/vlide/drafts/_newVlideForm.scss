@@ -41,20 +41,22 @@
         border: none;
         outline: none;
         color: $subColor;
-        font-size: 14px;
-        font-weight: 900;
+        font-size: 16px;
+        font-weight: 600;
         background: $mainColor;
         color: $white;
         margin: 0 0 0 auto;
-        padding: 10px;
+        padding: 8px;
+        // border: 2px solid $subColor;
         border-radius: 10px;
         letter-spacing: 2px;
         transition: 0.5s;
         cursor: pointer;
         width: 80px;
+        box-shadow: 0 0 8px -5px rgb(0 0 0 / 47%);
 
         &:hover:not(:disabled){
-            opacity: 0.9;
+            opacity: 0.8;
         }
         &:disabled{
             background: #666;

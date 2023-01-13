@@ -3,6 +3,8 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { USER } from '../../types/user';
 import PasswordInput from './PasswordInput';
 
+
+
 type Props = {
     user: USER;
     changePassword: Function;
@@ -11,7 +13,6 @@ type Props = {
 
 const ChangePasswordForm = (props: Props) => {
     const [newPassword, setNewPassword] = useState<string>('');
-
     const [oldPassword, setOldPassword] = useState<string>('');
 
     const submitForm = async (e: any) => {
@@ -26,12 +27,12 @@ const ChangePasswordForm = (props: Props) => {
                 setPassword={setOldPassword} 
                 placeholder='元のパスワード' 
             />
+            
             <PasswordInput 
                 password={newPassword} 
                 setPassword={setNewPassword} 
                 placeholder='新しいパスワード' 
             />
-
 
             <button
                 type='submit'
@@ -39,7 +40,6 @@ const ChangePasswordForm = (props: Props) => {
                 disabled={ 
                     newPassword.length <= 8 || 
                     oldPassword.length <= 8
-                    // newPassword === oldPassword 
                 }
             >
                 パスワードを変更

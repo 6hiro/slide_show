@@ -3,10 +3,17 @@ import { Helmet } from 'react-helmet';
 
 import { siteTitle } from '../../constants/site';
 import ForgotPasswordCard from '../../components/auth/ForgotPasswordCard';
+import { Navigate } from 'react-router-dom';
 
+type Props = {
+    user: any;
+    forgotPassword: Function;
+}
+const ForgotPassword = (props: Props) => {
+    const { user, forgotPassword } = props;
 
-const ForgotPassword = () => {
-
+    if(user?.id) return (<Navigate to="/" replace={true} />)
+    
     return (
         <React.Fragment>  
             <Helmet>
@@ -19,7 +26,7 @@ const ForgotPassword = () => {
             </Helmet>
 
             <div className="auth_page_container">
-                <ForgotPasswordCard />
+                <ForgotPasswordCard user={props.user} forgotPassword={forgotPassword} />
             </div>
         </React.Fragment>
 

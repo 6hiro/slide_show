@@ -1,46 +1,42 @@
 // https://github.com/Nilanth/laravel-breeze-react/blob/master/src/pages/password-reset.js
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { BiEnvelope, BiLock, BiLockOpen } from 'react-icons/bi';
-import { useParams, useSearchParams } from 'react-router-dom'
-import { useAuth } from '../../hooks/useAuth'
-import useToggle from '../../hooks/useToggle';
-import { EMAIL_REGEXP, PASSWORD_PATTERN, PASSWORD_REGEXP } from '../../utils/regexps';
+import { useParams, useSearchParams } from 'react-router-dom';
 
-const ResetPasswordCard = () => {
+import useToggle from '../../hooks/useToggle';
+import { EMAIL_REGEXP, PASSWORD_PATTERN } from '../../utils/regexps';
+
+
+
+type Props ={
+    resetPassword: Function;
+}
+
+const ResetPasswordCard = (props: Props) => {
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-
-    const { resetPassword } = useAuth({ middleware: 'guest' })
   
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [password_confirmation, setPasswordConfirmation] = useState('')
-    const [errors, setErrors] = useState([])
-    const [status, setStatus] = useState(null)
-    const [isProcessing, setIsProcessing] = useState<boolean>(false);
     const [isRevealed, toggle] = useToggle(false);
     
     const submitForm = async(e: any) => {
         e.preventDefault();
         const token = params.token;
         if(token) {
-            await setIsProcessing(true);
-            await resetPassword({
-                setErrors: setErrors,
-                setStatus: setStatus,
+            await props.resetPassword({
                 email,
                 password,
                 password_confirmation,
                 token,
             })
-            setIsProcessing(false);
         }
     }
-    console.log(params.token)
     
-      useEffect(() => {
+    useEffect(() => {
         setEmail(searchParams.get("email") || '')
-      }, [searchParams])
+    }, [searchParams])
 
     return (
         <div className="login_card_container" >
@@ -115,8 +111,7 @@ const ResetPasswordCard = () => {
                         !password.match(PASSWORD_PATTERN) ||
                         !password_confirmation.match(PASSWORD_PATTERN) ||
                         !email.match(EMAIL_REGEXP) ||
-                        !email.length || 
-                        isProcessing
+                        !email.length
                     }
                 >
                     送信

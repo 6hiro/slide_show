@@ -28,28 +28,54 @@ class DeleteAccountController extends Controller
     public function __invoke(Request $request, VlideService $vlideServic)
     {
         $user = $request->user();
+        // return response()->json();
 
         $audio_file_names = array_filter( 
             $user->vlides()->get()->pluck("audio_file_name")->toArray() 
         );
+        
+        $image_names = array_filter(
+            $user->images()->pluck("name")->toArray()
+        );
 
-        DB::transaction(function () use($user, $audio_file_names) {
 
-            foreach($audio_file_names as $audio_file_name){
-                $filePath = 'public/audios/'.$audio_file_name;
-
+        $target = DB::transaction(function () use($user, $audio_file_names, $image_names) {
+            
+            if($user->file_name){
+                $filePath = 'public/images/'.$user->file_name;
+                
                 if(Storage::disk('s3')->exists($filePath)) {
-                // if(Storage::exists($filePath)) {
-                    // Storage::delete($filePath);
                     Storage::disk('s3')->delete($filePath);
                 }
             }
             
-            $user->delete();
+            if($image_names) {
+                foreach($image_names as $image_name){
+                    $filePath = 'public/images/'.$image_name;
+                    if(Storage::disk('s3')->exists($filePath)) {
+                        Storage::disk('s3')->delete($filePath);
+                    }
+                }
+            }
+
+            if($audio_file_names) {
+                foreach($audio_file_names as $audio_file_name){
+                    $filePath = 'public/audios/'.$audio_file_name;
+    
+                    if(Storage::disk('s3')->exists($filePath)) {
+                    // if(Storage::exists($filePath)) {
+                        // Storage::delete($filePath);
+                        Storage::disk('s3')->delete($filePath);
+                    }
+                }
+            }
+
+            
+            return $user->delete();
         });
 
-        // return $user->delete()
-        //     ? response()->json($user)
-        //     : response()->json([], 500);
+        return $target
+            ? response()->json()
+            : response()->json([], 500);
     }
 }

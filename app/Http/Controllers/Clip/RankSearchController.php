@@ -24,10 +24,10 @@ class RankSearchController extends Controller
         //
         $word = $request->word;
 
-        $per_page = 5;
+        $per_page = 12;
 
         $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
-        $since = $dateTime->modify('-1week')->format('Y-m-d H:i:s.v');
+        $since = $dateTime->modify('-1 month')->format('Y-m-d H:i:s.v');
         
         $clips = $clipService->getRankSearch($word, $per_page, $since);
 

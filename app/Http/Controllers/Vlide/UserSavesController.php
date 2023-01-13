@@ -23,7 +23,10 @@ class UserSavesController extends Controller
         $per_page = 12;
         // $user_id = $request->user()->id;
         $user_id = $request->route('userId');
-        // return $user_id;
+
+        if($user_id !== $request->user()->id){
+            return response()->json();
+        }
 
         $since = $request->since;
 

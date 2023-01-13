@@ -1,6 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { 
+    urlRegExp, 
+    tagRegExp,
+    atRegExp,
+} from '../../utils/regexps';
+
+
 
 const DecoratedDescription:React.FC<{content: string}> = (props) => {
     
@@ -19,17 +26,17 @@ const DecoratedDescription:React.FC<{content: string}> = (props) => {
     const decorate = (contentArray:string[]): JSX.Element =>  {
         return <>
             {contentArray.map((value, index) => {
-                if(value.match(/^(#[0-9a-zA-Z０-９ａ-ｚＡ-Ｚぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]+)$/)){
+                if(value.match(tagRegExp)){
                     // ハッシュタグがついている要素
-                    return <Link to={`/tag?q=%23${value.slice(1)}&f=vlide&o=top`} key={index} style={{color: "#1d9bf0"}}>
+                    return <Link to={`/tag?q=%23${value.slice(1)}&f=user&o=top`} key={index} style={{color: "#1d9bf0"}}>
                                 {value}
                             </Link>
-                }else if(value.match(/^@[0-9a-zA-Z]+$/)){
+                }else if(value.match(atRegExp)){
                     // @がついている要素
                     return <Link to={`/prof/${value.slice(1)}`} key={index} style={{color: "#1d9bf0"}}>
                                 {value}
                            </Link>
-                }else if(value.match(/^(https?:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/)){
+                }else if(value.match(urlRegExp)){
                     // URL
                     return <a href={value} key={index} style={{color: "#1d9bf0"}} target="_blank" rel="noopener noreferrer" >{value}</a>
                 }else if(value.match(/\u0001/)){

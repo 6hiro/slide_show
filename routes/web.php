@@ -113,6 +113,32 @@ Route::get('/clip/{clipId}', function () {
 //     Route::get('/complete', [StripePaymentsController::class, 'complete'])->name('stripe.complete');
 // });
 
+// Route::get('/embed', function (Request $request) { // embed?url={url}
+//     $url = $request->url;
+//     $doc = new DOMDocument();
+//     // @$doc->loadHTMLFile($url); // utf-8 に変更できない
+//     @$doc->loadHTML(mb_convert_encoding(file_get_contents($url), 'HTML-ENTITIES', 'UTF-8') );
+//     $xpath = new DOMXPath($doc);
+//     $node_title = $xpath->query('//title');
+//     $node_og_title = $xpath->query('//meta[@property="og:title"]/@content');
+//     $node_og_image = $xpath->query('//meta[@property="og:image"]/@content');
+//     $node_site_name = $xpath->query('//meta[@property="og:site_name"]/@content');
+//     $title = $node_title->length > 0 ? $node_title->item(0)->nodeValue : '';
+//     $og_title = $node_og_title->length > 0 ? $node_og_title->item(0)->nodeValue : '';
+//     $og_image = $node_og_image->length > 0 ? $node_og_image->item(0)->nodeValue : '';
+//     // $og_description = $node_description->length > 0 ? $node_description->item(0)->nodeValue : '';
+//     // $og_url = $node_url->length > 0 ? $node_url->item(0)->nodeValue : '';
+//     $og_site_name = $node_site_name->length > 0 ? $node_site_name->item(0)->nodeValue : '';
+
+//     return view('embed')->with([
+//         "url" => $url,
+//         "title" => $title,
+//         "og_title" => $og_title,
+//         "og_image" => $og_image,
+//         "og_site_name" => $og_site_name,
+//         // "metas" => $metas
+//     ]);
+// });
 
 require __DIR__.'/auth.php';
 

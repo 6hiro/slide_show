@@ -1,43 +1,43 @@
 import { Dispatch, SetStateAction, useLayoutEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import axios from "../libs/axios";
+import { deleteAsyncClip, likeUnlikeAsyncClip, shareAsyncClip, unShareAsyncClip } from "../actions/clip";
+import { fetchAsyncMoreData } from "../actions/common";
+import { putAsyncFollowUnfollow } from "../actions/follow";
+import { fetchAsyncLatestData, fetchAsyncRankData } from "../actions/common";
+import { deleteAsyncVlide, saveUnsaveAsyncVlide } from "../actions/vlide";
 import { CLIP } from "../types/clip";
 import { USER } from "../types/user";
 import { VLIDE } from "../types/vlide";
-import { useAuth } from "./useAuth";
-
 
 type Props = {
+    user: any;
     keyword: string;
     order: string;
     section: string;
 };
 
 /**
- * 
  * ログインしていない場合は、Vlide のみ検索可能
  * keyword の1文字目が # でない場合、/search?q= 飛ぶ
  */
 export const useTag = (props: Props) => {
     let navigate = useNavigate();
-    const [searchParams, setSearchParams] = useSearchParams();
-
-    const { user } = useAuth();
+    const [searchParams, _] = useSearchParams();
 
     const [message, setMessage] = useState<string>();
-
-
+    const [isLoadingContents, setIsLoadingContents] = useState<boolean>(false);
     const [keyword, setKeyword] = useState<string>(String(props.keyword));
     const [order, setOrder] = useState<string>(props.order);
     const [section, setSection] = useState<string>(String(props.section));
     const [vlideNextPageLink, setVlideNextPageLink] = useState<string>();
     const [clipNextPageLink, setClipNextPageLink] = useState<string>();
     const [userNextPageLink, setUserNextPageLink] = useState<string>();
-
+    const [clipUserNextPageLink, setClipUserNextPageLink] = useState<string>();
     const [vlides, setVlides] = useState<VLIDE[]>();
     const [clips, setClips] = useState<CLIP[]>();
     const [users, setUsers] = useState<USER[]>();
+    const [clipUsers, setClipUsers] = useState<USER[]>();
 
     // URL の query を変える
     const search = ( orderName?: string, sectionName?: string ) => {
@@ -83,406 +83,155 @@ export const useTag = (props: Props) => {
         }
     };
 
-
+    const clearContents = () => {
+        setVlides([]);
+        setVlideNextPageLink("");
+        setClips([]);
+        setClipNextPageLink("");
+        setUsers([]);
+        setUserNextPageLink("");
+    };
     const getLatestVlide = (word: string) => {
-        setVlides([]);
-        setVlideNextPageLink("");
-        setClips([]);
-        setClipNextPageLink("");
-        setUsers([]);
-        setUserNextPageLink("");
-
-        axios
-            .get(`/api/v1/tag/vlide/latest?tag_name=${word.slice(1)}`)
-            .then((res) => {
-
-                setVlides(res.data.data);
-                setVlideNextPageLink(res.data.next_page_link);
-            })
-            .catch((error) => {});
+        if(word.length >= 2) {
+            clearContents();
+            // word.slice(1): #以降の文字
+            fetchAsyncLatestData(`/api/v1/tag/vlide/rank?tag_name=${word.slice(1)}`, setVlides, setVlideNextPageLink, setIsLoadingContents);
+        }
     };
+
     const getTrendVlide = (word: string) => {
-        setVlides([]);
-        setVlideNextPageLink("");
-        setClips([]);
-        setClipNextPageLink("");
-        setUsers([]);
-        setUserNextPageLink("");
-
-        axios
-            .get(`/api/v1/tag/vlide/rank?tag_name=${word.slice(1)}`)
-            .then((res) => {
-                setVlides(res.data.data);
-            })
-            .catch((error) => {});
-
+        if(word.length >= 2) {
+            clearContents();
+            fetchAsyncRankData(`/api/v1/tag/vlide/latest?tag_name=${word.slice(1)}`, setVlides, setIsLoadingContents);
+        }
     };
+
     const getLatestClip = (word: string) => {
-        setVlides([]);
-        setVlideNextPageLink("");
-        setClips([]);
-        setClipNextPageLink("");
-        setUsers([]);
-        setUserNextPageLink("");
-
-        axios
-            .get(`/api/v1/tag/clip/latest?tag_name=${word.slice(1)}`)
-            .then((res) => {
-                
-                setClipNextPageLink(res.data.next_page_link)
-                setClips(res.data.data);
-            })
-            .catch((error) => {});
-
+        if(word.length >= 2) {
+            clearContents();
+            // word.slice(1): #以降の文字
+            fetchAsyncLatestData(`/api/v1/tag/clip/rank?tag_name=${word.slice(1)}`, setClips, setClipNextPageLink, setIsLoadingContents);
+        }
     };
 
     const getTrendClip = (word: string) => {
-        setVlides([]);
-        setVlideNextPageLink("");
-        setClips([]);
-        setClipNextPageLink("");
-        setUsers([]);
-        setUserNextPageLink("");
-
-        axios
-            .get(`/api/v1/tag/clip/rank?tag_name=${word.slice(1)}`)
-            .then((res) => {
-                setClips(res.data.data);
-
-                // res.data.id && router.push(`/drafts/vlide/${res.data.id}`);
-            })
-            .catch((error) => {});
+        if(word.length >= 2) {
+            clearContents();
+            fetchAsyncRankData(`/api/v1/tag/clip/latest?tag_name=${word.slice(1)}`, setClips, setIsLoadingContents);
+        }
     };
 
     const getLatestUser = (word: string) => {
-        setVlides([]);
-        setVlideNextPageLink("");
-        setClips([]);
-        setClipNextPageLink("");
-        setUsers([]);
-        setUserNextPageLink("");
-
-        axios
-            .get(`/api/v1/tag/user/latest?word=${word.slice(1)}`)
-            .then((res) => {
-                
-                setUserNextPageLink(res.data.next_page_link);
-                setUsers(res.data.data);
-            })
-            .catch((error) => {});
-
+        if(word.length >= 2) {
+            clearContents();
+            // word.slice(1): #以降の文字
+            fetchAsyncLatestData(`/api/v1/tag/user/rank?word=${word.slice(1)}`, setUsers, setUserNextPageLink, setIsLoadingContents);
+        }
     };
 
     const getTrendUser = (word: string) => {
-        setVlides([]);
-        setVlideNextPageLink("");
-        setClips([]);
-        setClipNextPageLink("");
-        setUsers([]);
-        setUserNextPageLink("");
-
-        axios
-            .get(`/api/v1/tag/user/rank?word=${word.slice(1)}`)
-            .then((res) => {
-                setUsers(res.data.data);
-            })
-            .catch((error) => {});
+        if(word.length >= 2) {
+            clearContents();
+            // word.slice(1): #以降の文字
+            fetchAsyncRankData(`/api/v1/tag/user/latest?word=${word.slice(1)}`, setUsers, setIsLoadingContents);
+        }
     };
 
     const getMoreVlide = () => {
-        axios
-            .get(`${vlideNextPageLink}`)
-            .then((res) => {
-                setVlides( (prev) => {
-                    if(vlides){
-                        return [...vlides, ...res.data.data];
-                    }else{
-                        return res.data.data;
-                    }
-                });
-
-                setVlideNextPageLink(res.data.next_page_link ? res.data.next_page_link : "");
-            })
-            .catch((error) => {});
+        fetchAsyncMoreData(vlideNextPageLink, setVlides, setVlideNextPageLink);
     };
-
-    const getMoreClip= () => {
-        axios
-            .get(`${clipNextPageLink}`)
-            .then((res) => {
-                
-                setClips( (prev) => {
-                    if(clips){
-                        return [...clips, ...res.data.data];
-                    }else{
-                        return res.data.data;
-                    }
-                });
-                setClipNextPageLink(res.data.next_page_link ? res.data.next_page_link : "");
-            })
-            .catch((error) => {});
-
+    const getMoreClip = () => {
+        fetchAsyncMoreData(clipNextPageLink, setClips, setClipNextPageLink);
     };
-
-    const getMoreUser= () => {
-        axios
-            .get(`${userNextPageLink}`)
-            .then((res) => {
-                
-                setUsers( (prev) => {
-                    if(users){
-                        return [...users, ...res.data.data];
-                    }else{
-                        return res.data.data;
-                    }
-                });
-                setUserNextPageLink(res.data.next_page_link ? res.data.next_page_link : "");
-            })
-            .catch((error) => {});
-
+    const getMoreUser = () => {
+        fetchAsyncMoreData(userNextPageLink, setUsers, setUserNextPageLink);
+    };
+    const getMoreClipUsers = () => {
+        fetchAsyncMoreData(clipUserNextPageLink, setClipUsers, setClipUserNextPageLink);
     };
 
     const savedUnsaved = (vlideId: string) => {
-        axios
-            .put(`/api/v1/vlide/${vlideId}/save`,{})
-            .then((res) => {
-                if( res.data.result === "saved" ) {
-
-                    const add_save = (vlide:VLIDE) => { // 投稿の保存数と保存をしたかどうかを変更
-                        vlide["count_saves"] = res.data.count_saves;
-                        vlide["is_saved"] = true;
-
-                        return vlide;
-                    }
-
-                    vlides && setVlides( (prev) => {
-                        if(prev){
-                            const newVlides = [ ...prev ];
-
-                            newVlides?.map((vlide) => 
-                                vlide.id === res.data.id ? add_save(vlide) : vlide, 
-                            );
-
-                            return newVlides;
-                        }else{
-                            return prev;
-                        }
-                    });
-                }else if(res.data.result === "unsaved") {
-
-                    const delete_save = (vlide:VLIDE) => {
-                        // 投稿のいいね数といいねをしたかどうかを変更
-                        vlide["count_saves"] = res.data.count_saves;
-                        vlide["is_saved"] = false;
-                        return vlide;
-                    };
-
-                    vlides && setVlides( (prev) => {
-                        if(prev){
-                            const newVlides = [ ...prev ];
-
-                            newVlides?.map((vlide) => 
-                                vlide.id === res.data.id ? delete_save(vlide) : vlide, 
-                            );
-
-                            return newVlides;
-                        }else{
-                            return prev;
-                        }
-                    });
-
-                }
-            });
+        saveUnsaveAsyncVlide(vlideId, setVlides, null);
     };
 
     const likeUnlike = (clipId: string) => {
-        axios
-            .put(`/api/v1/clip/${clipId}/like`,{})
-            .then((res) => {
-                if( res.data.result === "like" ) {
-
-                    const add_like = (clip:CLIP) => { // 投稿の保存数と保存をしたかどうかを変更
-                        clip["count_likes"] = res.data.count_likes;
-                        clip["is_liked"] = true;
-
-                        return clip;
-                    }
-
-                    clips && setClips( (prev) => {
-                        if(prev){
-                            const newClips = [ ...prev ];
-
-                            newClips?.map((clip) => 
-                                clip.id === res.data.id ? add_like(clip) : clip, 
-                            );
-
-                            return newClips;
-                        }else{
-                            return prev;
-                        }
-                    });
-                }else if(res.data.result === "unlike") {
-
-                    const delete_like = (clip:CLIP) => {
-                        // 投稿のいいね数といいねをしたかどうかを変更
-                        clip["count_likes"] = res.data.count_likes;
-                        clip["is_liked"] = false;
-                        return clip;
-                    };
-
-                    clips && setClips( (prev) => {
-                        if(prev){
-                            const newClips = [ ...prev ]
-
-                            newClips?.map((clip) => 
-                                clip.id === res.data.id ? delete_like(clip) : clip, 
-                            );
-                            
-                            return newClips;
-                        }else{
-                            return prev;
-                        }
-                    });
-
-                }
-            });
+        likeUnlikeAsyncClip(clipId, setClips, null);
     };
 
+    const getlikeUsers = (clipId: string) => {
+        const url = `/api/v1/clip/${clipId}/like/users`;
+        fetchAsyncLatestData(url, setClipUsers, setClipUserNextPageLink, setIsLoadingContents); 
+    }
+    const getShareUsers = (clipId: string) => {
+        const url = `/api/v1/clip/${clipId}/share/users`;
+        fetchAsyncLatestData(url, setClipUsers, setClipUserNextPageLink, null); 
+    }
 
     const shareClip = async (
         clipId:string,
         setReClipId: Dispatch<SetStateAction<any>>, 
     ) => {
-        // setReClipId("");
-        await axios
-            .post(`/api/v1/clip/share/${clipId}`, {})
-            .then((res) => {
-                setReClipId(res.data.id);
-
-                return res.data;
-            });
+        const onSuccess = (res: any) => {
+            setReClipId(res.data.id);
+        };
+        shareAsyncClip(clipId, onSuccess);
     };
     const unShareClip = async (
         clipId:string,
         setReClipId: Dispatch<SetStateAction<any>>, 
     ) => {
-        await axios
-            .post(`/api/v1/clip/unshare/${clipId}`, {})
-            .then((res) => {
-                clips && setClips( (prev)=> {
-                    if(prev){                        
-                        return prev.filter((clip) => {
-                            return clip.id !== clipId;
-                        });
-                        
-                    }else{
-                        return prev;
-                    }
+        const onSuccess = (res: any) => {
+            clips && setClips( (prev)=> {
+                if(prev){                        
+                    return prev.filter((clip) => {
+                        return clip.id !== clipId;
+                    });
                     
-                });
-                setReClipId(res.data.id);
-
-                return res.data;
-            });
-    };
-
-    const followUnfollow = (userId: string) => {
-        axios
-            .put(`/api/v1/user/${userId}/follow`,{})
-            .then((res) => {
-                if( res.data.result === "followed" ) {
-                    const add_follow = (user:USER) => {
-                        user["count_followers"] = res.data.count_followers;
-                        user["isFollowed"] = true;
-
-                        return user;
-                    }
-
-                    users && setUsers( (prev) => {
-                        if(prev){
-                            const newUsers = [ ...prev ];
-
-                            newUsers?.map((user) => 
-                                user.id === res.data.id ? add_follow(user) : user, 
-                            )
-                            return newUsers;
-                        }else{
-                            return prev;
-                        }
-                    });
-                }else if(res.data.result === "unfollowed") {
-
-                    const delete_follow = (user:USER) => {
-                        user["count_followers"] = res.data.count_followers;
-                        user["isFollowed"] = false;
-
-                        return user;
-                    };
-
-                    users && setUsers( (prev) => {
-                        if(prev){
-                            const newUsers = [ ...prev ];
-
-                            newUsers?.map((user) => 
-                                user.id === res.data.id ? delete_follow(user) : user, 
-                            );
-                            
-                            return newUsers;
-                        }else{
-                            return prev;
-                        }
-                    });
-
+                }else{
+                    return prev;
                 }
+                
             });
+            setReClipId(res.data.id);
+        }
+        unShareAsyncClip(clipId, onSuccess);
+
     };
-    const destroy = async ( 
+
+    const followUnfollow = (targetId: string, loginId:string) => {
+        putAsyncFollowUnfollow(targetId, loginId, {users:users, setUsers:setUsers})
+    };
+
+    const clipfollowUnfollow = (targetId: string, loginId:string) => {
+        putAsyncFollowUnfollow(targetId, loginId, {users:clipUsers, setUsers:setClipUsers})
+    };
+    
+    const deleteVlide = async ( 
         vlideId: string,
         setShowDelete: Dispatch<SetStateAction<any>>
     ) => {
-        axios
-            .delete(`/api/v1/vlide/${vlideId}`)
-            .then((res) => {
-                // router.push(`/drafts/vlide/${id}`)
-                vlides && setVlides( (prev)=> {
-                    if(prev){                        
-                        return prev.filter((vlide) => {
-                            return vlide.id !== vlideId;
-                        });
-                    }else{
-                        return prev;
-                    }
-                });
-                setShowDelete(false);
-            })
-            .catch(error => {
+        const onSuccess =(res: any) => {
+            vlides && setVlides( (prev)=> {
+                if(prev){                        
+                    return prev.filter((vlide) => {
+                        return vlide.id !== vlideId;
+                    });
+                }else{
+                    return prev;
+                }
             });
+            setShowDelete(false);
+        };
+        deleteAsyncVlide(vlideId, onSuccess);
     };
 
     const deleteClip = async ( 
         clipId: string, 
         setShowDelete: Dispatch<SetStateAction<any>>
     ) => {
-        axios
-            .delete(`/api/v1/clip/${clipId}`)
-            .then((res) => {
-                clips && setClips( (prev)=> {
-                    if(prev){                        
-                        return prev.filter((clip) => {
-                            if(clip.clip_type === "reclip" && clip.parent.id === clipId) return false;
-                            if (clip.clip_type !== "reclip" &&  clip.id === clipId) return false;
-
-                            return true;
-                        });
-                    }else{
-                        return prev;
-                    }
-                });
-                setShowDelete(false);
-            })
-            .catch(error => {
-            });
+        deleteAsyncClip(clipId, undefined, clips, setClips, setShowDelete, undefined);
     };
+
 
     useLayoutEffect(() => { //query が変わるたびにフェッチする
         
@@ -506,7 +255,7 @@ export const useTag = (props: Props) => {
                 }
                 
             }else if(f==="clip") {
-                if(user){
+                if(props.user){
                     setMessage("");
 
                     if(o==="latest"){
@@ -522,13 +271,11 @@ export const useTag = (props: Props) => {
                     setClipNextPageLink("");
                     setUserNextPageLink("");
         
-                    if(!user){
-                        setMessage("検索を続けるには、ログインが必要です。");
-                    }
+                    setMessage("検索を続けるには、ログインが必要です。");
                 }
 
             }else if(f==="user") {
-                if(user){
+                if(props.user){
                     setMessage("");
 
                     if(o==="latest"){
@@ -544,21 +291,16 @@ export const useTag = (props: Props) => {
                     setClipNextPageLink("");
                     setUserNextPageLink("");
         
-                    if(!user){
-                        setMessage("検索を続けるには、ログインが必要です。");
-                    }
+                    setMessage("検索を続けるには、ログインが必要です。");
                 }
             }
         }
         
-    },[searchParams, user]);
-
-
+    },[searchParams, props.user]);
 
     return {
         message,
         setMessage,
-        user,
         keyword, 
         setKeyword,
         order,
@@ -571,16 +313,24 @@ export const useTag = (props: Props) => {
         clipNextPageLink,
         users,
         userNextPageLink,
+        clipUsers, 
+        clipUserNextPageLink,
+        setClipUserNextPageLink,
         search,
         getMoreVlide,
         getMoreClip,
         getMoreUser,
+        getMoreClipUsers,
         savedUnsaved,
         likeUnlike,
+        getlikeUsers, 
+        getShareUsers,
+        clipfollowUnfollow,
         shareClip,
         unShareClip,
         followUnfollow,
-        destroy,
+        deleteVlide,
         deleteClip
     }
+
 };

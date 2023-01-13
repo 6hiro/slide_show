@@ -1,6 +1,4 @@
 .auth_page_container{
-    // height: calc(100vh - $headerHeight - $footerHeight);
-    height: calc(100vh - $headerHeight - $footerHeight );
     width: 100vw;
     background: $white;
     @include flex(center, center);

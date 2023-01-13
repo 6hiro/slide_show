@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Niconne&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
 $bodyBg: #fff;
 $mainBg: #fff;
 $mainColor: #e4007f;
@@ -18,9 +18,10 @@ $green: #72c09c;
 $pink: #e10098;
 $orange: #ffa801;
 $purple: #853bce;
+$colorful:  repeating-linear-gradient(90deg,#d95e40,#f2992e,#f7dd38,#56bc8a,#529ecc,#a77dc2,#d95e40 100%);
 $fontFamily: "Nunito", sans-serif;
-$boxShadow: 0 0 0 1px #000, 0 30px 30px rgb(0 0 0 / 7%), 0 15px 15px rgb(0 0 0 / 6%), 0 10px 8px rgb(0 0 0 / 5%), 0 4px 4px rgb(0 0 0 / 4%), 0 2px 2px rgb(0 0 0 / 3%);
-
+$boxShadow: 0 0 0 1px #000, 0 30px 80px rgb(0 0 0 / 7%), 0 15px 15px rgb(0 0 0 / 6%), 0 10px 8px rgb(0 0 0 / 5%), 0 4px 4px rgb(0 0 0 / 4%), 0 2px 2px rgb(0 0 0 / 3%);
+$boxShadowWhite: 0 0 8px -5px rgb(0 0 0 / 47%);
 // fontsize
 $fontSizeTitle: 1.8rem;
 $fontSizeLarge: 1.5rem;
@@ -29,8 +30,10 @@ $fontSizeNormal: 0.9rem;
 $fontSizetiny: 0.625rem; 
 
 // footer header
-$headerHeight: 54px;
-$footerHeight: 55px;
+// $headerHeight: 54px;
+$headerHeight: 50px;
+// $headerHeight: 90px;
+$footerHeight: 50px;
 
 $mobile-width: 600px;
 $tablet-width: 767px;

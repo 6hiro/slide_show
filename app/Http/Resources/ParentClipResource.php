@@ -26,12 +26,12 @@ class ParentClipResource extends JsonResource
             'quote' => $this->quote,
 
             'created_at' => $this->created_at->format('Y/m/d H:i'),
-            // 'a' => $this->created_at->format('Y-m-d H:i:s.v'),
 
             // '_embedded' => [
                 // whenLoadedは ::with()など でリレーションが既にロードされている場合にのみ、
                 // リソースレスポンスへリレーションを含める。
                 'user' => new UserResource($this->whenLoaded('user')),
+                // 'user' => $this->whenLoaded('user'),
                 'count_likes' => $this->count_likes,
                 'is_liked' => $this->isLikedBy(Auth::user()),
                 'tags' => TagForClipResource::collection($this->whenLoaded('tags')),
@@ -41,24 +41,15 @@ class ParentClipResource extends JsonResource
                 //         return $this->replies->sortBy('created_at');
                 //     })
                 // ),
-                'count_replies' => $this->count_replies,    
-                'vlide_id' => $this->vlide_id,
+                'count_replies' => $this->count_replies,   
+                'count_reclips' => $this->count_reclips,
 
-                // 'parent' => new ParentClipResource($this->parent),
+                'vlide_id' => $this->vlide_id,
+                // 'parent' => $this->parent()->with('user')->select('id', 'user')->get(),
+                // 'parent' => $this->parent_parent(),
+                'parent' => new ParentClipResource($this->parent),
             // ]
 
-            // 'id' => $this->id,
-            // 'content' => $this->content,
-            // // 'is_public' => $this->is_public,
-            // 'created_at' => $this->created_at->format('Y/m/d H:i'),
-            // // '_embedded' => [
-            //     // whenLoadedは ::with()など でリレーションが既にロードされている場合にのみ、
-            //     // リソースレスポンスへリレーションを含める。
-            //     'user' => new UserResource($this->user),
-            //     'count_likes' => $this->count_likes,
-            //     'is_liked' => $this->isLikedBy(Auth::user()),
-            //     'tags' => TagForClipResource::collection($this->tags),
-            // // ]
         ];
     }
 }

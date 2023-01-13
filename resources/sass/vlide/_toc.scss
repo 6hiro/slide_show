@@ -1,7 +1,10 @@
 details.toc_container {
-    border: 3px solid $subColor;
+    border: 1px solid #f2f2f2;
     border-radius: 5px;
+    // box-shadow: 0 0 8px -5px rgb(0 0 0 / 47%);
     padding: 10px 5px;
+    background: $white;
+    background-color: #f6f8fa;
 
     summary {
         @include flex(center, flex-start);
@@ -31,65 +34,67 @@ details.toc_container {
     summary::-webkit-details-marker {
         display:none;
       }
+}
 
-    .toc {
+
+.toc {
+    position: relative;
+    font-size: 18px;
+    padding-left: 20px;
+    line-height: 1.5;
+    margin: 0 auto;
+
+    &::before {
+        position: absolute;
+        content: "";
+        width: 2px;
+        background: $subColor;
+        opacity: 0.3;
+        top: 17px;
+        bottom: 10px;
+        left: 25px;
+        border-radius: 0 0 5px 5px;
+    }
+    
+
+    .toc_heading {
         position: relative;
-        font-size: 18px;
-        padding-left: 20px;
-        line-height: 1.5;
-        margin: 0 auto;
-
+        font-weight: 600;
+        margin-top: 8px;
+        padding-left: 21px;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
         &::before {
-            position: absolute;
             content: "";
-            width: 2px;
+            position: absolute;
+
+        }
+    }
+    
+    .toc_heading_one {
+        &::before {
+            left: 0;
+            top: 6px;
+            width: 12px;
+            height: 12px;
             background: $subColor;
-            opacity: 0.3;
-            top: 17px;
-            bottom: 10px;
-            left: 25px;
-            border-radius: 0 0 5px 5px;
+            border-radius: 25%;
+            border: 1px solid #fff;
         }
-        
-    
-        .toc_heading {
-            position: relative;
-            font-weight: 600;
-            margin-top: 8px;
-            padding-left: 21px;
+    }
 
-            &::before {
-                content: "";
-                position: absolute;
-    
-            }
-        }
-        
-        .toc_heading_one {
-            &::before {
-                left: 0;
-                top: 6px;
-                width: 12px;
-                height: 12px;
-                background: $subColor;
-                border: 1px solid #fff;
-            }
-        }
-
-        .toc_heading_two {
-            &::before{
-                left: 2px;
-                top: 9px;
-                width: 8px;
-                height: 8px;
-                border: 2px solid #fff;
-                border-radius: 50%;
-                background: $subColor;
-            }
+    .toc_heading_two {
+        &::before{
+            left: 2px;
+            top: 9px;
+            width: 8px;
+            height: 8px;
+            border: 2px solid #fff;
+            border-radius: 25%;
+            background: $subColor;
         }
     }
 }
-
 
 details.toc_container[open] summary{
     .isOpen {

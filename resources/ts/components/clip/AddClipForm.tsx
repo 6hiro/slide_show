@@ -1,9 +1,13 @@
 import React from 'react';
+// import { BiImage, BiX } from 'react-icons/bi';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import DecoratedInput from './DecoratedInput';
 
+
+
 const AddClipForm:React.FC<{
+    quote: string | null;
     text: string;
     setText: React.Dispatch<React.SetStateAction<string>>;
     image: File | null;
@@ -18,10 +22,10 @@ const AddClipForm:React.FC<{
 
     // const [height, setHeight] = useState(0);
     // useEffect(()=>{
-        // const textarea = document.getElementById('textarea')
-        // if(textarea){
-        //     setHeight(textarea.clientHeight)
-        // }
+    //     const textarea = document.getElementById('textarea')
+    //     if(textarea){
+    //         setHeight(textarea.clientHeight)
+    //     }
     // }, [props.setImage])
     
     // const handleEditPicture = () => {
@@ -53,49 +57,53 @@ const AddClipForm:React.FC<{
     //         props.setPreviewImage(null);
     //     // }
     // }
-    const maxLength = 200;
+    const maxLength = 400;
 
     
     return (
         // decorated_textとtextareaを重ね、入力値を装飾する
         <div className="decoTextarea">
-            <div className="decorated_text" >
-                <DecoratedInput input={props.text} />
-            </div>
+            <div style={{maxHeight: "220px", overflow: "scroll", position: "relative"}}>
+                <div className="decorated_text" >
+                    <DecoratedInput input={props.text} />
+                </div>
 
-            {/* TextareaAutosizeを用いることで、decorated_textブロックとの整合性を保つ */}
-            <TextareaAutosize
-                id="textarea"
-                className="textarea"
-                autoComplete="off"
-                spellCheck="false"
-                name="text" 
-                onChange={(e) => props.setText(e.target.value)} 
-                value={props.text} 
-                placeholder={props.placeholder ? props.placeholder :`ひとこと。`}
-                autoFocus={props.autoFocus}
-                minLength={1}
-                maxLength={maxLength}
-                // setText(e.target.value.replace(/(\r\n){2,}|\r{2,}|\n{2,}/, '\n'))}
-                // onSelect = {onSelect}
-            />
+                {/* TextareaAutosizeを用いることで、decorated_textブロックとの整合性を保つ */}
+                <TextareaAutosize
+                    id="textarea"
+                    className="textarea"
+                    autoComplete="off"
+                    spellCheck="false"
+                    name="text" 
+                    onChange={(e) => props.setText(e.target.value)} 
+                    value={props.text} 
+                    placeholder={props.placeholder ? props.placeholder :`ひとこと。`}
+                    autoFocus={props.autoFocus}
+                    minLength={1}
+                    maxLength={maxLength}
+                    // setText(e.target.value.replace(/(\r\n){2,}|\r{2,}|\n{2,}/, '\n'))}
+                />
+            </div>
 
 
             {/* {props.previewImage &&
-                <div className={styles.img_section}>
+                <div className="img_section">
                     <div 
-                        className={styles.img_section__x_icon}
+                        className="img_section__x_icon"
                         onClick={deleteImage}
                     >
-                        <i className='bx bx-x' ></i>
+                        <BiX />
                     </div>
-                    <img src={String(props.previewImage)} alt="selected image" className={styles.img} />
+                    <img src={String(props.previewImage)} alt="selected image" className="img" />
                 </div>
             } */}
 
             <div className="decoTextarea__options">
                 <div className="decoTextarea__option">
-                    {/* <div className={styles.add_img_button} onClick={handleEditPicture} >
+                    <div>
+                        {props.text.length} / {maxLength}
+                    </div>
+                    {/* <div className="add_img_button" onClick={handleEditPicture} >
                         <BiImage />
                         <input 
                             type="file" id="imageInput" accept="image/*"
@@ -103,7 +111,6 @@ const AddClipForm:React.FC<{
                             hidden 
                         />
                     </div> */}
-                    {props.text.length} / {maxLength}
                 </div>
 
                 <button 
@@ -111,9 +118,9 @@ const AddClipForm:React.FC<{
                     onClick={(e) => {
                         props.addClip(e);
                     }}
-                    disabled={!props.text.trim()}
+                    disabled={!props.text.trim() && !props.quote}
                 >
-                    {props.button ? props.button :"クリップする"}
+                    {props.button ? props.button :"クリップ"}
                 </button>
 
             </div>

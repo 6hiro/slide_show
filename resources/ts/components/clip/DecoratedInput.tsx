@@ -1,7 +1,14 @@
 import React from 'react';
 
+import { 
+    urlRegExp, 
+    tagRegExp,
+    atRegExp,
+} from '../../utils/regexps';
+
+
+
 const DecoratedInput:React.FC<{input: string}> = (props) => {
-    
     const decoratedInput = (input:string): JSX.Element =>{
         const replacedInput: string = input
                 // .replace(/(\r\n){2,}|\r{2,}|\n{2,}/, '\n')
@@ -15,24 +22,22 @@ const DecoratedInput:React.FC<{input: string}> = (props) => {
     };
 
     const decorate = (inputArray:string[]): JSX.Element =>  {
-
         return <>
             {inputArray.map((value, index) => {
                 if(
                     // ハッシュタグがついている要素
-                    value.match(/^(#[0-9a-zA-Z０-９ａ-ｚＡ-Ｚぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]+)$/) ||
+                    // korean \u1100-\u11FF\u3130-\u318F\uA960-\uA97F\uAC00-\uD7AF\uD7B0-\uD7FF
+                    value.match(tagRegExp) ||
                     // @がついている要素
-                    // value.match(/^@[0-9a-zA-Z]+$/) ||
-                    value.match(/^@[0-9a-zA-Z_]+$/) ||
+                    value.match(atRegExp) ||
                     // URL
-                    value.match(/^(https?:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/)
+                    value.match(urlRegExp)
                 ){
-                    return <span key={index} style={{color: "#00f"}}>
+                    return <span key={index} style={{color: "#1d9bf0"}}>
                                 {value}
                             </span>
                 }else if(value.match(/\u0001/)){
                     // 改行の要素
-                    // return <br key={index}/>
                     return <React.Fragment key={index}>{`\n`}</React.Fragment>
                 }else if(value.match(/\u0002/)){
                     // 半角スペースの要素
@@ -46,7 +51,6 @@ const DecoratedInput:React.FC<{input: string}> = (props) => {
             })}
         </>
     }
-
 
     return (
         <>{decoratedInput(props.input)}</>

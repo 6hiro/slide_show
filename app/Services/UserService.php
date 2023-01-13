@@ -20,7 +20,8 @@ class UserService
         if($since){
             $users = User::where(function($q) use ($word) {
                     $q->where('name', 'like', "%{$word}%")
-                    ->orWhere('nick_name', 'like', "%{$word}%");
+                    ->orWhere('nick_name', 'like', "%{$word}%")
+                    ->orWhere('description', 'like', "%{$word}%");
                 })
                 ->where('email_verified_at', '<', $since)
                 ->latest('email_verified_at')
@@ -29,7 +30,8 @@ class UserService
         }else{
             $users = User::where(function($q) use ($word) {
                     $q->where('name', 'like', "%{$word}%")
-                    ->orWhere('nick_name', 'like', "%{$word}%");
+                    ->orWhere('nick_name', 'like', "%{$word}%")
+                    ->orWhere('description', 'like', "%{$word}%");
                 })
                 ->latest('email_verified_at')
                 ->take($per_page+1)
@@ -42,12 +44,13 @@ class UserService
     {
         $users = User::where(function($q) use ($word) {
                 $q->where('name', 'like', "%{$word}%")
-                ->orWhere('nick_name', 'like', "%{$word}%");
+                ->orWhere('nick_name', 'like', "%{$word}%")
+                ->orWhere('description', 'like', "%{$word}%");
             })
-            ->where('email_verified_at', '>', $since)
+            // ->where('email_verified_at', '>', $since)
             ->withCount('followers')
             ->orderBy('followers_count', 'desc')
-            ->latest('email_verified_at')
+            // ->latest('email_verified_at')
             ->paginate($per_page);
         return $users;
     }

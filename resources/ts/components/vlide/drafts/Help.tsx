@@ -1,5 +1,8 @@
-import { BiHeadphone, BiPlus, BiQuestionMark, BiX } from 'react-icons/bi';
+import { BiHeadphone, BiQuestionMark, BiX } from 'react-icons/bi';
+
 import useToggle from '../../../hooks/useToggle';
+
+
 
 const Help = () => {
     // NAVBAR 
@@ -10,7 +13,6 @@ const Help = () => {
             <div className={`${on ? "overlay" : ""}`}  onClick={toggle}></div>
 
             <div className={`help_menu ${on && "activeMenubar"}`} id="help_menu">
-                {/* <h1 className={"help_title"}>HELP</h1> */}
                 <h3 className={"help_sub_title"}>スライドショーの作り方</h3>
                 <br />
                 <ul>
@@ -67,6 +69,11 @@ const Help = () => {
                             <p style={{paddingLeft: "40px", margin:"8px 0"}}>
                                 <strong>point</strong>: ポイントスライド
                             </p>
+                            {/* <p style={{paddingLeft: "52px"}}>
+                                <span>pointの後に</span>
+                                <strong style={{padding:"0 8px"}}>:</strong>
+                                <span>に続けて、タイトルを設定できます。</span>
+                            </p> */}
 
                             {/* message */}
                             <p style={{paddingLeft: "40px", margin:"8px 0"}}>
@@ -77,7 +84,59 @@ const Help = () => {
                             <p style={{paddingLeft: "40px", margin:"8px 0"}}>
                                 <strong >alert</strong>: 警告文スライド
                             </p>
-                            
+                            {/* table */}
+                            <p style={{paddingLeft: "40px", margin:"8px 0"}}>
+                                <strong >table</strong>: テーブル
+                            </p>
+                            <p style={{paddingLeft: "52px"}}>
+                                <span>tableの後に</span>
+                                <strong style={{padding:"0 8px"}}>:</strong>
+                                <span>に続けて、タイトルを設定できます。</span>
+                            </p>
+                            <p style={{paddingLeft: "52px"}}>
+                                <span>行を追加したい場合は</span>
+                                <strong style={{padding:"0 8px"}}>改行</strong>
+                                <span>し、列を追加したい場合は</span>
+                                <strong style={{padding:"0 8px"}}>|</strong>
+                                <span>（バーティカルバー）で区切ってください。</span>
+                            </p>
+                            <p style={{paddingLeft: "52px"}}>
+                                <span>1 行目のバーティカルバーの数がテーブルの列数の基準になります。</span>
+                            </p>
+                            <p style={{paddingLeft: "52px"}}>
+                                <span>1 行目もしくは 2 行目で、文字の水平方向の表示位置を指定してください。</span>
+                                <span>左寄せにしたい場合は</span>
+                                <strong style={{padding:"0 8px"}}>:-</strong>
+                                <span>を、</span>
+                                <span>中央寄せにしたい場合は</span>
+                                <strong style={{padding:"0 8px"}}>-</strong>
+                                <span>もしくは</span>
+                                <strong style={{padding:"0 8px"}}>:-:</strong>
+                                <span>を、</span>
+                                <span>右寄せにしたい場合は</span>
+                                <strong style={{padding:"0 8px"}}>-:</strong>
+                                <span>を記述してください。</span>
+                            </p>
+                            <div style={{paddingTop: "5px", paddingLeft: "52px"}}>
+                                <span>例：</span>
+                                <pre>
+                                    ---table:表1 売上の推移
+                                    <br />
+                                    年度|A営業所|B営業所|合計
+                                    <br />
+                                    :-|:-:|-|-:
+                                    <br />
+                                    2020|78,400|8,420|86,820
+                                    <br />
+                                    2021|81,210|15,275|96,485
+                                    <br />
+                                    2022|82,221|17,084|99,305
+                                    <br />
+                                    ---3:44
+                                </pre>
+                            </div>
+
+
                             {/* blockquote */}
                             <p style={{paddingLeft: "40px", margin:"8px 0"}}>
                                 <strong>blockquote</strong>: 引用スライド
@@ -98,7 +157,7 @@ const Help = () => {
                             </p>
                             <p style={{paddingLeft: "52px"}}>
                                 <span>コードにハイライトを当てる場合、codeの後に</span>
-                                <strong style={{padding:"0 8px"}}>-</strong>
+                                <strong style={{padding:"0 8px"}}>?</strong>
                                 <span>に続けて、言語 ( javascript など ) を記述してください。</span>
                             </p>
                             <p style={{paddingTop: "5px", paddingLeft: "52px"}}>
@@ -107,14 +166,14 @@ const Help = () => {
                                 <span>に続けて、ファイル名を書くことができます。</span>
                             </p>
                             <p style={{paddingTop: "5px", paddingLeft: "52px"}}>
-                                <strong style={{padding:"0 8px"}}>-</strong>
+                                <strong style={{padding:"0 8px"}}>?</strong>
                                 <span>と</span>
                                 <strong style={{padding:"0 8px"}}>:</strong>
                                 <span>を同時に記述できます。</span>
                             </p>
                             <p style={{paddingTop: "5px", paddingLeft: "52px"}}>
                                 <span>例：</span>
-                                <code style={{ background: "#eee", padding:"2px" }}>code-javascript:app.js</code>
+                                <code style={{ background: "#eee", padding:"2px" }}>code?javascript:app.js</code>
                             </p>
                             
                             {/* youtube */}
@@ -122,7 +181,7 @@ const Help = () => {
                                 <strong>youtube</strong>: Youtubeスライド
                             </p>
                             <p style={{paddingLeft: "52px"}}>
-                                <strong >```</strong><span> 内にURLを記述してください。</span>
+                                <strong >---</strong><span> 内にURLを記述してください。</span>
                             </p>
                         </details>
                     </li>
@@ -172,15 +231,23 @@ const Help = () => {
                     </li>
                     <li>
                         <pre>
-                            <p>---h1</p>
-                            <p>Vlideへ、ようこそ。</p>
-                            <p>---0:01</p>
-                            <p>---</p>
-                            <p>**音声**と**スライド**掛け合わせたコンテンツを投稿できます。</p>
-                            <p>---4</p>
-                            <p>---message</p>
-                            <p>スライドの内容を切り取り、メモに残す機能もあります。</p>
-                            <p>---01:02</p>
+                            ---h1
+                            <br />
+                            Vlideへ、ようこそ。
+                            <br />
+                            ---0:01
+                            <br />
+                            ---
+                            <br />
+                            **音声**と**スライド**掛け合わせたコンテンツを投稿できます。
+                            <br />
+                            ---4
+                            <br />
+                            ---message
+                            <br />
+                            スライドの内容を切り取り、メモに残す機能もあります。
+                            <br />
+                            ---01:02
                         </pre>
                     </li>
                     <li><br /></li>
@@ -195,21 +262,11 @@ const Help = () => {
                 <br/>
                 <h3 className="help_sub_title" >音声の挿入</h3>
                 <div style={{padding: "8px 0"}}>
-                    <span style={{ margin: "0 10px 0 2px", padding:"3px 20px", fontSize:"10px", border:"2px solid #24292f", borderRadius: "8px" }}>
-                        <BiPlus />
+                    <span style={{ margin: "0 5px 0 2px", fontSize:"16px"}}>
                         <BiHeadphone />
                     </span>
                     を押して、音声ファイルをアップロードして下さい。
                 </div>
-                {/* <p style={{margin: "10px 10px 0 2px"}}>
-                    アップロードできる音声ファイルの容量制限
-                </p> */}
-                <p style={{margin: "10px 10px 0 2px"}}>
-                    15 メガバイトまでの音声ファイルをアップロードすることが可能です。
-                </p>
-                <p style={{margin: "10px 10px 0 2px"}}>
-                    アップロード可能な音声ファイルは mp3, aac です。
-                </p>
             </div>
 
             <div className={`help_button ${on && "active"}`} id="help_button" onClick={toggle}>

@@ -27,7 +27,7 @@ class RankSearchController extends Controller
 
         $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
         
-        $since = $dateTime->modify('-1week')->format('Y-m-d H:i:s.v');
+        $since = $dateTime->modify('-1 month')->format('Y-m-d H:i:s.v');
         
         $vlides = $vlideService->getRankSearch($word, $per_page, $since);
 

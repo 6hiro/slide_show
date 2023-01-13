@@ -8,7 +8,6 @@ type Props = {
 const RadioButton = (props: Props) => {
   return (
     <div className="radio_button">
-        {/* {state} */}
         <input 
             type="radio" name="state" id="dot-1" 
             checked={!props.isPublic} 
@@ -20,17 +19,11 @@ const RadioButton = (props: Props) => {
             onChange={() => props.setIsPublic(true)}
         />
 
-        <label 
-            htmlFor="dot-1"
-            // onClick={()=>setIsPublic("private")}
-        >
+        <label htmlFor="dot-1">
             <span className={`dot ${!props.isPublic ? "checked" : ""}`}></span>
             <span className="">下書き</span>
         </label>
-        <label 
-            htmlFor="dot-2"
-            // onClick={()=>setIsPublic("public")}
-        >
+        <label htmlFor="dot-2">
             <span className={`dot ${props.isPublic ? "checked" : ""}`}></span>
             <span className="">公開</span>
         </label>

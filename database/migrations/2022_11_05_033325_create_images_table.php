@@ -18,6 +18,11 @@ return new class extends Migration
             $table->string('name');
             $table->dateTime('created_at', 3)->nullable();
             $table->dateTime('updated_at', 3)->nullable();
+            $table->boolean('is_public')->default(false);            
+
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            
         });
     }
 

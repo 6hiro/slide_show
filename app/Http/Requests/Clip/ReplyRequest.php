@@ -24,7 +24,7 @@ class ReplyRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|max:200',
+            'content' => 'required|max:400',
             // 'quote' => 'required|max:200',
             // 'is_public' => 'required|boolean',
         ];

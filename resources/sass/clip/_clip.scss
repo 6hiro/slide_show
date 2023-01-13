@@ -1,32 +1,40 @@
 .clip_card_container {
     background: $white;
-    border-bottom: 2px solid #ddd6;
-    border-radius: 10px;
-    background: #eee3;
-    margin: 5px auto;
+    border: 1px solid #f4f3ef;
+    // border-top: none;
+    // box-shadow: 0 0 8px -5px rgb(0 0 0 / 47%);
+    // border-radius: 10px;
+    background: #fff3;
+    margin: 0px auto;
     width: 340px;
     padding: 0 0 0 5px;
 
     .clip__shared_by {
-        padding: 0.2rem 0.8rem;
+        width: 340px;
+        padding: 0.8rem 0.8rem 0.2rem;
         font-size: 14px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         width: 100%;
+
         &:hover {
             text-decoration: underline;
         }
     }
 
     .clip__reply_to{
+        width: 100%;
         color: $blue;
         font-size: 13px;
-        padding: 5px 0px 0px 10px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        width: 100%;
+        padding: 5px 10px 0px 10px;
+
+        a {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
 
         &:hover {
             text-decoration: underline;
@@ -36,62 +44,81 @@
 
 .clip_card {
     display: flex;
+    position: relative;
 
-    .clip_icon {
-        margin: 13px 8px 0 0;
-        width: 40px;
-        height: 40px;
-        @include flex(center, center);    
-        border: 2px solid $subColor;
-        font-size: 25px;
-        text-transform: uppercase;
-        background: #ddd3;
-        background: $white;
-        color: $subColor;
-        border-radius: 50%;
+    .clip_icon_wrapper {
+        .clip_icon {
+            margin: 15px 4px 0 4px;
+            width: 45px;
+            height: 45px;
+            @include flex(center, center);    
+            // border: 2px solid $subColor;
+            border: 2px solid #ccc;
+            font-size: 28px;
+            text-transform: uppercase;
+            background: #ddd3;
+            
+            background: $white;
+            color: #666;
+            border-radius: 50%;
+            a {
+                font-family: 'Niconne', cursive;
+            }
+        }
     }
 
+
     .clip_main {
-        width: calc(100% - 40px);
-        padding: 10px 5px;
+        // width: calc(100% - 40px);
+        // width: 300px;
+        padding: 15px 5px 8px;
 
         .clip_main__header {
             display: flex;
             justify-content: space-between;
+            user-select: none;
+            // border-bottom: 2px solid #ddd6;
+
             &__left{
                 display: flex;
 
                 .clip_nick_name {
                     font-size: 1rem;
-                    padding: 8px 0;
+                    padding: 0px 0 3px;
                     text-decoration: none;
                     color: $subColor;
                     font-size: 14px;
-                    font-weight: 600;
+                    // font-weight: 600;
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
-                    width: 125px;
+                    width: 110px;
+                    line-height: 16px;
+                    
                     &:hover {
                         text-decoration: underline;
                     }
 
                     .clip_user_name {
-                        font-size: 0.9rem;
+                        font-size: 12px;
                         font-weight: 400;
                         overflow-x: hidden;
                         overflow-wrap: normal;
+                        color: rgb(88, 94, 78);
                     }
                 }
     
                 .cliped_at {
                     font-size: 13px;
                     color: rgb(88, 94, 78);
-                    padding: 10px 7px;
+                    padding: 1px 7px;
+                    line-height: 12px;
                 }
             }
             &__right{
                 position: relative;
+                // padding-top: 2px;
+
                 .overlay{
                     width: 100vw;
                     height: 100vh;
@@ -110,20 +137,20 @@
                     position: absolute;
                     z-index: 9999;
                     width: 130px;
-                    padding: 10px;
                     background: $white;
                     box-shadow: rgb(101 119 134 / 20%) 0px 0px 15px, rgb(101 119 134 / 15%) 0px 0px 3px 1px;
                     border-radius: 4px;
                     right: 0;
+                    top: 35px;
                     display: none;
     
                     li{
-                        padding: 2px;
+                        padding: 10px;
                         font-size: 14px;
                         cursor: pointer;
                     }
                     li:hover{
-                        color: $green;
+                        background-color: #f2f2f2;
                     }
     
                 }
@@ -132,9 +159,9 @@
                 }
 
                 .delete_overlay{
-                    backdrop-filter: blur(2px);
-                    -webkit-backdrop-filter: blur(2px);
-                    background: #6663;
+                    // backdrop-filter: blur(2px);
+                    // -webkit-backdrop-filter: blur(2px);
+                    background: #00000065;
                 }
                 &__delete{
                     position: fixed;
@@ -159,16 +186,17 @@
                         justify-content: space-around;
                         margin-top: 10px;
                         text-align: center;
+                        font-weight: 600;
     
                         .no{
                             cursor: pointer;
                             border: 1px solid;
-                            border-radius: 8px;
-                            padding: 2px 4px;
+                            border-radius: 17px;
+                            padding: 4px;
                             color: $white;
                             background: $subColor;
                             border: 2px solid $subColor;
-                            width: 95px;
+                            width: 110px;
                             &:hover {
                                 opacity: 0.7;
                             }
@@ -178,9 +206,9 @@
                             color: $white;
                             background: $red;
                             border: 2px solid $red;
-                            border-radius: 8px;
-                            padding: 2px 4px;
-                            width: 95px;
+                            border-radius: 17px;
+                            padding: 4px;
+                            width: 110px;
                             &:hover {
                                 opacity: 0.7;
                             }
@@ -200,21 +228,24 @@
         white-space: pre-wrap;
         border-left: 3px solid #adadad;
         padding: 10px 5px 10px 7px;
-        margin-bottom: 5px;
-        background: #ddd8;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        // background: #f2f2f2;
         border-radius: 0 5px 5px 0;
         font-weight: 600;
-        font-size: 13.5px;
-        width: 100%;
+        font-size: 14px;
+        width: 270px;
         cursor: pointer;
     }
 
     .clip_text {
         overflow-wrap: break-word;
         white-space: pre-wrap;
-        padding: 5px 5px 5px 10px;
-        margin-bottom: 20px;
+        padding: 5px 5px 10px 0px;
+        margin-bottom: 5px;
         font-size: 16px;
+        width: 270px;
+        // font-weight: 600;
 
         .clip_hashtag {
             cursor: pointer;
@@ -228,16 +259,17 @@
     }
 
     .clip_additional_elements {
+        // width: 200px;
+        // margin: 0 auto;
         position: relative;
-        padding: 0px 8px;
+        // padding: 0px 0px;
         padding-top: 0;
         padding-bottom: 0;
-        display: flex;
-        justify-content: space-between;
-
+        @include flex(center, space-between);
+        user-select: none;
         svg {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
         }
         
         .clip_comment_btn_container,
@@ -247,49 +279,137 @@
             width: 60px;
             height: 25px;
             
-            .clip_likes {
+            .clip_counts {
                 position: relative;
-                @include flex(center, center);
-                width: 22px;
-                height: 22px;
-                margin-left: 2px;
-                font-size: 18px;
+                @include flex(center, unset);
+                width: 36px;
+                // height: 22px;
+                margin-top: 3px;
+                margin-left: 5px;
+                font-size: 16px;
             }
         }
         .clip_comment_btn_container {
             svg {
+                @include flex(center, center);
                 cursor: pointer;
             }
-            &:hover {
-                svg {
-                    color: $green;
+            .clip_comment_btn{
+                @include flex(center, center);
+                
+                &:hover {
+                    svg {
+                        color: $green;
+                    }
                 }
             }
         }
         .clip_share_btn_container {
             svg {
+                @include flex(center, center);
                 cursor: pointer;
             }
-            &:hover {
-                svg {
+            .clip_share_btn {
+                @include flex(center, center);
+
+                svg:hover {
                     color: $orange;
                 }
             }
+
         }
         .clip_like_btn_container {
             svg {
+                @include flex(center, center);
                 cursor: pointer;
             }
             .liked {
                 color: $mainColor;
             }
-            &:hover {
-                svg {
-                    color: $mainColor;
+            .clip_like_btn {
+                @include flex(center, center);
+
+                &:hover {
+                    svg {
+                        color: $mainColor;
+                    }
                 }
             }
+
+        }
+    }
+
+    .user_list {
+        position: fixed;
+        right: 10px;
+        bottom: 15px;
+        z-index: 300;
+        color: $subColor;
+
+        svg {
+            width: unset;
+            height: unset;
         }
 
+        .overlay{
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: fixed;
+            z-index: 290;
+            background: rgba(255, 255, 255, 0.65);
+            // background: rgba(0, 0, 0, 0.65);
+        }
+
+        .formContainer{
+            z-index: 320;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+            // max-height: 620px;
+            max-height: 70%;
+            width: calc(100vw - 50px);
+            overflow-y: scroll;
+            user-select: auto;
+            background: #fff;
+            // border: 3px solid $subColor;
+            box-shadow: $boxShadowWhite;
+            border-radius: 5px;
+            max-width: 500px;
+
+
+            .closeForm {
+                @include flex(center, center);
+                position: absolute;
+                right: 5px;
+                top: 5px;
+                --size: 30px;
+                height: var(--size);
+                width: var(--size);
+                background-color: #fff;
+                color: $subColor;
+                // font-size: 25px;
+                font-size: 30px;
+                font-weight: 900;
+                opacity: 0.75;
+                border-radius: 50%;
+                cursor: pointer;
+    
+                &:hover{
+                    background: #f2f2f2;
+                }
+            }
+            .form {
+                margin: 40px 30px 30px;
+                user-select: unset;
+            }
+
+        }
 
     }
 }

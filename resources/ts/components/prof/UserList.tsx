@@ -1,8 +1,10 @@
 import { USER } from '../../types/user';
 import UserCell from './UserCell';
 
+
+
 type Props = {
-    accountId?: string;
+    loginId?: string;
     users: USER[];
     followUnfollow: Function;
     toggleUserList: Function;
@@ -14,7 +16,7 @@ const UserList = (props:Props) => {
             { props.users.map(( user, i ) => 
                 <li key={i}>
                     <UserCell 
-                        accountId={props.accountId} 
+                        loginId={props.loginId} 
                         user={user} 
                         followUnfollow={props.followUnfollow} 
                         toggleUserList={props.toggleUserList}

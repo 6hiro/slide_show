@@ -25,12 +25,16 @@ class VlideResource extends JsonResource
             ? '/api/v1/audio?f='.$this->audio_file_name
             : "";
 
+        $header_file_name = $this->header_file_name 
+            ? '/api/v1/image?f='.$this->header_file_name
+            : "";
+
         return [
             'id' => $this->id,
             'title' => $this->title,
             'content' => $this->content,
             'duration' => $this->duration,
-            'heading_file_name' => $this->header_file_name,
+            'header_file_name' => $header_file_name,
 
             'audio_file_name' => $audio_file_name,
             // 'audio_file_name' =>  Storage::disk('s3')->url('public/audios/'.$this->audio_file_name),
@@ -55,6 +59,8 @@ class VlideResource extends JsonResource
 
                 // 'tags' => $this->whenLoaded('tags'),
                 'tags' => TagForVlideResource::collection($this->whenLoaded('tags')),
+                'images' => ImageResource::collection($this->whenLoaded('images')),
+
                 'clips' => $this->whenLoaded('clips'),
                 'count_clips' => $this->count_clips,    
 

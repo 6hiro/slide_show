@@ -1,0 +1,95 @@
+.audio_menu_container {
+    .overlay{
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        z-index: 320;
+        background: rgba(255, 255, 255, 0.9);
+    }
+    .audio_menu {
+        position: fixed;
+        z-index: 350;
+        background-color: #fff;
+        top: 52%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+
+        border-radius: 10px;
+        border: 3px solid #24292f;
+        overflow: scroll;
+        line-height: 26px;
+        min-width:300px;
+        max-width: 400px;
+        max-height: 75vh;
+        padding: 20px;
+
+        &__x {
+            @include flex(center, center);
+            position: absolute;
+            --size: 30px;
+            height: var(--size);
+            width: var(--size);
+            background-color: #fff;
+            color: #333;
+            font-size: 30px;
+            font-weight: 600;
+            opacity: 0.75;
+            border-radius: 50%;
+            top: 4px;
+            right: 4px;
+            cursor: pointer;
+
+            &:hover{
+                background: #f2f2f2;
+            }
+        }
+        .add_audio_button{
+            @include flex(center, center);
+            height: 50px;
+            width: 260px;
+            margin: 30px auto 25px;
+            border-radius: 10px;
+            border: 2px solid #000;
+            background: $subColor;
+            padding: 10px;
+            color: $white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+
+        }
+        .rule{
+            color: #999;
+            font-size: 14px;
+            padding: 5px 0px;
+            width: 100%;
+        }
+
+        .audio_delete_button_wrapper {
+            width: 260px;
+            // @include flex(center, flex-end);
+            margin: 25px auto;
+
+            .audio_delete_button {
+                width: 260px;
+                padding: 10px;
+                border: 2px solid #000;
+                @include flex(center, center);
+                border-radius: 10px;
+                font-size: 15px;
+                color: $white;
+                font-weight: 600;
+                background: $red;
+                cursor: pointer;
+            }
+
+        }
+
+    }
+}

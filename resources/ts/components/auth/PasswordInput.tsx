@@ -1,5 +1,8 @@
 import React from 'react';
+
 import { PASSWORD_PATTERN } from '../../utils/regexps';
+
+
 
 type Props = {
     password: string;
@@ -25,10 +28,6 @@ const PasswordInput = (props: Props) => {
                 minLength={8}
                 maxLength={maxLength}
             />
-
-            {/* <div className={styles.text_count} >
-                {props.password.length} / {maxLength}
-            </div> */}
         </div>
     )
 };

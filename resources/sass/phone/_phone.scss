@@ -1,0 +1,106 @@
+.phone{
+    width: 260px;
+    height: 470px;
+    background: #111;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+    border-radius: 32px;
+    position: relative;
+
+    &__inner{     
+        margin: 5px;
+        width: 250px;
+        height: 460px;
+        // background: linear-gradient(#AC34E6, #4671EB);
+        // background: linear-gradient($orange, $mainColor 50%, $pink);
+        border-radius: 28px;
+        position: absolute;
+        
+        .head{
+            position: relative;
+            margin: -1px auto 0;
+            width: 150px;
+            height: 27px;
+            display: flex;
+            background-color: #000;
+            border-radius: 0 0 17px 17px;
+            z-index: 100;
+
+            &::before,
+            &::after{
+                content: "";
+                position: absolute;
+                bottom: 12px;
+                height: 14px;
+                width: 20px;
+            }
+            &::before{
+                left: -13px;
+                border-top-right-radius: 14.5px;
+                box-shadow: 6.0px 0px #000;
+              }
+            &::after{
+                right: -13px;
+                border-top-left-radius: 14.5px;
+                box-shadow: -6.0px 0px #000;
+            }
+            .audio{
+                position: absolute;
+                right: 60px;
+                // left: 60px;
+                top: 9.5px;
+                z-index: 20;
+                height: 5px;
+                width: 40px;
+                background-color: #222;
+                border-radius: 50px;
+            }
+
+            .camera {
+                position: absolute;
+                right: 40px;
+                top: 8px;
+                z-index: 20;
+                --size: 8px;
+                width: var(--size);
+                height: var(--size);
+                background-color: #333;
+                border-radius: 50px;
+                    
+                &::before{
+                    content: "";
+                    position: absolute;
+                    inset: 2px;
+                    background: #009;
+                    border-radius: 48px;
+                }
+
+            }
+        }
+        .img_container{
+            position: absolute;
+            top: 0;
+            z-index: 50;
+            overflow: hidden;
+
+            img {
+                border-radius: 28px;
+                width: 250; 
+                height:460;
+                object-fit: cover;
+            }
+            .img_cover {
+                bottom: 0;
+                left: 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+
+            }
+        }
+    }
+}
+// @include tablet {
+//     .phone {
+//         transform: rotate(0deg)
+//     }
+// }

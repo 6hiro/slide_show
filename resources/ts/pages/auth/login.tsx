@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 import LoginCard from '../../components/auth/LoginCard';
 import { siteTitle } from '../../constants/site';
-import { useAuth } from '../../hooks/useAuth';
+import { Navigate } from 'react-router-dom';
+import { ToastNotificationsContext } from '../../hooks/useToastNotifications';
 
+type Props = {
+    user: any, 
+    login: any,
+}
+const Login = (props: Props) => {
+    const {user, login} = props;
+    const [_, setToastNotifications] = useContext(ToastNotificationsContext);
 
-const Login = () => {
-    const [errors, setErrors] = useState<any[]>([]);
-    const { login } = useAuth({
-        middleware: 'guest',
-        redirectIfAuthenticated: '/'
-    });
+    if(user?.id) return (<Navigate to="/" replace={true} />)
 
     return (
         <React.Fragment>  
@@ -25,7 +28,7 @@ const Login = () => {
             </Helmet>
 
             <div className="auth_page_container">
-                <LoginCard errors={errors} setErrors={setErrors} login={login} />
+                <LoginCard setToastNotifications={setToastNotifications} login={login} />
             </div>
         </React.Fragment>
 

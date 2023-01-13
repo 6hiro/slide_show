@@ -86,13 +86,20 @@ class User extends Authenticatable implements MustVerifyEmail
     // Follow関係
     public function followers(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\User', 'follows', 'followee_id', 'follower_id');
+        return $this->belongsToMany('App\Models\User', 'follows', 'followee_id', 'follower_id')
+            ->withPivot([
+                'created_at',
+            ]);
         // ->withTimestamps();
     }
     public function followings(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\User', 'follows', 'follower_id', 'followee_id');
+        return $this->belongsToMany('App\Models\User', 'follows', 'follower_id', 'followee_id')
+            ->withPivot([
+                'created_at',
+            ]); 
         // ->withTimestamps();
+
     }
     public function isFollowedBy(?User $user): bool
     {
@@ -118,6 +125,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Models\Vlide');
     }
 
+    public function images(): HasMany
+    {
+        return $this->hasMany('App\Models\Image');
+    }
 
     public function getCountVlidesAttribute(): int
     {

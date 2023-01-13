@@ -1,29 +1,36 @@
 import { useLayoutEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { AdmaxSwitch } from "../../components/Ad/AdMax";
 import Clip from "../../components/clip/Clip";
 
 import GetMoreButton from "../../components/layout/GetMoreButton";
-import { admaxId, siteTitle } from "../../constants/site";
+import LoadingScreen from "../../components/layout/LoadingScreen";
+import { siteTitle } from "../../constants/site";
 import { useAuth } from "../../hooks/useAuth";
 import { useClip } from "../../hooks/useClip";
 
-const Clips = () => {
-    const { 
-        user, 
-    } = useAuth();
+type Props = {
+    user: any;
+}
+const Clips = (props: Props) => {
+    const { user } = props;
 
     const { 
         clips,
         clipNextPageLink,
+        clipUsers, 
+        clipUserNextPageLink,
         isLoadingClip,
         getMoreClip,
+        getMoreClipUsers,
         getFollowings,
+        getShareUsers,
+        getlikeUsers,
         likeUnlike,
         shareClip,
         unShareClip,
-        deleteClip
+        deleteClip,
+        clipfollowUnfollow
     } = useClip();
 
     useLayoutEffect(() => {
@@ -32,20 +39,11 @@ const Clips = () => {
         }
     },[user]);
 
-
-
-    // if ( isLoading || isLoadingClip ) {
-    //     return <div style={{width: "100%", height: "calc(100vh -   120px)", display:"flex", alignItems: "center", justifyContent: "center"}}>
-    //         <LoadingScreen />
-    //     </div>
-    // };
-    
-
     return (
         <div>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>フィード Clips / {siteTitle}</title>
+                <title>フィード - クリップ / {siteTitle}</title>
                 <meta
                     name="description"
                     content="フィード Clips"
@@ -54,22 +52,14 @@ const Clips = () => {
 
             <div className="feed_clips_container">
                 <div className="navigation" >
-                    <div className="nav_item" >
-                        <Link to="/">投稿</Link>
-                    </div>
+                    <Link to="/" className="nav_item" >
+                        投稿
+                    </Link>
                     
-                    <div className="nav_item active_nav_item" >
-                        <Link to="/clips">クリップ</Link>
-                    </div>
+                    <Link to="/clips" className="nav_item active_nav_item" >
+                        クリップ
+                    </Link>
                 </div>
-                
-                {/* { isLoadingClip 
-                        ?   <div style={{ height:"100px", display:"flex", alignItems: "center", justifyContent: "center" }}>
-                                <Loader />
-                            </div>
-
-                        : null
-                } */}
 
                 <section>
                     <div className="clips_container" >
@@ -82,23 +72,30 @@ const Clips = () => {
                                                 // user={user} 
                                                 loginId={user ? user.id : ""}
                                                 likeUnlike={likeUnlike} 
+                                                getShareUsers={getShareUsers}
                                                 shareClip={shareClip} 
                                                 unShareClip={unShareClip} 
                                                 deleteClip={deleteClip}
+                                                getlikeUsers={getlikeUsers}
+                                                users={clipUsers}
+                                                userNextPageLink={clipUserNextPageLink}
+                                                getMoreUser={getMoreClipUsers}
+                                                followUnfollow={clipfollowUnfollow}
                                             /> 
                                         </li>
                                     )
                                 : <div className="clip_no_contents">
-                                    フォロー中のユーザーのクリップがありません。
+                                    {
+                                        !isLoadingClip 
+                                            ? "フォロー中のユーザーのクリップがありません。" 
+                                            :  <LoadingScreen />
+                                    }
                                 </div>
                             }
 
                             { ( clips && clipNextPageLink ) && 
                                 <GetMoreButton nextPageLink={clipNextPageLink} gerMoreFunc={getMoreClip} />
                             }
-                            <div style={{margin: "15px auto", width: "300px"}}>
-                                <AdmaxSwitch id={admaxId} />
-                            </div>
                     
                         </ul>
                     </div>

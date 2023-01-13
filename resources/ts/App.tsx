@@ -1,119 +1,145 @@
-import React, {  } from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-//   ScrollRestoration,
-} from "react-router-dom";
-import {
-    QueryClient,
-    QueryClientProvider,
-} from '@tanstack/react-query';
-  
+import React, { lazy } from "react";
+import { Routes, Route, } from "react-router-dom";
+
+// import { siteASCIIArt } from "./constants/site";
+// import { safari } from "./utils/browser";
+import { ToastNotificationsContext, useToastNotifications } from "./hooks/useToastNotifications";
+import ToastNotifications from "./components/toastNotification/ToastNotifications";
+import { useQueryUser } from "./hooks/useQueryUser";
+import { useAuth } from "./hooks/useAuth";
 import Layout from "./components/layout/Layout";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
-import ForgotPassword from "./pages/auth/ForgotPassword";
 import Search from "./pages/search";
 import Settings from "./pages/settings";
-import EditVlide from "./pages/vlide/EditVlide";
-import Detail from "./pages/vlide/DetailVlide";
-import About from "./pages/about";
-import Notifications from "./pages/notifications";
-import Home from "./pages/Home/Home";
-import Clips from "./pages/Home/Clips";
+// import Detail from "./pages/vlide/DetailVlide";
+import Home from "./pages/home/Home";
+import Clips from "./pages/home/Clips";
 import Tag from "./pages/tag";
 import DetailClip from "./pages/clip/DetailClip";
 import Profile from "./pages/prof";
-import VerificationLinkSent from "./pages/auth/VerificationLinkSent";
-import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/layout/ScrollToTop";
-import ResetPassword from "./pages/auth/ResetPassword";
-import Subscription from "./pages/subscription";
-import Terms from "./pages/terms";
+// コード分割
+const VerificationLinkSent = lazy(() => import("./pages/auth/VerificationLinkSent"));
+const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
+const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
+// const Search = lazy(() => import("./pages/search"));
+// const Settings = lazy(() => import("./pages/settings"));
+const Detail = lazy(() => import("./pages/vlide/DetailVlide"));
+const DraftVlide  = lazy(() => import("./pages/vlide/DraftVlide"));
+const About = lazy(() => import("./pages/about"));
+const Notifications = lazy(() => import("./pages/notifications"));
+// const Home = lazy(() => import("./pages/home/Home"));
+// const Clips = lazy(() => import("./pages/home/Clips"));
+// const Tag = lazy(() => import("./pages/tag"));
+// const DetailClip = lazy(() => import("./pages/clip/DetailClip"));
+// const Profile = lazy(() => import("./pages/prof"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+// const ScrollToTop = lazy(() => import("./components/layout/ScrollToTop"));
+// const Subscription  = lazy(() => import("./pages/subscription"));
+const Terms = lazy(() => import("./pages/terms"));
+const Privacy  = lazy(() => import("./pages/terms/Privacy"));
+// const SubscriptionSuccess  = lazy(() => import("./pages/subscription/SubscriptionSuccess"));
+const Protected  = lazy(() => import("./components/Protected"));
 
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            retry: false, // fetch に失敗した時に自動的にリトライするか
-            refetchOnWindowFocus: false, // フォーカス時に再検証するか
-            // suspense: true, // susupense と組み合わせる
-        }
-    }
-});
+
 
 const App: React.FC = () => {
+    // if(!safari) console.log(siteASCIIArt);
+    const {toastNotifications, setToastNotifications} = useToastNotifications();
+    const { data:user, error, isLoading, refetch } = useQueryUser();
+    const { 
+        register,
+        login,
+        forgotPassword,
+        resetPassword,
+        // resendEmailVerification,
+        logout,
+        deleteAccount,
+        changeUserName,
+        changePassword
+    } = useAuth(
+        user, 
+        error,
+        isLoading,
+        refetch,
+        {
+            middleware: 'guest',
+            redirectIfAuthenticated: '/'
+        }
+    );
+
     return (
-        <div>
+        <ToastNotificationsContext.Provider value={[toastNotifications, setToastNotifications]}>
 
-            <QueryClientProvider client={queryClient}>
+            {/* ページ遷移時にスクロール位置をトップに */}
+            <ScrollToTop />
 
-
-                <BrowserRouter>
-                    {/* ページ遷移時にスクロール位置をトップに */}
-
-                    <ScrollToTop />
-                    {/* <ScrollRestoration /> */}
-
-                    <Routes>
-                        <Route path="/" element={<Layout />}>
-                            {/* Home Page */}
-                            <Route index element={<Home />} />
-                            <Route path="/clips" element={<Clips />} />
-
-                            {/* Prof */}
-                            <Route path="/prof/:username" element={<Profile />} />
-                            
-                            {/* Auth Page */}
-                            <Route path="/auth/register" element={<Register />} />
-                            <Route path="/auth/login" element={<Login />} />
-                            <Route path="/verification-link-sent" element={<VerificationLinkSent />} />
-                            <Route path="/auth/forgot-password" element={<ForgotPassword />} />
-                            <Route path="/auth/reset-password/:token" element={<ResetPassword />} />
+            <ToastNotifications notifications={toastNotifications} setNotifications={setToastNotifications} />
 
 
-                            <Route path="/terms" element={<Terms />} />
+            <Routes>
+                {/* Subscription */}
+                {/* <Route path='/plans' element={<Protected />}>
+                    <Route path="payment/success" element={<SubscriptionSuccess />} />
+                    <Route path="payment/cancellation" element={<SubscriptionSuccess />} />
+                </Route> */}
+                <Route path="/" element={<Layout user={user} isLoading={isLoading} logout={logout} />}>
 
-                            {/* Subscription */}
-                            {/* <Route path="/subscription" element={<Subscription />} /> */}
-                            {/* <Route path="/subscription" element={<StripWrapper />}> */}
-                                {/* <Route index element={<Subscription />} /> */}
-                            {/* </Route> */}
+                    <Route path='/' element={<Protected />}>
+                        {/* Settings */}
+                        <Route path="/settings" element={<Settings user={user} isLoading={isLoading} deleteAccount={deleteAccount} changeUserName={changeUserName} changePassword={changePassword} />} />
+                    </Route>
 
-                            {/* Settings */}
-                            <Route path="/settings" element={<Settings />} />
-                            
-                            {/* Clip */}
-                            {/* <Route path="/clip/new" element={<AddClip />} /> */}
+                    {/* Home Page */}
+                    <Route index element={<Home user={user} isLoading={isLoading} />} />
+                    <Route path="/clips" element={<Clips user={user} />} />
 
-                            {/* Search */}
-                            <Route path="/search" element={<Search />} />
-                            {/* Tag */}
-                            <Route path="/tag" element={<Tag />} />
-
-
-                            {/* About */}
-                            <Route path="/about" element={<About />} />
-
-                            {/* Notifications */}
-                            <Route path="/notifications" element={<Notifications />} />
+                    {/* Prof */}
+                    <Route path="/prof/:username" element={<Profile user={user} isLoading={isLoading} refetch={refetch} />} />
+                    
+                    {/* Auth Page */}
+                    <Route path="/auth/register" element={<Register user={user} register={register}  />} />
+                    <Route path="/auth/login" element={<Login user={user} login={login} />} />
+                    <Route path="/verification-link-sent" element={<VerificationLinkSent />} />
+                    <Route path="/auth/forgot-password" element={<ForgotPassword user={user} forgotPassword={forgotPassword} />} />
+                    <Route path="/auth/reset-password/:token" element={<ResetPassword user={user} resetPassword={resetPassword} />} />
 
 
-                            {/* Vlide */}
-                            <Route path="/drafts/vlide/:vlide_id" element={<EditVlide />} />
-                            <Route path="/vlide/:vlide_id" element={<Detail />} />
-                            
+                    <Route path="/terms" element={<Terms />} />
+                    <Route path="/privacy" element={<Privacy />} />
 
-                            {/* clip */}
-                            <Route path="/clip/:clip_id" element={<DetailClip />} />
-                            <Route path="*" element={<NotFound />} />
-                        </Route>
-                    </Routes>
 
-                </BrowserRouter>
-           </QueryClientProvider>
-        </div>
+                    {/* <Route path="/subscription" element={<Subscription />} /> */}
+                    {/* <Route path="/subscription" element={<StripWrapper />}> */}
+                        {/* <Route index element={<Subscription />} /> */}
+                    {/* </Route> */}
 
+                    
+                    {/* Search */}
+                    <Route path="/search" element={<Search user={user} />} />
+                    {/* Tag */}
+                    <Route path="/tag" element={<Tag user={user} />} />
+
+                    {/* About */}
+                    <Route path="/about" element={<About />} />
+
+                    {/* Notifications */}
+                    <Route path="/notifications" element={<Notifications />} />
+
+
+                    {/* Vlide */}
+                    <Route path="/drafts/vlide/:vlide_id" element={<DraftVlide user={user} isLoadingUser={isLoading} />} />
+                    <Route path="/vlide/:vlide_id" element={<Detail  user={user} />} />
+                    
+
+                    {/* clip */}
+                    <Route path="/clip/:clip_id" element={<DetailClip user={user} />} />
+
+                    <Route path="*" element={<NotFound />} />
+                </Route>
+            </Routes>
+        </ToastNotificationsContext.Provider>
     )
 };
 

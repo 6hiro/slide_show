@@ -1,6 +1,8 @@
 // https://zenn.dev/goshouhiro/articles/react-ninja-admax
 import { useEffect } from "react";
 
+
+
 // 広告タイプの型
 type AdmaxAdType = {
     admax_id: string; // 広告ID

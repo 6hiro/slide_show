@@ -1,26 +1,19 @@
-import {
-    useQuery,
-    // useMutation,
-    // useQueryClient,
-    // QueryClient,
-} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import axios from '../libs/axios';
 
-
-const getUser = async () => {
+const fetchUser = async () => {
     const { data } = await axios
         .get('/api/v1/user');
-
     return data.data; 
 };
 
-export const useQueryUser = (
-    // {middleware, redirectIfAuthenticated}: {middleware?: string, redirectIfAuthenticated?: any} = {}
-) => {
+export const useQueryUser = () => {
+
     return useQuery({
         queryKey: ['user'],
-        queryFn: () => getUser(),
-        staleTime: Infinity
+        queryFn: () => fetchUser(),
+        staleTime: Infinity,
+        // refetchOnMount: false,
     });
 };

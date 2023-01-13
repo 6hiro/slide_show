@@ -56,7 +56,7 @@ class VlideService
             ->where('published_at', '>', $since)
             ->withCount('clips')
             ->orderBy('clips_count', 'desc')
-            ->latest('published_at')
+            // ->latest('published_at')
             ->paginate($per_page);
 
         return $vlides;
@@ -163,7 +163,8 @@ class VlideService
             })
             ->withCount('clips')
             ->orderBy('clips_count', 'desc')
-            ->latest('published_at')
+            // ->orderBy('count_clips_one_week', 'desc')
+            // ->latest('published_at')
             ->paginate($per_page);
         return $vlides;
     }
@@ -197,7 +198,7 @@ class VlideService
             ->where('published_at', '>', $since)
             ->withCount('clips')
             ->orderBy('clips_count', 'desc')
-            ->latest('published_at')
+            // ->latest('published_at')
             ->paginate($per_page);
         return $vlides;
     }
@@ -207,6 +208,7 @@ class VlideService
         return Vlide::with([
                 'tags', 
                 'user', 
+                'images', 
                 // 'clips'
             ])
             // ->where('id', $vlideId)
@@ -219,6 +221,24 @@ class VlideService
             ->find($vlideId);
     }
 
+    public function checkCanGetAudio(?User $user, string $audio_file_name)
+    {
+        $vlide = Vlide::where('audio_file_name', $audio_file_name)->first();
+
+        if(!$vlide){
+            return false;
+        }
+        if($vlide->is_public) {
+        // if($vlide->is_public && !$vlide->vlide_type) {
+            return true;
+        }
+        if($user){
+            return $vlide->user_id === $user->id;
+        }
+        return false;
+
+    }
+
     public function checkOwnVlide(string $userId, string $vlideId)
     {
         $vlide = Vlide::where('id', $vlideId)->first();
@@ -229,8 +249,8 @@ class VlideService
         return $vlide->user_id === $userId;
     }
 
-    public function create(string $userId, string $title, array $tag_list, bool $is_public){
-        
+    public function create(string $userId, string $title, array $tag_list, bool $is_public)
+    {    
         return DB::transaction(function () use($userId, $title, $tag_list, $is_public) {
             $vlide = new Vlide();
             $vlide->user_id = $userId;
@@ -310,20 +330,25 @@ class VlideService
         DB::transaction(function () use($vlideId) {
             $vlide = Vlide::where('id', $vlideId)->firstOrFail();
 
-            // $vlide->images()->each(function ($image) use ($vlide) {
-            //     $filePath = 'public/images'.$vlide->name;
-            //     if(Storage::exists($filePath)){
-            //         Storage::delete($filePath);
-            //     }
-            //     $vlide->images()->detach($image->id);
-            //     $image->delete();
-            // });
+            $vlide->images()->each(function ($image) {
+                $imagePath = 'public/images/'.$image->name;
+
+                if(Storage::disk('s3')->exists($imagePath)) {
+                    Storage::disk('s3')->delete($imagePath);
+                }
+                
+                // $vlide->images()->detach($image->id);
+                $image->delete();
+            });
 
             if($vlide->audio_file_name){
-                $filePath = 'public/audios/'.$vlide->audio_file_name;
+                $audioPath = 'public/audios/'.$vlide->audio_file_name;
                 
-                if(Storage::exists($filePath)) {
-                    Storage::delete($filePath);
+                // if(Storage::exists($filePath)) {
+                //     Storage::delete($filePath);
+                // }
+                if(Storage::disk('s3')->exists($audioPath)) {
+                    Storage::disk('s3')->delete($audioPath);
                 }
             }
             

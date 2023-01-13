@@ -1,6 +1,6 @@
 import React from 'react';
-import { BiMessageError } from 'react-icons/bi';
-// import styles from '../../../styles/vlide/TitleInput.module.scss';
+
+
 
 type Props = {
     title: string;
@@ -22,10 +22,7 @@ const TitleInput = (props: Props) => {
             />
 
             <div className="text_count" >
-                {/* <BiMessageError /> */}
-                {/* <span> タイトルは 40 文字以内で入力できます</span> */}
                 {props.title.length} / {maxLength}
-
             </div>
         </div>
     )

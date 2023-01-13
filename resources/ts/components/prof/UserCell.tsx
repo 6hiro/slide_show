@@ -1,15 +1,18 @@
+import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
+
 import { USER } from '../../types/user';
 
+
+
 type Props = {
-    accountId?: string | null;
+    loginId?: string | null;
     user: USER;
     followUnfollow: Function;
     toggleUserList: Function;
 };
 
 const UserCell = (props: Props) => {
-
     return (
         <div 
             className='user_cell'
@@ -20,10 +23,19 @@ const UserCell = (props: Props) => {
                 onClick={(e) => { 
                     props.toggleUserList(false);
                 }}
-                // style={{display: "block"}}
             >
                 <div className='icon_wrapper'>
-                    {props.user.name.slice(0,1)}
+                    { props.user?.file_name 
+                        ? 
+                            <img 
+                                src={props.user.file_name}
+                                alt="user icon" 
+                                className="img" 
+                                style={{borderRadius: "50%"}}
+                            />
+
+                        : <>{[...props.user.nick_name][0]}</>
+                    }
                 </div>
 
                 <div className="user_cell__left__top">
@@ -39,29 +51,24 @@ const UserCell = (props: Props) => {
                 </div>
             </Link>
 
-
-            <div 
-                className="user_cell__right"
-                // onClick={(e) => { 
-                //     props.toggleUserList(false);
-                //     navigate(`/prof/${props.user.name}`)
-                // }}
-            >
-                {props.accountId !== props.user.id 
-                    ?    <div 
-                            className={`user_cell__right__follow_button ${props.user.isFollowed ? "is_followed" : ""}`}
-                            onClick={ () => {props.followUnfollow(props.user.id)}}
-                        >
-                            {
-                                props.user.isFollowed 
-                                    ? "アンフォロー" 
-                                    : "フォロー"
-                            }
-                        </div>
-                    : null
-                }
-            </div>
-
+           { (props.loginId && (props.loginId !== props.user.id ))?
+                <div className="user_cell__right">
+                    <div 
+                        className={`user_cell__right__follow_button ${props.user.isFollowed ? "is_followed" : ""}`}
+                        onClick={ 
+                            useCallback(
+                                () => {props.followUnfollow(props.user.id, props.loginId)}
+                            , [props.user.id, props.loginId])
+                        }
+                    >
+                        {
+                            props.user.isFollowed 
+                                ? "アンフォロー" 
+                                : "フォロー"
+                        }
+                    </div>
+                </div>
+            : null}
         </div>
     )
 };

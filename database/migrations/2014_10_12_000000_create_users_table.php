@@ -17,16 +17,21 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name')->unique();
             // $table->string('role');
+            
+            $table->date('date_of_birth')->nullable(); // YYYY-MM-DD
+
             $table->string('nick_name');
             $table->text('description')->nullable();
             $table->string('file_name')->nullable();
+            // $table->string('is_superuser')->nullable();
             $table->string('status')->nullable();
-            // $table->string('status')->nullable();
 
             $table->string('email')->unique();
             $table->dateTime('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->date('unbaned_on')->nullable(); // YYYY-MM-DD
+
             /**
              * Illuminate\Database\Schema
              * Create a new date-time column on the table.

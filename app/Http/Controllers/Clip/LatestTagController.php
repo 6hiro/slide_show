@@ -19,13 +19,15 @@ class LatestTagController extends Controller
     {
         $tag_name = $request->tag_name;
 
-        $per_page = 5;
+        $per_page = 12;
         $since = $request->since;
         $clips = $clipService->getTag($tag_name, $per_page, $since);
 
         return [
             'next_page_link'=>$clips->count()>$per_page 
-                ? $request->url()."?since=".$clips[count($clips)-2]["created_at"]
+                // ? $request->url()."?since=".$clips[count($clips)-2]["created_at"]
+                ? $request->url()."?tag_name=".$tag_name."&since=".$clips[count($clips)-2]["created_at"]
+
                 : null,
             'data' => ClipResource::collection($clips->take($per_page)),
         ];

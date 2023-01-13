@@ -17,7 +17,7 @@ class UserLikesController extends Controller
      */
     public function __invoke(Request $request, ClipService $clipService)
     {
-        $per_page = 5;
+        $per_page = 12;
         // $user_id = $request->user()->id;
         $user_id = $request->route('userId');
 

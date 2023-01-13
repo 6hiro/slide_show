@@ -15,6 +15,7 @@ use App\Http\Resources\VlideResource;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 
 
 class GetAudioController extends Controller
@@ -28,33 +29,46 @@ class GetAudioController extends Controller
     public function __invoke(Request $request, VlideService $vlideService)  // Single Action Controller
     {
         $filename = $request->f;
+
+        if( !$vlideService->checkCanGetAudio($request->user(), $filename) ){
+            // throw new AccessDeniedException();
+            return response()->json([
+            ], 403);
+        }
+        
         // $pathToFile = storage_path('app/public')."/audios/" . $filename;   
         // $pathToFile = Storage::disk('s3')->url('public/audios/'.$filename);
+        if(Storage::disk('s3')->exists('public/audios/'.$filename)) {
+            $audio =  Storage::disk('s3')->get('public/audios/'.$filename);
+            // $mimeType = Storage::disk('s3')->mimeType($filename);
+            $filesize = Storage::disk('s3')->size('public/audios/'.$filename);
+    
+    
+            // return $audio;
+    
+            // これがないとChrome/Egdeではaudioタグでシークできない
+            // header('Accept-Ranges: bytes'); 
+            
+            $headers = [
+                'Content-Length' => $filesize,
+                'Content-Type' => 'audio/mpeg',
+                'Accept-Ranges' => 'bytes'
+            ];
+    
+            return response()->make($audio, 200, $headers);
+    
+            // $response = response()
+            //                 ->file(
+            //                     base64_encode($pathToFile), 
+            //                     $headers
+            //                 );
+    
+            return $response;
+        }else{
+                
+            $response = response();
+        }
 
-        $audio =  Storage::disk('s3')->get('public/audios/'.$filename);
-        // $mimeType = Storage::disk('s3')->mimeType($filename);
-        $filesize = Storage::disk('s3')->size('public/audios/'.$filename);
 
-
-        // return $audio;
-
-        // これがないとChrome/Egdeではaudioタグでシークできない
-        // header('Accept-Ranges: bytes'); 
-        
-        $headers = [
-            'Content-Length' => $filesize,
-            'Content-Type' => 'audio/mpeg',
-            'Accept-Ranges' => 'bytes'
-        ];
-
-        return response()->make($audio, 200, $headers);
-
-        // $response = response()
-        //                 ->file(
-        //                     base64_encode($pathToFile), 
-        //                     $headers
-        //                 );
-
-        return $response;
     }
 }

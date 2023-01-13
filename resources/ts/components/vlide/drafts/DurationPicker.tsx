@@ -1,4 +1,6 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
+
+
 
 type DurationPickerProps = {
     durationTime: number;
@@ -8,17 +10,10 @@ type DurationPickerProps = {
 const DurationPicker = (props: DurationPickerProps) => {
 
     // const hourArray = [...Array(1)].map((_,i)=>i); // [0]
-    const minuteArray = [...Array(11)].map((_,i)=>i); // [0, 1, 2, ... , 10]
+    const minuteArray = [...Array(21)].map((_,i)=>i); // [0, 1, 2, ... , 20]
     const secondArray = [...Array(60)].map((_,i)=>i); // [0, 1, 2, ... , 59]
 
-    const maxTime = 600;
-    // const maxTime = 0 * 60 * 60 + 10 * 60 + 0;
-
-    useEffect(() => {
-        // console.log(
-        //     props.durationTime
-        // )
-    }, [props.durationTime]);
+    const maxTime = 1200; //  0 * 60 * 60 + 20 * 60 + 0
 
     return (
         <div className="timePicker">
@@ -26,12 +21,10 @@ const DurationPicker = (props: DurationPickerProps) => {
                 className="timePicker_select" 
                 name="" 
                 id=""
-                // defaultValue={minute}
                 value={ Math.floor(props.durationTime / 60 % 60 ) }
                 onChange={e => 
                     props.setDurationTime(
                         (prev) => { 
-                            // console.log(Math.floor(prev / 60 % 60) )
                             if( Number(e.target.value)*60 >= maxTime) return maxTime;
                             return prev - ( Math.floor(prev / 60 % 60) )* 60 + Number(e.target.value) * 60 ;
                         }

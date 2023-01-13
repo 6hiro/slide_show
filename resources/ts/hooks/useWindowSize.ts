@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 // https://zenn.dev/kenghaya/articles/6020b6192dadec
 
 export const useWindowSize = (): number[] => {

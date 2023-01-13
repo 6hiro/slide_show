@@ -1,6 +1,68 @@
 
 .slide{
-    margin: 45px 20px;
+    margin: 32px 20px;
+}
+.table_title {
+    text-align: start;
+    width: 100%;
+    padding: 8px 5px;
+    font-weight: 600;
+    font-size: 1.0rem;
+}
+.slide_table_wrapper {
+    width: 100%;
+    overflow-x: scroll;
+    box-shadow: $boxShadowWhite;
+    padding: 0.4rem 0.5rem;
+
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+        padding: 0;
+        background: $white;
+        width: 100%;
+        // border: 1px solid #eee;
+    }
+
+    table th,
+    table td {
+        padding: .5em 1em;
+        // border-bottom: 1px solid #eee;
+        // border-color: #dae1e7;
+    }
+    table thead td {
+        font-weight: 700;
+        color: #3d4852;
+    }
+    table thead th {
+        font-size: .95em;
+        padding: 1em;
+    }
+    table thead tr{
+        // background-color: #f6f8fa;
+        color: #3d4852;
+    }
+    table tbody th {
+        text-align: left;
+        font-size: .9em;
+        height: 32px;
+        font-weight: 500;
+        border-top: 1px solid;
+        border-color: #dae1e7;
+    }
+    // // tbody 全て
+    // tbody:hover td,tbody:hover th {
+    //     color: transparent;
+    //     text-shadow: 0 0 3px #666;
+    //     background:#eee;
+    // }
+    // // tbody,tr hoverしてるtd
+    // tbody:hover tr:hover td,
+    // tbody:hover tr:hover th{
+    //     color: #444;
+    //     text-shadow: 0 1px 0 #fff;
+    //     background:#fff;
+    // }
 }
 .youtube {
     width: 90%;
@@ -29,10 +91,11 @@
 }
 .point{
     position: relative;
-    margin: 45px 20px;
     padding: 5px 10px;
     border: 2px solid $buttonColor;
     border-radius: 5px;
+    box-shadow: $boxShadowWhite;
+    background: $white;
 
     &_title{
         position: absolute;
@@ -49,7 +112,7 @@
         overflow-wrap: break-word;
         white-space: pre-wrap;
         font-size: 18px;
-        margin: 10px
+        margin: 10px;
     }
 }
 aside.slide{ // aleart message
@@ -58,8 +121,9 @@ aside.slide{ // aleart message
     border-radius: 5px;
     background: #fff3dd;
     border: 2px solid #ffb84c;
+    box-shadow: $boxShadowWhite;
     color: #000000a6;
-    font-size: .94em;
+    font-size: 1em;
     line-height: 1.6;
     overflow-wrap: break-word;
     white-space: pre-wrap;
@@ -113,44 +177,59 @@ aside.alert{ // aleart
         padding: 0.1em 0.35em;
     }
 }
-h1.slide {
-    font-size: 2rem;
-}
 h2.slide {
-    font-size: 1.4rem;
-    margin: 30px 20px 18px;
+    font-size: 1.8rem;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+h3.slide {
+    font-size: 1.6rem;
+    line-height: 35px;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
-p.slide{
+.paragraph.slide{
     overflow-wrap: break-word;
     white-space: pre-wrap;
     font-size: 18px;
-    margin: 30px 20px 30px;
+    line-height: 32px;
     a{
-        color: $blue;
+        text-decoration: underline;
+        color: #3b49df;
+
         &:hover {
-            text-decoration: underline;
+            color: $blue;
+            // text-decoration: underline;
         }
     }
     strong {
         // background: -webkit-linear-gradient( transparent 65%, rgba(79, 101, 241, 0.25) 0% );
-        background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
+        // background: -webkit-linear-gradient( transparent 65%, #f8aaaa 0% );
+        background: -webkit-linear-gradient( transparent 65%, $pink 0% );
+
     }
     code {
         background-color: rgba(0,0,0,.06);
         border-radius: 3px;
-        padding: 0.1em 0.35em;
+        padding: 0.1em 0.3em;
+        margin: 0 0.2em;
     }
 }
 blockquote.slide{
-    font-size: .97em;
-    margin: 35px 20px;
-    border-left: 3px solid #adadad;
-    padding: 2px 0 2px 0.7em;
-    color: #505c64;
+    font-size: 1rem;
+    margin: 42px 20px;
+    // border-left: 4px solid #adadad;
+    // background: #f2f2f2;
+    // background: #f6f8fa;
+    border-left: 4px solid #d6d6d7;
+    padding: 0.5rem 0.8rem;
+    // color: #505c64;
     overflow-wrap: break-word;
     white-space: pre-wrap;
-
+    // box-shadow: 0 0 8px -5px rgb(0 0 0 / 47%);
+    user-select: none;
+    
     a{
         color: $blue;
         &:hover {
@@ -326,36 +405,36 @@ pre[class*="language-"] {
 }
 
 .token.punctuation {
-        color: #c5c8c6;
+    color: #c5c8c6;
 }
 
 .namespace {
-        opacity: .7;
+    opacity: .7;
 }
 
 .token.property,
 .token.keyword,
 .token.tag {
-        color: #96CBFE;
+    color: #96CBFE;
 }
 
 .token.class-name {
-        color: #FFFFB6;
-        text-decoration: underline;
+    color: #FFFFB6;
+    // text-decoration: underline;
 }
 
 .token.boolean,
 .token.constant {
-        color: #99CC99;
+    color: #99CC99;
 }
 
 .token.symbol,
 .token.deleted {
-        color: #f92672;
+    color: #f92672;
 }
 
 .token.number {
-        color: #FF73FD;
+    color: #FF73FD;
 }
 
 .token.selector,
@@ -364,15 +443,15 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-        color: #A8FF60;
+    color: #A8FF60;
 }
 
 .token.variable {
-        color: #C6C5FE;
+    color: #C6C5FE;
 }
 
 .token.operator {
-        color: #EDEDED;
+    color: #EDEDED;
 }
 
 .token.entity {
@@ -386,7 +465,7 @@ pre[class*="language-"] {
 
 .language-css .token.string,
 .style .token.string {
-        color: #87C38A;
+    color: #87C38A;
 }
 
 .token.atrule,
@@ -395,15 +474,15 @@ pre[class*="language-"] {
 }
 
 .token.function {
-        color: #DAD085;
+    color: #DAD085;
 }
 
 .token.regex {
-        color: #E9C062;
+    color: #E9C062;
 }
 
 .token.important {
-        color: #fd971f;
+    color: #fd971f;
 }
 
 .token.important,
@@ -412,7 +491,7 @@ pre[class*="language-"] {
 }
 
 .token.italic {
-        font-style: italic;
+    font-style: italic;
 }
         
         

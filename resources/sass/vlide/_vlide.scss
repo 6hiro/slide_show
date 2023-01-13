@@ -1,0 +1,220 @@
+.vlide_card_container {
+    position: relative;
+    height: 300px;
+    width: 320px;
+    box-shadow: $boxShadowWhite;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    user-select: none;
+    background: #00000015;
+
+    .vlide_heading {
+        position: absolute;
+        left: 0;
+        bottom: 0px;
+        // z-index: 110;
+
+        &__title {
+            @include flex(center, unset); 
+            word-break: break-word;
+            border-top: 1px solid #ddd;
+            border-radius: 0 0 10px 10px;
+            background: $white;
+            color: #333;
+            font-size: 14px;
+            width: 320px;
+            height: 48px;
+            font-weight: 700;
+            padding: 0 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+    }
+    .vlide_main {
+        position: relative;
+        z-index: 0;
+        height: 250px;
+        width: 320px;
+        
+        &__img_wrapper {
+            cursor: pointer;
+            @include flex(center, center);
+            flex-direction: column;
+            width: 320px;
+            height: 250px;
+            z-index: 10;
+            position: relative;
+            overflow: hidden;
+            background: #00000015;
+            border-radius: 10px 10px 0 0;
+
+            img {
+                border-radius: 3px;
+                object-fit: contain;
+                object-fit: cover;
+                position: absolute;
+                height: 320px;
+                height: 250px;
+                aspect-ratio: auto 300 / 300;
+            }
+            .img_cover {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: 0;
+                border-radius: 10px 10px 0 0;
+                // background: #00000005;
+                transition: 0.5s;
+
+                // &:hover {
+                //     background: unset;
+                // }
+            }
+        }
+        &__actions_container {
+            position: absolute;
+            z-index: 20;
+            top: 50%;
+            right: 0px;
+            transform: translateY(-50%);
+            @include flex(center, center);   
+            overflow: hidden; // vlide_main__actions__item::before, ::after のはみだし部分を消すため
+            
+            .vlide_main__actions {
+                position: relative;
+                width: 40px;
+                border-radius: 15px 0 0 15px;
+                // background: #ffffff62;
+                background: #ffffff42;
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+                @include flex(center, center);   
+                flex-direction: column;
+
+                &__item {
+                    font-size: 20px;
+                    // color: #444;
+                    color: #585e4e;
+                    @include flex(center, center);               
+                    border-radius: 50%;
+                    width: 32px;
+                    height: 32px;
+                    background: #ffffff42;
+                    backdrop-filter: blur(1px);
+                    -webkit-backdrop-filter: blur(1px);
+                    transition: all 0.8;
+                    cursor: pointer;
+                    
+                    // &:hover > svg {
+                    //     color: $subColor;
+                    //     transform: scale(1.1);
+                    // }
+                    
+                    .loader_circle {
+                        animation:3s linear infinite rotation;
+                    }
+                    @keyframes rotation{
+                        0%{ transform:rotate(0);}
+                        100%{ transform:rotate(360deg); }
+                    }
+
+                }
+
+
+
+                &::before,
+                &::after{
+                    content: "";
+                    position: absolute;
+                    height: 14px;
+                    width: 20px;
+                    // right: -3.3px;
+                    right: -4px;
+                }
+                &::before{
+                    top: -14px;
+                    border-bottom-right-radius: 14.5px;
+                    box-shadow: 8.0px 0px #ffffff62;
+                  }
+                &::after{
+                    bottom: -14px;
+                    border-top-right-radius: 14.5px;
+                    box-shadow: 8.0px 0px #ffffff62;
+                }
+            }
+        }
+    }
+    
+    .vlide_footer {
+        @include flex(center, unset);    
+        position: absolute;
+        z-index: 50;
+        top: 205px;
+        height: 45px;
+        width: 230px;
+        padding: 5px 10px;
+        margin-left: 0px;
+        background: #ffffff42;
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border-radius: 0 10px 0 0;
+
+        &__left {
+            @include flex(center, center);  
+            width: 35px;
+            height: 35px;
+            // color: #fefefe;
+            color: #989eae;
+            background: #ffffff70;
+            border-radius: 50%;
+            font-size: 25px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: 'Niconne', cursive;
+        }
+
+        &__right {
+            margin-left: 0.5rem;
+
+            &__name {
+                font-size: 14px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                width: 160px;
+                color: $white;
+                display: block;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+            &__dates {
+                font-size: 12px;
+                color: #fefefe;
+            }
+        }
+    }
+    .vlide_duration {
+        position: absolute;
+        z-index: 50;
+        top: 0;
+        left: 0;
+        background: #ffffff42;
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        padding: 10px 10px;
+        border-radius: 10px 0 5px 0;
+        cursor: pointer;
+        
+        &__item {
+            font-size: 14px;
+            color: #fff;
+            @include flex(center, center);               
+            height: 8px;
+        }
+    }
+}

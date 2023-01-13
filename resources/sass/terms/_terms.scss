@@ -2,23 +2,36 @@
     max-width: 800px;
      padding: 10px;
      margin: 20px auto;
-    //  @include flex(center, center);
+    //  @ flex(center, center);
+    font-size: 15px;
     h1 {
         margin-bottom: 15px;
     }
     h2 {
-        margin: 15px 0;
+        margin: 15px 0 10px;
         border-bottom: 1px solid #ddd;
     }
     ol, ul {
         li {
-            margin: 10px 0 10px 16px;
+            margin: 5px 0 5px 16px;
             list-style-type: decimal;
         }
+    }
+    ol ol li{
+        margin: 5px 0px 5px 32px;
+        list-style-type: lower-roman;
+    }
+    ol ol ol li{
+        margin: 5px 0px 5px 48px;
+        list-style-type: lower-alpha;
     }
     .date{
         margin-top: 30px;
         padding: 10px 0;
         border-top: 1px solid #ddd;
+    }
+    a {
+        color: $buttonColor;
+        text-decoration: underline;
     }
 }

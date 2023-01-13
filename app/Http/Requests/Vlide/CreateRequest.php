@@ -24,7 +24,7 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:80',
+            'title' => 'required|max:50',
             'tag_list'=>'nullable|array',
             // 'tag_list.*'=>'string',
             'is_public' => 'required|boolean',

@@ -19,7 +19,7 @@ class IndexController extends Controller
     public function __invoke(Request $request, ClipService $clipService)
     {
         //
-        $per_page = 5;
+        $per_page = 12;
         $since = $request->since;
         $clips = $clipService->getClips($per_page, $since);
 

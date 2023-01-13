@@ -2,11 +2,17 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Image;
 use App\Http\Controllers\Vlide;
 use App\Http\Controllers\Clip;
 use App\Http\Controllers\User;
 use App\Http\Controllers\Auth;
-use App\Http\Controllers\StripePaymentsController;
+use App\Http\Controllers\Embed;
+use App\Http\Controllers\StripePayment;
+
+// app/Http/Controllers/Payment/PaymentController.php
+
+// use App\Http\Controllers\StripePaymentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +25,18 @@ use App\Http\Controllers\StripePaymentsController;
 |
 */
 Route::prefix('v1')->group(function (){
-    
+    // stripe
+    // Route::middleware('auth:sanctum')->group(function () {
+    Route::group(['middleware' => ['auth:sanctum', 'verified']], function(){
+        Route::get('/plans', [StripePayment\PlanController::class, 'getPlans']);
+
+        Route::post('/checkout/{id}', [StripePayment\PaymentController::class, 'checkout']);
+        Route::post('/plan', [StripePayment\PlanController::class, 'createPlan']);
+    });
+
+    Route::get('/checkout/success', [StripePayment\PaymentController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/cancel', [StripePayment\PaymentController::class, 'cancel'])->name('checkout.cancel');
+
     Route::group(['middleware' => ['auth:sanctum', 'verified']], function(){
         // User
         Route::prefix('user')->group(function (){
@@ -27,18 +44,30 @@ Route::prefix('v1')->group(function (){
             Route::patch('/change-password', Auth\ChangePasswordController::class)->name('user.changePassword');
 
             Route::patch('/',  Auth\ChangeUserNameController::class)->name('user.updateUserName');
-            Route::patch('/prof',  User\UpdateController::class)->name('user.updateProf');
+
             Route::put('/{userId}/follow',  User\FollowUnfollowController::class)->name('followUnfollow');
             Route::delete('/',  Auth\DeleteAccountController::class)->name('user.delete');
-            // For Feed Page
+            // Feed Page
             Route::get('/followings/vlides', Vlide\FollowingsController::class)->name('followings.vlide');
             Route::get('/followings/clips', Clip\FollowingsController::class)->name('followings.clips');
+            // Prof Page
+            Route::patch('/prof',  User\UpdateController::class)->name('user.updateProf');            
+            Route::group(['middleware' => ['throttle:upload']], function(){
+                Route::post('/prof/icon',  User\UpdateIconController::class)->name('user.updateProfIcon');
+                Route::delete('/prof/icon', User\DeleteIconController::class)->name('user.delete.image');
+            });
+            Route::get('/{userId}/likes', Clip\UserLikesController::class)->name('user.likes');
+            Route::get('/followings/{userId}',  User\FollowingsController::class)->name('auth.followings');
+            Route::get('/followers/{userId}',  User\FollowersController::class)->name('auth.followers');
+            Route::get('/{userId}/images',  Image\UserController::class)->name('user.images');
+            Route::get('/{userId}/saves', Vlide\UserSavesController::class)->name('user.saves');        
+
         });
 
         // stripe
-        Route::prefix('payment')->group(function (){
-            Route::get('/setup-intent', [StripePaymentsController::class, 'index'])->name('vlide.auth.user');
-        });
+        // Route::prefix('payment')->group(function (){
+        //     Route::get('/setup-intent', [StripePaymentsController::class, 'index'])->name('vlide.auth.user');
+        // });
         
         Route::prefix('vlide')->group(function (){
             Route::get('/{vlideId}/draft', Vlide\RetrieveDraftController::class)->name('vlide.retrieve.draft')->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
@@ -48,8 +77,12 @@ Route::prefix('v1')->group(function (){
             Route::group(['middleware' => ['throttle:upload']], function(){
                 Route::post('/{vlideId}/audio', Vlide\UploadAudioController::class)->name('vlide.upload.audio')->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
                 Route::delete('/{vlideId}/audio', Vlide\DeleteAudioController::class)->name('vlide.delete.audio');
+
+                Route::post('/{vlideId}/image', Image\UploadVlideImageController::class)->name('vlide.upload.image')->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+                Route::delete('/{vlideId}/image/{imageId}', Image\DeleteVlideImageController::class)->name('vlide.delete.image');
+                Route::put('/image/{imageId}', Image\UpdateImageController::class)->name('vlide.update.image');
+                Route::put('/{vlideId}/image/{imageId}', Image\SetVlideHeaderController::class)->name('vlide.header.image');
             });
-            
             
             Route::put('/{vlideId}', Vlide\UpdateController::class)->name('vlide.update')->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
             Route::delete('/{vlideId}', Vlide\DeleteController::class)->name('vlide.delete');
@@ -57,7 +90,8 @@ Route::prefix('v1')->group(function (){
         });
 
         Route::prefix('clip')->group(function (){
-            Route::post('/{vlideId}', Clip\CreateController::class)->name('clip.create')->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+            Route::post('/', Clip\CreateController::class)->name('clip.create')->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+            Route::post('/{vlideId}', Clip\CreateController::class)->name('clip.quote.create')->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
             Route::delete('/{clipId}', Clip\DeleteController::class)->name('clip.delete');
             // ->where('clipId', '[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}');
             Route::put('/{clipId}/like', Clip\LikeUnlikeController::class)->name('clip.likeUnlike');
@@ -71,17 +105,19 @@ Route::prefix('v1')->group(function (){
     });
     
     Route::prefix('audio')->group(function (){
-        Route::get('/', Vlide\GetAudioController::class)->name('vlide.audio');
+        Route::get('/', Vlide\GetAudioController::class)->name('vlide.audio.retrieve');
+    });
+
+    Route::prefix('image')->group(function (){
+        Route::get('/', Image\GetImageController::class)->name('vlide.image.retrieve');
     });
 
     Route::prefix('user')->group(function (){
         Route::get('{username}', User\RetrieveController::class)->name('user.retrieve');
         Route::get('{userId}/vlides', Vlide\UserController::class)->name('user.vlides');
-        Route::get('/{userId}/saves', Vlide\UserSavesController::class)->name('user.saves');
         Route::get('/{userId}/clips', Clip\UserController::class)->name('user.clips');
-        Route::get('/{userId}/likes', Clip\UserLikesController::class)->name('user.likes');
-        Route::get('/followings/{userId}',  User\FollowingsController::class)->name('auth.followings');
-        Route::get('/followers/{userId}',  User\FollowersController::class)->name('auth.followers');
+        Route::get('/{userId}/replies', Clip\UserRepliesController::class)->name('user.replies');
+
     });
 
     Route::prefix('search')->group(function (){
@@ -118,7 +154,8 @@ Route::prefix('v1')->group(function (){
         Route::get('/', Clip\IndexController::class)->name('clip.index');
         Route::get('/{clipId}', Clip\RetrieveController::class)->name('clip.retrieve');
         Route::get('/vlide/{vlideId}', Clip\VlideController::class)->name('clip.vlide')->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
-        // Route::get('{vlideId}/like/users', Clip\LikedByController::class)->name('clip.like.users');
+        Route::get('{clipId}/like/users', Clip\LikeUsersController::class)->name('clip.like.users');
+        Route::get('{clipId}/share/users', Clip\ShareUsersController::class)->name('clip.share.users');
     });
     Route::prefix('vlide')->group(function (){
         Route::get('/', Vlide\IndexController::class)->name('vlide.index');
@@ -129,6 +166,7 @@ Route::prefix('v1')->group(function (){
         Route::get('/rank', Vlide\RankController::class)->name('vlide.rank');
 
     });
+    
+    Route::get('/embed', Embed\EmbedController::class)->name('embed.embed');
 
 });
-

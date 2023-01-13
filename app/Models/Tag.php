@@ -26,10 +26,18 @@ class Tag extends Model
     
     public function clips(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Clip')->withTimestamps();        
+        return $this->belongsToMany('App\Models\Clip')
+            ->withPivot([
+                'created_at',
+            ])
+            ->withTimestamps();        
     }
     public function vlides(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Vlide')->withTimestamps();        
+        return $this->belongsToMany('App\Models\Vlide')
+            ->withPivot([
+                'created_at',
+            ])
+            ->withTimestamps();        
     }
 }

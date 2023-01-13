@@ -1,5 +1,7 @@
 import Axios from "axios";
 
+
+
 const axios = Axios.create({
     baseURL: "/",
     headers: {
@@ -8,7 +10,7 @@ const axios = Axios.create({
         'Content-Type': 'application/json',
     },
     withCredentials: true
-})
+});
 
 
 export default axios;

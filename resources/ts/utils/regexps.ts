@@ -3,6 +3,11 @@ const PASSWORD_PATTERN = /^[0-9a-zA-Z@$!%*?&]+$/;
 const PASSWORD_REGEXP = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 const EMAIL_REGEXP  = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/
 
+// const urlRegExp = /^(https?:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/;
+const urlRegExp = /^(https\:\/\/[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)[^)\s]/;
+const tagRegExp = /^(#[0-9a-zA-Z０-９ａ-ｚＡ-Ｚぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]+)$/;
+const atRegExp = /^@[0-9a-zA-Z_]+$/;
+
 // const slideBlockRegExp = /---(.*)\n([\s\S]*?)---(([0-9]?[0-9]:)?([0-9]?[0-9]:)?[0-9]?[0-9])\n?/gm; 
 // const slideRegExp = /---(.*)\n([\s\S]*?)---(([0-9]?[0-9]:)?([0-9]?[0-9]:)?[0-9]?[0-9])\n?/; 
 // 00:00:01
@@ -26,11 +31,15 @@ const inlineRegexps = [
     { elmType: 'del', regexp: /~~(.+?)~~/ },
     // br RegExp
     // { elmType: 'br', regexp: /(\n)/ },
+    // url RegExp
+    // { elmType: 'url', regexp: /(https?\:\/\/*)[^)\s]/ },
+    { elmType: 'url', regexp: /(https\:\/\/[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)[^)\s]/ },
+    // { elmType: 'url', regexp: /[^(](https?\:\/\/.*)/ },
     // image RegExp
-    { elmType: 'img', regexp: /\!\[(.*)\]\(((https)?(\:\/\/).*)\)/},
+    { elmType: 'img', regexp: /\!\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)\)/},
     // { elmType: 'img', regexp: /\!\[(.*)\]\(((http)(?:s)?(\:\/\/).*)\)/},
-    // link RegExp
-    { elmType: 'link', regexp: /\[(.*)\]\(((https)?(\:\/\/).*)\)/ },
+    { elmType: 'linkCard', regexp: /\?\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)\)/ },
+    { elmType: 'link', regexp: /\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)\)/ },
 ];
 
 export {
@@ -38,6 +47,9 @@ export {
     PASSWORD_PATTERN,
     PASSWORD_REGEXP,
     EMAIL_REGEXP,
+    urlRegExp,
+    tagRegExp,
+    atRegExp,
     slideBlockRegExp,
     slideRegExp,
     inlineRegexps

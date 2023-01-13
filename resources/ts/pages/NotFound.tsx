@@ -1,3 +1,5 @@
+// import { Navigate } from "react-router-dom";
+
 const NotFound = () => {
     return (
         <div style={{
@@ -10,6 +12,7 @@ const NotFound = () => {
         }}>
             <div>
                 404 | お探しのページは見つかりませんでした
+                {/* <Navigate to="/" replace={true} /> */}
             </div>
         </div>
     )

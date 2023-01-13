@@ -3,6 +3,7 @@ import { inlineRegexps } from '../regexps';
 import { Attribute, RootToken, Token } from './type/token';
 
 
+
 export const tokenizer = (content: string, initialId?: number) => {
     const id: number = initialId ? initialId : 0;
 
@@ -66,12 +67,20 @@ const _tokenizeInline = (text:string, rootToken:RootToken, initialId:number): To
                 } else {
                     id += 1;
                     let attributes: Attribute[] = [];
-                    if (outerMostElement.elmType === 'img') {
-                      attributes.push({ attrName: 'text', attrValue: outerMostElement.matchArray[1] });
-                      attributes.push({ attrName: 'src', attrValue: outerMostElement.matchArray[2] });
+                    if (outerMostElement.elmType === 'url') {
+                        // console.log(outerMostElement)
+                        attributes.push({ attrName: 'text', attrValue: "" });
+                        attributes.push({ attrName: 'href', attrValue: outerMostElement.matchArray[0] });
+                    } else if (outerMostElement.elmType === 'img') {
+                        attributes.push({ attrName: 'text', attrValue: outerMostElement.matchArray[1] });
+                        attributes.push({ attrName: 'src', attrValue: outerMostElement.matchArray[2] });
+                    } else if (outerMostElement.elmType === 'linkCard') {
+                        attributes.push({ attrName: 'text', attrValue: outerMostElement.matchArray[1] });
+                        attributes.push({ attrName: 'href', attrValue: outerMostElement.matchArray[2] });
                     } else if (outerMostElement.elmType === 'link') {
                       attributes.push({ attrName: 'text', attrValue: outerMostElement.matchArray[1] });
                       attributes.push({ attrName: 'href', attrValue: outerMostElement.matchArray[2] });
+                      
                     }
                     const elmType = outerMostElement.elmType;
                     const content = outerMostElement.matchArray[1];
@@ -99,8 +108,7 @@ const _tokenizeInline = (text:string, rootToken:RootToken, initialId:number): To
         parent.children.push(...inlineTokens);
 
         return parentToken;
-    }
-
+    };
 
     return _recursiveTokenize(text, rootToken);
-}
+};

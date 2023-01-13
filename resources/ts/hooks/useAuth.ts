@@ -1,105 +1,154 @@
 // https://github.com/taylorotwell/next-example-frontend/blob/master/src/hooks/auth.js
-import { Dispatch, SetStateAction, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { QueryObserverResult, RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query';
+import { Dispatch, SetStateAction, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ToastNotification } from '../components/toastNotification/ToastNotifications';
 
 import axios from "../libs/axios";
-import { useQueryUser } from './useQueryUser'
+import { generateUid } from '../utils/uid';
 
 export const useAuth = (
+    user: any, 
+    error: unknown,
+    isLoading: boolean,
+    refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<any, unknown>>,
     {middleware, redirectIfAuthenticated}: {middleware?: string, redirectIfAuthenticated?: any} = {}
 ) => {
     let navigate = useNavigate();
-    
-    const search = useLocation().search;
 
-    // user
-    const { data:user, error, isLoading, refetch } = useQueryUser();
+    const processing: React.MutableRefObject<boolean> = useRef<boolean>(false);
 
     // csrf
     const csrf = () => axios.get('/sanctum/csrf-cookie');
 
     const register = async (
-        { setErrors, ...props }: { setErrors: Dispatch<SetStateAction<any>> , props: string[]} 
+        { setToastNotifications, ...props }: { 
+            setToastNotifications: React.Dispatch<React.SetStateAction<ToastNotification[] | []>>, 
+            props: string[]
+        } 
     ) => {       
+        if (processing.current) return;
+        processing.current = true;
+
         await csrf();
 
-        setErrors([]);
-        
         await axios
             .post('/register', props)
             .then(() => {
                 refetch();
                 navigate('/verification-link-sent');
+                setToastNotifications(prev => {
+                    return[
+                        ...prev,
+                        {id: generateUid(), type:"success", message:"本登録のご案内のメールを送信しました"},
+                    ];
+                });
             })
             .catch((error: any) => {
                 if (error.response.status !== 422) throw error;
 
-                setErrors(error.response.data.errors);
+                setToastNotifications(prev => {
+                    return[
+                        ...prev,
+                        {id: generateUid(), type:"error", message:"ユーザー登録に失敗しました"},
+                    ];
+                });
+            })
+            .finally(()=>{
+                processing.current = false;
             });
     };
 
     // login
     const login = async (
-        { setErrors, email, password, remember }: { setErrors: Dispatch<SetStateAction<any>>, email: string, password: string, remember: boolean }
+        { setToastNotifications, email, password, remember }: { 
+            setToastNotifications: React.Dispatch<React.SetStateAction<ToastNotification[] | []>>, 
+            email: string, 
+            password: string, 
+            remember: boolean 
+        }
     ) => {
+        if (processing.current) return;
+        processing.current = true;
+
         await csrf();
 
-        setErrors([]);
+        // setToastNotifications([]);
 
         await axios
             .post('/login', {email, password, remember})
             .then((res) => {
                 refetch();
+                setToastNotifications(prev => {
+                    return[
+                        // ...prev,
+                        {id: generateUid(), type:"info", message:"ようこそ、Vlides へ"},
+                    ];
+                });
                 navigate('/');
             })
             .catch(error => {
                 if (error.response.status != 422) throw error;
-
-                setErrors(
-                    Object.keys(error.response.data.errors).map(val => error.response.data.errors[val])
-                );
-
+                // console.log(
+                //     Object.keys(error.response.data.errors).map(val => error.response.data.errors[val])
+                // )
+                if(error.response.data.message === "auth.throttle") {
+                    setToastNotifications(prev => {
+                        return[
+                            ...prev,
+                            {id: generateUid(), type:"error", message:"ログイン試行の回数が上限を超えました。"},
+                        ];
+                    });
+                }else{
+                    setToastNotifications(prev => {
+                        return[
+                            ...prev,
+                            {id: generateUid(), type:"error", message:"ログインに失敗しました。"},
+                        ];
+                    });
+                }
+            })
+            .finally(()=>{
+                processing.current = false;
             });
     };
 
 
     const forgotPassword = async (
-        { setErrors, setStatus, email }:{
-            setErrors: Dispatch<SetStateAction<any>>, 
+        { setStatus, email }:{
             setStatus: Dispatch<SetStateAction<any>>,
             email: string
         }) => {
+        if (processing.current) return;
+        processing.current = true;
+
         await csrf();
 
-        setErrors([]);
         setStatus(null);
 
         axios
             .post('/forgot-password', { email })
             .then((response: any) => {
                 setStatus([response.data.status]);
-                console.log(response.data.status)
             })
             .catch((error: any) => {
                 if (error.response.status !== 422) throw error;
-
-                setErrors(error.response.data.errors);
+            })
+            .finally(()=>{
+                processing.current = false;
             });
     };
 
-    const resetPassword = async ({ setErrors, setStatus, ...props }: {
-        setErrors: Dispatch<SetStateAction<any>>, 
-        setStatus: Dispatch<SetStateAction<any>>,
+    const resetPassword = async ({ ...props }: {
         email: string,
         password: string,
         password_confirmation: string,
         token: string,
     }) => {
-        await csrf();
+        if (processing.current) return;
+        processing.current = true;
 
-        setErrors([]);
-        setStatus(null);
-        // const token = new URLSearchParams(search).get('token');
+        await csrf();
 
         axios
             .post('/reset-password', { ...props })
@@ -107,19 +156,29 @@ export const useAuth = (
             .then((response:any) => navigate('/auth/login?reset=' + btoa(response.data.status)))
             .catch((error: any) => {
                 if (error.response.status !== 422) throw error;
-
-                setErrors(error.response.data.errors);
+            })
+            .finally(()=>{
+                processing.current = false;
             });
     };
 
     const resendEmailVerification = ({ setStatus }: {setStatus: Dispatch<SetStateAction<any>>}) => {
+        if (processing.current) return;
+        processing.current = true;
+        
         axios
             .post('/email/verification-notification')
             .then((response: any) => setStatus(response.data.status))
+            .finally(()=>{
+                processing.current = false;
+            });
     }
 
     // logout
     const logout = async () => {
+        if (processing.current) return;
+        processing.current = true;
+
         if (!error) {
             await axios
                 .post('/logout')
@@ -129,6 +188,9 @@ export const useAuth = (
                         refetch();
                         // navigate('/auth/login')
                     }
+                })
+                .finally(()=>{
+                    processing.current = false;
                 });
         };
 
@@ -136,20 +198,30 @@ export const useAuth = (
     };
 
     const deleteAccount = async () => {
+        if (processing.current) return;
+        processing.current = true;
+
         await axios
             .delete(`/api/v1/user`)
             .then(() => {
                 // navigate("/auth/login");
                 // logout();
                 // navigate("/about");
-                // refetch();
+                processing.current = false;
+                refetch();
             });
+            // .finally(()=>{
+            //     processing.current = false;
+            // });
     };
 
     const changeUserName = async (
             name: string,
             toggleEditForm: Dispatch<SetStateAction<boolean>>
         ) => {
+        if (processing.current) return;
+        processing.current = true;
+
         await axios
             .patch(`/api/v1/user`,{
                 name: name
@@ -157,6 +229,9 @@ export const useAuth = (
             .then((res) => {
                 refetch();
                 toggleEditForm(false);
+            })
+            .finally(()=>{
+                processing.current = false;
             });
     };
 
@@ -165,6 +240,9 @@ export const useAuth = (
         old_password: string,
         togglPasswordForm: Dispatch<SetStateAction<boolean>>
     ) => {
+        if (processing.current) return;
+        processing.current = true;
+
         await axios
             .patch(`/api/v1/user/change-password`, {
                 new_password: new_password,
@@ -172,6 +250,9 @@ export const useAuth = (
             })
             .then((res) => {
                 togglPasswordForm(false);
+            })
+            .finally(()=>{
+                processing.current = false;
             });
     };
 

@@ -1,86 +1,98 @@
 .prof_container {
-    margin-top: 20px;
-    min-height: calc(100vh - 150px);
     width: 100%;
 }
 
 .prof_card {
     position: relative;
     width: 750px;
-    height: 80vh;
+    height: calc(100vh - $headerHeight);
     background: #fff;
     color: $subColor;
-    box-shadow: 4px 4px 0px $subColor;
-    border: 3px solid $subColor;
-    border-radius: 25px;
+    border-right: 2px solid $subColor;
+    border-left: 2px solid $subColor;
+    border-color: #f4f3ef;
     transition: all 0.6s ease-in-out;
     margin: 0px auto;
-    padding: 0px 5px;
     overflow-y: scroll;
     cursor: pointer;
 
     &:focus {
         outline: none;
     }
-    
-    .header_section {
-        @include flex(center, center);
-        padding: 10px 0;
-        overflow-wrap: break-word;
-        white-space: pre-wrap;
-        font-size: 18px;
-        font-weight: 700;
-        max-width: 600px;
-        margin: 0 auto;
-
-        .nickname {
-            padding: 3px;
-            border: 3px solid $subColor;
-            border-radius: 5px;
-            text-align: center;
-            min-width: 200px;
-
-        }
-    }
 
     .profile {
-        background: $subColor;
-        border-radius: 6px;
         padding: 10px 0;
-        color: $white;
+        overflow: hidden;
 
-        .img_box{
-            user-select: none;
+        &__header {
+            @include flex(center, left);
+            margin: 0 0 5px;
 
-            position: relative;
-            @include flex(center, center);
-            // font-size: 8px;
-            // font-family: cursive;
-            font-size: 50px;
-            color: $subColor;
-            background: $white;
-            width: 70px;
-            height: 70px;
-            border-radius: 50px;
-            border: 3px solid #ddd;
-            margin: 0px auto ;
-            overflow: hidden;
+            .img_box__wrapper {
+                margin: 20px 5px 10px 15px;
+                @include flex(center, center);
+                background: $white;
+                width: 80px;
+                height: 80px;
+                border-radius: 50px;
+
+                .img_box{
+                    user-select: none;
+                    text-transform: uppercase;
+                    position: relative;
+                    @include flex(center, center);
+                    font-size: 55px;
+                    color: #333;
+                    background: #ddd3;
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50px;
+                    border: 2px solid #eee;
+                    color: #686e5e;
+                    overflow: hidden;
+                    font-family: 'Niconne', cursive;
+        
+        
+                    & > img {
+                        border-radius: 50%;
+                        width: 80px;
+                        height: 80px;
+                    }
+                }
+            }
 
 
-            & > img {
-                border-radius: 50%;
-                margin-right: 10px;
+            .name {
+                margin: 5px 18px 0;
+                width: calc(630px);
+                position: relative;
+
+                .nickname {
+                    width: 100%;
+                    font-size: 24px;
+                    font-weight: 600;
+                    overflow-wrap: break-word;
+                    white-space: pre-wrap;
+                    color: $subColor;
+                }
+                .username {
+                    width: 100%;
+                    margin-top: 2px;
+                    font-size: 16px;
+                    overflow-wrap: break-word;
+                    white-space: pre-wrap;
+                    color: #aaa;
+                }
             }
         }
-        .username {
-            margin: 15px 0 5px 0;
-            text-align: center
-        }
+
+
+
         .descirption {
-            margin: 15px 18px 0px;
+            margin: 15px 18px 5px;
             overflow-wrap: break-word;
             white-space: pre-wrap;
-            color: #eee;
+            line-height: 28px;
         }
         .middle_info {
             .user_list {
@@ -99,7 +111,8 @@
                     bottom: 0;
                     position: fixed;
                     z-index: 290;
-                    background: rgba(255, 255, 255, 0.7);
+                    background: rgba(255, 255, 255, 0.65);
+                    // background: rgba(0, 0, 0, 0.65);
                 }
 
                 .formContainer{
@@ -112,25 +125,36 @@
                     max-height: 620px;
                     width: calc(100vw - 50px);
                     overflow-y: scroll;
+                    user-select: all;
                     background: #fff;
-                    border: 3px solid #24292f;
-                    box-shadow: $boxShadow;
+                    box-shadow: 0 0 8px -5px rgb(0 0 0 / 47%);
                     border-radius: 5px;
+                    max-width: 500px;
+
 
                     .closeForm {
-                        width: 30px;
-                        height: 30px;
-                        border: 3px solid #24292f;
-                        border-radius: 50%;
                         @include flex(center, center);
                         position: absolute;
                         right: 5px;
                         top: 5px;
+                        --size: 30px;
+                        height: var(--size);
+                        width: var(--size);
+                        background-color: #fff;
+                        color: $subColor;
+                        // font-size: 25px;
                         font-size: 30px;
+                        font-weight: 900;
+                        opacity: 0.75;
+                        border-radius: 50%;
                         cursor: pointer;
+            
+                        &:hover{
+                            background: #f2f2f2;
+                        }
                     }
                     .form {
-                        margin: 40px 30px 20px;
+                        margin: 40px 15px 20px;
                     }
 
                 }
@@ -139,28 +163,35 @@
         }
         .post_followers_following {
             user-select: none;
-
-            @include flex(center, space-around);
+            @include flex(center, space-between);
             height: 90px;
             text-align: center;
+            margin: 0px 10px;
             
             .post, .followers, .following {
-                width: 215px;
-                border: 2px solid $white;
+                width: 210px;
+                border: 2px solid $subColor;
+                border-color: #ccc;
+                color: $subColor;
                 border-radius: 6px;
+                font-size: 15px;
+                padding: 2px 0;
             }
         }
         .follow_button {
             user-select: none;
-
+            width: 100%;
             @include flex(center, space-around);
+            box-shadow: $boxShadowWhite;
 
             & > button {
-                width: 95%;
+                width: 100%;
+                margin: 0 10px;
                 border: none;
                 outline: none;
-                border-radius: 6px;
+                border-radius: 2px;
                 cursor: pointer;
+                border: 2px solid $mainColor;
                 background: $mainColor;
                 color: $white;
                 font-size: 20px;
@@ -170,17 +201,7 @@
                 &:hover {
                     background: #E32D91;
                 }
-            } 
-            // .followed {
-            //     background: $green;
-            //     // color: $mainColor;
-
-            //     &:hover {
-            //         background: $lightBlue;
-            //         color: $white;
-            //     }
-            // }
-
+            }
 
             .editForm {
                 position: fixed;
@@ -200,7 +221,7 @@
                     z-index: 290;
                     // background-color: #ecf0f3;
                     // background: rgba(50, 50, 50, 0.7);
-                    background: rgba(255, 255, 255, 0.7);
+                    background: rgba(255, 255, 255, 0.65);
                     // backdrop-filter: blur(2px);
                     // -webkit-backdrop-filter: blur(2px);
                 }
@@ -210,43 +231,41 @@
                     position: fixed;
                     top: 50%;
                     left: 50%;
-                    transform: translate(-50%, -50%);
-
+                    transform: translate(-50%, -45%);
                     margin: 0;
-                    // height: calc(100vh - 80px);
-                    max-height: 620px;
+                    max-height: calc(100vh - $headerHeight - 30px);
                     width: calc(100vw - 20px);
                     max-width: 600px;
-
                     overflow-y: scroll;
-
                     background: #fff;
-                    border: 3px solid #24292f;
-                    box-shadow: $boxShadow;
+                    box-shadow: 0 0 8px -5px rgb(0 0 0 / 47%);
                     border-radius: 5px;
 
-                    .closeForm {
-                        width: 30px;
-                        height: 30px;
-                        border: 3px solid #24292f;
-                        border-radius: 50%;
+                    .closeForm {                        
                         @include flex(center, center);
                         position: absolute;
                         right: 5px;
                         top: 5px;
+                        --size: 30px;
+                        height: var(--size);
+                        width: var(--size);
+                        background-color: #fff;
+                        color: $subColor;
+                        // font-size: 25px;
                         font-size: 30px;
+                        font-weight: 900;
+                        opacity: 0.75;
+                        border-radius: 50%;
                         cursor: pointer;
+            
+                        &:hover{
+                            background: #f2f2f2;
+                        }
                     }
                     .form {
                         margin: 40px 30px 20px;
 
                     }
-
-
-
-                    // transform: translate(0, -50%) ;
-
-
                 }
 
             }
@@ -254,31 +273,19 @@
 
     }
     .nav {
-        @include flex(center, space-around);
         position: sticky;
         z-index: 100;
         top: 0px;
-        background: $white;
-        opacity: 0.98;
-        padding: 10px;
-        overflow-x: auto;
-        font-weight: 700;
-        color: #adadad;
-
-        .nav_itme{
-            width: 64px;
-        }
-
-        .active_nav_itme {
-            color: $subColor;
-            border-bottom: 2px solid $subColor;
-        }
+        width: 100%;
+        border-bottom: 1px solid #f4f3ef;
+        // border-color: rgb(47, 51, 54);
     }
     .lower_section{
         width: 100%;
         margin-bottom: 40px;
         overflow-y: scroll;
         position: relative;
+        // height: 100vh;
     
         
         .prof_content_container{
@@ -288,7 +295,6 @@
                 text-align: center; 
             }
         }
-
         .vlide_container{
             display: flex;
             align-items: center;
@@ -302,10 +308,12 @@
                 justify-content: center;
                 flex-wrap: wrap;
                 max-width: 1000px;
+                margin-top: 0.5rem;
         
                 .vlide_card {
-                    margin: 0.5rem;
-                    width: 300px;
+                    // margin: 0.5rem;
+                    margin: 0rem 0.3rem 1rem;
+                    width: 320px;
                 }
                 
             }
@@ -318,59 +326,79 @@
 
 @media screen and (max-width: 767px) {
     .prof_card {
-        width: 90%;
-        max-width: 750px;
-        border-radius: 20px;
-    }
-    .profile {
-        .post_followers_following {
-            margin: 0 5px;
+        width: 100%;
+        // max-width: 750px;
+        border: none;
+        margin: 0;
+        // border-radius: 20px;
 
-            .post, .followers, .following {
-                width: 60px;
-                margin: 5px;
+        .profile {
+            &__header {
+                width: 100vw;
+                .name {
+                    width: calc(100vw - 150px);
+                }
             }
-
-        }
-
-        .follow_button {
-            & > button {
-                width: 90%;
-            }        
+            .post_followers_following {
+                margin: 0 5px;
+    
+                .post, .followers, .following {
+                    // width: 60px;
+                    margin: 5px;
+                }
+    
+            }
+    
+            // .follow_button {
+            //     & > button {
+            //         width: 90%;
+            //     }        
+            // }
         }
     }
+
 }
 
 @media screen and (max-width: 400px) {
 
     .prof_container {
-        margin-top: 0px;
+        padding-top: 0px;
     }
 
     .prof_card {
         width: 100%;
         height: unset;
+        height: calc(100vh - $headerHeight);
         margin-bottom: 0;
         border: none;
         border-radius: unset;
         box-shadow: none;
         padding: 0;
 
-        .header_section {
-            .nickname {
-                font-size: 16px;
-                width: 90%;
-                border: none;
-            }
-        }
+        // .header_section {
+        //     width: 100%;
+        //     background: $subColor;
+        //     padding: 10px 0 0;
+
+        //     .nickname {
+        //         font-size: 20px;
+        //         border: none;
+        //         color: $white;
+        //     }
+        // }
 
         .profile {
             border-radius: 0;
+            margin: 0;
+            
+            &header {
+                width: 100vw;
+            }
 
             .middle_info {
                 .user_list {
                     .formContainer{
-                        width: calc(100vw - 10px);
+                        width: calc(100vw - 4px);
                         .form {
                             margin: 25px 10px;
                         }
@@ -384,11 +412,22 @@
                 }
             }
 
-            .follow_button {
-                & > button {
-                    width: 90%;
-                }        
-            }
+            // .follow_button {
+            //     & > button {
+            //         width: 90%;
+            //     }        
+            // }
         }
+
+        
+        // .content{
+        //     height: calc(100vh - $headerHeight);
+        //     position: relative;
+        //     .nav {
+        //         position: absolute;
+        //         width: 100%;
+        //     }
+        // }
+
     }
 }

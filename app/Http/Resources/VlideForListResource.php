@@ -27,7 +27,7 @@ class VlideForListResource extends JsonResource
             'title' => $this->title,
             // 'content' => $this->content,
             'duration' => $this->duration,
-            // 'heading_file_name' => $this->header_file_name,
+            // 'header_file_name' => $this->header_file_name,
             // 'audio_file_name' => $this->audio_file_name,
             'is_public' => $this->is_public,
             // 'created_at' => $this->created_at->format('Y/m/d'),

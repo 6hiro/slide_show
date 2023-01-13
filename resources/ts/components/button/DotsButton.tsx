@@ -1,15 +1,11 @@
-import React from 'react';
-import { BiDotsVertical } from 'react-icons/bi';
+import { BiDotsHorizontal, BiDotsVertical } from 'react-icons/bi';
 
-const DotsButton:React.FC = () => {
+
+
+const DotsButton = ({isVertical}: {isVertical:boolean}) => {
     return (
-        <form 
-            className="dots_button"
-            onClick={() => {
-                
-            }}
-        >
-            <BiDotsVertical/>
+        <form className="dots_button">
+            {isVertical ? <BiDotsVertical/> : <BiDotsHorizontal />}
         </form>
     )
 };

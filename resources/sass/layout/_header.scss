@@ -2,30 +2,46 @@
     position: fixed;
     width: 100%;
     height: $headerHeight;
-    padding: 12px 15px;
+    // padding: 12px 15px;
+    padding: 10px 15px;
     font-size: 20px;
     z-index: 900;
-    background-color: #FFF;
-    color: #24292f;
-    border-bottom: 2.2px solid #24292f;
+    background-color: $white;
+    color: $subColor;
+    // border-bottom: solid 3px #f2f2f2;
+    box-shadow: $boxShadowWhite;
 
     &__nav {
         @include flex(unset, space-between);
 
         .logo_wapper{
             width: 160px;
+            color: $subColor;
         
             .logo {
                 display: flex;
                 column-gap: 5px;
                 font-weight: 700;
                 width: 115px;
-                padding: 1px 8px;
+                padding: 1px 0px;
                 border-radius:5px;
-                
-                svg{
-                    border-radius: 5px;
+
+                .logo_img_container {
+                    position: relative;
+                    .img_cover {
+						bottom: 0;
+						left: 0;
+						position: absolute;
+						right: 0;
+						top: 0;
+                    }
                 }
+                a {
+                    font-family: 'Niconne', cursive;
+                    color: #333;
+                    font-size: 25px;
+                }
+                
             }
         }
         .links {
@@ -42,14 +58,17 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                // color: #b3b3b3;
+                color: #666;
+
                 &:hover{
-                    border-bottom: 2px solid $subColor;
+                    color: $subColor
+                    // border-bottom: 2px solid $subColor;
                 }
             }
         }
         .auth_btns {
-            @include flex(unset, flex-end);
-
+            @include flex(center, flex-end);
             gap: 10px;
             width: 160px;
 
@@ -60,18 +79,27 @@
                 font-size: 14px;
                 padding: 1px 1px;
                 width: 80px;
-        
+                height: 30px;
                 @include flex(center, center);
-
+                color: #666;
                 
                 &:hover{
-                    border-bottom: 2px solid $subColor;
+                    color: $subColor;
+                    // border-bottom: 1px solid $subColor;
                 }
             }
             .sign_up_btn{
                 color: #fff;
-                background-color: #24292f;
+                background-color: $subColor;
                 border-radius: 5px;
+                padding: 0;
+
+                &:hover{
+                    // opacity: 0.9;
+                    color: $white;
+                    background: $subColor;
+                    border-bottom: 1px solid $subColor;
+                }
             }
 
         }
@@ -89,7 +117,7 @@
                     top: 14px;
                     width: 24px;
                     height: 3px;
-                    background: #24292f;
+                    background: $subColor;
                     border-radius: 4px;
                     transition: 0.5s;
                     &:nth-child(1) {
@@ -124,13 +152,19 @@
         display: none;
         top: $headerHeight;
         right: 0;
-        width: 100vw;
+        // width: 100vw;
         height: calc(100vh - $headerHeight);
-        background: #ddd5;
-        opacity: 1;
-        // backdrop-filter: blur(2px);
-        // -webkit-backdrop-filter: blur(2px);
         color: $white;
+
+        .menuba_overlay {
+            position: absolute;
+            right: 0;
+            width: 100vw;
+            height: calc(100vh - $headerHeight);
+            background: #ddd5;
+            opacity: 1;
+            z-index: 290;            
+        }
         
         .menubar {
             position: absolute;
@@ -139,6 +173,8 @@
             padding: 10px 5px;
             background: $subColor;
             height: 100%;
+            z-index: 300;
+            overflow: scroll;
 
   
             .links {
@@ -152,6 +188,21 @@
                     cursor: pointer;
                     @include flex(center, unset);
                     column-gap: 10px;
+                    
+                    a {
+                        @include flex(center, unset);
+                        column-gap: 10px;
+                        // width: 100%;
+                        position: relative;
+                    }
+
+                    // .img_cover {
+                    //     bottom: 0;
+					// 	left: 0;
+					// 	position: absolute;
+					// 	right: 0;
+					// 	top: 0;
+                    // }
                 
                     &:hover{
                       color: $mainColor;
@@ -163,7 +214,7 @@
                     color: $mainColor;
                     border: 2px solid $mainColor;
                     border-radius: 5px;
-    
+                    text-align: center;
                     &:hover{
                         color: $subColor;
                         background: $mainColor;
@@ -173,7 +224,7 @@
                 .logout_btn {
                     @include flex(center, center);
                     position: absolute;
-                    // bottom: 10px;
+                    // bottom: 50px;
                     right: 0;
                     margin: 45px 0px;
                     color: $white;
@@ -210,7 +261,7 @@
     }
 
 
-    .new_vlide_form_container {
+    .new_content_form_container {
         position: fixed;
         right: 10px;
         bottom: 15px;
@@ -219,13 +270,14 @@
         .overlay{
             width: 100vw;
             height: 100vh;
-            top: 0;
+            top: $headerHeight;
             left: 0;
             right: 0;
             bottom: 0;
             position: fixed;
             z-index: 290;
             background: rgba(255, 255, 255, 0.7);
+            background: #00000065;
         }
     
         .form_container{
@@ -242,25 +294,66 @@
             overflow-y: scroll;
     
             background: #fff;
-            border: 3px solid #24292f;
-            box-shadow: $boxShadow;
+            box-shadow: 0 0 8px -5px rgb(0 0 0 / 47%);
             border-radius: 5px;
     
             .close_form {
-                width: 30px;
-                height: 30px;
-                border: 3px solid #24292f;
-                border-radius: 50%;
                 @include flex(center, center);
                 position: absolute;
-                z-index: 500;
                 right: 5px;
                 top: 5px;
+                --size: 30px;
+                height: var(--size);
+                width: var(--size);
+                background-color: #fff;
+                color: $subColor;
+                // font-size: 25px;
                 font-size: 30px;
+                font-weight: 900;
+                opacity: 0.75;
+                border-radius: 50%;
                 cursor: pointer;
+    
+                &:hover{
+                    background: #f2f2f2;
+                }
             }
             .form_wrapper {
-                margin: 40px 30px 20px;
+                margin: 40px 30px 30px;
+
+                .navigation {
+                    // @include flex(flex-end, space-around);
+                    @include flex(center, space-around);
+                    width: 310px;
+                    height: 40px;
+                    margin: 0px auto 50px;
+                    font-weight: 600;
+                    font-size: 18px;
+                    background: #ffffff43;
+                    // border-radius: 5px;
+                    background: #ededed;
+                    border: 1px solid #ededed;
+                    box-shadow: $boxShadowWhite;
+            
+                    .nav_item {
+                        color: #666;
+                        width: 100px;
+                        height: 35px;
+                        font-size: 15px;
+                        @include flex(center, center);
+			            cursor: pointer;
+            
+                        &:hover {
+                            color: $subColor;
+                        }
+                    }
+                    .active_nav_item {
+                        border-radius: 2px;
+                        background: $white;
+                        color: $subColor;
+                    }
+                }
+            
     
             }
         }

@@ -20,7 +20,7 @@ class LatestSearchController extends Controller
     {
         // $tag_name = $request->route('tag_name');
         $word = $request->word;
-        $per_page = 5;
+        $per_page = 12;
         
         $since = $request->since;
         $clips = $clipService->getSearch($word, $per_page, $since);

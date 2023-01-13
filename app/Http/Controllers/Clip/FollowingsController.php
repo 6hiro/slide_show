@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Clip;
 use App\Http\Resources\ClipResource;
 use Illuminate\Support\Facades\Auth;
+use App\Services\ClipService;
 
 class FollowingsController extends Controller
 {
@@ -16,32 +17,13 @@ class FollowingsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, ClipService $clipService)
     {
         $user_id = $request->user()->id;
-        $per_page = 5;
+        $per_page = 12;
         $since = $request->since;
 
-        if($request->since){
-            $clips = Clips::with(['tags', 'user'])
-                ->whereIn('user_id', Auth::user()->followings()->pluck('followee_id'))
-                ->Where('is_public', true)
-                ->where('clip_type', 'clip')
-                ->where('created_at', '<', $since)
-                ->orderByDesc('created_at')
-                ->take($per_page+1)
-                ->get();
-        }
-        else
-        {
-            $clips =Clip::with(['tags', 'user'])
-                ->whereIn('user_id', Auth::user()->followings()->pluck('followee_id'))
-                ->Where('is_public', true)
-                ->where('clip_type', 'clip')
-                ->orderByDesc('created_at')
-                ->take($per_page+1)
-                ->get();
-        }
+        $clips = $clipService->followings($user_id, $per_page, $since);
 
         return [
             'next_page_link'=>$clips->count()>$per_page 

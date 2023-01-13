@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { BiMessageError, BiX, BiXCircle } from 'react-icons/bi';
-// import styles from '../../../styles/vlide/TagForm.module.scss';
+import { BiMessageError, BiX } from 'react-icons/bi';
+
+
 
 type Props ={ 
     tagList: string[];
@@ -8,7 +9,6 @@ type Props ={
 };
 const TagForm = (props: Props) => {
     const [newTagName, setNewTagName] = useState<string>("");
-
 
     const addTag = () => {
         // 一つのもしくは、連続する全角空白・半角空白を削除する
@@ -54,17 +54,13 @@ const TagForm = (props: Props) => {
                 <div className="rule" >
                     <BiMessageError />
                     <span> 入力後、Space もしくは、Enter を押すと追加できます</span>
-                </div>                    
-                {/* <div className={styles.rule} >
-                    <BiMessageError />
-                    <span> タグは 4 つまで入力できます</span>
-                </div>                     */}
+                </div>
             </li>
+
             <ul className="tag_list">
                 {props.tagList.map((tag, index) => {
                     return (
                         <li key={index} className="tag" >
-                            {/* <i className="bx bx-x-circle"></i> */}
                             <div 
                                 onClick={() => {
                                     deleteTag(tag);
@@ -81,7 +77,6 @@ const TagForm = (props: Props) => {
                     )
                 })}
             </ul>
-            {/* {createTagElement()} */}
         </ul>
     )
 };

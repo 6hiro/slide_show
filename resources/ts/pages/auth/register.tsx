@@ -1,19 +1,23 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Helmet } from 'react-helmet';
+import { Navigate } from 'react-router-dom';
 
 import RegisterCard from '../../components/auth/RegisterCard';
 import { siteTitle } from '../../constants/site';
-import { useAuth } from '../../hooks/useAuth';
+import { ToastNotificationsContext } from '../../hooks/useToastNotifications';
 
 
-const Register = () => {
-    const {register} = useAuth({
-        middleware: "guest",
-        redirectIfAuthenticated: '/',
-    });
+type Props = {
+    user: any, 
+    register: any,
+}
+const Register = (props: Props) => {
+    const {user, register} = props;
 
-    const [errors, setErrors] = useState<any[]>([]);
+    const [_, setToastNotifications] = useContext(ToastNotificationsContext);
 
+
+    if(user?.id) return (<Navigate to="/" replace={true} />)
 
     return (
         <React.Fragment>
@@ -24,11 +28,10 @@ const Register = () => {
                     name="description"
                     content="ユーザー登録ページ"
                 />
-                {/* <link rel="canonical" href="http://mysite.com/example" /> */}
             </Helmet>
 
             <div className="auth_page_container">
-                <RegisterCard  errors={errors} setErrors={setErrors} register={register} />
+                <RegisterCard setToastNotifications={setToastNotifications} register={register} />
             </div>
         </React.Fragment>
 

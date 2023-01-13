@@ -1,11 +1,22 @@
-.add_audio_button{
+.audio_action_button{
+    --size: 35px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
     @include flex(center, center);
-    height: 50px;
-    margin: 14px auto 14px auto;
-    border-radius: 15px;
-    border: 2px solid #000;
-    color: $subColor;
-    font-size: 22px;
-    font-weight: 900;
-    cursor: pointer;
+
+    &:hover {
+        background: #f2f2f2;
+        transition: 1s;
+
+        > svg {
+            color: $mainColor;
+        }
+    }
+    svg{
+        border-radius: 50%;
+        font-size: 26px;
+        padding: 1px;
+        // color: $mainColor;
+    }
 }

@@ -1,25 +1,35 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { AxiosResponse } from "axios";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { QueryObserverResult, RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query';
 
-import axios from "../libs/axios";
+import { deleteAsyncClip, likeUnlikeAsyncClip, shareAsyncClip, unShareAsyncClip } from "../actions/clip";
+import { fetchAsyncLatestData, fetchAsyncMoreData } from "../actions/common";
+import { putAsyncFollowUnfollow } from "../actions/follow";
+import { deleteAsyncImage, fetchAsyncUserImages, uploadAsyncImage } from "../actions/image";
+import { fetchAsyncUser, updateAsyncProf } from "../actions/user";
+import { deleteAsyncVlide, saveUnsaveAsyncVlide } from "../actions/vlide";
+import { ToastNotification } from "../components/toastNotification/ToastNotifications";
 import { CLIP } from "../types/clip";
-import { USER } from "../types/user";
-import { VLIDE } from "../types/vlide";
-import { useAuth } from "./useAuth";
+import { UPLOAD_ICON, USER } from "../types/user";
+import { SHOW_IMAGE, VLIDE } from "../types/vlide";
+import { generateUid } from "../utils/uid";
 
 type Props = {
+    user: any;
+    isLoading: boolean;
     username: string | undefined;
-}
+};
 export const useProf = (props: Props) => {
-    const { user, isLoading } = useAuth();
-
     let navigate = useNavigate();
+    const processing: React.MutableRefObject<boolean> = useRef<boolean>(false);
+
     
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, _] = useSearchParams();
 
     const [section, setSection] = useState<string>();
     const [isLoadingProf, setIsLoadingProf] = useState<boolean>(true);
-    const [isLoadingContents, setIsLoadingContents] = useState<boolean>();
+    const [isLoadingContents, setIsLoadingContents] = useState<boolean>(false);
 
 
     const [prof, setProf] = useState<USER>();
@@ -27,517 +37,362 @@ export const useProf = (props: Props) => {
     const [vlideNextPageLink, setVlideNextPageLink] = useState<string>();
     const [clipNextPageLink, setClipNextPageLink] = useState<string>();
     const [userNextPageLink, setUserNextPageLink] = useState<string>();
+    const [clipUserNextPageLink, setClipUserNextPageLink] = useState<string>();
+    const [imageNextPageLink, setImageNextPageLink] = useState<string>();
 
     const [vlides, setVlides] = useState<VLIDE[]>();
     const [clips, setClips] = useState<CLIP[]>();
     const [users, setUsers] = useState<USER[]>();
+    const [clipUsers, setClipUsers] = useState<USER[]>();
+    const [images, setImages] = useState<SHOW_IMAGE[]>();
 
+    const clearContents = () => {
+        setVlides([]);
+        setVlideNextPageLink("");
+        setClips([]);
+        setClipNextPageLink("");
+        setImages([]);
+        setImageNextPageLink("");
+    }
 
     const getUser = () => {
-        setVlides([]);
-        setVlideNextPageLink("");
-        setClips([]);
-        setClipNextPageLink("");
-        setIsLoadingContents(true);
+        clearContents();
         setProf(undefined);
+        fetchAsyncUser(props.username, setProf, setIsLoadingProf)
+    };
 
-        axios
-            .get(`/api/v1/user/${props.username}`)
-            .then((res) => {
-                setProf(res.data.data);
-            });
-        setIsLoadingProf(false);
-    };     
-
-   
     const getVlides =  (userId: string) => {
-        setVlides([]);
-        setVlideNextPageLink("");
-        setClips([]);
-        setClipNextPageLink("");
-        setIsLoadingContents(true);
-
-        axios
-            .get(`/api/v1/user/${userId}/vlides`)
-            .then((res) => {
-                setVlides(res.data.data);
-                setVlideNextPageLink(res.data.next_page_link);
-                setIsLoadingContents(false);
-            })
-            .catch((error) => {
-                setIsLoadingContents(false);
-            });
+        clearContents();
+        fetchAsyncLatestData(`/api/v1/user/${userId}/vlides`, setVlides, setVlideNextPageLink, setIsLoadingContents);
     };
 
     const getBookmarks = (userId: string) => {
-        setVlides([]);
-        setVlideNextPageLink("");
-        setClips([]);
-        setClipNextPageLink("");
-        setIsLoadingContents(true);
-
-        axios
-            .get(`/api/v1/user/${userId}/saves`)
-            .then((res) => {
-                setVlides(res.data.data);
-                setVlideNextPageLink(res.data.next_page_link);
-                setIsLoadingContents(false);
-            })
-            .catch((error) => {
-                setIsLoadingContents(false);
-            });
+        clearContents();
+        fetchAsyncLatestData(`/api/v1/user/${userId}/saves`, setVlides, setVlideNextPageLink, setIsLoadingContents);
     };
 
     const getClips = (userId: string) => {
-        setVlides([]);
-        setVlideNextPageLink("");
-        setClips([]);
-        setClipNextPageLink("");
-        setIsLoadingContents(true);
+        clearContents();
+        const url = `/api/v1/user/${userId}/clips`;
+        
+        fetchAsyncLatestData(url, setClips, setClipNextPageLink, setIsLoadingContents)
+    };
 
-        axios
-            .get(`/api/v1/user/${userId}/clips`)
-            .then((res) => {
-                setIsLoadingContents(false);
-                setClips(res.data.data);
-                setClipNextPageLink(res.data.next_page_link);
-            })
-            .catch((error) => {
-                setIsLoadingContents(false);
-            });
+    const getReplies = (userId: string) => {
+        clearContents();
+        const url = `/api/v1/user/${userId}/replies`;
+        fetchAsyncLatestData(url, setClips, setClipNextPageLink, setIsLoadingContents)
     };
 
     const getLikes = (userId: string) => {
-        setVlides([]);
-        setVlideNextPageLink("");
-        setClips([]);
-        setClipNextPageLink("");
+        clearContents();
+        const url = `/api/v1/user/${userId}/likes`;
+        fetchAsyncLatestData(url, setClips, setClipNextPageLink, setIsLoadingContents);
+    };
+    
+    const getImages = (userId: string) => {
+        clearContents();
         setIsLoadingContents(true);
 
-        axios
-            .get(`/api/v1/user/${userId}/likes`)
-            .then((res) => {
-                setClips(res.data.data);
-                setClipNextPageLink(res.data.next_page_link);
-                setIsLoadingContents(false);
-
-            })
-            .catch((error) => {
-                setIsLoadingContents(false);
-            });
+        const onSuccess = (res: any) => {
+            setImages(res.data.data);
+            setImageNextPageLink(res.data.next_page_link);
+            setIsLoadingContents(false);
+        }
+        const onError = (err: any) => {
+            setIsLoadingContents(false);
+        }
+        fetchAsyncUserImages(userId, onSuccess, onError)
     };
 
     const getMoreVlides = () => {
-        axios
-            .get(`${vlideNextPageLink}`)
-            .then((res) => {
-                setVlides( (prev) => {
-                    if(vlides){
-                        return [...vlides, ...res.data.data];
-                    }else{
-                        return res.data.data;
-                    }
-                });
-
-                setVlideNextPageLink(res.data.next_page_link ? res.data.next_page_link : "");
-            })
-            .catch((error) => {});
+        fetchAsyncMoreData(vlideNextPageLink, setVlides, setVlideNextPageLink);
     };
 
     const getMoreClips = () => {
-        axios
-            .get(`${clipNextPageLink}`)
-            .then((res) => {
-                
-                setClips( (prev) => {
-                    if(clips){
-                        return [...clips, ...res.data.data];
-                    }else{
-                        return res.data.data;
-                    }
-                });
-                setClipNextPageLink(res.data.next_page_link ? res.data.next_page_link : "");
-            })
-            .catch((error) => {});
+        fetchAsyncMoreData(clipNextPageLink, setClips, setClipNextPageLink);
     };
 
     const getMoreUsers= () => {
-        axios
-            .get(`${userNextPageLink}`)
-            .then((res) => {
-                setUsers( (prev) => {
-                    if(users){
-                        return [...users, ...res.data.data];
-                    }else{
-                        return res.data.data;
-                    }
-                });
-                setUserNextPageLink(res.data.next_page_link ? res.data.next_page_link : "");
-            })
-            .catch((error) => {});
+        fetchAsyncMoreData(userNextPageLink, setUsers, setUserNextPageLink);
+    };
 
+    const getMoreClipUsers= () => {
+        fetchAsyncMoreData(clipUserNextPageLink, setClipUsers, setClipUserNextPageLink);
+    };
+
+    const getMoreImages = () => {
+        fetchAsyncMoreData(imageNextPageLink, setImages, setImageNextPageLink);
     };
 
     const getFollowings = (userId: string) => {
-        setUsers([]);
-        setUserNextPageLink("");
-
-        axios
-            .get(`/api/v1/user/followings/${userId}`)
-            .then((res) => {
-                setUserNextPageLink(res.data.next_page_link);
-                setUsers(res.data.data);
-            })
-            .catch((error) => {});
+        const url = `/api/v1/user/followings/${userId}`;
+        fetchAsyncLatestData(url, setUsers, setUserNextPageLink, null);        
     };
 
     const getFollowers = (userId: string) => {
-        setUsers([]);
-        setUserNextPageLink("");
-
-        axios
-            .get(`/api/v1/user/followers/${userId}`)
-            .then((res) => {
-                setUserNextPageLink(res.data.next_page_link);
-                setUsers(res.data.data);
-            })
-            .catch((error) => {});
+        const url = `/api/v1/user/followers/${userId}`;
+        fetchAsyncLatestData(url, setUsers, setUserNextPageLink, null);        
     };
 
-    const updateProf = (nickName: string, description: string) => {
-        axios
-            .patch(`/api/v1/user/prof`,{
-                nick_name: nickName,
-                description: description.replace(/(\r\n){3,}|\r{3,}|\n{3,}/, '\n\n')
-            })
-            .then((res) => {
+    const getlikeUsers = (clipId: string) => {
+        const url = `/api/v1/clip/${clipId}/like/users`;
+        fetchAsyncLatestData(url, setClipUsers, setClipUserNextPageLink, null);        
+    }
 
-                prof && setProf( (prev) => {
-                    if(prev){
-                        return {
-                            ...prev,
-                            nick_name: res.data.nick_name,
-                            description: res.data.description
-                          };
-                    }
-                    return prev;
-                });
+    const getShareUsers = (clipId: string) => {
+        const url = `/api/v1/clip/${clipId}/share/users`;
+        fetchAsyncLatestData(url, setClipUsers, setClipUserNextPageLink, null); 
+    }
+    
+    const uploadImage = async (
+        setNotifications: (value: React.SetStateAction<ToastNotification[]>) => void,
+        refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<any, unknown>>,
+        {...props}: UPLOAD_ICON
+    ) => {
+        let uploadData = new FormData();
+        uploadData.append('image', props.image, props.image.name);
+        
+        if (processing.current) return;
+        processing.current = true;
 
-                clips && setClips( (prev )=> {
-                    if(prev){
-                        const newClips = [ ...prev ];
-                        
-                        newClips?.map((clip) => {
-                            if(clip.clip_type==="reclip"){
-                                if(clip.parent?.user.id === res.data.user_id){
-                                    clip.parent.user.nick_name = res.data.nick_name;
-                                }  
-                            }else{
-                                if(clip.user.id === res.data.user_id){
-                                    clip.user.nick_name = res.data.nick_name;
-                                }
-                            }
-                        });
-                        return newClips;
-                    }else{
-                        return prev;
-                    }
-                });
+        const onSuccess = (res: AxiosResponse<any, any>) => {
+            setNotifications((prev) => {
+                return[...prev, {id: generateUid(), type:"success", message:"画像をアップロードしました。"}]}
+            );    
+            const filePath: string = "/api/v1/image?f=" + res.data.file_path;
 
-                vlides && setVlides( (prev )=> {
-                    if(prev){
-                        const newVlides = [ ...prev ];
-
-                        newVlides?.map((vlide) => {
-                            if(vlide.user.id === res.data.user_id){
-                                vlide.user.nick_name = res.data.nick_name;
-                            }
-                        });
-                        return newVlides;
-                    }else{
-                        return prev;
-                    }
-                });
-
+            prof && setProf( (prev) => {
+                if(prev){
+                    return {
+                        ...prev,
+                        file_name: filePath,
+                      };
+                }
+                return prev;
             });
+
+            clips && setClips( (prev )=> {
+                if(prev){
+                    const newClips = [ ...prev ];
+                    
+                    newClips?.map((clip) => {
+                        if(clip.clip_type==="reclip"){
+                            if(clip.parent && clip.parent.user.id === res.data.user_id){
+                                clip.parent.user.file_name = filePath;
+                            }  
+                        }else{
+                            if(clip.user.id === res.data.user_id){
+                                clip.user.file_name = filePath;
+                            }
+                        }
+                    });
+                    return newClips;
+                }else{
+                    return prev;
+                }
+            });
+
+            vlides && setVlides( (prev )=> {
+                if(prev){
+                    const newVlides = [ ...prev ];
+
+                    newVlides?.map((vlide) => {
+                        if(vlide.user.id === res.data.user_id){
+                            vlide.user.file_name = filePath;
+                        }
+                    });
+                    return newVlides;
+                }else{
+                    return prev;
+                }
+            });
+            refetch();
+        }
+        const onError = (error: any) => {
+            setNotifications((prev) => {
+                return[ 
+                    ...prev, 
+                    {
+                        id: generateUid(), 
+                        type:"error", 
+                        message:  error.response.data.message === "over" 
+                            ? "画像数が上限に達しています。" 
+                            : "画像のアップロードに失敗しました。"
+                    }
+                ]}
+            );
+        }
+        const url = `/api/v1/user/prof/icon`;
+
+        uploadAsyncImage(url, uploadData, processing, onSuccess, onError)
     };
 
-    const destroy = async ( 
+    const deleteImage = async (
+        user_id: string,
+        setNotifications: (value: React.SetStateAction<ToastNotification[]>) => void,
+        refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<any, unknown>>
+    ) => {
+        if (processing.current) return;
+        processing.current = true;
+        const onSuccess = (res: AxiosResponse<any, any>) => {
+            setNotifications((prev) => {
+                return [...prev, {id: generateUid(), type:"success", message:"画像の削除が完了しました。"}];
+            });
+            prof && setProf( (prev) => {
+                if(prev){
+                    return {
+                        ...prev,
+                        file_name: "",
+                      };
+                }
+                return prev;
+            });
+            clips && setClips( (prev )=> {
+                if(prev){
+                    const newClips = [ ...prev ];
+                    
+                    newClips?.map((clip) => {
+                        if(clip.clip_type==="reclip"){
+                            if(clip.parent && clip.parent.user.id === user_id){
+                                clip.parent.user.file_name = "";
+                            }  
+                        }else{
+                            if(clip.user.id === user_id){
+                                clip.user.file_name = "";
+                            }
+                        }
+                    });
+                    return newClips;
+                }else{
+                    return prev;
+                }
+            });
+
+            vlides && setVlides( (prev )=> {
+                if(prev){
+                    const newVlides = [ ...prev ];
+
+                    newVlides?.map((vlide) => {
+                        if(vlide.user.id === user_id){
+                            vlide.user.file_name = "";
+                        }
+                    });
+                    return newVlides;
+                }else{
+                    return prev;
+                }
+            });
+            refetch();
+        }
+        const onError = (err: any) => {
+            setNotifications((prev) => {
+                return [...prev, {id: generateUid(), type:"error", message:"画像の削除に失敗しました。"}];
+            })
+        }
+        const url = `/api/v1/user/prof/icon`;
+        deleteAsyncImage(url, processing, onSuccess, onError)
+    };
+
+    const updateProf = (
+        nickName: string, 
+        description: string,
+        setToastNotifications: (value: React.SetStateAction<ToastNotification[]>) => void,
+    ) => {
+        updateAsyncProf(
+            nickName, 
+            description,
+            setToastNotifications,
+            setProf,
+            setVlides,
+            setClips,
+        );
+    };
+
+    const deleteVlide = async ( 
         vlideId: string,
         setShowDelete: Dispatch<SetStateAction<any>>
     ) => {
-        axios
-            .delete(`/api/v1/vlide/${vlideId}`)
-            .then((res) => {
-                vlides && setVlides( (prev)=> {
-                    if(prev){                        
-                        return prev.filter((vlide) => {
-                            return vlide.id !== vlideId;
-                        });
-                    }else{
-                        return prev;
-                    }
-                });
-                setShowDelete(false);
-            })
-            .catch(error => {})
-    }
+        const onSuccess = (res: any) => {
+            vlides && setVlides( (prev)=> {
+                if(prev){                        
+                    return prev.filter((vlide) => {
+                        return vlide.id !== vlideId;
+                    });
+                }else{
+                    return prev;
+                }
+            });
+            setShowDelete(false);
+            prof && setProf(
+                {
+                    ...prof,
+                    count_vlides: prof.count_vlides-1
+                }
+            )
+        };
+        deleteAsyncVlide(vlideId, onSuccess);
+    };
 
     const deleteClip = async ( 
         clipId: string, 
         setShowDelete: Dispatch<SetStateAction<any>>
     ) => {
-        axios
-            .delete(`/api/v1/clip/${clipId}`)
-            .then((res) => {
-                clips && setClips( (prev)=> {
-                    if(prev){                        
-                        return prev.filter((clip) => {
-                            if(clip.clip_type === "reclip" && clip.parent.id === clipId) return false;
-                            if (clip.clip_type !== "reclip" &&  clip.id === clipId) return false;
-
-                            return true;
-                        });
-                    }else{
-                        return prev;
-                    }
-                });
-                setShowDelete(false);
-            })
-            .catch(error => {});
+        deleteAsyncClip(clipId, undefined, clips, setClips, setShowDelete, undefined);
     };
 
     const savedUnsaved = (vlideId: string) => {
-        axios
-            .put(`/api/v1/vlide/${vlideId}/save`,{})
-            .then((res) => {
-
-                if( res.data.result === "saved" ) {
-                    const add_save = (vlide:VLIDE) => { // 投稿の保存数と保存をしたかどうかを変更
-                        vlide["count_saves"] = res.data.count_saves;
-                        vlide["is_saved"] = true;
-
-                        return vlide;
-                    }
-
-                    vlides && setVlides( (prev) => {
-                        if(prev){
-                            const newVlides = [ ...prev ];
-
-                            newVlides?.map((vlide) => 
-                                vlide.id === res.data.id ? add_save(vlide) : vlide, 
-                            );
-
-                            return newVlides;
-                        }else{
-                            return prev;
-                        }
-                    });
-                }else if(res.data.result === "unsaved") {
-
-                    const delete_save = (vlide:VLIDE) => {
-                        vlide["count_saves"] = res.data.count_saves;
-                        vlide["is_saved"] = false;
-                        return vlide;
-                    };
-
-                    vlides && setVlides( (prev) => {
-                        if(prev){
-                            const newVlides = [ ...prev ];
-
-                            newVlides?.map((vlide) => 
-                                vlide.id === res.data.id ? delete_save(vlide) : vlide, 
-                            )
-                            return newVlides;
-                        }else{
-                            return prev;
-                        }
-                    });
-
-                }
-            });
+        saveUnsaveAsyncVlide(vlideId, setVlides, null);
     };
 
     const likeUnlike = (clipId: string) => {
-        axios
-            .put(`/api/v1/clip/${clipId}/like`,{})
-            .then((res) => {
-
-                if( res.data.result === "like" ) {
-
-                    clips && setClips( (prev) => {
-                        if(prev){
-                            const newClips = [ ...prev ];
-
-                            newClips?.map((clip) => {
-      
-                                if(clip.clip_type==="reclip"){
-                                    if(clip.parent?.id === res.data.id){
-                                        clip.parent.count_likes += 1
-                                        clip.parent.is_liked = true;
-                                    }  
-                                }else{
-                                    if(clip.id === res.data.id){
-                                        clip.count_likes +=1;
-                                        clip.is_liked = true;
-                                    }
-                                }
-                            });
-
-                            return newClips;
-                        }else{
-                            return prev;
-                        }
-                    });
-                }else if(res.data.result === "unlike") {
-
-                    clips && setClips( (prev) => {
-                        if(prev){
-                            const newClips = [ ...prev ];
-
-                            newClips?.map((clip) => {
-                                if(clip?.clip_type==='reclip'){
-                                    if(clip.parent?.id === res.data.id){
-                                        clip.parent.count_likes -= 1;
-                                        clip.parent.is_liked = false;
-                                    }
-                                }else{
-                                    if(clip.id === res.data.id){
-                                        clip.count_likes -=1;
-                                        clip.is_liked = false;
-                                    }
-                                }
-                            });
-                            return newClips;
-                        }else{
-                            return prev;
-                        }
-                    });
-
-                }
-            });
+        likeUnlikeAsyncClip(clipId, setClips, null);
     };
 
     
-    const shareClip = async (clipId: string) => {
-        await axios
-            .post(`/api/v1/clip/share/${clipId}`, {})
-            .then((res) => {
-                if(clips && section==="clips" && user.name === props.username){
-                    setClips([res.data, ...clips]);
-                }
-            });
+    const shareClip = async (
+        clipId: string, 
+        setReClipId: Dispatch<SetStateAction<any>>, 
+    ) => {
+        const onSuccess = (res: any) => {
+            if(clips && section==="clips" && props.user.name === props.username){
+                setClips([res.data, ...clips]);
+            }else{
+                setReClipId(res.data.id);
+            }
+        };
+        shareAsyncClip(clipId, onSuccess);
     };
 
-    const unShareClip = async (clipId: string) => {
-        await axios
-            .post(`/api/v1/clip/unshare/${clipId}`, {})
-            .then((res) => {
-                if(clips && section==="clips" && user.name === props.username){
-
-                    setClips( (prev )=> {
-                        if(prev){
-                            
-                            return prev.filter((clip) => {
-                                return clip.id !== clipId;
-                            });
-                            
-                        }else{
-                            return prev;
-                        }
-                        
-                    })
-                }
-                return res.data;
-            });
-    };
-
-    const followUnfollow = (userId: string) => {
-        axios
-            .put(`/api/v1/user/${userId}/follow`,{})
-            .then((res) => {
-                if( res.data.result === "followed" ) {
-
-                    if(user.id === prof?.id && user.id !== res.data.id) {
-                        setProf((prev) => {
-                            const newProf = Object.assign({}, prev);
-                            newProf.count_followings += 1;
- 
-                            return newProf;
+    const unShareClip = async (
+        clipId: string,
+        setReClipId: Dispatch<SetStateAction<any>>, 
+    ) => {
+        const onSuccess = (res: any) => {
+            if(clips && section==="clips" && props.user.name === props.username){
+                setClips( (prev )=> {
+                    if(prev){
+                        return prev.filter((clip) => {
+                            return clip.id !== clipId;
                         });
-                    }
-
-                    if(user.id !== prof?.id && prof?.id === res.data.id) {
-                        setProf((prev) => {
-                           const newProf = Object.assign({}, prev);
-                            
-                            newProf.count_followers += 1;
-                            newProf.isFollowed = true;
-
-                            return newProf;
-                        })
+                        
+                    }else{
+                        return prev;
                     }
                     
-                    const add_follow = (user:USER) => {
-                        user["count_followers"] += 1;
-                        user["isFollowed"] = true;
-                        return user;
-                    };
+                })
+            }
+            setReClipId(res.data.id);
+        };
+        unShareAsyncClip(clipId, onSuccess);
+    };
 
-                    users && setUsers( (prev) => {
-                        if(prev){
-                            const newUsers = [ ...prev ];
+    const followUnfollow = (targetId: string, loginId:string) => {
+        putAsyncFollowUnfollow(targetId, loginId, {users, setUsers}, {prof, setProf})
+    };
 
-                            newUsers?.map((user) => 
-                                user.id === res.data.id ? add_follow(user) : user, 
-                            );
-                            return newUsers;
-                        }else{
-                            return prev;
-                        }
-                    });
-                }else if(res.data.result === "unfollowed") {
-
-                    if(user.id === prof?.id && user.id !== res.data.id) {
-                        setProf((prev) => {
-                            const newProf = Object.assign({}, prev);
-                            newProf.count_followings -= 1;
- 
-                            return newProf;
-                        });
-                    }
-
-                    if(user.id !== prof?.id && prof?.id === res.data.id) {
-                        setProf((prev) => {
-                           const newProf = Object.assign({}, prev);
-                            
-                            newProf.count_followers -= 1;
-                            newProf.isFollowed = false;
-
-                            return newProf;
-                        })
-                    }
-                    const delete_follow = (user:USER) => {
-                        user["count_followers"] -= 1;
-                        user["isFollowed"] = false;
-
-                        return user;
-                    };
-
-                    users && setUsers( (prev) => {
-                        if(prev){
-                            const newUsers = [ ...prev ];
-
-                            newUsers?.map((user) => 
-                                user.id === res.data.id ? delete_follow(user) : user, 
-                            )
-                            return newUsers;
-                        }else{
-                            return prev;
-                        }
-                    });
-                }
-            });
+    const clipfollowUnfollow = (targetId: string, loginId:string) => {
+        putAsyncFollowUnfollow(targetId, loginId, {users:clipUsers, setUsers:setClipUsers})
     };
 
     // URL の query を変える
@@ -548,11 +403,16 @@ export const useProf = (props: Props) => {
                 navigate(`/prof/${prof.name}`);
             }else if(sectionName==="clips" ){
                 navigate(`/prof/${prof.name}?f=clips`);
+            }else if(sectionName==="replies" ){
+                navigate(`/prof/${prof.name}?f=replies`);
             }else if(sectionName==="bookmarks" ){
                 navigate(`/prof/${prof.name}?f=bookmarks`);
             }else if(sectionName==="likes" ){
                 navigate(`/prof/${prof.name}?f=likes`);
+            }else if(sectionName==="images" ){
+                navigate(`/prof/${prof.name}?f=images`);
             }
+            window.scrollTo(0, 0);
         }
 
     };
@@ -577,9 +437,15 @@ export const useProf = (props: Props) => {
                 }else if(f==="clips") {
                     setSection('clips')
                     getClips(prof.id);
+                }else if(f==="replies") {
+                    setSection('replies')
+                    getReplies(prof.id)
                 }else if(f==="likes") {
                     setSection('likes')
                     getLikes(prof.id);
+                }else if(f==="images") {
+                    setSection('images')
+                    getImages(prof.id);
                 }
             }
         }
@@ -587,8 +453,6 @@ export const useProf = (props: Props) => {
     }, [searchParams, prof?.name]);
 
     return {
-        user,
-        isLoading,
         prof, 
         isLoadingProf,
         isLoadingContents,
@@ -598,26 +462,33 @@ export const useProf = (props: Props) => {
         clipNextPageLink,
         users,
         userNextPageLink,
+        clipUsers,
+        clipUserNextPageLink, 
+        images,
+        imageNextPageLink,
         section,
         setSection,
         changeSection,
-        getVlides,
+        getlikeUsers,
+        getShareUsers,
         getFollowings,
         getFollowers,
-        getBookmarks,
-        getClips,
-        getLikes,
         getMoreVlides,
         getMoreClips,
         getMoreUsers,
+        getMoreClipUsers,
+        getMoreImages,
+        uploadImage,
+        deleteImage,
         updateProf,
-        destroy,
+        deleteVlide,
         deleteClip,
         savedUnsaved,
         likeUnlike,
         shareClip,
         unShareClip,
-        followUnfollow
+        followUnfollow,
+        clipfollowUnfollow
     };
 
 };

@@ -41,12 +41,11 @@ class ClipResource extends JsonResource
                 //         return $this->replies->sortBy('created_at');
                 //     })
                 // ),
-                'count_replies' => $this->count_replies,    
+                'count_replies' => $this->count_replies,
+                'count_reclips' => $this->count_reclips,
+                // 'reclip_users' => UserResource::collection($this->reclipUsers()->get()->pluck('user')), 
                 'parent' => new ParentClipResource($this->parent),
-                // 'parent' => $this->parent,
                 'vlide_id' => $this->vlide_id,
-
-
             // ]
         ];
     }

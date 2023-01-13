@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-
+use Illuminate\Database\Eloquent\Collection;
 
 class Clip extends Model
 {
@@ -45,8 +45,22 @@ class Clip extends Model
     }
     public function parent(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Clip', 'parent_id')->with(["user"]);
+        return $this->belongsTo('App\Models\Clip', 'parent_id')
+            // ->with(["user"]);
+            ->with(['user' => function ($query) {
+                $query->select('id', 'name', 'nick_name', 'file_name', 'email_verified_at');
+            }]);
     }
+    // public function parent_parent()
+    // {
+    //     return $this->belongsTo('App\Models\Clip', 'parent_id')
+    //         // ->select('id')
+    //         ->with(['user' => function ($query) {
+    //             $query->select('id', 'name');
+    //         }])
+    //         ->get();
+    // }
+
     public function children(): HasMany
     {
         return $this->hasMany('App\Models\Clip', 'parent_id');
@@ -54,11 +68,11 @@ class Clip extends Model
     public function likes(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\User', 'likes')
-            // ->withPivot([
-            //     'created_at',
-            //     // 'updated_by',
-            // ]); 
-        ;
+            ->withPivot([
+                'created_at',
+                // 'updated_by',
+            ]); 
+        // ;
         // ->withTimestamps(3);
     }
     public function isLikedBy(?User $user): bool
@@ -81,7 +95,10 @@ class Clip extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Tag', 'clip_tag');
+        return $this->belongsToMany('App\Models\Tag', 'clip_tag')
+            ->withPivot([
+                'created_at',
+            ]); 
         // ->withTimestamps();
     }
 
@@ -105,5 +122,21 @@ class Clip extends Model
         return $this->hasMany('App\Models\Clip', 'parent_id')
                     ->where('clip_type', 'reclip')
                     ->orderBy('created_at', 'desc');
+    }
+
+    public function getCountReclipsAttribute(): int
+    // このメソッドを使う時は、$clip->count_reclips
+    {
+        return $this->reclips->count();
+    }
+
+    public function reclipUsers(): HasMany
+    {
+        return $this->hasMany('App\Models\Clip', 'parent_id')
+            ->where('clip_type', 'reclip')
+            // ->with(['user' => function($query){
+            //     $query->groupBy('id');
+            // }])
+            ->orderBy('created_at', 'desc');
     }
 }

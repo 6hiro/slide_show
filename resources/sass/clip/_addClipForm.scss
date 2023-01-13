@@ -2,6 +2,7 @@
     position: relative;
     min-width: 300px;
     max-width: 400px;
+    line-height: 0;
     
     .decorated_text{
         position: absolute;
@@ -28,6 +29,7 @@
         border: none;
         font-size: 16px;
         width: 100%;
+        line-height: 24px;
     }
 
     .textarea{
@@ -41,8 +43,10 @@
         padding: 6px;
         caret-color: #000 !important;
         width: 100%;
+        line-height: 24px;
+
         &::placeholder {
-            color: #000;
+            color: #aaa;
             font-size: 16px;
         }
     }
@@ -53,6 +57,7 @@
     .img_section{
         position: relative;
         width: 200px;
+        margin: 4px 0;
 
         &__x_icon{
             @include flex(center, center);
@@ -63,7 +68,7 @@
             background-color: #fff;
             color: #333;
             font-size: 25px;
-            font-weight: 900;
+            font-weight: 600;
             opacity: 0.75;
             border-radius: 50%;
             top: 1px;
@@ -89,24 +94,24 @@
         padding: 5px;
 
         .decoTextarea__option{
-            @include flex(center, unset);
+            width: 200px;
+            @include flex(center, space-between);
+            font-size: 16px;
 
             .add_img_button{
-                --size: 30px;
+                --size: 35px;
                 width: var(--size);
                 height: var(--size);
                 border-radius: 50%;
                 @include flex(center, center);
+                user-select: none;
 
                 &:hover {
                     background: #f2f2f2;
                     transition: 1s;
                 }
-                image{
-                    border-radius: 50%;
-                    font-size: 22px;
-                    padding: 5px;
-                    color: $mainColor;
+                svg {
+                    font-size: 25px;
                 }
             }
 
@@ -114,10 +119,11 @@
         .add_clip_button{
             background: $mainColor;
             color: $white;
-            border-radius: 0.7rem;
+            border-radius: 0.5rem;
             border: none;
             padding: 7px 10px;
             opacity: 0.9;
+            box-shadow: 0 0 8px -5px rgb(0 0 0 / 47%);
 
             &:hover{
                 background: $mainColor;

@@ -19,7 +19,7 @@ class UploadAudioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request, VlideService $vlideService)
+    public function __invoke(UploadAudioRequest $request, VlideService $vlideService)
     {
         $vlideId = $request->route('vlideId');
         $audio = $request->file('audio');
@@ -51,7 +51,7 @@ class UploadAudioController extends Controller
         });
 
         return response()->json([
-            'audio'=> $request->file('audio')->getClientOriginalName(),
+            // 'audio'=> $request->file('audio')->getClientOriginalName(),
             'filePath' => $target,
             // 'filePath'=>Storage::disk('s3')->url($target)
             // Storage::disk('s3')->url('public/audios/'.$this->audio_file_name)

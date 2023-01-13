@@ -1,10 +1,15 @@
-import React, { memo } from 'react';
+import React, { memo, Suspense, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { useAuth } from '../../hooks/useAuth';
 import { siteTitle } from '../../constants/site';
 import Header from './Header';
 import { Link } from 'react-router-dom';
+import useToggle from '../../hooks/useToggle';
+import { delay } from '../../utils/delay';
+import InitialLoadingScreen from './InitialLoadingScreen';
+import LoadingScreen from './LoadingScreen';
+
+
 
 const Footer = memo(() => {
     const year = new Date().getFullYear();
@@ -13,13 +18,13 @@ const Footer = memo(() => {
         <footer className="footer">
             <div className="logo" >
                 &copy; {year} {siteTitle}. 
-                {/* All rights reserved. */}
             </div>
-            {/* <div className="privacy">
-                プライバシー
-            </div> */}
+            <div className="privacy">
+                <Link to="/privacy">
+                    プライバシー
+                </Link>
+            </div>
             <div className="tos">
-                 {/* Terms of service */}
                 <Link to="/terms">
                     利用規約
                 </Link>
@@ -28,13 +33,27 @@ const Footer = memo(() => {
     )
 });
 
-const Layout = () => {
+const Layout = ({user, isLoading, logout}: {
+    user: any, 
+    isLoading: boolean,
+    logout: () => Promise<void>,
+}) => {
+    const [isInitialLoading, setIsInitialLoading] = useToggle(true);
 
-    const { user, logout } = useAuth({
-        middleware: 'guest',
-        redirectIfAuthenticated: '/'
-    })
+    const pathname = window.location.pathname;
+    const needFooterUrlList = ["privacy", "terms", "about", "notifications", "settings", "auth"];
+   
+    useEffect(() => {
+        const hideInitialLoadingScreen = async () => {
+            await delay(700);
+            setIsInitialLoading(false)
+        };
+        hideInitialLoadingScreen();
+    }, []);
 
+    if(isLoading || isInitialLoading) return (
+        <InitialLoadingScreen />
+    )
     return (
         <React.Fragment>
 
@@ -42,16 +61,18 @@ const Layout = () => {
                 isAuth={user?.id ? true :false} 
                 username={user?.name ? user.name : ""}
                 logout={logout} 
-                // nickName={user.nick_name} 
             />
 
             <main className="main">
-                {/* <Suspense fallback={<LoadingScreen />}> */}
+                <Suspense fallback={<></>}>
                     <Outlet /> 
-                {/* </Suspense> */}
+                </Suspense>
             </main>
-
-            <Footer />
+            {
+                ( needFooterUrlList.includes(pathname.split("/").filter(Boolean)[0]) )
+                    ? <Footer />
+                    : null
+            }
             
         </React.Fragment>
     )

@@ -1,28 +1,29 @@
-// import React from 'react';
+import { useContext } from 'react';
+
 import TagForm from './TagForm';
 import { useDraftVlide } from '../../../hooks/useDraftVlide';
 import TitleInput from './TitleInput';
-import { useNavigate } from 'react-router-dom';
+import { ToastNotificationsContext } from '../../../hooks/useToastNotifications';
+
+
 
 type Props = {
     toggleForm: Function;
 };
 
 const NewVlideForm = (props: Props) => {
-    let navigate = useNavigate();
 
     const {title, setTitle , tagList, setTagList, create} = useDraftVlide();
+    const [_, setToastNotifications] = useContext(ToastNotificationsContext);
 
     const submitForm = async (e: any) => {
         e.preventDefault();
-        const res = await create({title: title , tag_list: tagList, is_public: false});
+        await create(setToastNotifications, {title: title , tag_list: tagList, is_public: false});
         props.toggleForm(false);
-
-        res.data.id && navigate(`/drafts/vlide/${res.data.id}`);
     };
 
     return (
-        <form className="new_vlide_form" onSubmit={submitForm}>
+        <div className="new_vlide_form">
 
             <TitleInput title={title} setTitle={setTitle} autoFocus={true} />
 
@@ -31,11 +32,12 @@ const NewVlideForm = (props: Props) => {
             <button
                 type='submit'
                 disabled={ !title.length }
+                onClick={submitForm}
             >
                 次へ
             </button>
 
-        </form>
+        </div>
     )
 };
 

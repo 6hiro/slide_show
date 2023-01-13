@@ -1,47 +1,47 @@
 import React, { useState } from 'react';
-
 import { BiEnvelope, BiLock, BiLockOpen } from 'react-icons/bi';
+
 import useToggle from '../../hooks/useToggle';
 import { PASSWORD_PATTERN } from '../../utils/regexps';
 import { Link } from 'react-router-dom';
-import AuthValidationErrors from './AuthValidationErrors';
 import { siteTitle } from '../../constants/site';
+import { generateUid } from '../../utils/uid';
+import { ToastNotification } from '../toastNotification/ToastNotifications';
+
+
 
 type LoginCardProps = {
-    errors: any[];
-    setErrors: React.Dispatch<React.SetStateAction<any[]>>;
+    setToastNotifications: React.Dispatch<React.SetStateAction<[] | ToastNotification[]>>
     login: Function;
 };
 
 const LoginCard = (props:LoginCardProps) => {
+    const { login, setToastNotifications } = props;
 
     const [isRevealed, toggle] = useToggle(false);
-    // const [email, setEmail] = useState<string>('ofujimoto@example.org');
-    // const [password, setPassword] = useState<string>('password');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [remember, setRemember] = useState<boolean>(false);
-
-
+    // const [remember, setRemember] = useState<boolean>(false);
 
     const submitForm = async (event: any) => {
         event.preventDefault();
-        await props.setErrors([]);
 
         if( !password.match(PASSWORD_PATTERN) ) {
 
-            props.setErrors(
-                [ ["password.match"] ]
-            );
+            setToastNotifications(prev => {
+                return[
+                    ...prev,
+                    {id: generateUid(), type:"warning", message:"パスワードに使えるのは、半角英数字と記号（ @, $, !, %, *, ?, & ）のみです"},
+                ];
+            });
             return;
         }
-        props.login({setErrors: props.setErrors, email, password, remember });
+
+        login({setToastNotifications: setToastNotifications, email, password, remember: false });
     };
 
     return (
         <div className="login_card_container" >
-            <AuthValidationErrors errors={props.errors} />
-
             <div className="login_card">
                 <div className="login_card_header" >
                     <h1>{siteTitle}にログイン</h1>
@@ -73,9 +73,7 @@ const LoginCard = (props:LoginCardProps) => {
                             type={isRevealed ? "text" : "password"} 
                             value={password}
                             onChange={event =>{
-                                // if( event.target.value.match(PASSWORD_PATTERN) || event.target.value==="" ) {
-                                    setPassword(event.target.value)
-                                // }
+                                setPassword(event.target.value)
                             }}
                             placeholder='パスワード' 
                             // autoComplete="new-password"

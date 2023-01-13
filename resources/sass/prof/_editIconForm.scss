@@ -1,0 +1,160 @@
+.editIconForm {
+    position: fixed;
+    right: 10px;
+    bottom: 15px;
+    z-index: 300;
+    color: $subColor;
+
+    .overlay{
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        z-index: 290;
+        // background-color: #ecf0f3;
+        // background: rgba(50, 50, 50, 0.7);
+        background: rgba(255, 255, 255, 0.65);
+        // backdrop-filter: blur(2px);
+        // -webkit-backdrop-filter: blur(2px);
+    }
+
+    .formContainer{
+        z-index: 320;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -45%);
+        margin: 0;
+        max-height: calc(100vh - $headerHeight - 30px);
+        width: calc(100vw - 20px);
+        max-width: 600px;
+        overflow-y: scroll;
+        background: #fff;
+        box-shadow: 0 0 8px -5px rgb(0 0 0 / 47%);
+        border-radius: 5px;
+
+        .closeForm {                        
+            @include flex(center, center);
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            --size: 30px;
+            height: var(--size);
+            width: var(--size);
+            background-color: #fff;
+            color: $subColor;
+            // font-size: 25px;
+            font-size: 30px;
+            font-weight: 900;
+            opacity: 0.75;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &:hover{
+                background: #f2f2f2;
+            }
+        }
+        .form {
+            margin: 40px 30px 20px;
+
+            .img_container{
+                position: relative;
+                width: 110px;
+                height: 110px;
+                background: #eee;
+                border-radius: 50%;
+
+                .img_preview_container {
+                    position: relative;
+                    z-index: 10;
+                    width: 110px;
+                    height: 110px; 
+                    border-radius: 50%;
+                    
+                    img {
+                        // object-fit: cover;
+                        width: 110px;
+                        height: 110px; 
+                        border-radius: 50%;
+                        overflow: hidden;
+                        border: 2px solid #ececec;
+                        background: $white;
+                        display: block;
+                    }
+                    .img_preview__x_icon {
+                        @include flex(center, center);
+                        position: absolute;
+                        --size: 28px;
+                        height: var(--size);
+                        width: var(--size);
+                        background-color: #fff;
+                        color: #333;
+                        font-size: 28px;
+                        font-weight: 600;
+                        opacity: 0.75;
+                        border-radius: 50%;
+                        top: -10px;
+                        right: -10px;
+                        cursor: pointer;
+        
+                        &:hover{
+                            background: $subColor;
+                            background: #f2f2f2;
+                        }        
+                    }
+                }
+
+                .img_add {
+                    top: 0;
+                    left: 0;
+                    width: 110px;
+                    height: 110px;
+                    position: absolute;
+                    font-size: 65px;
+                    color: #cfcfcf;
+                    @include flex(center, center);
+                    z-index: 5;
+                    border: 2px solid #ececec;
+                    border-radius: 50%;
+                }
+            }
+
+            .rules {
+                margin: 20px 10px 20px;
+                .rule {
+                    padding: 5px 0;
+                    color: $subColor;
+                }
+            }
+
+            & > button {
+                width: 100%;
+                // margin: 0 10px;
+                border: none;
+                outline: none;
+                border-radius: 4px;
+                cursor: pointer;
+                border: 2px solid $mainColor;
+                background: $mainColor;
+                color: $white;
+                font-size: 20px;
+                font-weight: 600;
+                padding: 4px 0;
+    
+                &:disabled {
+                    color: #cfcfcf;
+                    background: #ececec;
+                    border: 2px solid #cfcfcf;
+                }
+                &:hover:not(:disabled) {
+                    background: #E32D91;
+                }
+            }
+        }
+
+
+    }
+}

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { BiEdit, BiKey, BiUserX, BiX } from 'react-icons/bi';
 import { Helmet } from 'react-helmet';
 
@@ -13,36 +13,29 @@ import LoadingScreen from '../../components/layout/LoadingScreen';
 import { siteTitle } from '../../constants/site';
 
 
-
-const Settings = () => {
+type Props = {
+    user: any;
+    isLoading: boolean; 
+    deleteAccount: Function;
+    changeUserName: Function;
+    changePassword: Function;
+}
+const Settings = (props: Props) => {
+    const { user, isLoading, deleteAccount, changeUserName, changePassword } = props;
     let navigate = useNavigate();
 
     const [openEditForm, toggleEditForm] = useToggle(false);
     const [openPasswordForm, togglPasswordForm] = useToggle(false);
     const [openDeleteForm, togglDeleteForm] = useToggle(false);
     
-    const { 
-        user, 
-        isLoading, 
-        deleteAccount,
-        changeUserName,
-        changePassword
-    } = useAuth({
-        // middleware: "guest",
-        // redirectIfAuthenticated: '/',
-    });
-    
-    useEffect(()=>{
-        if(!isLoading && !user){
-            navigate('/')
-        }
-    }, [isLoading]);
 
     if (isLoading && !user) {
         return <div style={{ height:"100vh", display:"flex", alignItems: "center", justifyContent: "center" }}>
                 <LoadingScreen/>
             </div>
     }
+
+    if(!isLoading && !user?.id) return (<Navigate to="/" replace={true} />)
 
     return (
 
@@ -56,9 +49,9 @@ const Settings = () => {
                 />
             </Helmet>
 
-            <div className="settings_title">
+            {/* <div className="settings_title">
                 <span className="setting_title_text">設定</span>
-            </div>
+            </div> */}
 
             <p className="sub_title">
                 <BiEdit />
@@ -78,7 +71,7 @@ const Settings = () => {
                         </div>
                     : null
                 }
-                <button onClick={()=>toggleEditForm(true)}>アカウント名を更新する</button>
+                <button className="open_modal_button" onClick={()=>toggleEditForm(true)}>アカウント名を変更する</button>
             </div>
                 <p className="sub_title">
                 <BiKey />
@@ -97,8 +90,8 @@ const Settings = () => {
                         </div>
                     : null
                 }
-                <button onClick={ ()=> togglPasswordForm(true)}
-                    >パスワードを変更
+                <button className="open_modal_button" onClick={ ()=> togglPasswordForm(true)}
+                    >パスワードを変更する
                 </button>
             </div>
 
@@ -113,7 +106,7 @@ const Settings = () => {
             >
                 {openDeleteForm 
                     ? <div className="editForm" >
-                            <div className="overlay" onClick={()=>togglDeleteForm(false)}></div>
+                            <div className="overlay delete_overlay" onClick={()=>togglDeleteForm(false)}></div>
                             <div className="formContainer">
                                 <div className="closeForm" onClick={()=>togglDeleteForm(false)} ><BiX/></div>
                                 <div className="form">
@@ -127,7 +120,11 @@ const Settings = () => {
                         </div>
                     : null
                 }
-                <button onClick={()=>togglDeleteForm(true)}>アカウントを削除する</button>
+                <button 
+                    className="open_modal_button" 
+                    onClick={()=>togglDeleteForm(true)}
+                >アカウントを削除する
+                </button>
             </div>
 
         </div>

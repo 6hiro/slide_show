@@ -39,6 +39,7 @@ class ClipService
                 ->whereHas('user', function($q) use ($user_id){
                     $q->where('user_id', $user_id);
                 })
+                ->where('clip_type', '!=',  'reply')
                 ->where('created_at', '<', $since)
                 ->latest('created_at')
                 ->take($per_page+1) // 次のページがあるか判断するために、1 つ多めにとる
@@ -48,6 +49,32 @@ class ClipService
                 ->whereHas('user', function($q) use ($user_id){
                     $q->where('user_id', $user_id);
                 })
+                ->where('clip_type', '!=',  'reply')
+                ->orderBy('created_at', 'DESC')
+                ->take($per_page+1)
+                ->get();
+        }
+
+        return $clips;
+    }
+    public function getUserReplies(string $user_id, int $per_page, ?string $since)
+    {
+        if($since){
+            $clips = Clip::with(['tags', 'user', 'replies', 'replies.user', 'parent'])
+                ->whereHas('user', function($q) use ($user_id){
+                    $q->where('user_id', $user_id);
+                })
+                ->where('clip_type', 'reply')
+                ->where('created_at', '<', $since)
+                ->latest('created_at')
+                ->take($per_page+1) // 次のページがあるか判断するために、1 つ多めにとる
+                ->get();
+        }else{
+            $clips = Clip::with(['tags', 'user', 'replies', 'replies.user', 'parent'])
+                ->whereHas('user', function($q) use ($user_id){
+                    $q->where('user_id', $user_id);
+                })
+                ->where('clip_type', 'reply')
                 ->orderBy('created_at', 'DESC')
                 ->take($per_page+1)
                 ->get();
@@ -107,7 +134,7 @@ class ClipService
             })
             ->withCount('likes')
             ->orderBy('likes_count', 'desc')
-            ->latest('created_at')
+            // ->latest('created_at')
             ->paginate($per_page);
         return $clips;
     }
@@ -138,12 +165,12 @@ class ClipService
             ->where('created_at', '>', $since)
             ->withCount('likes')
             ->orderBy('likes_count', 'desc')
-            ->latest('created_at')
+            // ->latest('created_at')
             ->paginate($per_page);
         return $clips;
     }
 
-    public function getLikes( string $user_id, int $per_page, ?string $since)
+    public function getLikes(string $user_id, int $per_page, ?string $since)
     {
         $user = User::where('id', $user_id)->first();
         
@@ -160,6 +187,53 @@ class ClipService
         }
         return $clips;
     }
+    
+    public function getLikeUsers(string $clipId, int $per_page, ?string $since)
+    {
+        $clip = Clip::where('id', $clipId)->first();
+
+        if($since){
+            $like_users = $clip->likes()
+                ->where('likes.created_at',  '<', $since)
+                ->latest('likes.created_at')
+                ->take($per_page+1)
+                ->get();
+        }else{
+            $like_users = $clip->likes()
+                ->latest('likes.created_at')
+                ->take($per_page+1)
+                ->get();
+        }
+        return $like_users;
+    }
+    public function getShareUsers(string $clipId, int $per_page, ?string $since)
+    {
+        $clip = Clip::where('id', $clipId)->first();
+
+        if($since){
+            $share_users = $clip->reclipUsers()
+                ->with(['user'])
+                // ->groupBy('user_id')
+                // ->with(['user' => function($query){
+                //     $query->groupBy('name');
+                // }])
+                ->where('created_at',  '<', $since)
+                ->latest('created_at')
+                ->take($per_page+1)
+                ->get();
+        }else{
+            $share_users = $clip->reclipUsers()
+                ->with(['user'])
+                // ->with(['user' => function($query){
+                //     $query->groupBy('id');
+                // }])
+                ->latest('created_at')
+                ->take($per_page+1)
+                ->get();
+                // ->pluck('user');
+        }
+        return $share_users;
+    }
 
     public function followings( string $user_id, int $per_page, ?string $since)
     {
@@ -168,6 +242,7 @@ class ClipService
         if($since){
             $clips = Clip::with(['tags', 'user'])
                 ->whereIn('user_id', $user->followings()->pluck('followee_id'))
+                ->where('clip_type', '!=',  'reply')
                 ->orderByDesc('created_at')
                 ->where('created_at', '<', $since)
                 ->latest('created_at')
@@ -176,6 +251,7 @@ class ClipService
         }else{
             $clips = Clip::with(['tags', 'user'])
                 ->whereIn('user_id', $user->followings()->pluck('followee_id'))
+                ->where('clip_type', '!=',  'reply')
                 ->orderByDesc('created_at')
                 ->take($per_page+1)
                 ->get();
@@ -198,7 +274,7 @@ class ClipService
         return $clip->user_id === $userId;
     }
 
-    public function create(string $userId, string $vlide_id, bool $is_public, string $content, string $quote)
+    public function create(string $userId, ?string $vlide_id, bool $is_public, ?string $content, ?string $quote)
     {
         
         return DB::transaction(function () use($userId, $vlide_id, $is_public, $content, $quote) {
@@ -210,8 +286,9 @@ class ClipService
             $clip->quote = $quote;
 
             $clip->is_public = $is_public;
-
-            $clip->vlide_id = $vlide_id;
+            if($vlide_id){
+                $clip->vlide_id = $vlide_id;
+            }
             $clip->save();
 
             //　contentを空白で分割し、リスト化

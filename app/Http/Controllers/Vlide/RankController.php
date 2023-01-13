@@ -21,10 +21,10 @@ class RankController extends Controller
      */
     public function __invoke(Request $request, VlideService $vlideService)  // Single Action Controller
     {
-        $per_page = 12;
+        $per_page = 6;
 
         $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
-        $since = $dateTime->modify('-1week')->format('Y-m-d H:i:s.v');
+        $since = $dateTime->modify('-1 month')->format('Y-m-d H:i:s.v');
 
         $vlides = $vlideService->getRank($per_page, $since);
 

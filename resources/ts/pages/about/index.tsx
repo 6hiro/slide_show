@@ -18,7 +18,8 @@ const About = () => {
 
             <div className="about_container">
                 <h1 className="title">
-                    <strong>Slides</strong> with <strong>Voice</strong>
+                    {siteTitle} について
+                    {/* <strong>Slides</strong> with <strong>Voice</strong> */}
                 </h1>
                 <div className="title_description">
                     音声 ( Voice ) と スライド ( Slide ) を掛け合わせたコンテンツの投稿と、
@@ -37,7 +38,7 @@ const About = () => {
                     <div className="description">
                         <p>
                             <span>
-                                Vlide は、<strong>音声 ( Voice )</strong> と <strong>スライド ( Slide )</strong> を掛け合わせたコンテンツを指します。
+                                Vlide は、<strong>音声 ( Voice )</strong> と <strong>スライド ( Slide )</strong> を掛け合わせたコンテンツです。
                             </span>
                         </p>
                         <p>
@@ -48,12 +49,12 @@ const About = () => {
                         </p>
                         <p>
                             <span>
-                                スライドショーの時間を指定しなければ、ブログのように利用することも可能です。
+                                スライドショーの時間を指定しない場合、ブログのように利用することも可能です。
                             </span>
                         </p>
                         <p>
                             <span>
-                                現在、1 アカウント、 5 つまで投稿できます。
+                                現在、1 アカウント、 3 つまで投稿できます。
                             </span>
                         </p>
                     </div>

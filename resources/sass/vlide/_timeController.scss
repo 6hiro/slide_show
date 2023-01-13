@@ -1,31 +1,33 @@
 .videoContainer{
     position: fixed;
     z-index: 150;
-    top: 55px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
-    padding: 0 15px;
-    height: 68px;
-    background: $subColor;
-    box-shadow: 0 0 0 1px #000, 0 30px 30px rgb(0 0 0 / 7%), 0 15px 15px rgb(0 0 0 / 6%), 0 10px 8px rgb(0 0 0 / 5%), 0 4px 4px rgb(0 0 0 / 4%), 0 2px 2px rgb(0 0 0 / 3%);
+    width: 320px;
+    height: 72px;
+    background: #fff9;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 8px -5px $subColor;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 0 0 4px 4px;
+    border-radius: 6px;
+    user-select: none;
 }
+
 .videoContainer .video{
     width: 100%;
     height: 100%;
 }
 .videoContainer .controlsContainer{
-    position: absolute;
-    bottom: 0;
-    margin: auto;
+    width: 300px;
+    height: 70px;
 }
 .videoContainer .controlsContainer .progressControls {
     width: 100%;
-    height: 6px;
+    height: 30px;
     display: flex;
     align-items: center;
 }
@@ -33,7 +35,7 @@
     position: relative;
     width: 100%;
     height: 4.5px;
-    background-color: #424242;
+    background-color: #a2a2a2;
     display: flex;
     align-items: center;
 }
@@ -55,57 +57,53 @@
     cursor: pointer;
 }
 .videoContainer .controlsContainer .progressControls .progressBar .progress .watchedBar{
-    background: #e4007f;
-
+    background: $mainColor;
     width: 0%;
     height: 100%;
     transition: height 0.2s;
 }
 .videoContainer .controlsContainer .progressControls .progressBar .progress .playhead{
     position: absolute;
-    // background: #85f35e;
-    // background: #96CBFE;
-    background: #e4007f;
-
+    background: $mainColor;
     width: 0px;
     height: 0px;
     border-radius: 50%;
     transform: translateX(-50%);
     transition: width 0.2s, height 0.2s;
+    user-select: none;
 }
 .videoContainer .controlsContainer .progressControls:hover > .progressBar {
     height: 6px;
-    background: #7b2a55;
+    background: #e4007f50;
 }
 .videoContainer .controlsContainer .progressControls:hover > .progressBar .progress .playhead{
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
     user-select: none;
 
 }
 .videoContainer .controlsContainer .controls {
     position: relative;
-    height: 45px;
+    height: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #666;
 }
 .videoContainer .controlsContainer .controls .btn {
-    width: 46px;
-    // width: 35px;
+    width: 40px;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     user-select: none;
-    color: #fff;
     font-size: 22px;
 }
-.videoContainer .controlsContainer .controls .btn img{
-    border-radius: 5px;
-    box-shadow: 2px 2px 3px #111;
-    background-color: #111;
+.videoContainer .controlsContainer .controls .btn .playPauseBtn {
+    border-radius: 50%;
+    @include flex(center, center); 
+    margin-left: 3px;
 }
 .videoContainer .controlsContainer .controls .leftSideControls {
     display: flex;
@@ -114,6 +112,13 @@
     height: 100%;
     flex-grow: 2;
 }
+.videoContainer .controlsContainer .controls .btn .loader_circle {
+    animation:3s linear infinite rotation;
+}
+@keyframes rotation{
+    0%{ transform:rotate(0);}
+    100%{ transform:rotate(360deg); }
+}
 .videoContainer .controlsContainer .controls .leftSideControls .volumeControl{
     height: 100%;
     display: flex;
@@ -121,8 +126,8 @@
 
 
 .videoContainer .controlsContainer .controls .leftSideControls .timeDisplay{
-    color: #fff;
     font-size: 15px;
+    font-weight: 600;
     padding: 0 5px;
     height: 100%;
     width: 100px;
@@ -137,4 +142,36 @@
     align-items: center;
     height: 100%;
     flex-grow: 2;
+}
+
+.playback_rate_container {
+    display: none;
+    position: absolute;
+    top: -165px;
+    right: -5px;
+    background: #ffffffdd;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 0 8px -5px $subColor;
+    font-weight: 600;
+    border-radius: 3px;
+    z-index: 160;
+    
+    &.on {
+        display: block;
+    }
+    .playback_rate_btn {
+        line-height: 18px;
+        padding: 7px 10px;
+        user-select: none;
+
+        &.active {
+            color: $white;
+            background: $subColor;
+        }
+        &:hover {
+            color: $white;
+            background: $subColor;
+        }
+    }
 }
