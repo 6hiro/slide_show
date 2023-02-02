@@ -319,10 +319,15 @@ class ClipService
                     $tag = Tag::where('name', substr($sentence, 1))->first();
 
                     // if (empty($tag)) {
-                    if (empty($tag) || $tag->name !== substr($sentence, 1)) {                    
+                    if (empty($tag))) {                    
                         $tag = Tag::create([
                             'name' => substr($sentence, 1),
                             'alias' => strtolower(substr($sentence, 1)),
+                        ]);
+                    }else if(!empty($tag) && $tag->name !== substr($sentence, 1)) {
+                        $tag = Tag::create([
+                            'name' => $tag_name,
+                            'alias' => strtolower($tag_name),
                         ]);
                     }
                     $tag_id_list[] = $tag->id;
@@ -451,10 +456,15 @@ class ClipService
                     $tag = Tag::where('name', substr($sentence, 1))->first();
 
                     // if (empty($tag)) {
-                    if (empty($tag) || $tag->name !== substr($sentence, 1)) {
+                    if (empty($tag)) {
                         $tag = Tag::create([
                             'name' => substr($sentence, 1),
                             'alias' => strtolower(substr($sentence, 1)),
+                        ]);
+                    }else if(!empty($tag) && $tag->name !== substr($sentence, 1)) {
+                        $tag = Tag::create([
+                            'name' => $tag_name,
+                            'alias' => strtolower($tag_name),
                         ]);
                     }
                     $tag_id_list[] = $tag->id;

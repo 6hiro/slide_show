@@ -278,7 +278,12 @@ class VlideService
                 // $tag = Tag::firstOrCreate(['name' => $tag_name], ['alias' => strtolower($tag_name)]);
                 $tag = Tag::where('name', $tag_name)->first();
 
-                if (empty($tag) || $tag->name !== $tag_name) {
+                if (empty($tag)) {
+                    $tag = Tag::create([
+                        'name' => $tag_name,
+                        'alias' => strtolower($tag_name),
+                    ]);
+                }else if(!empty($tag) && $tag->name !== $tag_name) {
                     $tag = Tag::create([
                         'name' => $tag_name,
                         'alias' => strtolower($tag_name),
@@ -337,7 +342,12 @@ class VlideService
                 // $tag = Tag::where('name', $tag_name)->first();
                 $tag = Tag::where('name', $tag_name)->first();
 
-                if (empty($tag) || $tag->name !== $tag_name) {
+                if (empty($tag)) {
+                    $tag = Tag::create([
+                        'name' => $tag_name,
+                        'alias' => strtolower($tag_name),
+                    ]);
+                }else if(!empty($tag) && $tag->name !== $tag_name) {
                     $tag = Tag::create([
                         'name' => $tag_name,
                         'alias' => strtolower($tag_name),
