@@ -319,12 +319,12 @@ class ClipService
                     $tag = Tag::where('name', substr($sentence, 1))->first();
 
                     // if (empty($tag)) {
-                    if (empty($tag))) {                    
+                    if (empty($tag)) {                    
                         $tag = Tag::create([
                             'name' => substr($sentence, 1),
                             'alias' => strtolower(substr($sentence, 1)),
                         ]);
-                    }else if(!empty($tag) && $tag->name !== substr($sentence, 1)) {
+                    }else if($tag && $tag->name !== substr($sentence, 1)) {
                         $tag = Tag::create([
                             'name' => $tag_name,
                             'alias' => strtolower($tag_name),
@@ -455,13 +455,12 @@ class ClipService
                 if(  preg_match( $pattern, $sentence ) ){
                     $tag = Tag::where('name', substr($sentence, 1))->first();
 
-                    // if (empty($tag)) {
                     if (empty($tag)) {
                         $tag = Tag::create([
                             'name' => substr($sentence, 1),
                             'alias' => strtolower(substr($sentence, 1)),
                         ]);
-                    }else if(!empty($tag) && $tag->name !== substr($sentence, 1)) {
+                    }else if($tag && $tag->name !== substr($sentence, 1)) {
                         $tag = Tag::create([
                             'name' => $tag_name,
                             'alias' => strtolower($tag_name),
