@@ -135,7 +135,8 @@ class VlideService
             $vlides = Vlide::with(['tags', 'user'])
                 ->Where('is_public', true)
                 ->whereHas('tags', function($query) use ($tag_name)  {
-                    $query->where('name', $tag_name);
+                    // $query->where('name', $tag_name);
+                    $query->where('alias', strtolower($tag_name));
                 })
                 ->where('published_at', '<', $since)
                 ->latest('published_at')
@@ -144,7 +145,8 @@ class VlideService
         }else{
             $vlides = Vlide::with(['tags', 'user'])
                 ->whereHas('tags', function($query) use ($tag_name)  {
-                    $query->where('name', $tag_name);
+                    // $query->where('name', $tag_name);
+                    $query->where('alias', strtolower($tag_name));
                 })
                 ->latest('published_at')
                 ->take($per_page+1)
@@ -159,7 +161,8 @@ class VlideService
             ->Where('is_public', true)
             ->where('published_at', '>', $since)
             ->whereHas('tags', function($query) use ($tag_name)  {
-                $query->where('name', $tag_name);
+                // $query->where('name', $tag_name);
+                $query->where('alias', strtolower($tag_name));
             })
             ->withCount('clips')
             ->orderBy('clips_count', 'desc')
