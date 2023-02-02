@@ -44,7 +44,7 @@ const LoginCard = (props:LoginCardProps) => {
         <div className="login_card_container" >
             <div className="login_card">
                 <div className="login_card_header" >
-                    <h1>{siteTitle}にログイン</h1>
+                    <h1>{siteTitle} にログイン</h1>
                 </div>
 
                 <form className="login_card_form" onSubmit={submitForm}>

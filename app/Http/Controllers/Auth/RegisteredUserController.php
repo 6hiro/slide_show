@@ -27,7 +27,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request, Mailer $mailer, UserService $userService)
     {
-        $user_count = $bookService->getUserCount();
+        $user_count = $userService->getUserCount();
         if($user_count >= 500)
         {
             return response()->json([

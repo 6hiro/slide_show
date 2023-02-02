@@ -60,7 +60,7 @@ const RegisterCard = (props:RegisterCardProps) => {
 
             <div className="register_card" >
                 <div className="register_card_header" >
-                    <h1>{siteTitle}をはじめる</h1>
+                    <h1>{siteTitle} をはじめる</h1>
                 </div>
 
                 <form className="register_card_form" onSubmit={submitForm} >

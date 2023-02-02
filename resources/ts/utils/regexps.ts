@@ -36,7 +36,7 @@ const inlineRegexps = [
     { elmType: 'url', regexp: /(https\:\/\/[\w!?/+\-_~=;:.,*&@#$%']+[^)\s])/ },
     // image RegExp
     // { elmType: 'img', regexp: /\!\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)\)[^?![]/},
-    { elmType: 'img', regexp: /\!\[(.*)\]\((https?(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%']+)\)/},
+    { elmType: 'img', regexp: /\!\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%']+)\)/},
     { elmType: 'linkCard', regexp: /\?\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%']+)\)/ },
     // { elmType: 'linkCard', regexp: /\?\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)\)[^?![]/ },
     { elmType: 'link', regexp: /\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%']+)\)/ },
