@@ -291,7 +291,7 @@ class VlideService
                 //         'alias' => strtolower($tag_name),
                 //     ]);
                 // }
-                // $tag_id_list[] = $tag->id;
+                $tag_id_list[] = $tag->id;
             }
             $vlide->tags()->sync($tag_id_list);
 
