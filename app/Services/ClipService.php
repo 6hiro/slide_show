@@ -106,8 +106,8 @@ class ClipService
         if($since){
             $clips = Clip::with(['tags', 'user', 'replies', 'replies.user'])
                 ->whereHas('tags', function($query) use ($tag_name)  {
-                    // $query->where('name', $tag_name);
-                    $query->where('alias', strtolower($tag_name));
+                    $query->where('name', $tag_name);
+                    // $query->where('alias', strtolower($tag_name));
                 })
                 ->where('created_at', '<', $since)
                 ->latest('created_at')
@@ -116,8 +116,8 @@ class ClipService
         }else{
             $clips = Clip::with(['tags', 'user', 'replies', 'replies.user'])
                 ->whereHas('tags', function($query) use ($tag_name)  {
-                    // $query->where('name', $tag_name);
-                    $query->where('alias', strtolower($tag_name));
+                    $query->where('name', $tag_name);
+                    // $query->where('alias', strtolower($tag_name));
                 })
                 ->latest('created_at')
                 ->take($per_page+1)
@@ -132,8 +132,8 @@ class ClipService
         $clips = Clip::with(['tags', 'user', 'replies', 'replies.user'])
             ->where('created_at', '>', $since)
             ->whereHas('tags', function($query) use ($tag_name)  {
-                // $query->where('name', $tag_name);
-                $query->where('alias', strtolower($tag_name));
+                $query->where('name', $tag_name);
+                // $query->where('alias', strtolower($tag_name));
             })
             ->withCount('likes')
             ->orderBy('likes_count', 'desc')
@@ -321,7 +321,7 @@ class ClipService
                     if (empty($tag)) {
                         $tag = Tag::create([
                             'name' => substr($sentence, 1),
-                            'alias' => strtolower($tag_name),
+                            'alias' => strtolower(substr($sentence, 1)),
                         ]);
                     }
                     $tag_id_list[] = $tag->id;
@@ -452,7 +452,7 @@ class ClipService
                     if (empty($tag)) {
                         $tag = Tag::create([
                             'name' => substr($sentence, 1),
-                            'alias' => strtolower($tag_name),
+                            'alias' => strtolower(substr($sentence, 1)),
                         ]);
                     }
                     $tag_id_list[] = $tag->id;
