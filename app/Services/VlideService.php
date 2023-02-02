@@ -276,20 +276,22 @@ class VlideService
             foreach ($tag_list as $tag_name) {
                 // $tag = Tag::firstOrCreate(['name' => $tag_name]);
                 // $tag = Tag::firstOrCreate(['name' => $tag_name], ['alias' => strtolower($tag_name)]);
-                $tag = Tag::where('name', $tag_name)->first();
+                // $tag = Tag::where('name', $tag_name)->first();
+                $tag = Tag::where(DB::raw('BINARY `name`'), substr($tag_name, 1))->first();
 
                 if (empty($tag)) {
                     $tag = Tag::create([
                         'name' => $tag_name,
                         'alias' => strtolower($tag_name),
                     ]);
-                }else if($tag && $tag->name) {
-                    $tag = Tag::create([
-                        'name' => $tag_name,
-                        'alias' => strtolower($tag_name),
-                    ]);
                 }
-                $tag_id_list[] = $tag->id;
+                // else if($tag && $tag->name) {
+                //     $tag = Tag::create([
+                //         'name' => $tag_name,
+                //         'alias' => strtolower($tag_name),
+                //     ]);
+                // }
+                // $tag_id_list[] = $tag->id;
             }
             $vlide->tags()->sync($tag_id_list);
 
@@ -340,14 +342,10 @@ class VlideService
                 // $tag = Tag::firstOrCreate(['name' => $tag_name]);
                 // $tag = Tag::firstOrCreate(['name' => $tag_name], ['alias' => strtolower($tag_name)]);
                 // $tag = Tag::where('name', $tag_name)->first();
-                $tag = Tag::where('name', $tag_name)->first();
+                // $tag = Tag::where('name', $tag_name)->first();
+                $tag = Tag::where(DB::raw('BINARY `name`'), substr($tag_name, 1))->first();
 
                 if (empty($tag)) {
-                    $tag = Tag::create([
-                        'name' => $tag_name,
-                        'alias' => strtolower($tag_name),
-                    ]);
-                }else if($tag && $tag->name !== $tag_name) {
                     $tag = Tag::create([
                         'name' => $tag_name,
                         'alias' => strtolower($tag_name),
