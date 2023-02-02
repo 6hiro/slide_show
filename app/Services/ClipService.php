@@ -325,10 +325,10 @@ class ClipService
                             'alias' => strtolower(substr($sentence, 1)),
                         ]);
                     }else if($tag && $tag->name !== substr($sentence, 1)) {
-                        // $tag = Tag::create([
-                        //     'name' => $tag_name,
-                        //     'alias' => strtolower($tag_name),
-                        // ]);
+                        $tag = Tag::create([
+                            'name' => substr($sentence, 1),
+                            'alias' => strtolower(substr($sentence, 1)),
+                        ]);
                     }
                     $tag_id_list[] = $tag->id;
                 }
@@ -462,8 +462,8 @@ class ClipService
                         ]);
                     }else if($tag && $tag->name !== substr($sentence, 1)) {
                         $tag = Tag::create([
-                            'name' => $tag_name,
-                            'alias' => strtolower($tag_name),
+                            'name' => substr($sentence, 1),
+                            'alias' => strtolower(substr($sentence, 1)),
                         ]);
                     }
                     $tag_id_list[] = $tag->id;
