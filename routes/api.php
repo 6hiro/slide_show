@@ -31,23 +31,23 @@ use App\Http\Controllers\StripePayment;
 
 Route::prefix('v1')->group(function (){
     
-    Route::get('/date', function () {
-    //     $user = U::find(A::id());
+    // Route::get('/date', function () {
+    // //     $user = U::find(A::id());
 
-    //     $payment = Payment::where('st_cus_id', "cus_NGqcXV2FX3Fpuy")
-    //         ->where('st_payment_status', 'paid')
-    //         ->orderBy('created_at', 'desc')
-    //         ->first();
-    //     if(!isset($user->file_name)) return ;
-        return [
-                "a" => "abc"==="ABc",
-    //         // "payment" => $payment->st_cus_id,
-    //         // "end" => date("Y-m-d H:i:s", "1677587232"),
-    //         // "current" => date("Y-m-d H:i:s"),
-    //         // "calc" =>  date("Y-m-d H:i:s", "1677587232") > date("Y-m-d H:i:s"),
-    //         // "a" => DateTime::createFromFormat('Y-m-d H:i:s',  date("Y-m-d H:i:s", "1677587232"), new DateTimeZone('Asia/Tokyo'))->format('Y-m-d H:i:s')
-        ];
-    });
+    // //     $payment = Payment::where('st_cus_id', "cus_NGqcXV2FX3Fpuy")
+    // //         ->where('st_payment_status', 'paid')
+    // //         ->orderBy('created_at', 'desc')
+    // //         ->first();
+    // //     if(!isset($user->file_name)) return ;
+    //     return [
+    //             "a" => "abc"==="ABc",
+    // //         // "payment" => $payment->st_cus_id,
+    // //         // "end" => date("Y-m-d H:i:s", "1677587232"),
+    // //         // "current" => date("Y-m-d H:i:s"),
+    // //         // "calc" =>  date("Y-m-d H:i:s", "1677587232") > date("Y-m-d H:i:s"),
+    // //         // "a" => DateTime::createFromFormat('Y-m-d H:i:s',  date("Y-m-d H:i:s", "1677587232"), new DateTimeZone('Asia/Tokyo'))->format('Y-m-d H:i:s')
+    //     ];
+    // });
     Route::get('/checkout/success', [StripePayment\PaymentController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/cancel', [StripePayment\PaymentController::class, 'cancelOrder'])->name('checkout.cancel');
 
