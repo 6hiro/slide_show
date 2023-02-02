@@ -283,7 +283,7 @@ class VlideService
                         'name' => $tag_name,
                         'alias' => strtolower($tag_name),
                     ]);
-                }else if(!empty($tag) && $tag->name !== $tag_name) {
+                }else if($tag && $tag->name) {
                     // $tag = Tag::create([
                     //     'name' => $tag_name,
                     //     'alias' => strtolower($tag_name),
