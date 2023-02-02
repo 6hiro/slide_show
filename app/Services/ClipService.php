@@ -325,10 +325,10 @@ class ClipService
                             'alias' => strtolower(substr($sentence, 1)),
                         ]);
                     }else if($tag && $tag->name !== substr($sentence, 1)) {
-                        $tag = Tag::create([
-                            'name' => substr($sentence, 1),
-                            'alias' => strtolower(substr($sentence, 1)),
-                        ]);
+                        // $tag = Tag::create([
+                        //     'name' => substr($sentence, 1),
+                        //     'alias' => strtolower(substr($sentence, 1)),
+                        // ]);
                     }
                     $tag_id_list[] = $tag->id;
                 }
