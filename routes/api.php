@@ -40,7 +40,7 @@ Route::prefix('v1')->group(function (){
     //         ->first();
     //     if(!isset($user->file_name)) return ;
         return [
-            // "a" => strtolower("ABcd"),
+                "a" => "abc"==="ABc",
     //         // "payment" => $payment->st_cus_id,
     //         // "end" => date("Y-m-d H:i:s", "1677587232"),
     //         // "current" => date("Y-m-d H:i:s"),

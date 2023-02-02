@@ -317,6 +317,11 @@ class ClipService
                 $pattern = '/^#[0-9a-zA-Z０-９ａ-ｚＡ-Ｚぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]+$/u'; // 半角全角英数字カタカナひらがな漢字　uオプションをつけないと、Javascriptとずれが生じる
                 if(  preg_match( $pattern, $sentence ) ){
                     $tag = Tag::where('name', substr($sentence, 1))->first();
+                    // $tag = Tag::where(DB::raw('BINARY `name`'), substr($sentence, 1))->first();
+                    // $tag = Tag::query()
+                    //         ->where(DB::raw('BINARY `name`'), substr($sentence, 1))
+                    //         ->first();
+                    // $tag = Tag::whereRaw("BINARY `name`= ?", array(substr($sentence, 1)))->first();
 
                     // if (empty($tag)) {
                     if (empty($tag)) {                    
@@ -324,7 +329,8 @@ class ClipService
                             'name' => substr($sentence, 1),
                             'alias' => strtolower(substr($sentence, 1)),
                         ]);
-                    }else if($tag && $tag->name !== substr($sentence, 1)) {
+                    }
+                    else if($tag && $tag->name !== substr($sentence, 1)) {
                         $tag = Tag::create([
                             'name' => substr($sentence, 1),
                             'alias' => strtolower(substr($sentence, 1)),
