@@ -42,7 +42,7 @@ class UploadImageRequest extends FormRequest
     public function messages(){
         return [
             'image.required'  => '画像を添付してください。',
-            "image.mimes" => 'jpeg,png,jpg,gif のいずれかの画像をしてください。'
+            "image.mimes" => 'jpeg,png,jpg,gif のいずれかの画像をしてください。',
             'image.max' => '画像のサイズが大きすぎます。',
         ];
     }
