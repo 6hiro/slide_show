@@ -21,7 +21,8 @@ class Tag extends Model
     
     // PostControllerのstoreメソッド内のfirstOrCreateを使うときに必要
     protected $fillable = [
-        'name'
+        'name',
+        'alias'
     ];
     
     public function clips(): BelongsToMany
