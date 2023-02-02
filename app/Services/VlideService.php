@@ -263,15 +263,30 @@ class VlideService
             $vlide->save();
 
             // タグの保存
+            // foreach ($tag_list as $tag_name) {
+            //     // $tag = Tag::firstOrCreate(['name' => $tag_name]);
+            //     // $tag = Tag::firstOrCreate(['name' => $tag_name], ['alias' => strtolower($tag_name)]);
+            //     // $vlide->tags()->attach($tag);
+
+            //     $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
+            //     $created_at = $dateTime->format('Y-m-d H:i:s.v');
+            //     $vlide->tags()->attach($tag->id, ['created_at' => $created_at]);
+            // }
+            $tag_id_list = [];
             foreach ($tag_list as $tag_name) {
                 // $tag = Tag::firstOrCreate(['name' => $tag_name]);
-                $tag = Tag::firstOrCreate(['name' => $tag_name], ['alias' => strtolower($tag_name)]);
-                // $vlide->tags()->attach($tag);
+                // $tag = Tag::firstOrCreate(['name' => $tag_name], ['alias' => strtolower($tag_name)]);
+                $tag = Tag::where('name', $tag_name)->first();
 
-                $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
-                $created_at = $dateTime->format('Y-m-d H:i:s.v');
-                $vlide->tags()->attach($tag->id, ['created_at' => $created_at]);
+                if (empty($tag)) {
+                    $tag = Tag::create([
+                        'name' => $tag_name,
+                        'alias' => strtolower($tag_name),
+                    ]);
+                }
+                $tag_id_list[] = $tag->id;
             }
+            $vlide->tags()->sync($tag_id_list);
             // foreach ($images as $image) {
             //     Storage::putFile('public/images', $image);
             //     $imageModel = new Image();
@@ -317,7 +332,15 @@ class VlideService
             $tag_id_list = [];
             foreach ($tag_list as $tag_name) {
                 // $tag = Tag::firstOrCreate(['name' => $tag_name]);
-                $tag = Tag::firstOrCreate(['name' => $tag_name], ['alias' => strtolower($tag_name)]);
+                // $tag = Tag::firstOrCreate(['name' => $tag_name], ['alias' => strtolower($tag_name)]);
+                $tag = Tag::where('name', $tag_name)->first();
+
+                if (empty($tag)) {
+                    $tag = Tag::create([
+                        'name' => $tag_name,
+                        'alias' => strtolower($tag_name),
+                    ]);
+                }
                 $tag_id_list[] = $tag->id;
             }
             $vlide->tags()->sync($tag_id_list);

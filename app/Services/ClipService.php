@@ -298,19 +298,36 @@ class ClipService
             $sentence_list = preg_split('/[\p{Z}\p{Cc}]++/u', $content, -1, PREG_SPLIT_NO_EMPTY);
 
             // タグの保存
+            // foreach ($sentence_list as $sentence) {
+            //     $pattern = '/^#[0-9a-zA-Z０-９ａ-ｚＡ-Ｚぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]+$/u'; // 半角全角英数字カタカナひらがな漢字　uオプションをつけないと、Javascriptとずれが生じる
+
+            //     if(  preg_match( $pattern, $sentence ) ){
+            //         // firstOrCreateメソッドで、既にtagがテーブルに存在していれば、そのモデルを返し、
+            //         // テーブルに存在しなければ、そのレコードをテーブルに保存した上で、モデルを返す。
+            //         // $tag = Tag::firstOrCreate(['name' => substr($sentence, 1)], ['alias' => strtolower(substr($sentence, 1))]);
+            //         // $clip->tags()->attach($tag);
+            //         // $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
+            //         // $created_at = $dateTime->format('Y-m-d H:i:s.v');
+            //         // $clip->tags()->attach($tag->id, ['created_at' => $created_at]);
+            //     }
+            // }
+
+            $tag_id_list = [];
             foreach ($sentence_list as $sentence) {
                 $pattern = '/^#[0-9a-zA-Z０-９ａ-ｚＡ-Ｚぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]+$/u'; // 半角全角英数字カタカナひらがな漢字　uオプションをつけないと、Javascriptとずれが生じる
-
                 if(  preg_match( $pattern, $sentence ) ){
-                    // firstOrCreateメソッドで、既にtagがテーブルに存在していれば、そのモデルを返し、
-                    // テーブルに存在しなければ、そのレコードをテーブルに保存した上で、モデルを返す。
-                    $tag = Tag::firstOrCreate(['name' => substr($sentence, 1)], ['alias' => strtolower(substr($sentence, 1))]);
-                    // $clip->tags()->attach($tag);
-                    $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
-                    $created_at = $dateTime->format('Y-m-d H:i:s.v');
-                    $clip->tags()->attach($tag->id, ['created_at' => $created_at]);
+                    $tag = Tag::where('name', substr($sentence, 1))->first();
+
+                    if (empty($tag)) {
+                        $tag = Tag::create([
+                            'name' => substr($sentence, 1),
+                            'alias' => strtolower($tag_name),
+                        ]);
+                    }
+                    $tag_id_list[] = $tag->id;
                 }
             }
+            $clip->tags()->sync($tag_id_list);
             
             return $clip;
         });
@@ -411,20 +428,38 @@ class ClipService
             $sentence_list = preg_split('/[\p{Z}\p{Cc}]++/u', $content, -1, PREG_SPLIT_NO_EMPTY);
 
             // タグの保存
+            // foreach ($sentence_list as $sentence) {
+            //     $pattern = '/^#[0-9a-zA-Z０-９ａ-ｚＡ-Ｚぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]+$/u'; // 半角全角英数字カタカナひらがな漢字　uオプションをつけないと、Javascriptとずれが生じる
+
+            //     if(  preg_match( $pattern, $sentence ) ){
+            //         // firstOrCreateメソッドで、既にtagがテーブルに存在していれば、そのモデルを返し、
+            //         // テーブルに存在しなければ、そのレコードをテーブルに保存した上で、モデルを返す。
+            //         // $tag = Tag::firstOrCreate(['name' => substr($sentence, 1)]);
+            //         $tag = Tag::firstOrCreate(['name' => substr($sentence, 1)], ['alias' => strtolower(substr($sentence, 1))]);
+            //         // $clip->tags()->attach($tag);
+            //         $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
+            //         $created_at = $dateTime->format('Y-m-d H:i:s.v');
+            //         $clip->tags()->attach($tag->id, ['created_at' => $created_at]);
+            //     }
+            // }
+
+            $tag_id_list = [];
             foreach ($sentence_list as $sentence) {
                 $pattern = '/^#[0-9a-zA-Z０-９ａ-ｚＡ-Ｚぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]+$/u'; // 半角全角英数字カタカナひらがな漢字　uオプションをつけないと、Javascriptとずれが生じる
-
                 if(  preg_match( $pattern, $sentence ) ){
-                    // firstOrCreateメソッドで、既にtagがテーブルに存在していれば、そのモデルを返し、
-                    // テーブルに存在しなければ、そのレコードをテーブルに保存した上で、モデルを返す。
-                    // $tag = Tag::firstOrCreate(['name' => substr($sentence, 1)]);
-                    $tag = Tag::firstOrCreate(['name' => substr($sentence, 1)], ['alias' => strtolower(substr($sentence, 1))]);
-                    // $clip->tags()->attach($tag);
-                    $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
-                    $created_at = $dateTime->format('Y-m-d H:i:s.v');
-                    $clip->tags()->attach($tag->id, ['created_at' => $created_at]);
+                    $tag = Tag::where('name', substr($sentence, 1))->first();
+
+                    if (empty($tag)) {
+                        $tag = Tag::create([
+                            'name' => substr($sentence, 1),
+                            'alias' => strtolower($tag_name),
+                        ]);
+                    }
+                    $tag_id_list[] = $tag->id;
                 }
             }
+            $clip->tags()->sync($tag_id_list);
+
             return Clip::with(['tags', 'user', 'replies', 'replies.user', 'parent'])->find($clip->id);
             
             // return $clip;
