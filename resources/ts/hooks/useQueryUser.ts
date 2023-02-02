@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import axios from '../libs/axios';
 
+
+
 const fetchUser = async () => {
     const { data } = await axios
         .get('/api/v1/user');

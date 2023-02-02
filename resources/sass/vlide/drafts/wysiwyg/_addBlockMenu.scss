@@ -1,0 +1,87 @@
+.add_block_menu_container {
+    .overlay{
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        z-index: 320;
+        background: rgba(200, 200, 200, 0.2);
+    }
+    .add_block_menu_form {
+        position: absolute;
+        left: 55px;
+        top: 0;
+        width: 220px;
+        background: white;
+        box-shadow: $boxShadowWhite;
+        z-index: 330;
+        border-radius: 8px;
+
+        @include flex(center, center);
+
+        .close_form {
+            @include flex(center, center);
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            --size: 25px;
+            height: var(--size);
+            width: var(--size);
+            color: $subColor;
+            font-size: 25px;
+            font-weight: 900;
+            opacity: 0.75;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &:hover{
+                background: #f2f2f2;
+            }
+        }
+        .add_block_menu{
+            color: $placeholderColor;
+            margin: 10px 0px 10px;
+
+            &__item {
+                margin: 8px;
+                padding: 8px;
+                color: #050505;
+                cursor: pointer;
+                line-height: 18px;
+                font-size: 16px;
+                font-weight: 600;
+                @include flex(center, center);
+                flex-direction: row;
+                flex-shrink: 0;
+                background-color: #fff;
+                border-radius: 6px;
+                border: 0;
+                width: 150px;
+                user-select: none;
+                .time_setting {
+                    font-size: 18px;
+                }
+                
+                &:hover {
+                    background-color: #f2f2f2;
+                }
+            }
+            .add_block_btn{
+                border: 0;
+                outline: 0;
+                @include flex(center, center);
+                padding: 8px 10px;
+                border-radius: 10px;
+                margin: 20px auto 0;
+                width: 150px;
+                background: $mainColor;
+                color: $white;
+                font-weight: 600;
+            }
+        }
+    }
+    
+}

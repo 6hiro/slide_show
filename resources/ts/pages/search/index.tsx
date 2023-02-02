@@ -8,9 +8,12 @@ import Vlide from '../../components/vlide/vlideCard/Vlide';
 import { siteTitle } from '../../constants/site';
 import { useSearch } from '../../hooks/useSearch';
 
+
+
 type Props = {
     user: any;
-}
+};
+
 const Search = (props: Props) => {
     const { user } = props;
 

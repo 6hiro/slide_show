@@ -1,5 +1,7 @@
 import React from 'react';
 
+
+
 type Props = {
     isPublic: boolean;
     setIsPublic: React.Dispatch<React.SetStateAction<boolean>>
@@ -21,7 +23,7 @@ const RadioButton = (props: Props) => {
 
         <label htmlFor="dot-1">
             <span className={`dot ${!props.isPublic ? "checked" : ""}`}></span>
-            <span className="">下書き</span>
+            <span className="">非公開</span>
         </label>
         <label htmlFor="dot-2">
             <span className={`dot ${props.isPublic ? "checked" : ""}`}></span>

@@ -4,6 +4,8 @@ import { NavigateFunction } from "react-router-dom";
 
 import axios from "../libs/axios";
 import { CLIP, NEW_CLIP, NEW_REPLY } from "../types/clip";
+import { ToastNotification } from "../types/toast";
+import { generateUid } from "../utils/uid";
 
 
 
@@ -25,6 +27,7 @@ export const createAsyncClip = async (
     props: NEW_CLIP,
     setText: Dispatch<SetStateAction<string>>,
     setIsLoadingClip: Dispatch<SetStateAction<boolean>>,
+    setToastNotifications: React.Dispatch<React.SetStateAction<ToastNotification[] | []>>,
 ) => {
     setIsLoadingClip(true);
 
@@ -37,8 +40,29 @@ export const createAsyncClip = async (
         })
         .then((res:any) => {
             setText("");
+            setToastNotifications(prev => {
+                return[
+                    ...prev,
+                    {id: generateUid(), type:"success", message:"クリップを作成しました。"},
+                ];
+            });
         })
         .catch((error:any) => {
+            if(error.response.data.status === "over") {
+                setToastNotifications(prev => {
+                    return[
+                        ...prev,
+                        {id: generateUid(), type:"warning", message:"作成できるクリップ数を超えています"},
+                    ];
+                });
+            }else{     
+                setToastNotifications(prev => {
+                    return[
+                        ...prev,
+                        {id: generateUid(), type:"success", message:"クリップの作成に失敗しました。"},
+                    ];
+                });
+            }
         })
         .finally(() => {
             setIsLoadingClip(false);

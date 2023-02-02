@@ -1,15 +1,18 @@
 import {MdToc} from 'react-icons/md';
+import { INPUT_BLOCK } from '../../utils/markdown-wysiwyg/serializer';
 
 import TocContent from './TocContent';
 
 
 
 type TocProps = {
+    id?: string;
     toc: {
         type: string;
         content: string;
-        time: string;
-    }[] | undefined
+        time: string | number;
+    }[] | undefined;
+    // toc: INPUT_BLOCK | undefined;
 };
 
 const Toc = (props:TocProps) => {

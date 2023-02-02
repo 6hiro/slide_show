@@ -15,6 +15,10 @@ use DateTimeZone;
 
 class UserService
 {
+    public function getUserCount()
+    {
+        return User::count();
+    }
     public function getSearch(string $word, int $per_page, ?string $since)
     {
         if($since){

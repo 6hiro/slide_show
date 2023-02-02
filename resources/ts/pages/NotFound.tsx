@@ -1,5 +1,3 @@
-// import { Navigate } from "react-router-dom";
-
 const NotFound = () => {
     return (
         <div style={{

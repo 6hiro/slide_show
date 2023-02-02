@@ -5,6 +5,8 @@ import { deleteAsyncVlide, saveUnsaveAsyncVlide } from "../actions/vlide";
 import axios from '../libs/axios';
 import { VLIDE } from "../types/vlide";
 
+
+
 export const useGetVlide = () => {
 
     const [vlide, setVlide] = useState<VLIDE>();
@@ -61,7 +63,6 @@ export const useGetVlide = () => {
         deleteAsyncVlide(vlideId, onSuccess);
     };
 
-    // useEffect(() => {}, [vlide, vlides]);
     return {
         vlide,
         setVlide,

@@ -11,7 +11,7 @@ import VlideShareMenu from './VlideShareMenu';
 import { setTimeInDigitalFormat } from '../../../utils/TimeController';
 import VlideMenu from './VlideMenu';
 import Audio from './Audio';
-import { countWord, cutWord } from '../../../utils/countWord';
+// import { countWord, cutWord } from '../../../utils/countWord';
 
 
 
@@ -72,7 +72,8 @@ const Vlide:React.FC<{
                 }}
             >
                 <div className="vlide_heading__title">
-                    {countWord(props.vlide.title) > 40 ? cutWord(props.vlide.title, 40)+"..." : props.vlide.title}
+                    {props.vlide.title}
+                    {/* {countWord(props.vlide.title) > 40 ? cutWord(props.vlide.title, 40)+"..." : props.vlide.title} */}
                 </div>
             </div>
             <div className="vlide_main">
@@ -85,7 +86,7 @@ const Vlide:React.FC<{
                                 // src='https://placeimg.com/730/320/arch'
                                 // src="https://developers.giphy.com/branch/master/static/api-512d36c09662682717108a38bbb5c57d.gif"
                                 alt={props.vlide.title}
-                                className="header_img"
+                                className={`header_img ${isRunning ? "played": ""}`}
                                 decoding="async"
                             />
                         : null

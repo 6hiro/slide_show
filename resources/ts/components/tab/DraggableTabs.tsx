@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from 'react'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
 import { useWindowSize } from '../../hooks/useWindowSize';
+import { ToastNotification } from '../../types/toast';
 import { generateUid } from '../../utils/uid';
-import { ToastNotification } from '../toastNotification/ToastNotifications';
 
 
 
@@ -107,9 +107,12 @@ const DraggableTabs = (props: Props) => {
                 >
                     投稿
                 </li>
-                {/* <li className="tab" onClick={() => changeSection('books')}>
-                    ブック
-                </li> */}
+                <li 
+                    className={`tab ${section==='images' ? "active_tab" : ""}`}
+                    onClick={() => loginId ? changeSection('images') : alertNeedLogin("画像を表示するにはログインが必要です")}
+                >
+                    メディア
+                </li>
                 <li 
                     className={`tab ${section==='clips' ? "active_tab" : ""}`}
                     onClick={() => changeSection('clips')}
@@ -122,19 +125,32 @@ const DraggableTabs = (props: Props) => {
                 >
                     返信
                 </li>
-                <li 
-                    className={`tab ${section==='images' ? "active_tab" : ""}`}
-                    onClick={() => loginId ? changeSection('images') : alertNeedLogin("画像を表示するにはログインが必要です")}
-                >
-                    ギャラリー
-                </li>
+
                 {isOwnProfile ?
-                <li 
-                    className={`tab ${section==='bookmarks' ? "active_tab" : ""}`}
-                    onClick={() => changeSection('bookmarks')}
-                >
-                    保存
-                </li>
+                    <li 
+                        className={`tab ${section==='books' ? "active_tab" : ""}`}
+                        onClick={() => changeSection('books')}
+                    >
+                        ブック
+                    </li>
+                : null}
+
+                {isOwnProfile ?
+                    <li 
+                        className={`tab ${section==='tickets' ? "active_tab" : ""}`}
+                        onClick={() => changeSection('tickets')}
+                    >
+                        チケット
+                    </li>
+                : null}
+                
+                {isOwnProfile ?
+                    <li 
+                        className={`tab ${section==='bookmarks' ? "active_tab" : ""}`}
+                        onClick={() => changeSection('bookmarks')}
+                    >
+                        保存
+                    </li>
                 : null}
                 <li 
                     className={`tab ${section==='likes' ? "active_tab" : ""}`}

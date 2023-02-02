@@ -1,11 +1,13 @@
-import React from 'react';
 import { Navigate } from 'react-router-dom';
 import ResetPasswordCard from '../../components/auth/ResetPasswordCard';
+
+
 
 type Props = {
     user: any, 
     resetPassword: Function,
-}
+};
+
 const ResetPassword = (props: Props) => {
     const {user, resetPassword} = props;
 
@@ -16,6 +18,6 @@ const ResetPassword = (props: Props) => {
             <ResetPasswordCard resetPassword={resetPassword} />
         </div>
     )
-}
+};
 
 export default ResetPassword;

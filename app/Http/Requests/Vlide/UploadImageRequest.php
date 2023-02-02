@@ -25,7 +25,7 @@ class UploadImageRequest extends FormRequest
     {
         return [
             // 'audio' => 'required|mimes:audio/acc,mp3|max:15360', // 15MB
-            'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048' // 2mb
+            'image' => 'required|mimes:jpeg,png,jpg,gif|max:8192' // 8mb
         ];
     }
     public function image()

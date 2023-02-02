@@ -12,9 +12,11 @@
     }
     .loader__ball:nth-child(1){
         background: $buttonColor;
+        // background: #50495c;
     }
     .loader__ball:nth-child(2){
         background: $orange;
+        // background: #f4e3c4;
         animation-delay: .1s;
     }
     .loader__ball:nth-child(3){
@@ -23,6 +25,7 @@
     }
     .loader__ball:nth-child(4){
         background: $red;
+        // background: #be5e68;
         animation-delay: .3s;
     }
     @keyframes bounce{

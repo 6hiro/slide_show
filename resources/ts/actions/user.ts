@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 
-import { ToastNotification } from "../components/toastNotification/ToastNotifications";
 import axios from "../libs/axios";
+import { BOOK } from "../types/book";
 import { CLIP } from "../types/clip";
+import { ToastNotification } from "../types/toast";
 import { USER } from "../types/user";
 import { VLIDE } from "../types/vlide";
 import { generateUid } from "../utils/uid";
@@ -34,6 +35,7 @@ export const updateAsyncProf = async(
     setProf: (value: SetStateAction<USER | undefined>) => void,
     setVlides: (value: SetStateAction<VLIDE[] | undefined>) => void,
     setClips: (value: SetStateAction<CLIP[] | undefined>) => void,
+    setBooks: (value: SetStateAction<BOOK[] | undefined>) => void,
 ) => {
     axios
     .patch(`/api/v1/user/prof`,{
@@ -91,6 +93,22 @@ export const updateAsyncProf = async(
                     }
                 });
                 return newVlides;
+            }else{
+                return prev;
+            }
+        });
+        setBooks( (prev )=> {
+            if(prev){
+                const newBooks = [ ...prev ];
+
+                newBooks?.map((book) => {
+                    if(book.user.id === res.data.user_id){
+                        book.user.nick_name = res.data.nick_name;
+                    }
+                });
+                // return newBooks;
+                console.log(newBooks)
+                return prev;
             }else{
                 return prev;
             }

@@ -11,9 +11,10 @@ import { ToastNotificationsContext } from '../../hooks/useToastNotifications';
 import { generateUid } from '../../utils/uid';
 
 
+
 type Props = {
     user: any;
-}
+};
 
 const DetailClip = (props: Props) => {
     const { clip_id } = useParams();
@@ -96,7 +97,7 @@ const DetailClip = (props: Props) => {
                 <title>{clip.user?.nick_name + " / " + clip.content} / {siteTitle}</title>
                 <meta
                     name="description"
-                    content={clip.content.slice(0,100)}
+                    content={clip.content?.slice(0,100)}
                 />
             </Helmet>
             <div>

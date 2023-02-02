@@ -72,6 +72,22 @@ Route::get('/prof/{username}', function () {
     return view('index');
 });
 
+Route::get('/book/{bookId}', function () {
+    return view('index');
+})->where('bookId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+Route::get('/book/{bookId}/page/{pageIndex}', function () {
+    return view('index');
+})->where('pageIndex', '[0-9]+')->where('bookId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+
+Route::get('/drafts/book/{bookId}', function () {
+    return view('index');
+})->where('bookId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+
+
+Route::get('/vlide/{vlideId}', function () {
+    return view('index');
+})->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+
 Route::get('/drafts/vlide/{vlideId}', function () {
     return view('index');
 })->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
@@ -99,7 +115,15 @@ Route::get('/clip/{clipId}', function () {
     return view('index');
 })->where('clipId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
 
+Route::prefix('/payment')->group(function (){
+    Route::get('/success', function () {
+        return view('index');
+    })->name('stripe.index');
 
+    Route::get('/cancellation', function () {
+        return view('index');
+    })->name('stripe.cancellation');
+});
 
 // Route::get('/subscription', function () {
 //     return view('index');
@@ -111,33 +135,6 @@ Route::get('/clip/{clipId}', function () {
 //     Route::get('/payment', [StripePaymentsController::class, 'payment'])->name('stripe.payment');
 
 //     Route::get('/complete', [StripePaymentsController::class, 'complete'])->name('stripe.complete');
-// });
-
-// Route::get('/embed', function (Request $request) { // embed?url={url}
-//     $url = $request->url;
-//     $doc = new DOMDocument();
-//     // @$doc->loadHTMLFile($url); // utf-8 に変更できない
-//     @$doc->loadHTML(mb_convert_encoding(file_get_contents($url), 'HTML-ENTITIES', 'UTF-8') );
-//     $xpath = new DOMXPath($doc);
-//     $node_title = $xpath->query('//title');
-//     $node_og_title = $xpath->query('//meta[@property="og:title"]/@content');
-//     $node_og_image = $xpath->query('//meta[@property="og:image"]/@content');
-//     $node_site_name = $xpath->query('//meta[@property="og:site_name"]/@content');
-//     $title = $node_title->length > 0 ? $node_title->item(0)->nodeValue : '';
-//     $og_title = $node_og_title->length > 0 ? $node_og_title->item(0)->nodeValue : '';
-//     $og_image = $node_og_image->length > 0 ? $node_og_image->item(0)->nodeValue : '';
-//     // $og_description = $node_description->length > 0 ? $node_description->item(0)->nodeValue : '';
-//     // $og_url = $node_url->length > 0 ? $node_url->item(0)->nodeValue : '';
-//     $og_site_name = $node_site_name->length > 0 ? $node_site_name->item(0)->nodeValue : '';
-
-//     return view('embed')->with([
-//         "url" => $url,
-//         "title" => $title,
-//         "og_title" => $og_title,
-//         "og_image" => $og_image,
-//         "og_site_name" => $og_site_name,
-//         // "metas" => $metas
-//     ]);
 // });
 
 require __DIR__.'/auth.php';

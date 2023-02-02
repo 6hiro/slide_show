@@ -1,8 +1,8 @@
 import { BiX } from "react-icons/bi";
 import { LineShareButton, TwitterShareButton, TwitterIcon, LineIcon } from "react-share";
 
+import { ToastNotification } from "../../../types/toast";
 import { generateUid } from "../../../utils/uid";
-import { ToastNotification } from "../../toastNotification/ToastNotifications";
 
 
 

@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 import { siteTitle } from '../../constants/site';
 import useToggle from '../../hooks/useToggle';
+import { ToastNotification } from '../../types/toast';
 import { PASSWORD_PATTERN, USERNAME_PATTERN } from '../../utils/regexps';
 import { generateUid } from '../../utils/uid';
-import { ToastNotification } from '../toastNotification/ToastNotifications';
 
 
 

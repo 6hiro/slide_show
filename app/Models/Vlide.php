@@ -35,6 +35,10 @@ class Vlide extends Model
         // https://rapicro.com/laravel_cast_boolean/
         'is_public' => 'boolean',
     ];
+    protected $dates = [
+        // "Call to a member function format() on string"
+        'published_at'
+    ];
 
     public function user(): BelongsTo
     {
@@ -48,6 +52,22 @@ class Vlide extends Model
                 'created_at',
             ]); 
         // ->withTimestamps();
+    }
+
+    public function books(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Models\Book', 'pages')
+            ->withPivot([
+                'id',
+                'order',
+            ]);
+            // ->withTimestamps();        
+    }
+    public function isPageOf(?string $bookId): bool
+    {
+        return $bookId
+            ? (bool)$this->books->where('id', $bookId)->count()
+            : false;
     }
 
     public function saves(): BelongsToMany

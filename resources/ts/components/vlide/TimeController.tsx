@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef } from 'react';
+import React, { Dispatch, memo, SetStateAction, useCallback, useEffect, useRef } from 'react';
 import { BiLoaderAlt, BiPause, BiPlay, BiSkipNext, BiSkipPrevious } from 'react-icons/bi';
 import { IoEllipsisVertical, IoVolumeHigh, IoVolumeMute }  from "react-icons/io5";
 
@@ -19,9 +19,8 @@ type TimeControllerProps = {
 }
 
 // Time-Play
-const TimeController = ( props: TimeControllerProps) => {
+const TimeController = memo(( props: TimeControllerProps) => {
     const controlsContainerRef = useRef<HTMLDivElement | null>(null);
-
     const watchedBarRef = useRef<HTMLDivElement | null>(null);
     const playHeadRef = useRef<HTMLDivElement | null>(null);
     const [on, toggle] = useToggle(false);
@@ -426,6 +425,6 @@ const TimeController = ( props: TimeControllerProps) => {
             </div>
         </div>
     )
-};
+});
 
 export default TimeController;

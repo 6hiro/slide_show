@@ -6,7 +6,7 @@ import axios from "../libs/axios";
 
 // fetchAsyncLatestData で　最初のデータをとる
 // もし、next_page_link があれば,
-// fetchAsyncMoreData でさらにデータをとることができる
+// fetchAsyncMoreData でさらにデータをとる
 export const fetchAsyncLatestData = async (
     url:string,
     setData: Dispatch<SetStateAction<any[] | undefined>>,

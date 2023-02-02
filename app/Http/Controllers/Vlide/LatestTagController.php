@@ -7,6 +7,7 @@ use App\Services\VlideService;
 use Illuminate\Http\Request;
 // use App\Models\Vlide
 use App\Http\Resources\VlideResource;
+use App\Http\Resources\VlideForListResource;
 
 use DateTime;
 use DateTimeZone;
@@ -33,7 +34,8 @@ class LatestTagController extends Controller
                 ? $request->url()."?tag_name=".$tag_name."&since=".$vlides[count($vlides)-2]["published_at"]
                 // ->format('Y-m-d H:i:s.v') 
                 : null,
-            'data' => VlideResource::collection($vlides->take($per_page)),
+            // 'data' => VlideResource::collection($vlides->take($per_page)),
+            'data' => VlideForListResource::collection($vlides->take($per_page)),
             // 'data' => $vlides->take($per_page),
         ];
     }

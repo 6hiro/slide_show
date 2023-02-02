@@ -1,0 +1,32 @@
+.heading_1 {
+    width: 100%;
+    font-size: 1.8rem;
+    color: $subColor;
+    padding: 5px 3px;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+
+    &::placeholder {
+        color: $placeholderColor;
+    }
+}
+
+.heading_2 {
+    width: 100%;
+    font-size: 1.45rem;
+    font-weight: bold;
+    color: $subColor;
+    padding: 5px 3px;
+    outline: none;
+    border: none;
+    line-height: 35px;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+
+    &::placeholder {
+        color: $placeholderColor;
+    }
+}

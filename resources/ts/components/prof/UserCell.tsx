@@ -8,7 +8,7 @@ import { USER } from '../../types/user';
 type Props = {
     loginId?: string | null;
     user: USER;
-    followUnfollow: Function;
+    followUnfollow: Function | null;
     toggleUserList: Function;
 };
 
@@ -51,13 +51,13 @@ const UserCell = (props: Props) => {
                 </div>
             </Link>
 
-           { (props.loginId && (props.loginId !== props.user.id ))?
+           { (props.loginId && (props.loginId !== props.user.id ) && props.followUnfollow)?
                 <div className="user_cell__right">
                     <div 
                         className={`user_cell__right__follow_button ${props.user.isFollowed ? "is_followed" : ""}`}
                         onClick={ 
                             useCallback(
-                                () => {props.followUnfollow(props.user.id, props.loginId)}
+                                () => {props.followUnfollow && props.followUnfollow(props.user.id, props.loginId)}
                             , [props.user.id, props.loginId])
                         }
                     >

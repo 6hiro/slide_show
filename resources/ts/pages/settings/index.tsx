@@ -1,16 +1,14 @@
-import { useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { BiEdit, BiKey, BiUserX, BiX } from 'react-icons/bi';
 import { Helmet } from 'react-helmet';
 
 import EditUserForm from '../../components/auth/EditUsernameForm';
-import { useAuth } from '../../hooks/useAuth';
 import useToggle from '../../hooks/useToggle';
-
 import DeleteAccountForm from '../../components/auth/DeleteAccountForm';
 import ChangePasswordForm from '../../components/auth/ChangePasswordForm';
 import LoadingScreen from '../../components/layout/LoadingScreen';
 import { siteTitle } from '../../constants/site';
+
 
 
 type Props = {
@@ -19,10 +17,12 @@ type Props = {
     deleteAccount: Function;
     changeUserName: Function;
     changePassword: Function;
-}
+};
+
 const Settings = (props: Props) => {
-    const { user, isLoading, deleteAccount, changeUserName, changePassword } = props;
     let navigate = useNavigate();
+
+    const { user, isLoading, deleteAccount, changeUserName, changePassword } = props;
 
     const [openEditForm, toggleEditForm] = useToggle(false);
     const [openPasswordForm, togglPasswordForm] = useToggle(false);
@@ -95,6 +95,17 @@ const Settings = (props: Props) => {
                 </button>
             </div>
 
+            <p className="sub_title">
+                <BiUserX />
+                <span> プランの変更</span>    
+            </p>
+            <div className="change_plan_button">
+                <button className="open_modal_button" onClick={()=>{navigate('/subscription/plan')}} >
+                    プランを変更する
+                </button>
+            </div>
+
+
             {/* # アカウントの削除 */}
             <p className="sub_title">
                 <BiUserX />
@@ -126,10 +137,9 @@ const Settings = (props: Props) => {
                 >アカウントを削除する
                 </button>
             </div>
-
         </div>
 
     )
-}
+};
 
 export default Settings;

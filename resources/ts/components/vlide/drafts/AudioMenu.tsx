@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
 import { BiHeadphone, BiMessageError, BiX } from 'react-icons/bi';
+import { ToastNotification } from '../../../types/toast';
 
 import { generateUid } from '../../../utils/uid';
-import { ToastNotification } from '../../toastNotification/ToastNotifications';
 
 
 

@@ -22,7 +22,7 @@ class ShareController extends Controller
 
         $clip_count = $clipService->getUserClipCount($user_id);
         
-        if($clip_count >= 30)
+        if($clip_count >= 20)
         {
             return response()->json([
                     'count' => $clip_count,

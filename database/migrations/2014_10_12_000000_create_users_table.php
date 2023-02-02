@@ -26,6 +26,12 @@ return new class extends Migration
             // $table->string('is_superuser')->nullable();
             $table->string('status')->nullable();
 
+            // $table->foreignId('plan_id')->nullable();
+            // $table->string('customer_id')->nullable()->index();
+            $table->string('stripe_id')->nullable()->index(); // customer_id
+            $table->dateTime('ends_at')->nullable();
+
+
             $table->string('email')->unique();
             $table->dateTime('email_verified_at')->nullable();
             $table->string('password');

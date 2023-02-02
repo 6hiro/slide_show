@@ -14,7 +14,7 @@ type SlideProps = {
     toc: {
         type: string;
         content: string;
-        time: string;
+        time: string | number;
     }[] | undefined;
 };
 
@@ -53,18 +53,6 @@ const Slide = ( props:SlideProps ) => {
                     <span className='slide_separator_dot' ></span>
                 </div>
             )
-        // }else if(t.type.split(":")[0]==='point'){
-        //     const title = t.type.split(":")[1]
-        //         ? t.type.split(":")[1]
-        //         : "Point";
-        //     return (
-        //         <div className='slide point'>
-        //             <div className='point_title'>{title}</div>
-        //             <div className='point_content'>
-        //                 <DecoratedText content={t.content} />
-        //             </div>
-        //         </div>
-        //     )
         }else if(t.type==='message'){
             return (
                 <aside className='slide message' role="note">
@@ -85,30 +73,38 @@ const Slide = ( props:SlideProps ) => {
                     </div>
                 </aside>
             )
-        }else if(t.type=="youtube"){
+        }else if(t.type==="youtube"){
             if(t.content.slice(0, 32)==='https://www.youtube.com/watch?v=' || 
                 t.content.slice(0, 30)==='https://m.youtube.com/watch?v=' || 
-                (t.content.slice(0, 17)==='https://youtu.be/' && t.content.length > 17)
+                (t.content.slice(0, 17)==='https://youtu.be/' && t.content.length > 17) ||
+                (t.content.slice(0, 31)==='https://www.youtube.com/shorts/' && t.content.length > 32) ||
+                (t.content.slice(0, 29)==='https://m.youtube.com/shorts/' && t.content.length > 31)
+                
             ){     
-     
                 let id;
-                if(t.content.indexOf('&')!==-1){
+                // if(t.content.indexOf('&')!==-1){
+                if(t.content.slice(0, 32)==='https://www.youtube.com/watch?v='){
                     id=t.content.split('&')[0].split('/watch?v=')[1];
                 } else if (t.content.slice(0, 17)==='https://youtu.be/') {
-                    id=t.content.slice(17,);
-
+                    id=t.content.slice(17,).split('?')[0];
                 } else if(t.content.slice(0, 32)==='https://www.youtube.com/watch?v=') {
-                    id=t.content.slice(32,);
+                    id=t.content.slice(32,).split('&')[0];
+                } else if (t.content.slice(0, 31)==='https://www.youtube.com/shorts/' && t.content.length > 32) {
+                    id=t.content.slice(31,).split('?')[0];
+                } else if (t.content.slice(0, 29)==='https://m.youtube.com/shorts/' && t.content.length > 31) {
+                    id=t.content.slice(29,).split('?')[0];
                 }
   
                 return <div className='slide youtube' style={{padding: "0 auto"}} >
                     <iframe 
                         id="inline-frame" 
-                        width="360" height="216" 
+                        // width="360" height="216" 
+                        width="390" height="693"
                         // width="560"
                         // height="315"
                         title="YouTube video Player"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         frameBorder="0"
                         // src={`https://www.youtube.com/embed/${t.content.split('/watch?v=')[1]}?rel=0`}
                         src={`https://www.youtube-nocookie.com/embed/${id}?rel=0`}
@@ -116,26 +112,26 @@ const Slide = ( props:SlideProps ) => {
                     ></iframe>
                 </div>
             }
-        }else if(t.type.split(":")[0]=="table"){
-            const title = t.type.split(":")[1]
-                ? t.type.split(":")[1]
-                : "";
+        }else if(t.type==="table"){
+            // const title = t.type.split(":")[1]
+            //     ? t.type.split(":")[1]
+            //     : "";
             return (
                 <div className='slide'>
-                    {title ? <div className='table_title'>{title}</div> : null}
+                    {/* {title ? <div className='table_title'>{title}</div> : null} */}
                     <Table content={t.content} />
                 </div>
             )
-        }else if(t.type.split(":")[0]==='blockquote'){
+        }else if(t.type==='quote'){
             return (
                 <>
                     <blockquote className='slide'>
                         <p>
                             <DecoratedText content={t.content} />
                         </p>
-                        { t.type.split(":")[1] && 
+                        {/* { t.type.split(":")[1] && 
                             <figcaption>— <cite>{t.type.split(":")[1]}</cite></figcaption>
-                        }
+                        } */}
                     </blockquote>
                 </>
             )
@@ -153,7 +149,7 @@ const Slide = ( props:SlideProps ) => {
                     <div className="code-block-container slide">
                         {fileName && 
                             <div className="code-block-filename-container">
-                                <span className="code-block-filename">{fileName}</span>
+                                <div className="code-block-filename">{fileName}</div>
                             </div>
                         }
                         <pre 

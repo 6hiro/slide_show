@@ -117,12 +117,40 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->followings->count();
     }
+    // Book 関係
+    public function books(): HasMany
+    // ユーザーと、そのユーザーの投稿は1対多の関係
+    {
+        return $this->hasMany('App\Models\Book');
+    }
+    public function tickets(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany('App\Models\Book', 'tickets')
+            ->withPivot(['created_at', 'is_admitted'])
+            ->orderBy('pivot_created_at', 'desc');
+            // ->withTimestamps();
+    }
+    public function isAdmitted(string $book_id): bool
+    {
+        $ticket = $this->tickets->where('id', $book_id)->first();
+
+        if(!$ticket) return false;
+
+        return $ticket->pivot->is_admitted;
+    }
 
     // Vlide 関係
     public function vlides(): HasMany
     // ユーザーと、そのユーザーの投稿は1対多の関係
     {
         return $this->hasMany('App\Models\Vlide');
+    }
+
+    public function publicVlides(): HasMany
+    // ユーザーと、そのユーザーの投稿は1対多の関係
+    {
+        return $this->hasMany('App\Models\Vlide')->where('is_public', true);
     }
 
     public function images(): HasMany
@@ -133,6 +161,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getCountVlidesAttribute(): int
     {
         return $this->vlides->count();
+    }
+
+
+    public function getCountPublicVlidesAttribute(): int
+    {
+        return $this->publicVlides->count();
     }
 
     public function saves(): BelongsToMany

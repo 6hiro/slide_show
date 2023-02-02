@@ -47,7 +47,6 @@
         color: $white;
         margin: 0 0 0 auto;
         padding: 8px;
-        // border: 2px solid $subColor;
         border-radius: 10px;
         letter-spacing: 2px;
         transition: 0.5s;
@@ -59,7 +58,7 @@
             opacity: 0.8;
         }
         &:disabled{
-            background: #666;
+            background: #aaa;
         }
     }
 

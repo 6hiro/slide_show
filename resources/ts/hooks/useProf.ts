@@ -9,11 +9,14 @@ import { putAsyncFollowUnfollow } from "../actions/follow";
 import { deleteAsyncImage, fetchAsyncUserImages, uploadAsyncImage } from "../actions/image";
 import { fetchAsyncUser, updateAsyncProf } from "../actions/user";
 import { deleteAsyncVlide, saveUnsaveAsyncVlide } from "../actions/vlide";
-import { ToastNotification } from "../components/toastNotification/ToastNotifications";
 import { CLIP } from "../types/clip";
 import { UPLOAD_ICON, USER } from "../types/user";
 import { SHOW_IMAGE, VLIDE } from "../types/vlide";
 import { generateUid } from "../utils/uid";
+import { BOOK } from "../types/book";
+import { ToastNotification } from "../types/toast";
+
+
 
 type Props = {
     user: any;
@@ -34,12 +37,14 @@ export const useProf = (props: Props) => {
 
     const [prof, setProf] = useState<USER>();
 
+    const [bookNextPageLink, setBookNextPageLink] = useState<string>();
     const [vlideNextPageLink, setVlideNextPageLink] = useState<string>();
     const [clipNextPageLink, setClipNextPageLink] = useState<string>();
     const [userNextPageLink, setUserNextPageLink] = useState<string>();
     const [clipUserNextPageLink, setClipUserNextPageLink] = useState<string>();
     const [imageNextPageLink, setImageNextPageLink] = useState<string>();
 
+    const [books, setBooks] = useState<BOOK[]>();
     const [vlides, setVlides] = useState<VLIDE[]>();
     const [clips, setClips] = useState<CLIP[]>();
     const [users, setUsers] = useState<USER[]>();
@@ -47,6 +52,8 @@ export const useProf = (props: Props) => {
     const [images, setImages] = useState<SHOW_IMAGE[]>();
 
     const clearContents = () => {
+        setBooks([]);
+        setBookNextPageLink("");
         setVlides([]);
         setVlideNextPageLink("");
         setClips([]);
@@ -59,6 +66,17 @@ export const useProf = (props: Props) => {
         clearContents();
         setProf(undefined);
         fetchAsyncUser(props.username, setProf, setIsLoadingProf)
+    };
+
+    const getBooks =  (userId: string) => {
+        clearContents();
+        fetchAsyncLatestData(`/api/v1/user/${userId}/books`, setBooks, setBookNextPageLink, setIsLoadingContents);
+    };
+
+    const getTickets = async() => {
+        clearContents();
+        const url =`/api/v1/book/user/tickets`;
+        await fetchAsyncLatestData(url, setBooks, setBookNextPageLink, setIsLoadingContents); 
     };
 
     const getVlides =  (userId: string) => {
@@ -105,6 +123,13 @@ export const useProf = (props: Props) => {
         fetchAsyncUserImages(userId, onSuccess, onError)
     };
 
+
+    const getMoreBooks = () => {
+        fetchAsyncMoreData(bookNextPageLink, setBooks, setBookNextPageLink);
+    };
+    const getMoreTickets= () => {
+        fetchAsyncMoreData(bookNextPageLink, setUsers, setBookNextPageLink);
+    };
     const getMoreVlides = () => {
         fetchAsyncMoreData(vlideNextPageLink, setVlides, setVlideNextPageLink);
     };
@@ -306,6 +331,7 @@ export const useProf = (props: Props) => {
             setProf,
             setVlides,
             setClips,
+            setBooks,
         );
     };
 
@@ -401,6 +427,10 @@ export const useProf = (props: Props) => {
         if(prof){
             if(sectionName==="vlides"){
                 navigate(`/prof/${prof.name}`);
+            }else if(sectionName==="books"){
+                navigate(`/prof/${prof.name}?f=books`);
+            }else if(sectionName==="tickets"){
+                navigate(`/prof/${prof.name}?f=tickets`);
             }else if(sectionName==="clips" ){
                 navigate(`/prof/${prof.name}?f=clips`);
             }else if(sectionName==="replies" ){
@@ -430,8 +460,13 @@ export const useProf = (props: Props) => {
                 setSection("vlides")
                 getVlides(prof.id)
             }else if( typeof f === "string" ) {
-    
-                if(f==="bookmarks"){
+                if(f==="books"){
+                    setSection("books")
+                    getBooks(prof.id)
+                }else if(f==="tickets"){
+                    setSection("tickets")
+                    getTickets()
+                }else if(f==="bookmarks"){
                     setSection("bookmarks")
                     getBookmarks(prof.id)
                 }else if(f==="clips") {
@@ -456,6 +491,8 @@ export const useProf = (props: Props) => {
         prof, 
         isLoadingProf,
         isLoadingContents,
+        books,
+        bookNextPageLink,
         vlides,
         vlideNextPageLink,
         clips,
@@ -473,6 +510,9 @@ export const useProf = (props: Props) => {
         getShareUsers,
         getFollowings,
         getFollowers,
+        // getTickes,
+        getMoreTickets,
+        getMoreBooks,
         getMoreVlides,
         getMoreClips,
         getMoreUsers,

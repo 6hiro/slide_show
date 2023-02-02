@@ -6,7 +6,7 @@ import UserCell from './UserCell';
 type Props = {
     loginId?: string;
     users: USER[];
-    followUnfollow: Function;
+    followUnfollow: Function | null;
     toggleUserList: Function;
 };
 

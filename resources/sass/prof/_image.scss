@@ -8,7 +8,7 @@
         flex-wrap: wrap;
   
         .img_wrapper {
-            margin: 2px;
+            margin: 1.5px;
             transition: 400ms;
             position: relative;
             width: 200px;
@@ -18,7 +18,7 @@
                 width: 200px;
                 height: 200px;    
                 object-fit: cover;
-                border-radius: 3px;
+                // border-radius: 3px;
                 cursor: pointer;
                 box-shadow: $boxShadowWhite;
                 position: absolute;
@@ -43,10 +43,13 @@
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
-                background: #0005;
+                // color: $white;
+                // background: #0005;
+                color: $subColor;
+                border-top: 1px solid #fff;
+                background-color: #ffffffe6;
                 backdrop-filter: blur(14px);
                 -webkit-backdrop-filter: blur(14px);
-                color: $white;
                 padding: 8px 10px;
                 font-size: 12px;
                 font-weight: 600;

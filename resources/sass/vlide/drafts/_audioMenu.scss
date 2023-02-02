@@ -8,7 +8,7 @@
         bottom: 0;
         position: fixed;
         z-index: 320;
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(200, 200, 200, 0.2);
     }
     .audio_menu {
         position: fixed;
@@ -21,7 +21,6 @@
         -ms-transform: translate(-50%, -50%);
 
         border-radius: 10px;
-        border: 3px solid #24292f;
         overflow: scroll;
         line-height: 26px;
         min-width:300px;
@@ -73,7 +72,6 @@
 
         .audio_delete_button_wrapper {
             width: 260px;
-            // @include flex(center, flex-end);
             margin: 25px auto;
 
             .audio_delete_button {

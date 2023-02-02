@@ -48,6 +48,7 @@ export interface VLIDE {
     duration: number;
     is_public: boolean;
     published_at: string;
+    created_at: string;
     updated_at: string;
     count_clips: number;
     is_saved: boolean;

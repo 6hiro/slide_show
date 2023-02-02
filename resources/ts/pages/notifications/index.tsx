@@ -3,8 +3,8 @@ import { Helmet } from "react-helmet";
 import { siteTitle } from "../../constants/site";
 
 
-const Notifications = () => {
 
+const Notifications = () => {
     return (
         <div>
             <Helmet>
@@ -24,5 +24,6 @@ const Notifications = () => {
 
         </div>
     )
-}
+};
+
 export default Notifications;

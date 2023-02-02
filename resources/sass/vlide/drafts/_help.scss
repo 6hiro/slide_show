@@ -58,7 +58,6 @@
     height: var(--size);
     width:  var(--size);
     border-radius: 35px 8px 35px 35px;
-    // border-radius: 35px 18px 35px 18px /10px;
     background-color: #fff;
     color: #24292f;
     border: 2px solid #24292f;
@@ -77,8 +76,10 @@
 }
 @media screen and (max-width: 460px) {
     .help {
-        top: calc($headerHeight + 50px);
-
+        display: none;
+        // top: calc($headerHeight + 50px);
+        // bottom: 110px;
+        // left: 5px;
         .help_menu {
             bottom: 16px;
             right: 0;

@@ -11,8 +11,8 @@
         position: relative;
         overflow: hidden;
         color: $subColor;
-        min-height: 130px;
-        padding: 0px 10px;
+        // min-height: 130px;
+        padding: 0px 10px 0 0;
     }
     .link-box:hover{
         background-color:#fafafa;
@@ -29,7 +29,7 @@
         height: 110px;
         width: 110px;
         object-fit: cover;
-        border-radius: 5px;
+        border-radius: 2px;
         // aspect-ratio: auto 220 / 110;
     }
     .link-box .img-box .no-image {
@@ -38,7 +38,7 @@
         width: 110px;
         background: #dfdfdf90;
         // background: $subColor;
-        border-radius: 5px;
+        border-radius: 2px;
         color: $white;
         @include flex(center, center);
     }
@@ -48,8 +48,13 @@
         position: relative;
     }
     .text-box .title {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 700;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-height: 20px;
     }
     .text-box .site-description {
         font-size: 14px;
@@ -60,7 +65,7 @@
     }
     .text-box .site-url {
         font-size: 12px;
-        line-height: 14px;
+        line-height: 13px;
         width: 100%;
         overflow: hidden;
         white-space: nowrap;

@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|max:50',
-            'content'=>'nullable|max:5000',
+            'content'=>'nullable|max:8000',
             'tag_list'=>'nullable|array',
             'tag_list.*'=>'string',
             'duration' => 'required|integer|max:1200',
@@ -65,7 +65,7 @@ class UpdateRequest extends FormRequest
 
     public function messages(){
         return [
-            'content.max'  => "2000文字以内",
+            'content.max'  => "8000文字以内",
         ];
     }
 }

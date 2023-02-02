@@ -1,8 +1,11 @@
 .detail_container_wrapper  {
     position: relative;
-    // background: #f5f5f5;
     background-color: #f4f8fb;
-    background: #f4f4f9;
+    background: #f8f8f8;
+    min-height: calc(100vh - $headerHeight);
+    // background: linear-gradient(45deg, #f4e3c4, #f0e4c9, #f4e3c4, #f0e4c9);
+    // background: #50495c;
+    // background: #be5e68;
 
     .detail_container{
         display: flex;
@@ -45,20 +48,141 @@
 
         .detail{
             position: relative;
-            padding-top: 10px;
+            padding-top: 4px;
             padding-bottom: 90px;
             max-width: 800px;
-            min-width: 320px;
+            min-width: 780px;
             margin: 10px auto 10px 10px;
+
+            &__toc_menu {
+                position: fixed;
+                z-index: 920;
+                top: 0;
+                bottom: 0;
+                left: -300px;
+                width: 300px;
+                height: 100vh;
+                background: $white;
+                box-shadow: $boxShadowWhite;
+
+                .site_name_container {
+                    padding: 0 15px;
+                    @include flex(center, unset);
+                    column-gap: 10px;
+                    height: 55px;
+                    width: 100%;
+                    border-bottom: 1px solid #ddd;
+                    // background: $subColor;
+                    // background: #50495c;
+                    
+                    .site_name {
+                        font-weight: 700px;
+                        font-size: 30px;
+                        font-family: 'Niconne', cursive;
+                        color: $mainColor;
+                        // color: #50495c;
+                    }
+                }
+                .book__pages {
+                    height: calc(100vh - 55px);
+                    overflow: scroll;
+                    
+                    .book__page {
+                        padding: 15px 10px;
+                        font-weight: 600;
+                        word-break: break-word;
+                        color: $subColor;
+    
+                        .page_link {
+                            width: 100%;
+                            height: 100%;
+                            @include flex(center, unset);
+                            column-gap: 10px;
+
+                            &__count {
+                                width: 30px;
+                                height: 30px;
+                                @include flex(center, center);
+                                border-radius: 50%;
+                                font-size: 15px;
+                                background: $subColor;
+                                color: #fff;
+                            }
+                            &__title {
+                                font-size: 18px;
+                                width: calc(100% - 30px);
+
+                                &:hover {
+                                    color: $mainColor;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            .is_showed_menu {
+                left: 0;
+            }
             
+            &__toc_menu__overlay{
+                width: 100vw;
+                height: 100vh;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                position: fixed;
+                z-index: 910;
+                background: #00000065;
+            }
+
+            &__header {
+                position: fixed;
+                z-index: 900;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100vw;
+                height: $headerHeight;
+                background: $white;
+                // background: linear-gradient(45deg, #f4e3c4, #f0e4c9, #f4e3c4, #f0e4c9);
+                @include flex(center, space-between);
+                padding: 0 10px;
+
+                &__toc {
+                    width: 40px;
+                    height: 40px;
+                    @include flex(center, center);
+                    background: #fff;
+                    border-radius: 50%;
+                    font-size: 32px;
+                    color: #888;
+                    user-select: none;
+                    cursor: pointer;
+        
+                    &:hover{
+                        color: #666;
+                    }
+                }
+                &__title {
+                    font-size: 16px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    color: #50495c;
+                    // color: #be5e68;
+                    max-width: calc(100% - 120px);
+                }
+            }            
+
             .content_container{
-                // padding-top: 20px;
                 background: $white;
                 border-radius: 5px 5px 0 0;
-                // border: 2px solid #ddd5;
 
                 .vlid__header_img {
-                    margin: 0 auto 20px;
+                    margin: 0 auto 0px;
                     position: relative;
                     img {
                         vertical-align: top;
@@ -80,7 +204,7 @@
                 
                 .vlide__header {
                     margin: 10px 10px;
-                    padding-top: 15px;
+                    padding-top: 20px;
                     @include flex(flex-start, space-between);
                     user-select: none;
                     
@@ -96,7 +220,7 @@
                             width: var(--size);
                             height: var(--size);
                             background: #fff;
-                            border: 2px solid #aaa;
+                            border: 2px solid #ccc;
                             color: #585e4e;
                             border-radius: 50%;
                             font-size: 28px;
@@ -124,7 +248,7 @@
                             max-width: 430px;
                             // width: 200px;
                             line-height: 24px;
-                            font-size: 15px;
+                            font-size: 16px;
                             font-weight: 400;
                             overflow: hidden;
                             white-space: nowrap;
@@ -140,7 +264,7 @@
                         }
                         &__dates{
                             line-height: 24px;
-                            font-size: 15px;
+                            font-size: 14px;
                             font-weight: 400;
                         }
                     }    
@@ -157,6 +281,7 @@
                             color: #aaa;
 
                             .edit_icon{
+                                // font-size: 20px;
                                 &:hover {
                                     color: #333;
                                 }
@@ -164,16 +289,13 @@
 
                             .unbookmarked_icon {
                                 &:hover {
-                                    // color: #e1cb9e;
                                     color: $orange;
                                 }
                             }
 
                             .bookmarked_icon {
-                                // color: #e1cb9e;
                                 color: $orange;
                                 &:hover {
-                                    // color: #e1cb9e;
                                     color: $orange;
                                 }
                             }
@@ -189,11 +311,6 @@
                                 color: #06c755;
                             }
                         }
-
-
-                        // .bookmark {
-                        //     margin-left: 15px;
-                        // }
                     }
 
                 }
@@ -211,8 +328,6 @@
                     white-space: pre-wrap;
                     letter-spacing: -0.016em;
                 }
-
-
 
                 .tag_list_wrapper {
                     padding: 10px 20px 25px 15px;
@@ -240,7 +355,7 @@
 
                             &:hover {
                                 color: #333;
-                                border: 1px solid #3335;
+                                border: 1px solid rgba($color: $subColor, $alpha: 0.2);
                             }
                         }
                     }
@@ -378,7 +493,7 @@
                         // background: #fff;
                         color: #666;
                         border: 2px solid #ccc;
-                        background: #ddd3;
+                        // background: #ddd3;
                         border-radius: 50%;
                         font-size: 28px;
                         font-weight: 700;
@@ -406,15 +521,21 @@
                         overflow: hidden;
                         white-space: nowrap;
                         text-overflow: ellipsis;
+                        &:hover {
+                            text-decoration: underline;
+                        }
                     }
                     &__username{
                         width: 210px;
                         line-height: 24px;
-                        font-size: 15px;
+                        font-size: 13px;
                         font-weight: 400;
                         overflow: hidden;
                         white-space: nowrap;
                         text-overflow: ellipsis;
+                        &:hover {
+                            text-decoration: underline;
+                        }
                     }
                 }    
 
@@ -422,6 +543,7 @@
                 &__description{
                     margin: 20px 10px 10px;
                     // line-height: 32px;
+                    font-size: 14px;
                 }
 
                 .about_toc {
@@ -448,12 +570,12 @@
 
         .detail_container{
             display: block;
-            // max-width: 1100px;
 
             .detail{
                 margin: 0 auto 0;
                 width: 100%;
                 max-width: 730px;
+                min-width: 320px;
                 padding-bottom: 0;
 
                 .content_container {
@@ -479,6 +601,8 @@
                     left: unset;
                     margin: 0 auto;
                     width: 100%;
+                    border-radius: 0 0 5px 5px;
+
                     &__header {
                         &__nickname {
                             width: calc(730px - 100px);
@@ -522,6 +646,9 @@
                 padding-top: 0;
 
                 .content_container {
+                    border-radius: 0;
+                }
+                .content_container {
                     margin: 0px auto 10px;
                 }
             }
@@ -533,6 +660,8 @@
                     left: unset;
                     margin: 0 auto;
                     width: 100%;
+                    border-radius: 0;
+
                     &__header {
                         &__nickname {
                             width: calc(100vw - 100px);

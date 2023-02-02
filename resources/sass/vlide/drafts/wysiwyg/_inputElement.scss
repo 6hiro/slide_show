@@ -1,0 +1,70 @@
+@import './timePicker';
+@import './addBlockMenu';
+@import './inputMenu';
+@import './dropdownBlockType';
+
+.input_wrapper{
+    margin: 25px 0 25px 10px;
+    position: relative;
+    
+    .element_options {
+        @include flex(center, center);
+        column-gap: 2px;
+        position: absolute;
+        top: 0px;
+        left: -5px;
+        width: 50px;
+        color: $placeholderColor;
+        font-size: 20px;
+        opacity: 0;
+        
+        .option {
+            @include flex(center, center);
+            pointer-events: auto;
+            // cursor: -webkit-grab;
+            // cursor: grab;
+            cursor: pointer;
+            user-select: none;
+            transition: background 20ms ease-in 0s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 24px;
+            width: 24px;
+            border-radius: 3px;
+            fill: rgba(55, 53, 47, 0.35);
+            background: rgba(55, 53, 47, 0.08);
+        }
+        .element_time {
+            @include flex(center, center);
+            position: absolute;
+            top: 30px;
+            left: 0px;
+            width: 50px;
+            height: 24px;
+            background: rgba(55, 53, 47, 0.08);
+            cursor: pointer;
+
+            .time_setting{
+                font-size: 14px;
+                color: $placeholderColor;
+                user-select: none;
+                .separator {
+                    padding: 0 1px;
+                    font-size: 15px;
+                }
+            }
+
+        }
+    }
+    .input_element {
+        margin-left: 55px;
+    }
+
+}
+.input_wrapper:hover{
+    .element_options {
+        opacity: 1;
+    }
+}

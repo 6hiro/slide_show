@@ -1,0 +1,78 @@
+.book_card_container {
+    position: relative;
+    // --borderColor: #f4f3ef;
+    --borderColor: #50495c;
+    width: 240px;
+    margin: 0 auto;
+    padding: 10px 0;
+    // --txtColor: #50495c;
+    --txtColor: #fafafa;
+    --bgColor: #1e2033;
+    
+    .book_card {
+        position: relative;
+        height: 280px;
+        width: 230px;
+        border: 1px solid var(--borderColor);
+        margin: 0px auto;
+        color: var(--txtColor);
+        background: var(--bgColor);
+        box-shadow: $boxShadowWhite;
+        border-radius: 1px 7px 7px 1px;
+        @include flex(unset, space-between);
+        flex-direction: column;
+
+        &__border {
+            position: absolute;
+            left: 6px;
+            width: 3px;
+            height: 100%;
+            // background: rgba(255, 255, 255, 1);
+            // background: rgba(245, 245, 245, 1);
+            // background: #f4f3ef;
+            background: #eee;
+        }
+
+        &__content {
+            margin: 10px 8px 0 18px;
+
+            &__author {
+                font-size: 14.5px;
+                font-weight: 600;
+                padding: 5px 0 0px;
+                // color: #50495c;
+            }
+    
+            &__title {
+                margin: 15px 0px;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 32px;
+                // color: #50495c;
+                &::first-letter {
+                    font-size: 200%;
+                    font-weight: bold;
+                    // color: $subColor;
+                }
+            }
+        }
+
+
+        &__ticket_count {
+            height: 20px;
+            margin: 8px 4px;
+            @include flex(center, flex-end);
+            column-gap: 4px;
+            // color: #50495c;
+
+            svg {
+                font-size: 18px
+            }
+            &__number {
+                @include flex(center, center);
+                font-size: 16px;
+            }
+        }
+        
+    }
+}

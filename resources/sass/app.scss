@@ -28,6 +28,13 @@ a {
 img,picture,video,canvas,svg {
   max-width:100%
 }
+img {
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 ul,
 li {
@@ -81,16 +88,23 @@ li {
 // Vlide
 @import 'vlide/drafts/titleInput';
 @import 'vlide/drafts/tagForm';
+@import 'vlide/drafts/tagFormMenu';
 @import 'vlide/drafts/audioInput';
 @import 'vlide/drafts/audioMenu';
-@import 'vlide/drafts/autoSizeTextarea';
 @import 'vlide/drafts/imageMenu';
 @import 'vlide/drafts/help';
 @import 'vlide/drafts/draftVlide';
 @import 'vlide/drafts/newVlideForm';
 @import 'vlide/drafts/RadioButton';
 @import 'vlide/drafts/radioButton';
-@import 'vlide/drafts/timePicker';
+@import 'vlide/drafts/wysiwyg/text';
+@import 'vlide/drafts/wysiwyg/heading';
+@import 'vlide/drafts/wysiwyg/quote';
+@import 'vlide/drafts/wysiwyg/message';
+@import 'vlide/drafts/wysiwyg/code';
+@import 'vlide/drafts/wysiwyg/table/table';
+@import 'vlide/drafts/wysiwyg/youtube';
+@import 'vlide/drafts/wysiwyg/inputElement';
 @import 'vlide/detail';
 @import 'vlide/vlideShareMenu';
 @import 'vlide/vlideMenu';
@@ -100,7 +114,12 @@ li {
 @import 'vlide/toc';
 @import 'vlide/blogCard';
 
-
+// book
+@import 'book/drafts/draftBook';
+@import 'book/detailBook';
+@import 'book/bookCard';
+// ticket
+@import 'ticket/ticket';
 
 // home
 @import 'home/home';
@@ -129,3 +148,6 @@ li {
 
 // tab
 @import 'tab/_draggableTabs';
+
+// map
+@import 'map/map';

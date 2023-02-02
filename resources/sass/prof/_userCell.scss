@@ -60,29 +60,35 @@
         &__follow_button {
             width: 100px;
             background-color: $white;
-            border: 2px solid $buttonColor;
+            border: 2px solid rgba($buttonColor, 0.8);
             font-size: 14px;
             border-radius: 6px;
             cursor: pointer;
             text-align: center;
             color: $buttonColor;
             padding: 4px;
+            // opacity: 0.8;
     
             &:hover {
                 background: $buttonColor;
+                // border: 2px solid rgba($buttonHoverColor, 0.8);
+                // background: $buttonHoverColor;
                 color: $white;
-                opacity: 0.9;
+                // opacity: 0.9;
             }
         }
 
         .is_followed {
             background: $buttonColor;
             color: $white;
-    
+            // opacity: 0.8;
+            
             &:hover {
+                border: 2px solid rgba($buttonHoverColor, 0.8);
+                background: $buttonHoverColor;
                 // background: $white;
                 // color: $buttonColor;
-                opacity: 0.9;
+                // opacity: 0.9;
             }
         }
 

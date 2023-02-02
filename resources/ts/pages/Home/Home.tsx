@@ -12,10 +12,13 @@ import Vlide from '../../components/vlide/vlideCard/Vlide';
 import { siteTitle } from '../../constants/site';
 import { useGetVlide } from '../../hooks/useGetVlide';
 
+
+
 type Props = {
     user: any;
     isLoading: boolean;
-}
+};
+
 const Home = (props: Props) => {
     const { user, isLoading } = props;
     const [ isShowedToTopButon, setIsShowedGoToTop ] = useState(false);

@@ -1,0 +1,32 @@
+.youtube_url {
+    .text{
+        position: relative;
+        font-family: "Nunito", sans-serif;
+        border: none;
+        resize: none;
+        font-size: 16px;
+        caret-color: #000;
+        width: 100%;
+        line-height: 40px;
+        letter-spacing: 0.02em;
+        color: $subColor;
+        border-radius: 3px;
+        padding: 0 10px;
+
+        &::placeholder {
+            color: $placeholderColor;
+            font-size: 16px;
+        }
+    }
+
+    .text:focus{
+        border: none;
+        outline: none;
+    }
+    .text.is_valid{
+        // background-color: #72c09c99;
+        background: #c4302b;
+        background: #ff000099;
+    }
+
+}

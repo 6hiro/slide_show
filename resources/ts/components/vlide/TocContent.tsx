@@ -8,7 +8,7 @@ type TocContentProps = {
     toc: {
         type: string;
         content: string;
-        time: string;
+        time: string | number;
     }[] | undefined
 };
 
@@ -21,10 +21,10 @@ const TocContent = (props: TocContentProps) => {
                     key={i} 
                 >
                     <Link 
-                        to={"#" + String(convertToSeconds(h.time)) + "s"} 
+                        to={"#" + convertToSeconds(String(h.time)) + "s"} 
                         onClick={()=>{
                             // Link では #~~ に遷移しないので
-                            document.getElementById(`${String(convertToSeconds(h.time))}s`)?.scrollIntoView({ 
+                            document.getElementById(`${convertToSeconds(String(h.time))}s`)?.scrollIntoView({ 
                                 behavior: 'smooth',
                             });
                         }}

@@ -1,7 +1,8 @@
-import React from 'react'
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { siteTitle } from '../../constants/site';
+
+
 
 const Privacy = () => {
     return (
@@ -187,6 +188,6 @@ const Privacy = () => {
 
         </div>
     )
-}
+};
 
 export default Privacy;

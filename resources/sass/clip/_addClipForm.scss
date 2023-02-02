@@ -130,7 +130,8 @@
                 opacity: 1;
             }
             &:disabled{
-                background: $subColor;
+                // background: $subColor;
+                background: #aaa;
                 opacity: 0.5;
 
             }

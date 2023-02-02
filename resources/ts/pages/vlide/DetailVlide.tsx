@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState, lazy } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Prism from "prismjs";
 import 'prismjs/components/prism-bash' // Language
 import 'prismjs/components/prism-c' // Language
@@ -18,10 +18,12 @@ import 'prismjs/components/prism-r'; // Language
 import 'prismjs/components/prism-ruby'; // Language
 import 'prismjs/components/prism-rust'; // Language
 import 'prismjs/components/prism-sql'; // Language
+import 'prismjs/components/prism-swift'; // Language
 import 'prismjs/components/prism-typescript'; // Language
 import 'prismjs/components/prism-markup'; // Language
 import 'prismjs/components/prism-markdown'; // Language
 import 'prismjs/components/prism-nginx'; // Language
+import 'prismjs/components/prism-apacheconf'; // Language
 import 'prismjs/components/prism-css'; // Language
 import 'prismjs/components/prism-sass'; // Language
 import 'prismjs/components/prism-scss'; // Language
@@ -41,7 +43,7 @@ import Slide from '../../components/vlide/Slide';
 import TimeController from '../../components/vlide/TimeController';
 import AddClipForm from '../../components/clip/AddClipForm';
 import LoadingScreen from '../../components/layout/LoadingScreen';
-import { admaxId, admaxId2, siteTitle } from '../../constants/site';
+import { admaxId, admaxId2, siteTitle, siteURL } from '../../constants/site';
 import GetMoreButton from '../../components/layout/GetMoreButton';
 import Clip from '../../components/clip/Clip';
 import { convertToSeconds, parser } from '../../utils/TimeController';
@@ -53,9 +55,11 @@ import { ToastNotificationsContext } from '../../hooks/useToastNotifications';
 import { generateUid } from '../../utils/uid';
 
 
+
 type Props = {
     user: any
 };
+
 const Detail = (props: Props) => {
     const { user } = props;
     const { vlide_id } = useParams();
@@ -142,7 +146,7 @@ const Detail = (props: Props) => {
                 quote: quote,
             };
 
-            create(data);
+            create(setToastNotifications, data);
         }
 
         setLoading(false);
@@ -216,7 +220,7 @@ const Detail = (props: Props) => {
                                             }else{
                                                 setToastNotifications(prev => {
                                                     return[
-                                                        {id: generateUid(), type:"error", message:"クリップするにはログインが必要です"},
+                                                        {id: generateUid(), type:"warning", message:"クリップするにはログインが必要です"},
                                                     ];
                                                 });
                                             }
@@ -384,21 +388,21 @@ const Detail = (props: Props) => {
                                         }}
                                         onClick={e => {
                                             const {target} = e;
-                                            if(target instanceof HTMLSpanElement && target.id === "slide_img_cover"){
-                                                const previousSibling = target.previousSibling;
-                                                if(previousSibling instanceof HTMLImageElement){
-                                                    // if(previousSibling.src.slice(0,34)===`${siteURL}/api/v1/image?f=`){
-                                                    if(previousSibling.src.slice(0,37)===`http://127.0.0.1:8000/api/v1/image?f=`){
-                                                        const path = previousSibling.src.split("image?f=").length===2 
-                                                            ? previousSibling.src.split("image?f=")[1]
+                                            if(target instanceof HTMLImageElement && target.id === "slide__img"){
+                                                // const nextSibling = target.nextSibling;
+                                                // if(nextSibling instanceof HTMLImageElement){
+                                                    // console.log(target.src)
+                                                    if(target.src.slice(0,34)===`${siteURL}/api/v1/image?f=`){
+                                                    // if(nextSibling.src.slice(0,37)===`http://127.0.0.1:8000/api/v1/image?f=`){
+                                                        const path = target.src.split("image?f=").length===2 
+                                                            ? target.src.split("image?f=")[1]
                                                             : null;
                                                         if(path && path.length < 300){
                                                             setQuote("!"+path);
                                                             toggleForm(true);
                                                         }
                                                     }
-
-                                                }
+                                                // }
                                             }
                                         }}
                                     >
@@ -513,7 +517,7 @@ const Detail = (props: Props) => {
                             setIsRunning={setIsRunning}
                             timeStamps={timeStamps}
                             src={
-                                (vlide.audio_file_name.slice(0,16) === "/api/v1/audio?f="  && vlide.audio_file_name.length > 16)
+                                (vlide.audio_file_name?.slice(0,16) === "/api/v1/audio?f="  && vlide.audio_file_name.length > 16)
                                     ? vlide.audio_file_name 
                                     : ""
                             }
@@ -586,7 +590,7 @@ const Detail = (props: Props) => {
                                 </div>
                                 <div className="about_author__header__nickname">
                                     <Link to={`/prof/${vlide.user.name}`}>
-                                        {vlide.user.name}
+                                        @{vlide.user.name}
                                     </Link>
                                 </div>
                             </div>

@@ -1,0 +1,112 @@
+.text_element {
+
+    .decoTextarea{
+        position: relative;
+        min-width: 100%;
+        line-height: 0;
+        
+        .decorated_text{
+            position: absolute;
+            font-family: "Nunito", sans-serif !important;
+            text-rendering: auto;
+            color: fieldtext;
+            letter-spacing: normal;
+            word-spacing: normal;
+            line-height: normal;
+            text-transform: none;
+            text-indent: 0px;
+            text-shadow: none;
+            display: inline-block;
+            text-align: start;
+            appearance: auto;
+            -webkit-rtl-ordering: logical;
+            cursor: text;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            column-count: initial !important;
+            border-image: initial;
+            padding: 0px;
+            resize: none;
+            border: none;
+            font-size: 16px;
+            width: 100%;
+            line-height: 40px;
+            letter-spacing: 0.02em;
+
+            .img, .link, .link_card {
+                position: relative;
+                color: #b2b2b2;
+
+                &::before {
+                    position: absolute;
+                    top: -14px;
+                    background: #f4f4f4;
+                    left: -2px;
+                    height: 17px;
+                    padding: 1px 6px;
+                    border-radius: 3px;
+                    color: #888;
+                    @include flex(center, center);
+                    font-size: 12px;
+                }
+            }
+            .img {
+                &::before {
+                    content: "画像";
+                    width: 55px;
+                }
+            }
+            .link {
+                &::before {
+                    content: "リンク";
+                    width: 60px;
+                }
+            }
+            .link_card {
+                &::before {
+                    content: "リンクカード";
+                    width: 86px;
+                }
+            }
+
+            em {
+                font-size: 0.99em;
+            }
+            strong {
+                font-weight: 500;
+                // background: -webkit-linear-gradient( transparent 65%, $pink 0% );
+                text-shadow: 0px 0.5px 0px #000, 0.5px 0px 0px;
+            }
+            code {
+                background-color: rgba(0,0,0,.06);
+                border-radius: 3px;
+                padding: 0.1em 0;
+            }
+        }
+    
+        .text{
+            position: relative;
+            background-color:rgba(0,0,0,0) !important;
+            font-family: "Nunito", sans-serif !important;
+            border: none;
+            resize: none;
+            font-size: 16px;
+            color:rgba(0,0,0,0.01);
+            padding: 0px;
+            caret-color: #000 !important;
+            width: 100%;
+            line-height: 40px;
+            letter-spacing: 0.02em;
+    
+            &::placeholder {
+                color: $placeholderColor;
+                font-size: 16px;
+            }
+        }
+        .text:focus{
+            border: none;
+            outline: none;
+        }
+    
+    }
+}

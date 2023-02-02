@@ -2,9 +2,9 @@ import { useEffect, useRef } from "react";
 import { BiLink, BiLock, BiLockOpenAlt, BiTrash } from "react-icons/bi";
 import { FaRegWindowMaximize } from "react-icons/fa";
 
+import { ToastNotification } from "../../../types/toast";
 import { UPLOADED_IMAGE } from "../../../types/vlide";
 import { generateUid } from "../../../utils/uid";
-import { ToastNotification } from "../../toastNotification/ToastNotifications";
 
 
 

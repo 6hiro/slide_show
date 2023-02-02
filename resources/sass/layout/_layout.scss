@@ -45,8 +45,10 @@
     @include flex(center, space-between);
     border-top: 1px solid #eaeaea;
     background: rgba(0, 0, 0, 0.02);
+    color: $subColor;
     padding: 0 20px;
-    font-size: 15px;
+    font-size: 13px;
+    font-weight: 600;
 
     // .privacy_tos{
     //     @include flex(center, space-around);
@@ -61,4 +63,10 @@
         }
     // }
 
+}
+// @media screen and (max-width: 767px) {
+@include mobile {
+    .footer {
+        font-size: 12px;
+    }
 }

@@ -26,20 +26,6 @@ class LikeUsersController extends Controller
         $per_page = 12;
         $since = $request->since;
     
-        // $clip = Clip::where('id', $clipId)->first();
-
-        // if($since){
-        //     $like_users = $clip->likes()
-        //         ->where('likes.created_at',  '<', $since)
-        //         ->latest('likes.created_at')
-        //         ->take($per_page+1)
-        //         ->get();
-        // }else{
-        //     $like_users = $clip->likes()
-        //         ->latest('likes.created_at')
-        //         ->take($per_page+1)
-        //         ->get();
-        // }
         $like_users = $clipService->getLikeUsers($clipId, $per_page, $since);
 
         return [

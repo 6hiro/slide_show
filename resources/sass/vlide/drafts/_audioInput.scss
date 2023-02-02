@@ -1,5 +1,5 @@
 .audio_action_button{
-    --size: 35px;
+    --size: 28px;
     width: var(--size);
     height: var(--size);
     border-radius: 50%;
@@ -15,8 +15,7 @@
     }
     svg{
         border-radius: 50%;
-        font-size: 26px;
+        font-size: 24px;
         padding: 1px;
-        // color: $mainColor;
     }
 }

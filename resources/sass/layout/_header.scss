@@ -133,12 +133,12 @@
                 & > span {
                     &:nth-child(1) {
                         transform: translateY(0px) rotate(45deg);
-                        background-color: $mainColor;
+                        // background-color: $subColor;
                     }
                     &:nth-child(2) {
                         /* transform: translateY(0px) rotate(-45deg); */
                         transform: translateY(0px) rotate(315deg);
-                        background-color: $subColor;
+                        // background-color: $subColor;
                     }
                     &:nth-child(3) {
                         transform: translateX(30px);
@@ -175,7 +175,7 @@
             height: 100%;
             z-index: 300;
             overflow: scroll;
-
+            // color: #e6e2d7;
   
             .links {
                 padding: 15px 0px;
@@ -247,6 +247,9 @@
                     margin: 20px 10px;
                     color: $white;
                     border: 2px solid $white;
+                    // color: #e6e2d7;
+                    // border: 2px solid #e6e2d7;
+
                     border-radius: 5px;
                     text-align: center;
 
@@ -290,7 +293,7 @@
             margin: 0;
             max-height: 620px;
             width: calc(100vw - 20px);
-            max-width: 800px;
+            max-width: 550px;
             overflow-y: scroll;
     
             background: #fff;

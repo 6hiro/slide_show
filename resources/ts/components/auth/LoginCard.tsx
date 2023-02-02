@@ -6,7 +6,7 @@ import { PASSWORD_PATTERN } from '../../utils/regexps';
 import { Link } from 'react-router-dom';
 import { siteTitle } from '../../constants/site';
 import { generateUid } from '../../utils/uid';
-import { ToastNotification } from '../toastNotification/ToastNotifications';
+import { ToastNotification } from '../../types/toast';
 
 
 

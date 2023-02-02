@@ -1,19 +1,17 @@
 .draft_vlide_container {
-    // margin-top: $headerHeight;
-    // height: 100vh;
 
     .draft_vlid__main{
         --border-width: 8px;
         --min-section-width: 52px;
         position: relative;
         display: flex;
-        // min-height: 100vh;
         width: 100vw;
         border-bottom: 2px solid #e5e5e5;
 
         
         &__border{
-            cursor: ew-resize;
+            // cursor: ew-resize;
+            cursor: col-resize;
             width: var(--border-width);
             min-width: var(--border-width);
             margin: 0px -4px;
@@ -36,13 +34,8 @@
             }
         }
         &__section {
-            // min-width: var(--min-section-width);
-            // max-width: calc(100% - var(--border-width) - var(--min-section-width) );
-            overflow-x: hidden;
             position: relative;
-            // width: 100%;
-            min-width: 250px;
-
+            min-width: 320px;
             
             &__header {
                 @include flex(center, space-between);
@@ -56,8 +49,13 @@
 
                 &__title {
                     font-weight: 600;
-                    font-size: 15px;
+                    font-size: 16px;
                     color: #666;
+                }
+
+                &__extra {
+                    @include flex(center, space-between);
+                    gap: 16px;
                 }
 
                 &__action {
@@ -87,9 +85,11 @@
             }
         }
         &__section_one {
+            // min-width: 320px;
+
             .draft_vlid__main__section__header {
                 .img_button{
-                    --size: 30px;
+                    --size: 28px;
                     width: var(--size);
                     height: var(--size);
                     border-radius: 50%;
@@ -105,7 +105,7 @@
                     }
                     svg{
                         border-radius: 50%;
-                        font-size: 28px;
+                        font-size: 26px;
                         padding: 1px;
                         // color: $mainColor;
                     }
@@ -116,14 +116,14 @@
                     outline: none;
                     color: $subColor;
                     font-size: 12px;
+                    letter-spacing: 0.05em;
                     font-weight: 600;
                     background: $mainColor;
                     // box-shadow:  4px 2px 2px $mainColor;
                     color: $white;
                     margin: 0 0 0 auto;
-                    padding: 4px 10px;
+                    padding: 4px 8px;
                     border-radius: 5px;
-                    letter-spacing: 2px;
                     transition: 0.5s;
                     cursor: pointer;
             
@@ -136,29 +136,8 @@
                     }
                 }
             }
-            .rule{
-                color: #999;
-                font-size: 15px;
-                padding: 8px 0px;
-                width: 100%;
-            }
-            .text_count{
-                text-align: right;
-                color: #999;
-                font-size: 15px;
-                padding: 8px 0px 20px;
-                width: 100%;
-            }
-
         }
         &__section_two {
-            // background: #f5f5f5;
-
-            // .draft_vlid__main__section__content {
-            //     margin: 0 auto;
-            //     max-width: 730px;
-            //     background: $white;
-            // }
             flex: 1;
             .draft_vlid__main__section__content__title {
                 &__text {
@@ -228,7 +207,7 @@
     }
 
     // @media screen and (max-width: 767px) {
-    @media screen and (max-width: 550px) {
+    @media screen and (max-width: 650px) {
 
         .draft_vlid__main{
             display: block;
@@ -238,7 +217,7 @@
             }
             &__section {
                 width: 100%;
-                overflow-x: unset; // stickyは親要素がoverflow:hiddenの場合、効かない
+                overflow: unset; // stickyは親要素がoverflow:hiddenの場合、効かない
                 &__header {
                     position: sticky; // __contentのbottomまでstickする
                     top: $headerHeight; // stickyはtopを設定しないと、効かない

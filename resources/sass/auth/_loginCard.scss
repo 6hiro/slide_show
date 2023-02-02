@@ -7,7 +7,7 @@
         color: $white;
         width: 450px;
         background: rgba(36, 41, 47, 1);
-        padding: 2rem 1.2rem;
+        padding: 3rem 2.2rem;
         border-radius: 10px;
         position: relative;
         z-index: 0;
@@ -41,7 +41,7 @@
         &_header {
             text-align: center;
             margin-top: 0.2rem;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.6rem;
 
             h1{
                 font-size: 2rem;
@@ -88,7 +88,7 @@
                 background: rgba(255, 255, 255, 0.4);
                 padding: 0.9rem 1.5rem;
                 padding-left: calc(1rem * 3.5);
-                border-radius: 120px;
+                border-radius: 10px;
                 width: 100%;
                 transition: backgroud 0.5s;
                 font-size: 16px;
@@ -117,7 +117,7 @@
                 background: $mainColor;
                 margin: 10px 0;
                 padding: 0.8rem;
-                border-radius: 30px;
+                border-radius: 10px;
                 letter-spacing: 2px;
                 transition: 0.5s;
                 cursor: pointer;
@@ -146,6 +146,7 @@
         
         .login_card {
             width: 100%;
+            padding-top: 0;
 
             &::before {
                 transform: rotate(2.5deg);
@@ -157,22 +158,31 @@
             }
 
             &_header {
-                margin-bottom: 1.8rem;
+                // margin-bottom: 1.8rem;
                 h1{
-                    font-size: 2.2rem;
+                    font-size: 1.8rem;
                 }
             }
 
             &_form {
-                input[type=text],
-                input[type=password],
-                input[type=email]{
-                    border-radius: 8px;
+                .form_item {
+                    margin: 4px 0;
+                    input[type=text],
+                    input[type=password],
+                    input[type=email] {
+                        border-radius: 5px;
+                        background: #f4f3ef;
+                        box-shadow: $boxShadowWhite;
+                        border: 1px solid #f4f3ef;
+                        color: #24292f;
+                    }
                 }
                 button {
-                    width: 120px;
-                    border-radius: 8px;
-                    margin: 10px 0 10px auto;
+                    width: 160px;
+                    border-radius: 5px;
+                    // border-radius: 18px 10px 10px 10px;
+                    margin: 10px 0;
+                    box-shadow: $boxShadowWhite;
                 }
             }
         }

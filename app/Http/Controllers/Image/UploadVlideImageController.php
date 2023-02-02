@@ -33,7 +33,7 @@ class UploadVlideImageController extends Controller
 
         $vlide = Vlide::where('id', $vlideId)->firstOrFail();
 
-        if($vlide->count_images >= 3){ // 3つまで
+        if($vlide->count_images >= 4){ // 4 つまで
             return response()->json([
                 'count' => $vlide->count_images,
                 'message'=>'over',

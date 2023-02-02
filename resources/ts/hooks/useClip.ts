@@ -14,6 +14,8 @@ import {
     shareAsyncClip,
     unShareAsyncClip
 } from "../actions/clip";
+import { ToastNotification } from "../types/toast";
+
 
 
 export const useClip = () => {
@@ -42,8 +44,11 @@ export const useClip = () => {
         fetchAsyncLatestData(url, setClipUsers, setClipUserNextPageLink, null); 
     }
 
-    const create = (props: NEW_CLIP) => {
-        createAsyncClip( props, setText, setIsLoadingClip )
+    const create = (
+        setToastNotifications: React.Dispatch<React.SetStateAction<ToastNotification[] | []>>,
+        props: NEW_CLIP
+    ) => {
+        createAsyncClip( props, setText, setIsLoadingClip, setToastNotifications )
     };
     
     const addReply = (props: NEW_REPLY) => {

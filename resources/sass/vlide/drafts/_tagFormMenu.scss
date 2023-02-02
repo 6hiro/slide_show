@@ -1,0 +1,52 @@
+.tag_form_menu_container {
+    .overlay{
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        z-index: 320;
+        background: rgba(200, 200, 200, 0.2);
+    }
+    .tag_form_menu {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        @include flex(center, center);
+        width: 320px;
+        background: white;
+        box-shadow: $boxShadowWhite;
+        z-index: 330;
+        border-radius: 8px;
+
+
+        .close_form {
+            @include flex(center, center);
+            position: absolute;
+            right: 5px;
+            top: 10px;
+            --size: 25px;
+            height: var(--size);
+            width: var(--size);
+            color: $subColor;
+            font-size: 25px;
+            font-weight: 900;
+            opacity: 0.75;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &:hover{
+                background: #f2f2f2;
+            }
+        }
+        .tag_form__wrapper{
+            margin: 20px;
+            color: $placeholderColor;
+            
+        }
+    }
+    
+}

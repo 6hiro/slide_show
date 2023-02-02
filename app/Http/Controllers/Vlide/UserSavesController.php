@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Vlide\CreateRequest;
 use App\Models\Vlide;
-use App\Http\Resources\VlideResource;
+use App\Http\Resources\VlideForListResource;
 use App\Services\VlideService;
 
 
@@ -37,7 +37,8 @@ class UserSavesController extends Controller
             'next_page_link' => $vlides->count() > $per_page
                 ? $request->url()."?since=".$vlides[count($vlides)-2]["pivot"]["created_at"]->format('Y-m-d H:i:s.v') 
                 : null,
-            'data' => VlideResource::collection($vlides->take($per_page)),
+            // 'data' => VlideResource::collection($vlides->take($per_page)),
+            'data' => VlideForListResource::collection($vlides),
         ];
 
 

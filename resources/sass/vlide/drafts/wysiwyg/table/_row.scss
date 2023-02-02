@@ -1,0 +1,31 @@
+// Table row
+.table_row {
+    position: relative;
+    // overflow-x: scroll;
+    // overflow-y: visible;
+
+    color: #3d4852;
+    font-size: 14px;
+    line-height: 20px !important;
+    font-weight: normal;
+    display: flex;
+    margin-right: 10px;
+    
+    &:first-child {
+        border-top: 1px solid $borderColor;
+    }
+
+
+    .row_data {
+        border-left: 1px solid $borderColor;
+        border-bottom: 1px solid $borderColor;
+        min-width: 100px;
+        &:last-child {
+            border-right: 1px solid $borderColor;
+        }
+    }
+
+    &:hover .element-options-row  {
+        opacity: 1;
+    }
+}

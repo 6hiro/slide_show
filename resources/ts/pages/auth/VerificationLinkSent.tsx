@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { siteTitle } from "../../constants/site";
 
 
+
 const VerificationLinkSent = () => {
 
     return (
@@ -26,6 +27,6 @@ const VerificationLinkSent = () => {
             </div>
         </div>
     )
-}
+};
 
 export default VerificationLinkSent;

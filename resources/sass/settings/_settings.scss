@@ -75,12 +75,13 @@
         margin-top: 50px;
         margin-left: 10px;
     }
+    .change_plan_button,
     .edit_account_button,
     .change_password_button,
     .delete_account_button {
         display: relative;
         cursor: pointer;
-        margin: 10px auto 0 auto;
+        margin: 5px auto 0 auto;
         width: 310px;
         height: 50px;
         transition: 0.3s;
@@ -91,14 +92,14 @@
             padding: 0.5rem 0.5rem;
             color: $white;
             background: $subColor;
-            font-size: 15px;
+            font-size: 17px;
             font-weight: 800;
             text-align: center;
             outline: none;
             border: none;
             border-radius: 8px;
             box-shadow: $boxShadowWhite;
-            border: 3px solid $subColor;
+            // border: 3px solid $subColor;
 
             &:hover {
                 opacity: 0.9;

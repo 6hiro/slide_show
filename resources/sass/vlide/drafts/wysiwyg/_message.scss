@@ -1,0 +1,64 @@
+aside.message_element{ // aleart message
+    @include flex(flex-start, unset);
+    padding: 1em 1em;
+    border-radius: 5px;
+    background: #fff3dd;
+    border: 2px solid #ffb84c;
+    box-shadow: $boxShadowWhite;
+    color: #000000a6;
+    font-size: 1em;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    
+    .message_icon{
+        position: relative;
+        padding-top: 0.4em;
+        top: 0.05em;
+        width: 1.4em;
+        height: 1.8em;
+        color: #ffb84c;
+    }
+    
+    .message_content{
+        flex: 1;
+        margin-left: 0.6em;
+        min-width: 0;
+        a{
+            color: $blue;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        code {
+            background-color: rgba(0,0,0,.06);
+            border-radius: 3px;
+            padding: 0.1em 0.35em;
+        }
+    }
+}
+
+aside.alert_element{ // aleart
+    background: #fff3f2;
+    border: 2px solid #ff6655;
+
+    .message_icon{
+        color: #ff6655;
+    }
+    .message_content{
+        flex: 1;
+        margin-left: 0.6em;
+        min-width: 0;
+    }
+    a{
+        color: $blue;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    code {
+        background-color: rgba(0,0,0,.06);
+        border-radius: 3px;
+        padding: 0.1em 0.35em;
+    }
+}

@@ -379,7 +379,7 @@
 }
 
 .feed_container{
-	min-height: 100vh;
+	min-height: calc(100vh - $headerHeight);
 	padding: 1.5rem 0;
 	.navigation {
 		@include flex(center, space-between);
@@ -431,7 +431,8 @@
 
 			.vlide_card {
 				// margin: 0.05rem;
-				margin: 0rem 0.3rem 1rem;
+				// margin: 0rem 0.3rem 1rem;
+				margin: 0rem 0.3rem 0.5rem;
 				position: relative;
 				// width: 325px;
 			}

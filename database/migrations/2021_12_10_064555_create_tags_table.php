@@ -17,6 +17,7 @@ class CreateTagsTable extends Migration
             // $table->id();
             $table->uuid('id')->primary();
             $table->string('name')->unique(); 
+            $table->string('alias')->nullable(); 
             // $table->timestamps();
             // $table->timestamps(6);
             $table->dateTime('created_at')->nullable();

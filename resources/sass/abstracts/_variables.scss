@@ -1,13 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Niconne&display=swap');
+// @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
 // @import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
 $bodyBg: #fff;
 $mainBg: #fff;
 $mainColor: #e4007f;
+// $mainColor: #be5e68;
 $mainHoverColor: #7b2a55;
 $subColor: #24292f;
+// $subColor: #1e2033;
 $txtColor: #000;
 $buttonColor: #5d62fb;
+$buttonColor: #7376e8;
 $buttonHoverColor: #4246c2;
+$placeholderColor: #b3b3b3;
 
 $white: #fff;
 $black: #000;
@@ -18,7 +24,7 @@ $green: #72c09c;
 $pink: #e10098;
 $orange: #ffa801;
 $purple: #853bce;
-$colorful:  repeating-linear-gradient(90deg,#d95e40,#f2992e,#f7dd38,#56bc8a,#529ecc,#a77dc2,#d95e40 100%);
+$colorful:  repeating-linear-gradient(45deg,#d95e40,#f2992e,#f7dd38,#56bc8a,#529ecc,#a77dc2,#d95e40 100%);
 $fontFamily: "Nunito", sans-serif;
 $boxShadow: 0 0 0 1px #000, 0 30px 80px rgb(0 0 0 / 7%), 0 15px 15px rgb(0 0 0 / 6%), 0 10px 8px rgb(0 0 0 / 5%), 0 4px 4px rgb(0 0 0 / 4%), 0 2px 2px rgb(0 0 0 / 3%);
 $boxShadowWhite: 0 0 8px -5px rgb(0 0 0 / 47%);

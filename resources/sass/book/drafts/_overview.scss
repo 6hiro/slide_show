@@ -1,0 +1,35 @@
+.overview_textarea_container{
+    position: relative;
+    
+    .overview_textarea {
+        position: relative;
+        background-color:rgba(0,0,0,0) !important;
+        font-family: "Nunito", sans-serif !important;
+        border: none;
+        resize: none;
+        font-size: 16px;
+        // color:rgba(0,0,0,0.01);
+        padding: 0px;
+        caret-color: #000 !important;
+        width: 100%;
+        line-height: 40px;
+        letter-spacing: 0.02em;
+        border-bottom: 2px solid #ddd;
+
+        &::placeholder {
+            color: $placeholderColor;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        &:focus{
+            outline: none;
+        }
+    }
+    .text_count{
+        text-align: right;
+        color: #999;
+        font-size: 15px;
+        padding: 8px 0px;
+        width: 100%;
+    }
+}

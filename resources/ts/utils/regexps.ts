@@ -11,8 +11,8 @@ const atRegExp = /^@[0-9a-zA-Z_]+$/;
 // const slideBlockRegExp = /---(.*)\n([\s\S]*?)---(([0-9]?[0-9]:)?([0-9]?[0-9]:)?[0-9]?[0-9])\n?/gm; 
 // const slideRegExp = /---(.*)\n([\s\S]*?)---(([0-9]?[0-9]:)?([0-9]?[0-9]:)?[0-9]?[0-9])\n?/; 
 // 00:00:01
-const slideBlockRegExp = /---(.*)\n([\s\S]*?)---(([0-9]{1,2}:)?[0-9]{1,2})\n?/gm; 
-const slideRegExp = /---(.*)\n([\s\S]*?)---(([0-9]{1,2}:)?[0-9]{1,2})\n?/; 
+const slideBlockRegExp = /---(.*)\n([\s\S]*?)\n---(([0-9]{1,2}:)?[0-9]{1,2})\n?/gm; 
+const slideRegExp = /---(.*)\n([\s\S]*?)\n---(([0-9]{1,2}:)?[0-9]{1,2})\n?/; 
 // 00:01
 // 01
 
@@ -22,24 +22,25 @@ const inlineRegexps = [
     //strong RegExp
     // デフォルトでは、Greedy（欲張り）なマッチ
     // 量指定子(+や*など)の直後に「?」を置くことで、可能な限り短い文字列のマッチを検出するようになる
-    { elmType: 'strong', regexp: /\*\*(.+?)\*\*/ },
-    // { elmType: 'strong', regexp: /__(.+?)__/ },
+    { elmType: 'strong', regexp: /\*(.+?)\*/ },
     // italic RegExp
-    // { elmType: 'italic', regexp: /\*(.+?)\*/ },
     { elmType: 'italic', regexp: /_(.+?)_/ },
     // delete RegExp
-    { elmType: 'del', regexp: /~~(.+?)~~/ },
+    { elmType: 'del', regexp: /~(.+?)~/ },
     // br RegExp
     // { elmType: 'br', regexp: /(\n)/ },
+    // 
+    { elmType: 'at', regexp: /@[0-9a-zA-Z_]+/ },
     // url RegExp
-    // { elmType: 'url', regexp: /(https?\:\/\/*)[^)\s]/ },
-    { elmType: 'url', regexp: /(https\:\/\/[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)[^)\s]/ },
-    // { elmType: 'url', regexp: /[^(](https?\:\/\/.*)/ },
+    // { elmType: 'url', regexp: /(https\:\/\/[\w!?/+\-_~=;:.,*&@#$%()'[\]]+[^)\s])/ },
+    { elmType: 'url', regexp: /(https\:\/\/[\w!?/+\-_~=;:.,*&@#$%']+[^)\s])/ },
     // image RegExp
-    { elmType: 'img', regexp: /\!\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)\)/},
-    // { elmType: 'img', regexp: /\!\[(.*)\]\(((http)(?:s)?(\:\/\/).*)\)/},
-    { elmType: 'linkCard', regexp: /\?\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)\)/ },
-    { elmType: 'link', regexp: /\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)\)/ },
+    // { elmType: 'img', regexp: /\!\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)\)[^?![]/},
+    { elmType: 'img', regexp: /\!\[(.*)\]\((https?(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%']+)\)/},
+    { elmType: 'linkCard', regexp: /\?\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%']+)\)/ },
+    // { elmType: 'linkCard', regexp: /\?\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)\)[^?![]/ },
+    { elmType: 'link', regexp: /\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%']+)\)/ },
+    // { elmType: 'link', regexp: /\[(.*)\]\((https(\:\/\/)[\w!?/+\-_~=;:.,*&@#$%()'[\]]+)\)[^?![]/ },
 ];
 
 export {

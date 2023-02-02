@@ -3,4 +3,3 @@ export type ToastNotification = {
     type: "success" | "error" | "warning" | "info";
     message: string;
 };
-

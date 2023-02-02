@@ -141,7 +141,7 @@
                     box-shadow: rgb(101 119 134 / 20%) 0px 0px 15px, rgb(101 119 134 / 15%) 0px 0px 3px 1px;
                     border-radius: 4px;
                     right: 0;
-                    top: 35px;
+                    top: 30px;
                     display: none;
     
                     li{
@@ -259,11 +259,8 @@
     }
 
     .clip_additional_elements {
-        // width: 200px;
-        // margin: 0 auto;
         position: relative;
-        // padding: 0px 0px;
-        padding-top: 0;
+        padding-top: 6px;
         padding-bottom: 0;
         @include flex(center, space-between);
         user-select: none;

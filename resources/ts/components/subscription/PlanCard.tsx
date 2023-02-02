@@ -1,13 +1,14 @@
-import React from 'react'
+// import React from 'react';
 import axios from '../../libs/axios';
 import { PLAN } from '../../types/plan'
+import { ACCOUNT } from '../../types/user';
 
-const PlanCard = (props: {plan: PLAN, index: number}) => {
+const PlanCard = (props: {user: ACCOUNT, plan: PLAN, index: number}) => {
     const plan = props.plan;
-    const colors = ['#9c27b0', '#ff9100', '#4615b2'];
+    const colors = ['#333', '#5cb5da', '#fa4e53'];
 
-    const handlePlan = async (planId: number) => {
-        const res = await axios.post(`/checkout/${planId}`);
+    const handleStartPlan = async (planId: number) => {
+        const res = await axios.post(`api/payment/checkout/${planId}`);
 
         if (res.status === 200) {
             window.location.replace(res.data.url);
@@ -21,35 +22,64 @@ const PlanCard = (props: {plan: PLAN, index: number}) => {
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '100vh',
+                // height: '100vh',
             }}
         >
             <div
                 style={{
-                    width: "360px",
-                    background: '#e3f2fd',
-                    boxShadow: 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',
+                    width: "320px",
+                    background: "#fff",
+                    // boxShadow: 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',
+                    boxShadow: "0 0 8px -5px rgb(0 0 0 / 47%)",
                     borderRadius: "10px",
                     padding: "4px",
                     textAlign: 'center',
                     height: 'auto',
                 }}
             >
-                <h2>{plan?.name}</h2>
-                <p>Get the party started</p>
-                <h2>{plan?.price}円</h2>
-                <p>per {plan?.interval}</p>
+                <h2 style={{margin: "20px 0 10px", fontSize: "20px", color: "#444"}}>{plan?.name === 'Basic' && "標準プラン"}</h2>
+                <h2 style={{margin: "0 0 20px 0", fontSize: "27px", color: "#222"}}>{Math.floor(plan?.price)} 円 
+                    <span style={{fontWeight: "normal"}}>
+                        {plan?.interval === 'month' && " / 月"}
+                    </span>
+                </h2>
 
-                <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. At, eos
-                    deserunt? Sunt unde fugiat atque?
-                </p>
+                {plan?.name === 'Basic' 
+                    ? 
+                        <div style={{margin: "20px auto 25px", width: "240px", color: "#333", fontSize: "15.5px", textAlign: "left", display: "flex", flexDirection: "column", rowGap: "10px"}}>
+                            <p><span style={{color: "#222", paddingRight: "10px"}}>✔︎</span>投稿： 40 件 / 月</p>
+                            <p><span style={{color: "#222", paddingRight: "10px"}}>✔︎</span>画像： 30 枚 / 1 投稿</p>
+                            <p><span style={{color: "#222", paddingRight: "10px"}}>✔︎</span>クリップ： 400 件 / 月</p>
+                            <p><span style={{color: "#222", paddingRight: "10px"}}>✔︎</span>ブック： 20 件</p>
+                            <p><span style={{color: "#222", paddingRight: "10px"}}>✔︎</span>チケット： 150 枚 / 1 ブック</p>
+                        </div>
+                    :null
+                }
+                <p style={{margin: "10px 0 15px", fontSize: "15px", color: "#fa4e53", textAlign: "center"}}>※ 返金対応は行っておりません。</p>
 
                 <button
-                    style={{ background: colors[props.index], borderRadius: "10px", margin: "20px 0", padding: "10px 0" }}
-                    onClick={() => handlePlan(plan?.id)}
+                    style={{ 
+                        background: colors[props.index], 
+                        borderRadius: "10px", 
+                        margin: "5px 0 25px", 
+                        padding: "8px 0",
+                        outline: "none", 
+                        border: "1px solid #ddd", 
+                        width: "220px",
+                        cursor: "pointer",
+                        color: "#fff",
+                        fontSize: "16px",
+                        fontWeight: "600px"
+                    }}
+                    onClick={() => {
+                        if(props.user.plan !== "Basic"){
+                            handleStartPlan(plan?.id);
+                        }  
+                    }}
                 >
-                    Get Started
+                    {/* { props.user.plan !== "Basic" ? "プランを解約" : "はじめる"} */}
+                    { props.user.plan === "Basic" ? "プランを解約" : "はじめる"}
+                    
                 </button>
             </div>
 

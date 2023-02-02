@@ -4,8 +4,8 @@ import { QueryObserverResult, RefetchOptions, RefetchQueryFilters } from '@tanst
 
 import { USER } from '../../types/user';
 import { generateUid } from '../../utils/uid';
-import { ToastNotification } from '../toastNotification/ToastNotifications';
 import useToggle from '../../hooks/useToggle';
+import { ToastNotification } from '../../types/toast';
 
 
 

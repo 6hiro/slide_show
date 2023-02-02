@@ -1,0 +1,52 @@
+.set_book_type_container {
+    width: 140px;   
+    position: relative;
+    --buttonHeight: 35px;
+    user-select: none;
+
+    .select_button {
+        position: relative;
+        z-index: 15;
+        @include flex(center, center);
+        height: var(--buttonHeight);
+        // border: 1px solid #50495c;
+        background: $subColor;
+        border-radius: 3px;
+        color: $white;
+        font-size: 14px;
+        cursor: pointer;
+        svg {
+            margin-right: 2px;
+            font-size: 18px;
+        }
+        
+        &:hover{
+            color: #f2f2f2;
+        }
+    }
+
+    .book_type__menu {
+        position: absolute;
+        top: calc(var(--buttonHeight) - 5px);
+        width: 140px;
+        // height: 80px;
+        z-index: 10;
+        padding-top: 5px;
+        background: #fdfdfd;
+        box-shadow: $boxShadowWhite;
+        @include flex(center, center);
+        flex-direction: column;
+
+        &__option {
+            font-size: 15px;
+            padding: 8px 0;
+            width: 140px;
+            cursor: pointer;
+            text-align: center;
+
+            &:hover {
+                background-color: #f2f2f2;
+            }
+        }
+    }
+}

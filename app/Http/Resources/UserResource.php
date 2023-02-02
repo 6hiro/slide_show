@@ -31,7 +31,7 @@ class UserResource extends JsonResource
             'isFollowed' => $this->isFollowedBy(Auth::user()),
             'count_followings' => $this->count_followings,
             'count_followers' => $this->count_followers,
-            'count_vlides' => $this->count_vlides,
+            'count_vlides' => $this->count_public_vlides,
             'description' => $this->description,
             // 'vlides'=> VlideResource::collection($vlides),
             // 'email_verified_at' => $this->email_verified_at,

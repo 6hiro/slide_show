@@ -1,9 +1,11 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import { siteTitle } from '../../constants/site';
 import ForgotPasswordCard from '../../components/auth/ForgotPasswordCard';
-import { Navigate } from 'react-router-dom';
+
+
 
 type Props = {
     user: any;

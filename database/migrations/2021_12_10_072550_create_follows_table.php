@@ -15,6 +15,7 @@ class CreateFollowsTable extends Migration
     {
         Schema::create('follows', function (Blueprint $table) {
             $table->id();
+            $table->boolean('is_admitted')->default(true);        
 
             // Foreign key.
             $table->uuid('follower_id');

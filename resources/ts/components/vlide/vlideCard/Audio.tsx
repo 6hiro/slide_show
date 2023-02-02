@@ -10,6 +10,7 @@ type Props = {
     setIsRunning: Function;
     setIsLoading: Function;
 };
+
 const Audio = (props: Props) => {
     // PlayButton が初めて押されたタイミング( setIsRunning(true) ) で AudioFile をロードする
     // AudioFile はロード中は、setIsLoading(true) で、ロード画面を描写

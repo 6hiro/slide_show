@@ -45,7 +45,8 @@ const Clip: React.FC<{
     const isShared = props.clip.clip_type==="reclip";
     const isReply = props.clip.clip_type==="reply";
 
-    const clip = (props.clip.clip_type==="reclip" || props.clip.content===null) 
+    // const clip = (props.clip.clip_type==="reclip" || props.clip.content===null) 
+    const clip = (props.clip.clip_type==="reclip") 
                 ? props.clip.parent 
                 : props.clip;
 
@@ -186,8 +187,8 @@ const Clip: React.FC<{
                             <div className={`clip_main__header__right__delete ${showDelete ? "show_delete" : ""}`}>
                                 <p className="clip_main__header__right__delete__content" >
                                     <strong>
-                                        {clip?.content.slice(0, 20)}
-                                        {clip?.content.length > 20 && <span>...</span>}
+                                        {clip?.content?.slice(0, 20)}
+                                        {clip?.content?.length > 20 && <span>...</span>}
                                     </strong>
                                     を削除してもよろしいですか？
                                 </p>

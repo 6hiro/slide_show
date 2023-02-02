@@ -37,7 +37,9 @@ const NewClipForm = (props: Props) => {
             content: text,
             quote: "",
         }
-        create(data);
+        create(setToastNotifications, data);
+        
+        props.toggleForm(false);
         
         setLoading(false);
     };

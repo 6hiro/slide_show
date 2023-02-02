@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\VlideService;
 use Illuminate\Http\Request;
 // use App\Models\Vlide
-use App\Http\Resources\VlideResource;
+use App\Http\Resources\VlideForListResource;
 
 use DateTime;
 use DateTimeZone;
@@ -29,7 +29,8 @@ class RankTagController extends Controller
         $vlides = $vlideService->getRankTag($tag_name, $per_page, $since);
 
         return [
-            'data' => VlideResource::collection($vlides),
+            // 'data' => VlideResource::collection($vlides),
+            'data' => VlideForListResource::collection($vlides),
         ];
     }
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { handleFocus } from '../../../utils/markdown-wysiwyg/inputElements/event/onFocus';
+
 
 
 type Props = {
@@ -19,6 +21,7 @@ const TitleInput = (props: Props) => {
                 required 
                 autoFocus={props.autoFocus} 
                 maxLength={maxLength}
+                onFocus={()=>handleFocus("title")}
             />
 
             <div className="text_count" >

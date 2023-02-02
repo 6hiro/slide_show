@@ -1,0 +1,55 @@
+.ticket_user_list {
+    .overlay{
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        z-index: 320;
+        background: rgba(200, 200, 200, 0.2);
+    }
+    .formContainer {
+        z-index: 320;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -45%);
+        margin: 0;
+        max-height: calc(100vh - $headerHeight - 30px);
+        width: calc(100vw - 20px);
+        max-width: 600px;
+        overflow-y: scroll;
+        background: #fff;
+        box-shadow: 0 0 8px -5px rgb(0 0 0 / 47%);
+        border-radius: 5px;
+        padding: 25px 0;
+
+
+        .closeForm {
+            @include flex(center, center);
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            --size: 30px;
+            height: var(--size);
+            width: var(--size);
+            color: $subColor;
+            font-size: 30px;
+            font-weight: 900;
+            opacity: 0.75;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &:hover{
+                background: #f2f2f2;
+            }
+        }
+        .title {
+            padding: 0 25px;
+            font-weight: 600;
+        }
+    }
+    
+}

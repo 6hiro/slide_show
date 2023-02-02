@@ -1,15 +1,18 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
+import { Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import LoginCard from '../../components/auth/LoginCard';
 import { siteTitle } from '../../constants/site';
-import { Navigate } from 'react-router-dom';
 import { ToastNotificationsContext } from '../../hooks/useToastNotifications';
+
+
 
 type Props = {
     user: any, 
     login: any,
-}
+};
+
 const Login = (props: Props) => {
     const {user, login} = props;
     const [_, setToastNotifications] = useContext(ToastNotificationsContext);

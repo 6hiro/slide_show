@@ -1,4 +1,4 @@
-import { SetStateAction, useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { BiX } from 'react-icons/bi';
@@ -20,12 +20,17 @@ import { generateUid } from '../../utils/uid';
 import Vlide from '../../components/vlide/vlideCard/Vlide';
 import EditIconForm from '../../components/prof/EditIconForm';
 import { QueryObserverResult, RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query';
+import Ticket from '../../components/ticket/Ticket';
+import BookCard from '../../components/book/BookCard';
+
+
 
 type Props ={ 
     user: any;
     isLoading: boolean;
     refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => Promise<QueryObserverResult<any, unknown>>
-}
+};
+
 const Profile = (props: Props) => {
     const [openIconForm, toggleIconForm] = useToggle(false);
     const [openEditForm, toggleEditForm] = useToggle(false);
@@ -42,11 +47,13 @@ const Profile = (props: Props) => {
         isLoadingProf,
         isLoadingContents,
         section,
+        books,
         vlides,
         clips,
         users,
         clipUsers,
         images,
+        bookNextPageLink,
         vlideNextPageLink,
         clipNextPageLink,
         userNextPageLink,
@@ -59,6 +66,7 @@ const Profile = (props: Props) => {
         getFollowings,
         followUnfollow,
         clipfollowUnfollow,
+        getMoreBooks,
         getMoreVlides,
         getMoreClips,
         getMoreUsers,
@@ -89,8 +97,8 @@ const Profile = (props: Props) => {
     useEffect(() => {
         toggleEditForm(false);
         toggleUserList(false);
-
     }, [username]);
+
 
     // ロード時に、profCard にフォーカスを当てる
     useEffect(() => {
@@ -318,9 +326,11 @@ const Profile = (props: Props) => {
                             : null
                         }
 
-                        { ( !vlides?.length && !clips?.length && !images?.length && !isLoadingContents ) && 
+                        { ( !books?.length && !vlides?.length && !clips?.length && !images?.length && !isLoadingContents ) && 
                             <div className="prof_content_container">
                                 <div className="prof_content">
+                                    {section==="books" ? "まだブックがありません" : null}
+                                    {section==="tickets" ? "まだチケットがありません" : null}
                                     {section==="vlides" ? "まだ投稿がありません" : null}
                                     {section==="clips" ? "まだクリップがありません" : null}
                                     {section==="bookmarks" ? "まだ保存がありません" : null}
@@ -357,6 +367,43 @@ const Profile = (props: Props) => {
                         }
                         { ( clips && clipNextPageLink ) && 
                             <GetMoreButton nextPageLink={clipNextPageLink} gerMoreFunc={getMoreClips} />
+                        }
+
+                        {/* Books */}
+                        {books?.length 
+                            ?  <div className="vlide_container">
+                                <ul className="vlide_list">
+                                    {books && books.map(( book, i ) => 
+                                        <li key={i} className="book_card">
+                                            {section==="tickets"
+                                                ?    <Ticket 
+                                                        ticketNumber={book.count_tickets} 
+                                                        title={book.title} 
+                                                        username={book.user?.name} 
+                                                        nickname={book.user?.nick_name} 
+                                                        url={book.is_public ? `/book/${book.id}` : `/drafts/book/${book.id}`} 
+                                                        imgPass={book.user?.file_name ? book.user.file_name : `/images/Logo.png`}
+                                                        jumpToLink={true}
+                                                    />
+                                                :   <BookCard
+                                                        ticketNumber={book.count_tickets} 
+                                                        title={book.title} 
+                                                        username={book.user?.name} 
+                                                        nickname={book.user?.nick_name} 
+                                                        url={book.is_public ? `/book/${book.id}` : `/drafts/book/${book.id}`} 
+                                                        // imgPass={user.file_name ? user.file_name : `/images/Logo.png`}
+                                                        jumpToLink={true}
+                                                    />
+                                            }
+
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
+                            : null
+                        }
+                        { ( books && bookNextPageLink ) && 
+                            <GetMoreButton nextPageLink={bookNextPageLink} gerMoreFunc={getMoreBooks} />
                         }
 
                         {/* Vlides */}

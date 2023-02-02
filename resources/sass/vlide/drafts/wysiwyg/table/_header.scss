@@ -1,0 +1,27 @@
+// Table head cell
+.table_head {
+    border-top: 1px solid $borderColor;
+    position: relative;
+    display: flex;
+    
+    &__row {
+        color: #3d4852;
+        // border-bottom: 1px solid;
+        // border-color: $borderColor;
+        display: flex;
+
+        &__header {
+            font-size: 14px;
+            line-height: 20px !important;
+            font-weight: normal;
+            border-bottom: 1px solid;
+            border-left: 1px solid;
+            border-color: $borderColor;
+
+            &:last-child {
+                border-right: 1px solid;
+                border-color: $borderColor;
+            }
+        }
+    }
+}

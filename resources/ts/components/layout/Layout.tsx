@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import useToggle from '../../hooks/useToggle';
 import { delay } from '../../utils/delay';
 import InitialLoadingScreen from './InitialLoadingScreen';
-import LoadingScreen from './LoadingScreen';
+// import LoadingScreen from './LoadingScreen';
 
 
 
@@ -21,7 +21,7 @@ const Footer = memo(() => {
             </div>
             <div className="privacy">
                 <Link to="/privacy">
-                    プライバシー
+                    プライバシーポリシー
                 </Link>
             </div>
             <div className="tos">
@@ -29,6 +29,7 @@ const Footer = memo(() => {
                     利用規約
                 </Link>
             </div>
+
         </footer>
     )
 });

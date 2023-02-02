@@ -53,7 +53,7 @@ const TagForm = (props: Props) => {
                 />
                 <div className="rule" >
                     <BiMessageError />
-                    <span> 入力後、Space もしくは、Enter を押すと追加できます</span>
+                    <span> 入力後、Space もしくは、Enter を押すとタグを追加できます</span>
                 </div>
             </li>
 

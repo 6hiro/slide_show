@@ -1,13 +1,15 @@
 // https://github.com/taylorotwell/next-example-frontend/blob/master/src/hooks/auth.js
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 
 import axios from '../libs/axios';
 import { NEW_VLIDE, UPDATE_VLIDE, UPLOADED_IMAGE, UPLOAD_AUDIO, UPLOAD_IMAGE } from '../types/vlide';
 import { generateUid } from '../utils/uid';
-import { ToastNotification } from '../components/toastNotification/ToastNotifications';
-import { useNavigate } from 'react-router-dom';
 import { deleteAsyncImage, uploadAsyncImage } from '../actions/image';
+import { ToastNotification } from '../types/toast';
+
+
 
 export const useDraftVlide = () => {
     let navigate = useNavigate();
@@ -30,7 +32,7 @@ export const useDraftVlide = () => {
  
 
     const retrieveForDraft = async(vlideId: string) => {
-        await setIsLoading(true);
+        setIsLoading(true);
 
         axios
             .get(`/api/v1/vlide/${vlideId}/draft`)
@@ -67,12 +69,22 @@ export const useDraftVlide = () => {
                 res.data.id && navigate(`/drafts/vlide/${res.data.id}`);
             })
             .catch(error => {
-                setToastNotifications(prev => {
-                    return[
-                        ...prev,
-                        {id: generateUid(), type:"warning", message:"投稿に失敗しました"},
-                    ];
-                });
+                if(error.response.data.status === "over") {
+                    setToastNotifications(prev => {
+                        return[
+                            ...prev,
+                            {id: generateUid(), type:"warning", message:"作成できる投稿数を超えています"},
+                        ];
+                    });
+                }else{
+                    setToastNotifications(prev => {
+                        return[
+                            ...prev,
+                            {id: generateUid(), type:"warning", message:"投稿に失敗しました"},
+                        ];
+                    });
+                }
+
             })
             .finally(()=>{
                 processing.current = false;

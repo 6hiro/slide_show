@@ -24,7 +24,7 @@ export const fetchBlogCard = async (
 
 export const saveUnsaveAsyncVlide = async (
     vlideId:string,
-    setVlides: Dispatch<SetStateAction<VLIDE[] | undefined>>,
+    setVlides: Dispatch<SetStateAction<VLIDE[] | undefined>> | null,
     setVlide: Dispatch<SetStateAction<VLIDE | undefined>> | null
 ) => {
     axios
@@ -50,7 +50,7 @@ export const saveUnsaveAsyncVlide = async (
                 return vlide;
             }
 
-            setVlides( (prev) => {
+            setVlides && setVlides( (prev) => {
                 if(prev){
                     const newVlides = [ ...prev ];
 
@@ -81,7 +81,7 @@ export const saveUnsaveAsyncVlide = async (
                 vlide["is_saved"] = false;
                 return vlide;
             };
-            setVlides( (prev) => {
+            setVlides && setVlides( (prev) => {
                 if(prev){
                     const newVlides = [ ...prev ];
 

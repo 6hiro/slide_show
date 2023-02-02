@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Mail\NewUserIntroduction;
 use Illuminate\Contracts\Mail\Mailer;
+use App\Services\UserService;
 
 class RegisteredUserController extends Controller
 {
@@ -24,8 +25,17 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, Mailer $mailer)
+    public function store(Request $request, Mailer $mailer, UserService $userService)
     {
+        $user_count = $bookService->getUserCount();
+        if($user_count >= 500)
+        {
+            return response()->json([
+                    'count' => $user_count,
+                    'status'=>'over',
+                ], 403);
+        }
+        
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],

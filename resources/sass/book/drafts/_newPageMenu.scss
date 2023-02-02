@@ -1,0 +1,74 @@
+.new_page_menu_container {
+    .overlay{
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        z-index: 320;
+        background: rgba(200, 200, 200, 0.2);
+    }
+    .new_page_menu {
+        position: fixed;
+        z-index: 350;
+        background-color: #fff;
+        top: 52%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+
+        border-radius: 10px;
+        overflow: scroll;
+        line-height: 26px;
+        width: 95%;
+        max-width: 1100px;
+        min-height: 200px;
+        max-height: 75vh;
+        // max-height: 210px;
+        padding: 18px;
+
+        .closeForm {                        
+            @include flex(center, center);
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            --size: 30px;
+            height: var(--size);
+            width: var(--size);
+            background-color: #fff;
+            color: $subColor;
+            // font-size: 25px;
+            font-size: 30px;
+            font-weight: 900;
+            opacity: 0.75;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &:hover{
+                background: #f2f2f2;
+            }
+        }
+
+        &__title {
+            // text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            width: 100%;
+            margin: 20px 0 15px;
+            color: $subColor;
+        }
+        &__pages {
+            margin-top: 15px;
+            max-height: calc(75vh - 65px);
+            // max-height: 110px;
+            overflow-y: scroll;
+
+        }
+        .add_page_wrapper {
+            margin: 25px 10px;
+        }
+    }
+}

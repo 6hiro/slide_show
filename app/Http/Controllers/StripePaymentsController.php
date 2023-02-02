@@ -1,4 +1,5 @@
 <?php
+// 使わない
 // https://arrown-blog.com/php-laravel-stripe-creditcard/
 // https://biz.addisteria.com/laravel-stripe-subscription-10steps/
 namespace App\Http\Controllers;

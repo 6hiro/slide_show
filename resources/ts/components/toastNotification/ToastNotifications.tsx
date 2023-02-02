@@ -1,17 +1,12 @@
 // https://fkhadra.github.io/react-toastify/introduction/
 import React, { useState } from 'react'
+import { ToastNotification as TOAST } from '../../types/toast';
 import ToastNotification from './ToastNotification';
 
 
-export type ToastNotification = {
-    id: string;
-    type: "success" | "error" | "warning" | "info";
-    message: string;
-};
-
 type Props = {
-    notifications: ToastNotification[] | [];
-    setNotifications: React.Dispatch<React.SetStateAction<ToastNotification[] | []>>;
+    notifications: TOAST[] | [];
+    setNotifications: React.Dispatch<React.SetStateAction<TOAST[] | []>>;
 };
 
 const ToastNotifications = (props: Props) => {

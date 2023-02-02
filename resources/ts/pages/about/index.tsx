@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { siteTitle } from "../../constants/site";
 
 
+
 const About = () => {
 
     return (
@@ -23,7 +24,8 @@ const About = () => {
                 </h1>
                 <div className="title_description">
                     音声 ( Voice ) と スライド ( Slide ) を掛け合わせたコンテンツの投稿と、
-                    その投稿の内容を切り取り、メモを残せる機能を提供しています。
+                    その投稿の内容を切り取り、メモを残せる機能を提供しています。また、
+                    複数の投稿をひとまとめにし、限定公開できる機能も提供しています。
                 </div>
                 {/* <div className="title_description">
                     <p>
@@ -34,11 +36,11 @@ const About = () => {
                 </div> */}
 
                 <div className="content_container">
-                    <h2 className="sub_title">Vlide (ヴライド)</h2>
+                    <h2 className="sub_title">投稿</h2>
                     <div className="description">
                         <p>
                             <span>
-                                Vlide は、<strong>音声 ( Voice )</strong> と <strong>スライド ( Slide )</strong> を掛け合わせたコンテンツです。
+                                <strong>音声 ( Voice )</strong> と <strong>スライド ( Slide )</strong> を掛け合わせたコンテンツを投稿できます。
                             </span>
                         </p>
                         <p>
@@ -54,7 +56,7 @@ const About = () => {
                         </p>
                         <p>
                             <span>
-                                現在、1 アカウント、 3 つまで投稿できます。
+                                無料アカウントは、1 アカウント、 5 件まで投稿できます。
                             </span>
                         </p>
                     </div>
@@ -62,21 +64,43 @@ const About = () => {
 
 
                 <div className="content_container">
-                    <h2 className="sub_title">Clip (クリップ)</h2>
+                    <h2 className="sub_title">クリップ</h2>
                     <div className="description">
                         <p>
                             <span>
-                                Clip は、Vlide の内容を切り取り、メモを残せる機能です。
+                                クリップ は、投稿 の内容を切り取り、メモを残せる機能です。
                             </span>
                         </p>
                         <p>
                             <span>
-                                他のユーザーの Clip をシェアすることもできます。
+                                他のユーザーの クリップ をシェアすることもできます。
                             </span>
                         </p>
                         <p>
                             <span>
-                                現在、1 アカウント、 30 つまでクリップできます。
+                                無料アカウントは、1 アカウント、 20 つまで クリップ できます。
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div className="content_container">
+                    <h2 className="sub_title">ブック</h2>
+                    <div className="description">
+                        <p>
+                            <span>
+                                ブック は、投稿 （ 非公開も含む ）をひとまとめにし、限定公開できる機能です。
+                            </span>
+                        </p>
+                        <p>
+                            <span>
+                                ブックは、URL を知っている人にのみ公開され、投稿者以外は チケット をゲットしないと内容を見ることができません。
+                            </span>
+                        </p>
+                        <p>
+                            <span>
+                                {/* 現在、無料アカウントでは作成できません。 */}
+                                無料アカウントは、1 アカウント、 1 つまで ブック を作成できます。1 ブックあたり 100 枚まで チケット を配布できます。
                             </span>
                         </p>
                     </div>

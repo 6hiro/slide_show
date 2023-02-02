@@ -2,10 +2,12 @@
 import { QueryObserverResult, RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query';
 import { Dispatch, SetStateAction, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastNotification } from '../components/toastNotification/ToastNotifications';
 
 import axios from "../libs/axios";
+import { ToastNotification } from '../types/toast';
 import { generateUid } from '../utils/uid';
+
+
 
 export const useAuth = (
     user: any, 

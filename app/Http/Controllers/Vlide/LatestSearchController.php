@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\VlideService;
 use Illuminate\Http\Request;
 // use App\Models\Vlide
-use App\Http\Resources\VlideResource;
+// use App\Http\Resources\VlideResource;
+use App\Http\Resources\VlideForListResource;
 
 use DateTime;
 use DateTimeZone;
@@ -33,7 +34,8 @@ class LatestSearchController extends Controller
                 ? $request->url()."?word=".$word."&since=".$vlides[count($vlides)-2]["published_at"]
                 // ->format('Y-m-d H:i:s.v') 
                 : null,
-            'data' => VlideResource::collection($vlides->take($per_page)),
+            // 'data' => VlideResource::collection($vlides->take($per_page)),
+            'data' => VlideForListResource::collection($vlides->take($per_page)),
             'w' => $word,
         ];
     }

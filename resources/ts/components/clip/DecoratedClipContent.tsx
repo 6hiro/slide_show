@@ -35,35 +35,46 @@ const DecoratedClipContent:React.FC<{content: string, clipId: string}> = (props)
         );
 
         const embedElement = (src: string) => {
-            // if(src.slice(0,35) === 'https://twitter.com/Twitter/status/'){
-            //     return <Twitter src={src} />
-            // }else if(src.slice(0,28) === 'https://www.instagram.com/p/'){
-                // return <Instagram src={src} />
-            // }else if(src.slice(0, 32)==='https://www.youtube.com/watch?v=' || 
+            // if(src.slice(0, 32)==='https://www.youtube.com/watch?v=' || 
             //     src.slice(0, 30)==='https://m.youtube.com/watch?v=' || 
-            //     (src.slice(0, 17)==='https://youtu.be/' && src.length > 17)
-            // ){
+            //     (src.slice(0, 17)==='https://youtu.be/' && src.length > 17) ||
+            //     (src.slice(0, 31)==='https://www.youtube.com/shorts/' && src.length > 32) ||
+            //     (src.slice(0, 29)==='https://m.youtube.com/shorts/' && src.length > 31)
+                
+            // ){     
             //     let id;
-            //     if(src.indexOf('&')!==-1){
+            //     if(src.slice(0, 32)==='https://www.youtube.com/watch?v='){
             //         id=src.split('&')[0].split('/watch?v=')[1];
             //     } else if (src.slice(0, 17)==='https://youtu.be/') {
-            //         id=src.slice(17,);
-
+            //         id=src.slice(17,).split('?')[0];
             //     } else if(src.slice(0, 32)==='https://www.youtube.com/watch?v=') {
-            //         id=src.slice(32,);
+            //         id=src.slice(32,).split('&')[0];
+            //     } else if (src.slice(0, 31)==='https://www.youtube.com/shorts/' && src.length > 32) {
+            //         id=src.slice(31,).split('?')[0];
+            //     } else if (src.slice(0, 29)==='https://m.youtube.com/shorts/' && src.length > 31) {
+            //         id=src.slice(29,).split('?')[0];
             //     }
 
-            //     return <iframe 
+            //     return <div className='slide youtube' style={{padding: "0 auto"}} >
+            //         <iframe 
             //             id="inline-frame" 
-            //             width="256" height="144" 
+            //             width="360" height="216" 
+            //             //  width="390" height="693"
+            //             // width="560"
+            //             // height="315"
             //             title="YouTube video Player"
             //             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             //             frameBorder="0"
-            //             // https://cookie-script.com/blog/how-to-add-youtube-videos-without-cookies
+            //             // src={`https://www.youtube.com/embed/${src.split('/watch?v=')[1]}?rel=0`}
             //             src={`https://www.youtube-nocookie.com/embed/${id}?rel=0`}
-            //             // src={`https://www.youtube.com/embed/${id}?rel=0`}
             //             allowFullScreen={true}
-            //         ></iframe>  
+            //         ></iframe>
+            //     </div>
+            // }else if(src.slice(0,35) === 'https://twitter.com/Twitter/status/'){
+            //     return <Twitter src={src} />
+            // }else if(src.slice(0,28) === 'https://www.instagram.com/p/'){
+                // return <Instagram src={src} />
+            // }
             // }else{
                 return <div style={{padding: "12px 0"}}><ClipLinkCard src={src}/></div>
             // }

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
+
+
 export const useMousePosition = () => {
     const isScrubbingRef = useRef<boolean>(false); // for Mouse Event
     const [isScrubbing, setIsScrubbing] = useState<boolean>(false);

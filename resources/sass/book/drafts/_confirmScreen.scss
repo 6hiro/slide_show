@@ -1,0 +1,88 @@
+.confirm_screen_container {
+    position: fixed;
+    right: 10px;
+    bottom: 15px;
+    z-index: 300;
+    color: $subColor;
+
+    .overlay {
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        z-index: 290;
+        background: rgba(255, 255, 255, 0.7);
+    }
+    .confirm_screen {
+        z-index: 320;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        max-height: 620px;
+        width: calc(100vw - 20px);
+        max-width: 500px;
+        overflow-y: scroll;
+        background: #fff;
+        // border: 3px solid #24292f;
+        box-shadow: $boxShadowWhite;
+        border-radius: 5px;
+        
+        .closeForm {
+            @include flex(center, center);
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            --size: 30px;
+            height: var(--size);
+            width: var(--size);
+            background-color: #fff;
+            color: $subColor;
+            // font-size: 25px;
+            font-size: 30px;
+            font-weight: 900;
+            opacity: 0.75;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &:hover{
+                background: #f2f2f2;
+            }
+        }
+        &__title {
+            margin: 35px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        &__content {
+            margin: 30px auto 35px;
+            @include flex(center, space-between);
+            width: 250px;
+
+            .yes_button,
+            .no_button {
+                font-weight: 600;
+                padding: 8px 10px;
+                border-radius: 10px;
+                width: 100px;
+                font-size: 14px;
+                text-align: center;
+                cursor: pointer;
+            }
+            .yes_button {
+                color: $white;
+                background: $red;
+            }
+            .no_button {
+                // border: 2px solid #ddd;
+                background:#f2f2f2;
+                color: $subColor;
+            }
+        }
+    }
+}

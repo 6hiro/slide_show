@@ -64,14 +64,20 @@ const _tokenizeInline = (text:string, rootToken:RootToken, initialId:number): To
                     inlineTokens.push(codeToken);
                     // codeは、子要素を持たないので、これ以上探索しない
                     processingText = processingText.replace(outerMostElement.matchArray[0], '');
+                } else if (outerMostElement.elmType === 'url') {
+                    id += 1;
+                    const urlToken: Token = {id, elmType:"url", content:outerMostElement.matchArray[0], children:[]};
+                    inlineTokens.push(urlToken);
+                    processingText = processingText.replace(outerMostElement.matchArray[0], '');
+                } else if (outerMostElement.elmType === 'at') {
+                    const atToken: Token = {id, elmType:"at", content:outerMostElement.matchArray[0], children:[]};
+                    inlineTokens.push(atToken);
+                    processingText = processingText.replace(outerMostElement.matchArray[0], '');
+                
                 } else {
                     id += 1;
                     let attributes: Attribute[] = [];
-                    if (outerMostElement.elmType === 'url') {
-                        // console.log(outerMostElement)
-                        attributes.push({ attrName: 'text', attrValue: "" });
-                        attributes.push({ attrName: 'href', attrValue: outerMostElement.matchArray[0] });
-                    } else if (outerMostElement.elmType === 'img') {
+                    if (outerMostElement.elmType === 'img') {
                         attributes.push({ attrName: 'text', attrValue: outerMostElement.matchArray[1] });
                         attributes.push({ attrName: 'src', attrValue: outerMostElement.matchArray[2] });
                     } else if (outerMostElement.elmType === 'linkCard') {
@@ -95,7 +101,7 @@ const _tokenizeInline = (text:string, rootToken:RootToken, initialId:number): To
                     // Set the outer element to parent
                     parent = elm;
                     inlineTokens.push(elm);
-          
+
                     processingText = processingText.replace(outerMostElement.matchArray[0], '');
           
                     _recursiveTokenize(outerMostElement.matchArray[1], parent);

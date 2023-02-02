@@ -17,17 +17,22 @@
         &__title {
             @include flex(center, unset); 
             word-break: break-word;
-            border-top: 1px solid #ddd;
+            border-top: 0.1px solid #ddd;
             border-radius: 0 0 10px 10px;
             background: $white;
             color: #333;
-            font-size: 14px;
+            // font-size: 14px;
+            font-size: 15.5px;
             width: 320px;
             height: 48px;
             font-weight: 700;
-            padding: 0 8px;
-            overflow: hidden;
+            padding: 2px 10px;
             cursor: pointer;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-height: 22px;
         }
 
     }
@@ -51,12 +56,26 @@
 
             img {
                 border-radius: 3px;
-                object-fit: contain;
+                // object-fit: contain;
                 object-fit: cover;
                 position: absolute;
-                height: 320px;
+                // height: 320px;
                 height: 250px;
                 aspect-ratio: auto 300 / 300;
+
+            }
+            .played {
+                object-fit: cover;
+                border-radius: 50%;
+                width: 230px;
+                height: 230px;
+                animation:3s linear infinite rotation;
+                border: 1px solid transparent;
+                box-shadow: $boxShadowWhite;
+                @keyframes rotation{
+                    0%{ transform:rotate(0);}
+                    100%{ transform:rotate(360deg); }
+                }
             }
             .img_cover {
                 position: absolute;
@@ -87,30 +106,31 @@
                 width: 40px;
                 border-radius: 15px 0 0 15px;
                 // background: #ffffff62;
-                background: #ffffff42;
                 backdrop-filter: blur(14px);
                 -webkit-backdrop-filter: blur(14px);
                 @include flex(center, center);   
                 flex-direction: column;
+                background: rgba(0,0,0,.5);
 
                 &__item {
                     font-size: 20px;
                     // color: #444;
-                    color: #585e4e;
+                    // color: #585e4e;
+                    color: white;
                     @include flex(center, center);               
                     border-radius: 50%;
                     width: 32px;
                     height: 32px;
-                    background: #ffffff42;
-                    backdrop-filter: blur(1px);
-                    -webkit-backdrop-filter: blur(1px);
+                    // background: #ffffff42;
+                    background: rgba(0,0,0,.5);
+                    // backdrop-filter: blur(1px);
+                    // -webkit-backdrop-filter: blur(1px);
                     transition: all 0.8;
                     cursor: pointer;
                     
-                    // &:hover > svg {
-                    //     color: $subColor;
-                    //     transform: scale(1.1);
-                    // }
+                    &:hover {
+                        transform: scale(1.1);
+                    }
                     
                     .loader_circle {
                         animation:3s linear infinite rotation;
@@ -130,18 +150,17 @@
                     position: absolute;
                     height: 14px;
                     width: 20px;
-                    // right: -3.3px;
                     right: -4px;
                 }
                 &::before{
                     top: -14px;
                     border-bottom-right-radius: 14.5px;
-                    box-shadow: 8.0px 0px #ffffff62;
+                    box-shadow: 8.0px 0px rgba(0,0,0,.5);
                   }
                 &::after{
                     bottom: -14px;
                     border-top-right-radius: 14.5px;
-                    box-shadow: 8.0px 0px #ffffff62;
+                    box-shadow: 8.0px 0px rgba(0,0,0,.5);
                 }
             }
         }
@@ -156,7 +175,7 @@
         width: 230px;
         padding: 5px 10px;
         margin-left: 0px;
-        background: #ffffff42;
+        background: rgba(0,0,0,.5);
         backdrop-filter: blur(25px);
         -webkit-backdrop-filter: blur(25px);
         border-radius: 0 10px 0 0;
@@ -165,9 +184,8 @@
             @include flex(center, center);  
             width: 35px;
             height: 35px;
-            // color: #fefefe;
-            color: #989eae;
-            background: #ffffff70;
+            color: #fefefe;
+            background: rgba(0,0,0,.5);
             border-radius: 50%;
             font-size: 25px;
             text-transform: uppercase;
@@ -203,7 +221,7 @@
         z-index: 50;
         top: 0;
         left: 0;
-        background: #ffffff42;
+        background: rgba(0,0,0,.5);
         backdrop-filter: blur(25px);
         -webkit-backdrop-filter: blur(25px);
         padding: 10px 10px;

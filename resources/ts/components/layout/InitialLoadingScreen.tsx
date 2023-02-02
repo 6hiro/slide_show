@@ -1,4 +1,8 @@
-const InitialLoadingScreen = () => {
+import { memo } from "react";
+
+
+
+const InitialLoadingScreen = memo(() => {
     return (
         <div className='is_loading__screen'>
             <div className="content__main">
@@ -7,6 +11,6 @@ const InitialLoadingScreen = () => {
             </div>
         </div>
     )
-};
+});
 
 export default InitialLoadingScreen;

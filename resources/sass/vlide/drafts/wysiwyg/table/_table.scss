@@ -1,0 +1,66 @@
+$backUpFonts: "Helvetica, sans-serif";
+$borderColor: #dae1e7;
+$normalFontSize: 0.875rem;
+$medLightGray: rgba(25, 23, 17, 0.6);
+
+@import './cell';
+@import './header';
+@import './row';
+
+
+
+.table_container {
+    margin-left: 2px;
+    // overflow: hidden;
+    // overflow-x: scroll;
+    // overflow-y: auto;
+    position: relative;
+
+    // Table title
+    .table_title {
+        color: $subColor;
+        font-size: 1.3rem;
+        font-family: san-fran-semi, $backUpFonts;
+        margin-bottom: 7px;
+        outline: none;
+        border: none;
+    }
+
+    .table {
+        position: relative;
+
+        // .element-options-row {
+        //     margin-right: 0px;
+        // }
+        .table_div  {            
+            // max-width: 100%;
+            // border-collapse: collapse !important;
+            position: relative;
+            border-collapse:collapse;
+            border-spacing: 0;
+            margin: 0;
+            padding: 0;
+            background: $white;
+            overflow-x: scroll;
+            padding: 20px 0;
+        }
+        
+    }
+    
+}
+
+// Column resize
+// .col＿reSize {
+//     position: absolute;
+//     height: 100%;
+//     width: 5px;
+//     background-color: rgba(46, 170, 220, 0);
+//     cursor: col-resize;
+//     right: 0;
+//     transition: 200ms ease-out 0s;
+// }
+
+// .col＿reSize:hover {
+//     background-color: rgba(46, 170, 220, 0.8);
+//     transition: 200ms ease-out 0s;
+// }

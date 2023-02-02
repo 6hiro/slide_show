@@ -6,12 +6,14 @@ import Clip from "../../components/clip/Clip";
 import GetMoreButton from "../../components/layout/GetMoreButton";
 import LoadingScreen from "../../components/layout/LoadingScreen";
 import { siteTitle } from "../../constants/site";
-import { useAuth } from "../../hooks/useAuth";
 import { useClip } from "../../hooks/useClip";
+
+
 
 type Props = {
     user: any;
-}
+};
+
 const Clips = (props: Props) => {
     const { user } = props;
 
