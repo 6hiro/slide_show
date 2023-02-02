@@ -28,33 +28,37 @@ import SubscriptionCancel from "./pages/subscription/SubscriptionCancel";
 
 
 // コード分割
-const VerificationLinkSent = lazy(() => import("./pages/auth/VerificationLinkSent"));
-const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
-const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
+import VerificationLinkSent from "./pages/auth/VerificationLinkSent";
+// const VerificationLinkSent = lazy(() => import("./pages/auth/VerificationLinkSent"));
+import ForgotPassword from "./pages/auth/ForgotPassword";
+// const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
+import ResetPassword from "./pages/auth/ResetPassword";
+// const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 // const Search = lazy(() => import("./pages/search"));
 // const Settings = lazy(() => import("./pages/settings"));
-const PageBook = lazy(() => import("./pages/book/PageBook"));
+import PageBook from "./pages/book/PageBook";
+// const PageBook = lazy(() => import("./pages/book/PageBook"));
 
-const Detail = lazy(() => import("./pages/vlide/DetailVlide"));
-const DraftVlide  = lazy(() => import("./pages/vlide/DraftVlide"));
-const About = lazy(() => import("./pages/about"));
-const Notifications = lazy(() => import("./pages/notifications"));
-// const Home = lazy(() => import("./pages/home/Home"));
-// const Clips = lazy(() => import("./pages/home/Clips"));
-// const Tag = lazy(() => import("./pages/tag"));
-// const DetailClip = lazy(() => import("./pages/clip/DetailClip"));
-// const Profile = lazy(() => import("./pages/prof"));
-const NotFound = lazy(() => import("./pages/NotFound"));
-// const ScrollToTop = lazy(() => import("./components/layout/ScrollToTop"));
-// const Subscription  = lazy(() => import("./pages/subscription"));
-const Terms = lazy(() => import("./pages/terms"));
-const Privacy = lazy(() => import("./pages/terms/Privacy"));
-// const SubscriptionSuccess  = lazy(() => import("./pages/subscription/SubscriptionSuccess"));
-const Protected = lazy(() => import("./components/Protected"));
-
-const DraftBook = lazy(() => import("./pages/book/DraftBook"))
-
-const AdminPlan = lazy(() => import("./pages/admin/Plan"));
+import Detail from "./pages/vlide/DetailVlide";
+// const Detail = lazy(() => import("./pages/vlide/DetailVlide"));
+import DraftVlide from "./pages/vlide/DraftVlide";
+// const DraftVlide  = lazy(() => import("./pages/vlide/DraftVlide"));
+import About from "./pages/about";
+// const About = lazy(() => import("./pages/about"));
+import Notifications from "./pages/notifications";
+// const Notifications = lazy(() => import("./pages/notifications"));
+import NotFound from "./pages/NotFound";
+// const NotFound = lazy(() => import("./pages/NotFound"));
+import Terms from "./pages/terms";
+// const Terms = lazy(() => import("./pages/terms"));
+import Privacy from "./pages/terms/Privacy";
+// const Privacy = lazy(() => import("./pages/terms/Privacy"));
+import Protected from "./components/Protected";
+// const Protected = lazy(() => import("./components/Protected"));
+import DraftBook from "./pages/book/DraftBook";
+// const DraftBook = lazy(() => import("./pages/book/DraftBook"))
+import AdminPlan from "./pages/admin/Plan";
+// const AdminPlan = lazy(() => import("./pages/admin/Plan"));
 
 
 const App: React.FC = () => {

@@ -27,7 +27,7 @@ export default defineConfig({
         // https://software.pitang1965.com/2022/04/23/how-to-make-a-vite-react-typescript-project-a-pwa/
         VitePWA({
             includeAssets: [
-              'offline.html',
+            //   'offline.html',
               'favicon.svg',
               'favicon.ico',
               'robots.txt',
