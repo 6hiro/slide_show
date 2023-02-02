@@ -390,7 +390,7 @@ const PageBook = (props: Props) => {
                             </div>
                         </div>
                         <div className="about_author__description">
-                            <DecoratedDescription content={page.user.description} />
+                            {page.user?.description ? <DecoratedDescription content={page.user.description} /> : null}
                         </div>
                         
                         {toc 

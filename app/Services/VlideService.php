@@ -261,7 +261,8 @@ class VlideService
 
             // タグの保存
             foreach ($tag_list as $tag_name) {
-                $tag = Tag::firstOrCreate(['name' => $tag_name]);
+                // $tag = Tag::firstOrCreate(['name' => $tag_name]);
+                $tag = Tag::firstOrCreate(['name' => $tag_name, 'alias' => strtolower($tag_name)]);
                 // $vlide->tags()->attach($tag);
 
                 $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
@@ -312,7 +313,8 @@ class VlideService
 
             $tag_id_list = [];
             foreach ($tag_list as $tag_name) {
-                $tag = Tag::firstOrCreate(['name' => $tag_name]);
+                // $tag = Tag::firstOrCreate(['name' => $tag_name]);
+                $tag = Tag::firstOrCreate(['name' => $tag_name, 'alias' => strtolower($tag_name)]);
                 $tag_id_list[] = $tag->id;
             }
             $vlide->tags()->sync($tag_id_list);

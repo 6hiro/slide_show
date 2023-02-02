@@ -95,7 +95,7 @@ const Settings = (props: Props) => {
                 </button>
             </div>
 
-            <p className="sub_title">
+            {/* <p className="sub_title">
                 <BiUserX />
                 <span> プランの変更</span>    
             </p>
@@ -103,7 +103,7 @@ const Settings = (props: Props) => {
                 <button className="open_modal_button" onClick={()=>{navigate('/subscription/plan')}} >
                     プランを変更する
                 </button>
-            </div>
+            </div> */}
 
 
             {/* # アカウントの削除 */}

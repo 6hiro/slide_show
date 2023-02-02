@@ -1,5 +1,5 @@
 import {MdToc} from 'react-icons/md';
-import { INPUT_BLOCK } from '../../utils/markdown-wysiwyg/serializer';
+// import { INPUT_BLOCK } from '../../utils/markdown-wysiwyg/serializer';
 
 import TocContent from './TocContent';
 

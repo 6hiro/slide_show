@@ -59,7 +59,7 @@ export interface VLIDE {
         id: string;
         name: string;
     }[];
-    user: {id: string; name: string; nick_name: string; description: string; file_name: string;};
+    user: {id: string; name: string; nick_name: string; description: string |null; file_name: string;};
 };
 
 export type BLOGCARD = {

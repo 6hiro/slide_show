@@ -45,8 +45,9 @@ class RegisteredUserController extends Controller
 
         $user = User::create([
             'name' => $request->name,
-            'nick_name'=>"ななしさん",
+            'nick_name'=>'ななしさん',
             'email' => $request->email,
+            'description' => '',
             'password' => Hash::make($request->password),
         ]);
         // ->sendEmailVerificationNotification();

@@ -596,7 +596,8 @@ const Detail = (props: Props) => {
                             </div>
                         </div>
                         <div className="about_author__description">
-                            <DecoratedDescription content={vlide.user.description} />
+                            {vlide.user?.description ? <DecoratedDescription content={vlide.user.description} /> : null}
+                            {/* <DecoratedDescription content={vlide.user.description} /> */}
                         </div>
                         
                         {toc 

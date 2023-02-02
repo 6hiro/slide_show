@@ -45,7 +45,7 @@ const ImageMenu = (props: Props) => {
             props.setNotifications([...props.notifications ,{
                 id: generateUid(), 
                 type:"error", 
-                message: "画像のサイズは 8mb 未満にしてください。"
+                message: "画像のサイズは 8 MB 未満にしてください。"
             }] );
 
             return;
@@ -160,7 +160,7 @@ const ImageMenu = (props: Props) => {
                                     <div className='text' >画像を追加</div>
                                     <div className='rules'>
                                         <div className="rule" >
-                                                <span> ファイルサイズは 2 MB までです</span>
+                                                <span> ファイルサイズは 8 MB までです</span>
                                             </div>    
                                             <div className="rule" >
                                                 <span> jpeg, png, jpg, gif に対応しています</span>

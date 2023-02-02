@@ -301,7 +301,7 @@ class ClipService
                 if(  preg_match( $pattern, $sentence ) ){
                     // firstOrCreateメソッドで、既にtagがテーブルに存在していれば、そのモデルを返し、
                     // テーブルに存在しなければ、そのレコードをテーブルに保存した上で、モデルを返す。
-                    $tag = Tag::firstOrCreate(['name' => substr($sentence, 1)]);
+                    $tag = Tag::firstOrCreate(['name' => substr($sentence, 1), 'alias' => strtolower(substr($sentence, 1))]);
                     // $clip->tags()->attach($tag);
                     $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
                     $created_at = $dateTime->format('Y-m-d H:i:s.v');
@@ -414,7 +414,8 @@ class ClipService
                 if(  preg_match( $pattern, $sentence ) ){
                     // firstOrCreateメソッドで、既にtagがテーブルに存在していれば、そのモデルを返し、
                     // テーブルに存在しなければ、そのレコードをテーブルに保存した上で、モデルを返す。
-                    $tag = Tag::firstOrCreate(['name' => substr($sentence, 1)]);
+                    // $tag = Tag::firstOrCreate(['name' => substr($sentence, 1)]);
+                    $tag = Tag::firstOrCreate(['name' => substr($sentence, 1), 'alias' => strtolower(substr($sentence, 1))]);
                     // $clip->tags()->attach($tag);
                     $dateTime = new DateTime(null, new DateTimeZone('Asia/Tokyo'));
                     $created_at = $dateTime->format('Y-m-d H:i:s.v');

@@ -43,7 +43,7 @@ class UploadImageRequest extends FormRequest
         return [
             'image.required'  => '画像を添付してください。',
             "image.mimes" => 'jpeg,png,jpg,gif のいずれかの画像をしてください。'
-            // 'image' => '画像のアップロードに失敗しました。',
+            'image.max' => '画像のサイズが大きすぎます。',
         ];
     }
 }
