@@ -329,7 +329,7 @@ class ClipService
                         $tag_id = $tag->id;
                     }else {
                         $tag_names = $tags->pluck('name')->toArray();
-                        $tag_ids = $tags->get()->pluck('id');
+                        $tag_ids = $tags->pluck('id');
                         // in_array　第一引数が文字列の場合、 比較の際に大文字小文字は区別されます
                         if( in_array(substr($sentence, 1), $tag_names) ) {
                             // ； 検索する値が文字列の場合、大文字小文字は区別して比較が行わます
@@ -478,7 +478,7 @@ class ClipService
                         $tag_id = $tag->id;
                     }else {
                         $tag_names = $tags->pluck('name')->toArray();
-                        $tag_ids = $tags->get()->pluck('id');
+                        $tag_ids = $tags->pluck('id');
                         // in_array　第一引数が文字列の場合、 比較の際に大文字小文字は区別されます
                         if( in_array(substr($sentence, 1), $tag_names) ) {
                             // ； 検索する値が文字列の場合、大文字小文字は区別して比較が行わます

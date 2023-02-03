@@ -59,7 +59,7 @@ export const createAsyncClip = async (
                 setToastNotifications(prev => {
                     return[
                         ...prev,
-                        {id: generateUid(), type:"success", message:"クリップの作成に失敗しました。"},
+                        {id: generateUid(), type:"error", message:"クリップの作成に失敗しました。"},
                     ];
                 });
             }
