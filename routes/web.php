@@ -97,7 +97,7 @@ Route::get('/vlide/{vlideId}', function (Request $request, string $vlideId, Vlid
     
     // https://laracasts.com/discuss/channels/laravel/attempt-to-read-property-id-on-null
     // if($vlide->is_public || $vlide->user_id === optional($request->user())->id) {
-    if($vlide->is_public) {
+    if(isset($vlide) && $vlide->is_public) {
         return view('index')->with([
             "vlide" => $vlide,
         ]);
@@ -105,9 +105,9 @@ Route::get('/vlide/{vlideId}', function (Request $request, string $vlideId, Vlid
         return view('index');
     }
 
-    return view('index')->with([
-        "vlide" => $vlide,
-    ]);
+    // return view('index')->with([
+    //     "vlide" => $vlide,
+    // ]);
 })
 ->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
 

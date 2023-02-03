@@ -46,7 +46,7 @@ class FollowingsController extends Controller
         }
 
         return [
-            'A' =>  $user->followings()->get(),
+            // 'A' =>  $user->followings()->get(),
             'next_page_link' => $followings->count() > $per_page
                 ? $request->url()."?since=".$followings[count($followings)-2]["pivot"]["created_at"]->format('Y-m-d H:i:s.v') 
                 : null,

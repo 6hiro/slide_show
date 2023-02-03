@@ -21,7 +21,7 @@ class RetrieveController extends Controller
         $bookId = $request->route('bookId');
         $book =  $bookService->retriveBook($bookId);
 
-        if($book->is_public) {
+        if($book && $book->is_public) {
             return response()
                 ->json(
                     new BookResource( $book )

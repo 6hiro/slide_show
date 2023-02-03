@@ -11,6 +11,7 @@ import Phone from '../../components/phone';
 import Vlide from '../../components/vlide/vlideCard/Vlide';
 import { siteTitle } from '../../constants/site';
 import { useGetVlide } from '../../hooks/useGetVlide';
+import { useWindowSize } from '../../hooks/useWindowSize';
 
 
 
@@ -27,6 +28,8 @@ const Home = (props: Props) => {
     const stickyTwoRef = useRef<HTMLDivElement | null>(null);
     const stickyThreeRef = useRef<HTMLDivElement | null>(null);
     const stickyFourRef = useRef<HTMLDivElement | null>(null);
+
+    const [_, viewHeight] = useWindowSize();
 
     const { 
         vlides, 
@@ -50,13 +53,13 @@ const Home = (props: Props) => {
         stickyOneRef.current?.parentElement?.scrollIntoView({ 
             behavior: 'smooth',
         });
-    }
+    };
 
     function goToSecound() {
         stickyTwoRef.current?.parentElement?.scrollIntoView({ 
             behavior: 'smooth',
         });
-    }
+    };
 
     function handleScroll() {
         const refList = [stickyOneRef, stickyTwoRef, stickyThreeRef, stickyThreeRef];
@@ -72,16 +75,41 @@ const Home = (props: Props) => {
             // console.log(top)
             refList.forEach((ref, i) => {
                 if(ref.current) {    
+                    const isLast = i === (refList.length-1);
+
                     if(headerHeight <= top){ // 一番上まで戻った時、cssがズレることがあるため、明示的に初期化する
                         resetStyle(ref.current)
                     }else{
-                        const isLast = i === (refList.length-1);
                         setStyle(ref.current, isLast);
                     }
+
+                    // scrollToNextSecction(viewHeight, headerHeight, ref.current, refList, i, isLast);
+
                 }
             });
         }
     }
+    // console.log(viewHeight)
+    // function scrollToNextSecction (
+    //     viewHeight: number,
+    //     headerHeight: number,
+    //     refCurrent: HTMLDivElement, 
+    //     refList: React.MutableRefObject<HTMLDivElement | null>[], 
+    //     index: number,
+    //     isLast: boolean
+    // ) {
+    //     if(!isLast && refCurrent.parentElement) {
+
+    //         const { top } = refCurrent.parentElement.getBoundingClientRect(); // 画面より上ならマイナス、下ならプラス
+    //         if(top < headerHeight && top > -10 ) {
+    //             refList[index].current?.parentElement?.scrollIntoView({ 
+    //                 // behavior: 'smooth',
+    //             });
+    //         }
+    //         console.log(index)
+    //         console.log(top)
+    //     }
+    // }
     function resetStyle(ref: HTMLDivElement){
         if(ref.parentElement) {
             ref.style.filter = `unset`;

@@ -21,7 +21,7 @@ class RetrieveController extends Controller
         $vlideId = $request->route('vlideId');
         $vlide =  $vlideService->retriveVlide($vlideId);
 
-        if($vlide->is_public) {
+        if($vlide && $vlide->is_public) {
             return response()
                 ->json(
                     new VlideResource( $vlide )

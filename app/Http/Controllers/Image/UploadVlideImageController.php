@@ -67,7 +67,7 @@ class UploadVlideImageController extends Controller
         return response()->json([
             'id'=> $target->id,
             'filePath' => $target->name,
-            'filePath' => $file_name
+            // 'filePath' => $file_name
         ], 201);
     }
 }

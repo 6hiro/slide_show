@@ -13,6 +13,7 @@
 
 		.content-wrapper {
 			position: sticky;
+			position: -webkit-sticky;
 			width: 100%;
 			height: calc(100vh - $headerHeight); // 親要素 height: 200vh;
 			top: $headerHeight;
@@ -258,7 +259,8 @@
 		height: 100vh; // これ以上、スクロールしたくないので
 		.content-wrapper {
 			.content {
-				background: $buttonColor;
+				// background: $buttonColor;
+				background: #5d62fb;
 				color: $white;
 				@include flex(unset, space-between);
 				flex-direction: column;

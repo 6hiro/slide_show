@@ -26,7 +26,7 @@
             color: $subColor;
         }
         input::placeholder {
-            color: $subColor;
+            color: $placeholderColor;
             opacity: 0.8;
         }
         .rule{
@@ -51,7 +51,7 @@
         outline: none;
         color: $subColor;
         font-size: 15px;
-        font-weight: 900;
+        font-weight: 600;
         background: $mainColor;
         color: $white;
         margin: 0 0 0 auto;

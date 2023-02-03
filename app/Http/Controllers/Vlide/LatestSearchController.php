@@ -36,7 +36,7 @@ class LatestSearchController extends Controller
                 : null,
             // 'data' => VlideResource::collection($vlides->take($per_page)),
             'data' => VlideForListResource::collection($vlides->take($per_page)),
-            'w' => $word,
+            // 'word' => $word,
         ];
     }
 }

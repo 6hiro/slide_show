@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BiUserCircle } from 'react-icons/bi';
+import { BiAt, BiUserCircle } from 'react-icons/bi';
 
 import { USER } from '../../types/user';
 
@@ -35,7 +35,8 @@ const DeleteAccountForm = (props: Props) => {
                 <span 
                     className={`form_item_icon`} 
                 >
-                    <BiUserCircle />
+                    {/* <BiUserCircle /> */}
+                    <BiAt />
                 </span>
                 <input 
                     type="text"

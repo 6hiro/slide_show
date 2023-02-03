@@ -42,12 +42,12 @@ class UpdateController extends Controller
         $user->save();
 
         return $user
-        ? response()->json([
-                'nick_name'=>$user->nick_name,
-                'description'=>$user->description,
-                'user_id'=>$user->id,
-            ])
-        : response()->json([], 500);
+            ? response()->json([
+                    'nick_name'=>$user->nick_name,
+                    'description'=>$user->description,
+                    'user_id'=>$user->id,
+                ])
+            : response()->json([], 500);
 
     }
 }

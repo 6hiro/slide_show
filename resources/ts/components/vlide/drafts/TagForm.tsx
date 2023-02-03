@@ -40,9 +40,11 @@ const TagForm = (props: Props) => {
                     onChange={(e) => setNewTagName(e.target.value)}
                     onKeyDown={
                         (e: React.KeyboardEvent<HTMLInputElement>) => {
-                            if(e.key===' ' || e.key==='　'){
-                                addTag();
-                                e.preventDefault();
+                            if( !e.nativeEvent.isComposing){
+                                if(e.key===' ' || e.key==='　'){
+                                    addTag();
+                                    e.preventDefault();
+                                }
                             }
                             if(!e.nativeEvent.isComposing && e.key == "Enter"){
                                 addTag();

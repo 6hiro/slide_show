@@ -55,7 +55,8 @@
             outline: none;
         }
         &::placeholder {
-            color: #000;
+            // color: #000;
+            color: $placeholderColor;
             font-size: 16px;
         }
     }

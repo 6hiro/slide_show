@@ -30,7 +30,7 @@ class LatestSearchController extends Controller
                 ? $request->url()."?word=".$word."&since=".$users[count($users)-2]["created_at"]->format('Y-m-d H:i:s.v') 
                 : null,
             'data' => UserResource::collection($users->take($per_page)),
-            'w' => $word,
+            // 'w' => $word,
         ];
     }
 }

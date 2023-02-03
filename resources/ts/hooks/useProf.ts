@@ -340,6 +340,21 @@ export const useProf = (props: Props) => {
         setShowDelete: Dispatch<SetStateAction<any>>
     ) => {
         const onSuccess = (res: any) => {
+
+            (vlides && prof) && setProf( prev => {
+                if(prev) {
+                    const vlide = vlides.filter((vlide) => {
+                        return vlide.id === vlideId;
+                    });
+
+                    if(vlide && vlide[0].is_public){
+                        const newProf = Object.assign({}, prev);
+                        newProf.count_vlides -= 1;
+                        return newProf
+                    }
+                }
+                return prev;
+            })
             vlides && setVlides( (prev)=> {
                 if(prev){                        
                     return prev.filter((vlide) => {
@@ -350,12 +365,6 @@ export const useProf = (props: Props) => {
                 }
             });
             setShowDelete(false);
-            prof && setProf(
-                {
-                    ...prof,
-                    count_vlides: prof.count_vlides-1
-                }
-            )
         };
         deleteAsyncVlide(vlideId, onSuccess);
     };

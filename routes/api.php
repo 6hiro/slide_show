@@ -10,7 +10,7 @@ use App\Http\Controllers\User;
 use App\Http\Controllers\Auth;
 use App\Http\Controllers\Embed;
 use App\Http\Controllers\StripePayment;
-use App\Models\Tag;
+// use App\Models\Tag;
 // use App\Models\user as U;
 // use Illuminate\Support\Facades\Auth as A;
 
@@ -32,31 +32,15 @@ use App\Models\Tag;
 Route::prefix('v1')->group(function (){
     
     Route::get('/date', function () {
-    // //     $user = U::find(A::id());
-
-    // //     $payment = Payment::where('st_cus_id', "cus_NGqcXV2FX3Fpuy")
-    // //         ->where('st_payment_status', 'paid')
-    // //         ->orderBy('created_at', 'desc')
-    // //         ->first();
-    // //     if(!isset($user->file_name)) return ;
-    $tags = Tag::where('name', "vlides")->get();
-    $tag_names = Tag::where('name', "vlides")->get()->pluck('name');
-    $tag_ids = Tag::where('name', "vlides")->get()->pluck('id');
-    $tag_index =array_search('vlides', $tag_names->toArray());
-
-        return [
-            "t" => $tags,
-            "a" => empty($tag_names),
-            "b" => $tag_ids[$tag_index],
-            "tags" => $tag_names,
-            "tagsb" => in_array("vlides",$tags->pluck('name')->toArray()),
-    //             "a" => "abc"==="ABc",
-    // //         // "payment" => $payment->st_cus_id,
-    // //         // "end" => date("Y-m-d H:i:s", "1677587232"),
-    // //         // "current" => date("Y-m-d H:i:s"),
-    // //         // "calc" =>  date("Y-m-d H:i:s", "1677587232") > date("Y-m-d H:i:s"),
-    // //         // "a" => DateTime::createFromFormat('Y-m-d H:i:s',  date("Y-m-d H:i:s", "1677587232"), new DateTimeZone('Asia/Tokyo'))->format('Y-m-d H:i:s')
-        ];
+        
+        // return [
+        //         "a" => "abc"==="ABc",
+        //     // "payment" => $payment->st_cus_id,
+        //     // "end" => date("Y-m-d H:i:s", "1677587232"),
+        //     // "current" => date("Y-m-d H:i:s"),
+        //     // "calc" =>  date("Y-m-d H:i:s", "1677587232") > date("Y-m-d H:i:s"),
+        //     // "a" => DateTime::createFromFormat('Y-m-d H:i:s',  date("Y-m-d H:i:s", "1677587232"), new DateTimeZone('Asia/Tokyo'))->format('Y-m-d H:i:s')
+        // ];
     });
     Route::get('/checkout/success', [StripePayment\PaymentController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/cancel', [StripePayment\PaymentController::class, 'cancelOrder'])->name('checkout.cancel');
@@ -235,15 +219,15 @@ Route::prefix('v1')->group(function (){
 });
 
 // stripe
-Route::prefix('payment')->group(function (){
-    Route::group(['middleware' => ['auth:sanctum', 'verified']], function(){
-        Route::get('/plans', [StripePayment\PlanController::class, 'getPlans']);
+// Route::prefix('payment')->group(function (){
+//     Route::group(['middleware' => ['auth:sanctum', 'verified']], function(){
+//         Route::get('/plans', [StripePayment\PlanController::class, 'getPlans']);
 
-        Route::post('/checkout/{id}', [StripePayment\PaymentController::class, 'checkout']);
-        Route::post('/plan', [StripePayment\PlanController::class, 'createPlan']);
-    });
-});
+//         Route::post('/checkout/{id}', [StripePayment\PaymentController::class, 'checkout']);
+//         Route::post('/plan', [StripePayment\PlanController::class, 'createPlan']);
+//     });
+// });
 
-Route::prefix('stripe')->group(function (){
-    Route::post('/webhook', [StripePayment\PaymentController::class, 'webhook'])->name('stripe.webhook');
-});
+// Route::prefix('stripe')->group(function (){
+//     Route::post('/webhook', [StripePayment\PaymentController::class, 'webhook'])->name('stripe.webhook');
+// });

@@ -31,7 +31,7 @@ class LatestSearchController extends Controller
                 ? $request->url()."?word=".$word."&since=".$clips[count($vlides)-2]["created_at"]->format('Y-m-d H:i:s.v') 
                 : null,
             'data' => ClipResource::collection($clips->take($per_page)),
-            'w' => $word,
+            // 'w' => $word,
         ];
     }
 }

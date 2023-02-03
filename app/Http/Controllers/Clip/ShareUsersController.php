@@ -29,7 +29,7 @@ class ShareUsersController extends Controller
         $share_users = $clipService->getShareUsers($clipId, $per_page, $since);
 
         return [
-            'a' =>$share_users->count(),
+            // 'a' =>$share_users->count(),
             'next_page_link' => $share_users->count() > $per_page
                 ? $request->url()."?since=".$share_users[count($share_users)-2]["created_at"]->format('Y-m-d H:i:s') 
                 // ? $request->url()."?since=".$share_users[count($share_users)-2]["pivot"]["created_at"]->format('Y-m-d H:i:s') 
