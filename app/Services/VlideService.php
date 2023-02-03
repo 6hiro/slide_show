@@ -295,8 +295,8 @@ class VlideService
 
                 if (empty($tags)) { // 大文字と小文字区別して、タグを登録
                     $tag = Tag::create([
-                        'name' => substr($sentence, 1),
-                        'alias' => strtolower(substr($sentence, 1)),
+                        'name' => $tag_name,
+                        'alias' => strtolower($tag_name),
                     ]);
                     $tag_id = $tag->id;
                 }else {
@@ -363,21 +363,52 @@ class VlideService
 
             $vlide->save();
 
+            // $tag_id_list = [];
+            // foreach ($tag_list as $tag_name) {
+            //     // $tag = Tag::firstOrCreate(['name' => $tag_name]);
+            //     // $tag = Tag::firstOrCreate(['name' => $tag_name], ['alias' => strtolower($tag_name)]);
+            //     // $tag = Tag::where('name', $tag_name)->first();
+            //     // $tag = Tag::where('name', $tag_name)->first();
+            //     $tag = Tag::where(DB::raw('BINARY `name`'), substr($tag_name, 1))->first();
+
+            //     if (empty($tag)) {
+            //         $tag = Tag::create([
+            //             'name' => $tag_name,
+            //             'alias' => strtolower($tag_name),
+            //         ]);
+            //     }
+            //     $tag_id_list[] = $tag->id;
+            // }
+            // $vlide->tags()->sync($tag_id_list);
             $tag_id_list = [];
             foreach ($tag_list as $tag_name) {
-                // $tag = Tag::firstOrCreate(['name' => $tag_name]);
-                // $tag = Tag::firstOrCreate(['name' => $tag_name], ['alias' => strtolower($tag_name)]);
-                // $tag = Tag::where('name', $tag_name)->first();
-                // $tag = Tag::where('name', $tag_name)->first();
-                $tag = Tag::where(DB::raw('BINARY `name`'), substr($tag_name, 1))->first();
+                $tags = Tag::where('name', $tag_name)->get();
 
-                if (empty($tag)) {
+                if (empty($tags)) { // 大文字と小文字区別して、タグを登録
                     $tag = Tag::create([
                         'name' => $tag_name,
                         'alias' => strtolower($tag_name),
                     ]);
+                    $tag_id = $tag->id;
+                }else {
+                    $tag_names = $tags->pluck('name')->toArray();
+                    $tag_ids = $tags->get()->pluck('id');
+                    // in_array　第一引数が文字列の場合、 比較の際に大文字小文字は区別されます
+                    if( in_array($tag_name, $tag_names) ) {
+                        // ； 検索する値が文字列の場合、大文字小文字は区別して比較が行わます
+                        $tag_index = array_search($tag_name, $tag_names);
+                        $tag_id = $tag_ids[$tag_index];
+                    
+                    }else {
+                        $tag = Tag::create([
+                            'name' => $tag_name,
+                            'alias' => strtolower($tag_name),
+                        ]);
+                        $tag_id = $tag->id;
+                    }
                 }
-                $tag_id_list[] = $tag->id;
+
+                $tag_id_list[] = $tag_id;
             }
             $vlide->tags()->sync($tag_id_list);
 

@@ -208,9 +208,10 @@ export const useAuth = (
             .then(() => {
                 // navigate("/auth/login");
                 // logout();
-                // navigate("/about");
                 processing.current = false;
                 refetch();
+                window.location.pathname = '/auth/login';
+                // navigate("/");
             });
             // .finally(()=>{
             //     processing.current = false;
