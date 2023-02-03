@@ -276,8 +276,8 @@ class VlideService
             foreach ($tag_list as $tag_name) {
                 // $tag = Tag::firstOrCreate(['name' => $tag_name]);
                 // $tag = Tag::firstOrCreate(['name' => $tag_name], ['alias' => strtolower($tag_name)]);
-                // $tag = Tag::where('name', $tag_name)->first();
-                $tag = Tag::where(DB::raw('BINARY `name`'), substr($tag_name, 1))->first();
+                $tags = Tag::where('name', $tag_name)->get();
+                // $tag = Tag::where(DB::raw('BINARY `name`'), substr($tag_name, 1))->first();
 
                 if (empty($tag)) {
                     $tag = Tag::create([

@@ -10,7 +10,7 @@ use App\Http\Controllers\User;
 use App\Http\Controllers\Auth;
 use App\Http\Controllers\Embed;
 use App\Http\Controllers\StripePayment;
-// use App\Models\Payment;
+use App\Models\Tag;
 // use App\Models\user as U;
 // use Illuminate\Support\Facades\Auth as A;
 
@@ -31,7 +31,7 @@ use App\Http\Controllers\StripePayment;
 
 Route::prefix('v1')->group(function (){
     
-    // Route::get('/date', function () {
+    Route::get('/date', function () {
     // //     $user = U::find(A::id());
 
     // //     $payment = Payment::where('st_cus_id', "cus_NGqcXV2FX3Fpuy")
@@ -39,15 +39,18 @@ Route::prefix('v1')->group(function (){
     // //         ->orderBy('created_at', 'desc')
     // //         ->first();
     // //     if(!isset($user->file_name)) return ;
-    //     return [
+    $tags = Tag::where('name', "vlides")->get();
+
+        return [
+            "tags" => $tags->pluck('name'),
     //             "a" => "abc"==="ABc",
     // //         // "payment" => $payment->st_cus_id,
     // //         // "end" => date("Y-m-d H:i:s", "1677587232"),
     // //         // "current" => date("Y-m-d H:i:s"),
     // //         // "calc" =>  date("Y-m-d H:i:s", "1677587232") > date("Y-m-d H:i:s"),
     // //         // "a" => DateTime::createFromFormat('Y-m-d H:i:s',  date("Y-m-d H:i:s", "1677587232"), new DateTimeZone('Asia/Tokyo'))->format('Y-m-d H:i:s')
-    //     ];
-    // });
+        ];
+    });
     Route::get('/checkout/success', [StripePayment\PaymentController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/cancel', [StripePayment\PaymentController::class, 'cancelOrder'])->name('checkout.cancel');
 
