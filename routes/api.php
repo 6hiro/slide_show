@@ -40,9 +40,14 @@ Route::prefix('v1')->group(function (){
     // //         ->first();
     // //     if(!isset($user->file_name)) return ;
     $tags = Tag::where('name', "vlides")->get();
+    $tag_names = Tag::where('name', "vlides")->get()->pluck('name');
+    $tag_ids = Tag::where('name', "vlides")->get()->pluck('id');
+    $tag_index =array_search('vlides', $tag_names->toArray());
 
         return [
-            "tags" => $tags->pluck('name'),
+            "a" => empty($tag_names),
+            "b" => $tag_ids[$tag_index],
+            "tags" => $tag_names,
             "tagsb" => in_array("vlides",$tags->pluck('name')->toArray()),
     //             "a" => "abc"==="ABc",
     // //         // "payment" => $payment->st_cus_id,

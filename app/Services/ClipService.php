@@ -318,22 +318,33 @@ class ClipService
                 if(  preg_match( $pattern, $sentence ) ){
                     // $tag = Tag::where('name', substr($sentence, 1))->first();
                     // $tag = Tag::where(DB::raw('BINARY `name`'), substr($sentence, 1))->first();
-                    $tag = Tag::where(DB::raw('BINARY `name`'), substr($sentence, 1))->first();
+                    $tags = Tag::where('name', substr($sentence, 1))->get();
 
                     // if (empty($tag)) {
-                    if (empty($tag)) {                    
+                    if (empty($tags)) { // 大文字と小文字区別して、タグを登録
                         $tag = Tag::create([
                             'name' => substr($sentence, 1),
                             'alias' => strtolower(substr($sentence, 1)),
                         ]);
+                        $tag_id = $tag->id;
+                    }else {
+                        $tag_names = $tags->pluck('name')->toArray();
+                        $tag_ids = $tags->get()->pluck('id');
+
+                        if( in_array(substr($sentence, 1), $tag_names) ) {
+                            $tag_index = array_search(substr($sentence, 1), $tag_names->toArray());
+                            $tag_id = $tag_ids[$tag_index];
+                        
+                        }else {
+                            $tag = Tag::create([
+                                'name' => substr($sentence, 1),
+                                'alias' => strtolower(substr($sentence, 1)),
+                            ]);
+                            $tag_id = $tag->id;
+                        }
                     }
-                    // else if($tag && $tag->name !== substr($sentence, 1)) {
-                    //     $tag = Tag::create([
-                    //         'name' => substr($sentence, 1),
-                    //         'alias' => strtolower(substr($sentence, 1)),
-                    //     ]);
-                    // }
-                    $tag_id_list[] = $tag->id;
+
+                    $tag_id_list[] = $tag_id;
                 }
             }
             $clip->tags()->sync($tag_id_list);
