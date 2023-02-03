@@ -330,9 +330,10 @@ class ClipService
                     }else {
                         $tag_names = $tags->pluck('name')->toArray();
                         $tag_ids = $tags->get()->pluck('id');
-
+                        // in_array　第一引数が文字列の場合、 比較の際に大文字小文字は区別されます
                         if( in_array(substr($sentence, 1), $tag_names) ) {
-                            $tag_index = array_search(substr($sentence, 1), $tag_names->toArray());
+                            // ； 検索する値が文字列の場合、大文字小文字は区別して比較が行わます
+                            $tag_index = array_search(substr($sentence, 1), $tag_names);
                             $tag_id = $tag_ids[$tag_index];
                         
                         }else {
@@ -467,16 +468,33 @@ class ClipService
             foreach ($sentence_list as $sentence) {
                 $pattern = '/^#[0-9a-zA-Z０-９ａ-ｚＡ-Ｚぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]+$/u'; // 半角全角英数字カタカナひらがな漢字　uオプションをつけないと、Javascriptとずれが生じる
                 if(  preg_match( $pattern, $sentence ) ){
-                    $tag = Tag::where('name', substr($sentence, 1))->first();
-                    // $tag = Tag::where(DB::raw('BINARY `name`'), substr($sentence, 1))->first();
+                    $tags = Tag::where('name', substr($sentence, 1))->get();
 
-                    if (empty($tag)) {
+                    if (empty($tags)) { // 大文字と小文字区別して、タグを登録
                         $tag = Tag::create([
                             'name' => substr($sentence, 1),
                             'alias' => strtolower(substr($sentence, 1)),
                         ]);
+                        $tag_id = $tag->id;
+                    }else {
+                        $tag_names = $tags->pluck('name')->toArray();
+                        $tag_ids = $tags->get()->pluck('id');
+                        // in_array　第一引数が文字列の場合、 比較の際に大文字小文字は区別されます
+                        if( in_array(substr($sentence, 1), $tag_names) ) {
+                            // ； 検索する値が文字列の場合、大文字小文字は区別して比較が行わます
+                            $tag_index = array_search(substr($sentence, 1), $tag_names);
+                            $tag_id = $tag_ids[$tag_index];
+                        
+                        }else {
+                            $tag = Tag::create([
+                                'name' => substr($sentence, 1),
+                                'alias' => strtolower(substr($sentence, 1)),
+                            ]);
+                            $tag_id = $tag->id;
+                        }
                     }
-                    $tag_id_list[] = $tag->id;
+
+                    $tag_id_list[] = $tag_id;
                 }
             }
             $clip->tags()->sync($tag_id_list);

@@ -45,6 +45,7 @@ Route::prefix('v1')->group(function (){
     $tag_index =array_search('vlides', $tag_names->toArray());
 
         return [
+            "t" => $tags,
             "a" => empty($tag_names),
             "b" => $tag_ids[$tag_index],
             "tags" => $tag_names,

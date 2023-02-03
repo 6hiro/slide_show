@@ -37,7 +37,7 @@ class RegisteredUserController extends Controller
         }
         
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             // confirmed: password_confirmationと同値であるか否か
             'password' => ['required', 'confirmed', Rules\Password::defaults()], 
