@@ -43,7 +43,7 @@ Route::prefix('v1')->group(function (){
 
         return [
             "tags" => $tags->pluck('name'),
-            "tags" => in_array("vlides",$tags->pluck('name')),
+            "tagsb" => in_array("vlides",$tags->pluck('name')->toArray()),
     //             "a" => "abc"==="ABc",
     // //         // "payment" => $payment->st_cus_id,
     // //         // "end" => date("Y-m-d H:i:s", "1677587232"),
