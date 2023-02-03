@@ -45,12 +45,12 @@
 
 
         {{-- react に変更があったとき自動で --}}
-        @viteReactRefresh
+        {{-- @viteReactRefresh
 
         @vite([
             // 'resources/sass/app.scss', 
             'resources/ts/index.tsx'
-        ])
+        ]) --}}
         
         <link rel="icon" href="/images/Logo.png">
         {{-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> --}}
@@ -64,7 +64,7 @@
         <link rel="mask-icon" href="/favicon.svg" color="#FFFFFF" />
         <meta name="theme-color" content="#fff" />
 
-        {{-- <link rel="stylesheet" href="/css/index.css"> --}}
+        <link rel="stylesheet" href="/css/index.css">
         
 
         {{-- https://developer.twitter.com/en/docs/twitter-for-websites/javascript-api/guides/set-up-twitter-for-websites --}}
@@ -111,7 +111,7 @@
           </script> --}}
     </body>
 
-    {{-- <script src="/js/index.js"></script> --}}
+    <script src="/js/index.js"></script>
 
 
     {{-- <script src="/build/assets/index.ff75fa7b.js"></script> --}}

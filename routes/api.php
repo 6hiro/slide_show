@@ -219,15 +219,15 @@ Route::prefix('v1')->group(function (){
 });
 
 // stripe
-// Route::prefix('payment')->group(function (){
-//     Route::group(['middleware' => ['auth:sanctum', 'verified']], function(){
-//         Route::get('/plans', [StripePayment\PlanController::class, 'getPlans']);
+Route::prefix('payment')->group(function (){
+    // Route::group(['middleware' => ['auth:sanctum', 'verified']], function(){
+    //     Route::get('/plans', [StripePayment\PlanController::class, 'getPlans']);
 
-//         Route::post('/checkout/{id}', [StripePayment\PaymentController::class, 'checkout']);
-//         Route::post('/plan', [StripePayment\PlanController::class, 'createPlan']);
-//     });
-// });
+    //     Route::post('/checkout/{id}', [StripePayment\PaymentController::class, 'checkout']);
+    //     Route::post('/plan', [StripePayment\PlanController::class, 'createPlan']);
+    // });
+});
 
-// Route::prefix('stripe')->group(function (){
-//     Route::post('/webhook', [StripePayment\PaymentController::class, 'webhook'])->name('stripe.webhook');
-// });
+Route::prefix('stripe')->group(function (){
+    Route::post('/webhook', [StripePayment\PaymentController::class, 'webhook'])->name('stripe.webhook');
+});
