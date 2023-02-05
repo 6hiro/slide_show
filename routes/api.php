@@ -43,9 +43,9 @@ Route::prefix('v1')->group(function (){
         // $user = U::whereRaw('name like binary \'%{$email}%\' ');
         $user =U::query()
                 ->where('email', '=', $email)->get();
+        if($user) return ["user" => $user->id,];
 
         return [
-                "user" => $user,
                 "email" => $email,
         //         "a" => "abc"==="ABc",
         //     // "payment" => $payment->st_cus_id,
