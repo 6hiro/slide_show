@@ -78,7 +78,7 @@ const RegisterCard = (props:RegisterCardProps) => {
                             placeholder='ユーザー名' 
                             required 
                             autoFocus 
-                            maxLength={40}
+                            maxLength={20}
                         />
                     </div>
                     {/* Email Address */}

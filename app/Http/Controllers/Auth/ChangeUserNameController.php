@@ -22,7 +22,8 @@ class ChangeUserNameController extends Controller
     public function __invoke(Request $request)
     {        
         $validator = Validator::make($request->all(),[
-            'name'=>'required|string|max:255|unique:users',
+            // 'name'=>'required|string|max:255|unique:users',
+            'name' => ['required', 'string', 'max:20', 'unique:users', 'regex:/^[0-9a-zA-Z_]+$/'],
         ]);
 
         if($validator->fails())

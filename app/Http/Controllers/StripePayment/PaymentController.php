@@ -308,6 +308,13 @@ class PaymentController extends Controller
 
     }
 
+    // 'customer.subscription.created',
+    // 'customer.subscription.updated',
+    // 'customer.subscription.deleted',
+    // 'customer.updated',
+    // 'customer.deleted',
+    // 'invoice.payment_action_required',
+    // 'invoice.payment_succeeded',
 
     public function updateCustomer(Request $request)
     {

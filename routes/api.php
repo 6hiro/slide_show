@@ -11,7 +11,8 @@ use App\Http\Controllers\Auth;
 use App\Http\Controllers\Embed;
 use App\Http\Controllers\StripePayment;
 // use App\Models\Tag;
-// use App\Models\user as U;
+use App\Models\user as U;
+use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\Auth as A;
 
 // app/Http/Controllers/Payment/PaymentController.php
@@ -31,16 +32,23 @@ use App\Http\Controllers\StripePayment;
 
 Route::prefix('v1')->group(function (){
     
-    Route::get('/date', function () {
+    Route::get('/date', function (Request $request) {
+        // $user = U::query()
+        //             ->where(DB::raw('BINARY `email`'), 'ogaki.naoto@example.net')
+        //             ->first();
+        $email = $request->email;
+        // $email = 'ogaki.naoto@example.net';
+        $user = U::where(DB::raw('BINARY `email`'), $email)->first();
         
-        // return [
+        return [
+                "user" => $user,
         //         "a" => "abc"==="ABc",
         //     // "payment" => $payment->st_cus_id,
         //     // "end" => date("Y-m-d H:i:s", "1677587232"),
         //     // "current" => date("Y-m-d H:i:s"),
         //     // "calc" =>  date("Y-m-d H:i:s", "1677587232") > date("Y-m-d H:i:s"),
         //     // "a" => DateTime::createFromFormat('Y-m-d H:i:s',  date("Y-m-d H:i:s", "1677587232"), new DateTimeZone('Asia/Tokyo'))->format('Y-m-d H:i:s')
-        // ];
+        ];
     });
     Route::get('/checkout/success', [StripePayment\PaymentController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/cancel', [StripePayment\PaymentController::class, 'cancelOrder'])->name('checkout.cancel');

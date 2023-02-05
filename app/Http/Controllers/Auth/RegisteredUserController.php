@@ -37,11 +37,13 @@ class RegisteredUserController extends Controller
         }
         
         $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:20', 'unique:users', 'regex:/^[0-9a-zA-Z_]+$/'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             // confirmed: password_confirmationと同値であるか否か
             'password' => ['required', 'confirmed', Rules\Password::defaults()], 
         ]);
+        // $username_pattern ='/^[0-9a-zA-Z_]+$/';
+        // if(preg_match($username_pattern, $request->name,)) {}
 
         $user = User::create([
             'name' => $request->name,

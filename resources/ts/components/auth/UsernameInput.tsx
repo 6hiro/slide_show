@@ -24,7 +24,7 @@ const UsernameInput = (props: Props) => {
                 placeholder='ユーザーネーム' 
                 required 
                 autoFocus 
-                maxLength={40}
+                maxLength={20}
             />
 
             <div className="text_count" >

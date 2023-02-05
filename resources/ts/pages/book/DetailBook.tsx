@@ -129,7 +129,18 @@ const DetailBook = (props: Props) => {
                             </>
                         :   <>
                                 { book.user.id===user.id 
-                                    ? <div className='ticket_button' onClick={()=> navigate(`/book/${book_id}/page/1`) }>ページを見る</div>
+                                    ?   <div 
+                                            className='ticket_button'
+                                            onClick={()=> {
+                                                book.pages.length 
+                                                    ? navigate(`/book/${book_id}/page/1`) 
+                                                    : setToastNotifications([{
+                                                        id: generateUid(),
+                                                        type: "warning",
+                                                        message: "表示できるページがありません。"
+                                                    }])
+                                            }}
+                                        >ページを見る</div>
                                     :
                                         <div className='ticket_button' onClick={()=>getUngetTicket(book_id)}>
                                             <span>チケットをゲットする</span>
