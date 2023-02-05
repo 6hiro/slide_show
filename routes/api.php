@@ -32,30 +32,29 @@ use Illuminate\Support\Facades\DB;
 
 Route::prefix('v1')->group(function (){
     
-    Route::get('/date', function (Request $request) {
-        // $user = U::query()
-        //             ->where(DB::raw('BINARY `email`'), 'ogaki.naoto@example.net')
-        //             ->first();
-        $email = $request->email;
-        // $email = 'ogaki.naoto@example.net';
-        // $user = U::where(DB::raw('BINARY `email`'), $email)->first();
-        // $user = U::where('email', 'like', "%{$email}%")->first();
-        // $user = U::whereRaw('name like binary \'%{$email}%\' ');
-        $user =U::query()
-                ->where('email', '=', $email)->get();
-                return;
-        // if($user) return ["user" => $user->id,];
+    // Route::get('/date', function (Request $request) {
+    //     // $user = U::query()
+    //     //             ->where(DB::raw('BINARY `email`'), 'ogaki.naoto@example.net')
+    //     //             ->first();
+    //     $email = $request->email;
+    //     // $email = 'ogaki.naoto@example.net';
+    //     // $user = U::where(DB::raw('BINARY `email`'), $email)->first();
+    //     // $user = U::where('email', 'like', "%{$email}%")->first();
+    //     // $user = U::whereRaw('name like binary \'%{$email}%\' ');
+    //     $user =U::query()
+    //             ->where('email', '=', $email)->get();
+    //     if($user) return ["user" => $user->id,];
 
-        // return [
-        //         "email" => $email,
-        //         "a" => "abc"==="ABc",
-        //     // "payment" => $payment->st_cus_id,
-        //     // "end" => date("Y-m-d H:i:s", "1677587232"),
-        //     // "current" => date("Y-m-d H:i:s"),
-        //     // "calc" =>  date("Y-m-d H:i:s", "1677587232") > date("Y-m-d H:i:s"),
-        //     // "a" => DateTime::createFromFormat('Y-m-d H:i:s',  date("Y-m-d H:i:s", "1677587232"), new DateTimeZone('Asia/Tokyo'))->format('Y-m-d H:i:s')
-        // ];
-    });
+    //     return [
+    //             "email" => $email,
+    //     //         "a" => "abc"==="ABc",
+    //     //     // "payment" => $payment->st_cus_id,
+    //     //     // "end" => date("Y-m-d H:i:s", "1677587232"),
+    //     //     // "current" => date("Y-m-d H:i:s"),
+    //     //     // "calc" =>  date("Y-m-d H:i:s", "1677587232") > date("Y-m-d H:i:s"),
+    //     //     // "a" => DateTime::createFromFormat('Y-m-d H:i:s',  date("Y-m-d H:i:s", "1677587232"), new DateTimeZone('Asia/Tokyo'))->format('Y-m-d H:i:s')
+    //     ];
+    // });
     Route::get('/checkout/success', [StripePayment\PaymentController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/cancel', [StripePayment\PaymentController::class, 'cancelOrder'])->name('checkout.cancel');
 
