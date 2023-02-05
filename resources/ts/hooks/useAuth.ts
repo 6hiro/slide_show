@@ -48,13 +48,31 @@ export const useAuth = (
             })
             .catch((error: any) => {
                 if (error.response.status !== 422) throw error;
+                console.log(error.response.data.errors)
+                if(error.response.data.errors?.email && error.response.data.errors.email[0] === "validation.unique" ) {
+                    setToastNotifications(prev => {
+                        return[
+                            ...prev,
+                            {id: generateUid(), type:"error", message:"このメールアドレスは既に使われています。"},
+                        ];
+                    });
+                }else if(error.response.data.errors?.name  && error.response.data.errors.name[0] === "validation.unique" ) {
+                    setToastNotifications(prev => {
+                        return[
+                            ...prev,
+                            {id: generateUid(), type:"error", message:"このユーザー名は既に使われています。"},
+                        ];
+                    });
+                }else{
+                    setToastNotifications(prev => {
+                        return[
+                            ...prev,
+                            {id: generateUid(), type:"error", message:"ユーザー登録に失敗しました"},
+                        ];
+                    });
+                }
 
-                setToastNotifications(prev => {
-                    return[
-                        ...prev,
-                        {id: generateUid(), type:"error", message:"ユーザー登録に失敗しました"},
-                    ];
-                });
+
             })
             .finally(()=>{
                 processing.current = false;
