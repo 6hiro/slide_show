@@ -36,17 +36,18 @@ Route::prefix('v1')->group(function (){
         // $user = U::query()
         //             ->where(DB::raw('BINARY `email`'), 'ogaki.naoto@example.net')
         //             ->first();
-        $email = $request->email;
+        // $email = $request->email;
         // $email = 'ogaki.naoto@example.net';
         // $user = U::where(DB::raw('BINARY `email`'), $email)->first();
         // $user = U::where('email', 'like', "%{$email}%")->first();
         // $user = U::whereRaw('name like binary \'%{$email}%\' ');
-        $user =U::query()
-                ->where('email', '=', $email)
-                ->first();
+        // $user =U::query()
+        //         ->where('email', '=', $email)
+        //         ->first();
 
         return [
                 "user" => $user,
+                "email" => $email,
         //         "a" => "abc"==="ABc",
         //     // "payment" => $payment->st_cus_id,
         //     // "end" => date("Y-m-d H:i:s", "1677587232"),
