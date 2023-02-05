@@ -46,7 +46,7 @@ Route::prefix('v1')->group(function (){
         //         ->first();
 
         return [
-                "user" => $user,
+                // "user" => $user,
                 "email" => $email,
         //         "a" => "abc"==="ABc",
         //     // "payment" => $payment->st_cus_id,
