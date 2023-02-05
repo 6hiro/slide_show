@@ -43,17 +43,18 @@ Route::prefix('v1')->group(function (){
         // $user = U::whereRaw('name like binary \'%{$email}%\' ');
         $user =U::query()
                 ->where('email', '=', $email)->get();
-        if($user) return ["user" => $user->id,];
+                return;
+        // if($user) return ["user" => $user->id,];
 
-        return [
-                "email" => $email,
+        // return [
+        //         "email" => $email,
         //         "a" => "abc"==="ABc",
         //     // "payment" => $payment->st_cus_id,
         //     // "end" => date("Y-m-d H:i:s", "1677587232"),
         //     // "current" => date("Y-m-d H:i:s"),
         //     // "calc" =>  date("Y-m-d H:i:s", "1677587232") > date("Y-m-d H:i:s"),
         //     // "a" => DateTime::createFromFormat('Y-m-d H:i:s',  date("Y-m-d H:i:s", "1677587232"), new DateTimeZone('Asia/Tokyo'))->format('Y-m-d H:i:s')
-        ];
+        // ];
     });
     Route::get('/checkout/success', [StripePayment\PaymentController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/cancel', [StripePayment\PaymentController::class, 'cancelOrder'])->name('checkout.cancel');
