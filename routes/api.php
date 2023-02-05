@@ -36,7 +36,7 @@ Route::prefix('v1')->group(function (){
         // $user = U::query()
         //             ->where(DB::raw('BINARY `email`'), 'ogaki.naoto@example.net')
         //             ->first();
-        // $email = $request->email;
+        $email = $request->email;
         // $email = 'ogaki.naoto@example.net';
         // $user = U::where(DB::raw('BINARY `email`'), $email)->first();
         // $user = U::where('email', 'like', "%{$email}%")->first();
