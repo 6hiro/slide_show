@@ -53,10 +53,12 @@ const TimeController = memo(( props: TimeControllerProps) => {
 
 
             const pos =  (e.clientX -progressBar.getBoundingClientRect().left) / progressBar.offsetWidth;
+            // const pos =  (e.clientX -progressBar.getBoundingClientRect().left) / progressBar.getBoundingClientRect().width;
             // e.clientX: page内のmouse位置
             // progressBar.getBoundingClientRect().left: page 内の controlsContainerRefの左の位置 
             //      (https://developer.mozilla.org/ja/docs/Web/API/Element/getBoundingClientRect)
             // progressBar.offsetWidth: progressBar要素の幅
+            // console.log(pos)
 
             let time;
             if(props.durationTime < pos * props.durationTime){ //over
@@ -228,10 +230,12 @@ const TimeController = memo(( props: TimeControllerProps) => {
 
     useEffect(() =>{
         document.addEventListener('mouseup', handleMouseUp);
-        // document?.addEventListener('mousemove', handleTimelineUpdate);
+        // document.addEventListener('mousemove', handleTimelineUpdate);
+        // document.addEventListener('pointermove', handleTimelineUpdate);
         return () => {
             document.removeEventListener('mouseup', handleMouseUp);
             // document.removeEventListener('mousemove', handleTimelineUpdate);
+            // document.removeEventListener('pointermove', handleTimelineUpdate);
           };
     }, []);
 
@@ -247,14 +251,18 @@ const TimeController = memo(( props: TimeControllerProps) => {
                 className="controlsContainer"
                  id="controlsContainer" 
                 ref={controlsContainerRef} 
+                onPointerMove={handleTimelineUpdate}
+
             >
                 <div 
                     className="progressControls"
                     onPointerDown={(e) => {
                         isScrubbingRef.current = true;
+                        	
+                        // e.currentTarget.setPointerCapture(e.pointerId);
+
                         handleTimelineUpdate(e);
                     }}
-                    onPointerMove={handleTimelineUpdate}
                 >
                     <div className="progressBar" id="progressBar">
                         <div className="progress">
