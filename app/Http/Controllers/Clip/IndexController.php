@@ -27,7 +27,7 @@ class IndexController extends Controller
             'next_page_link'=>$clips->count()>$per_page 
                 ? $request->url()."?since=".$clips[count($clips)-2]["created_at"]->format('Y-m-d H:i:s.v') 
                 : null,
-            'data' => VlideResource::collection($clips->take($per_page)),
+            'data' => ClipResource::collection($clips->take($per_page)),
             // 'data' => $vlides->take($per_page),
         ];
     }

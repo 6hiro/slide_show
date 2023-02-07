@@ -32,29 +32,32 @@ use Illuminate\Support\Facades\DB;
 
 Route::prefix('v1')->group(function (){
     
-    // Route::get('/date', function (Request $request) {
+    Route::get('/date', function (Request $request) {
     //     // $user = U::query()
     //     //             ->where(DB::raw('BINARY `email`'), 'ogaki.naoto@example.net')
     //     //             ->first();
-    //     $email = $request->email;
+        $email = $request->email;
+        $user = DB::select('select * from users where email = ? COLLATE utf8mb4_unicode_ci', [$email]);
+       
+        // select * from users where name = 'vlideS'  COLLATE utf8mb4_unicode_ci;
     //     // $email = 'ogaki.naoto@example.net';
     //     // $user = U::where(DB::raw('BINARY `email`'), $email)->first();
     //     // $user = U::where('email', 'like', "%{$email}%")->first();
     //     // $user = U::whereRaw('name like binary \'%{$email}%\' ');
     //     $user =U::query()
     //             ->where('email', '=', $email)->get();
-    //     if($user) return ["user" => $user->id,];
+        if($user) return ["user" => $user];
 
-    //     return [
-    //             "email" => $email,
-    //     //         "a" => "abc"==="ABc",
-    //     //     // "payment" => $payment->st_cus_id,
-    //     //     // "end" => date("Y-m-d H:i:s", "1677587232"),
-    //     //     // "current" => date("Y-m-d H:i:s"),
-    //     //     // "calc" =>  date("Y-m-d H:i:s", "1677587232") > date("Y-m-d H:i:s"),
-    //     //     // "a" => DateTime::createFromFormat('Y-m-d H:i:s',  date("Y-m-d H:i:s", "1677587232"), new DateTimeZone('Asia/Tokyo'))->format('Y-m-d H:i:s')
-    //     ];
-    // });
+        return [
+                "email" => $email,
+        //         "a" => "abc"==="ABc",
+        //     // "payment" => $payment->st_cus_id,
+        //     // "end" => date("Y-m-d H:i:s", "1677587232"),
+        //     // "current" => date("Y-m-d H:i:s"),
+        //     // "calc" =>  date("Y-m-d H:i:s", "1677587232") > date("Y-m-d H:i:s"),
+        //     // "a" => DateTime::createFromFormat('Y-m-d H:i:s',  date("Y-m-d H:i:s", "1677587232"), new DateTimeZone('Asia/Tokyo'))->format('Y-m-d H:i:s')
+        ];
+    });
     Route::get('/checkout/success', [StripePayment\PaymentController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/cancel', [StripePayment\PaymentController::class, 'cancelOrder'])->name('checkout.cancel');
 
@@ -212,7 +215,7 @@ Route::prefix('v1')->group(function (){
 
     Route::prefix('clip')->group(function (){
         Route::get('/', Clip\IndexController::class)->name('clip.index');
-        Route::get('/{clipId}', Clip\RetrieveController::class)->name('clip.retrieve');
+        Route::get('/{clipId}', Clip\RetrieveController::class)->name('clip.retrieve')->where('clipId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
         Route::get('/vlide/{vlideId}', Clip\VlideController::class)->name('clip.vlide')->where('vlideId', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
         Route::get('{clipId}/like/users', Clip\LikeUsersController::class)->name('clip.like.users');
         Route::get('{clipId}/share/users', Clip\ShareUsersController::class)->name('clip.share.users');
