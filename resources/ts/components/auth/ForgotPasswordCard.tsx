@@ -5,11 +5,10 @@ import { BiEnvelope } from 'react-icons/bi';
 import { EMAIL_REGEXP } from '../../utils/regexps';
 
 
-
-const ForgotPasswordCard = (
-    user: any, 
+type Props = {
     forgotPassword: Function
-) => {
+}
+const ForgotPasswordCard = (props: Props) => {
 
     const [email, setEmail] = useState<string>("");
     const [status, setStatus] = useState<[string]>();
@@ -17,7 +16,8 @@ const ForgotPasswordCard = (
 
     const submitForm = async (event: any) => {
         event.preventDefault();
-        await forgotPassword({setStatus, email});
+        // console.log(props.forgotPassword);
+        props.forgotPassword({setStatus, email});
     };
 
     if(status?.[0]==="passwords.sent"){
@@ -32,7 +32,7 @@ const ForgotPasswordCard = (
                 <div className="login_card_header" >
                     <h1>パスワード再設定</h1>
                 </div>
-                <form className="login_card_form" onSubmit={submitForm}>
+                <div className="login_card_form" >
                     <div className="form_item">
                         <span className={`form_item_icon`}>
                             <BiEnvelope />
@@ -54,10 +54,11 @@ const ForgotPasswordCard = (
                             !email.match(EMAIL_REGEXP) ||
                             !email.length
                         }
+                        onClick={submitForm}
                     >
                         送信
                     </button>
-                </form>
+                </div>
 
                 <div className="login_card_footer" >
                     アカウントをお持ちの方は

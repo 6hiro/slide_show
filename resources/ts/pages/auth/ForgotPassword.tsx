@@ -13,6 +13,7 @@ type Props = {
 }
 const ForgotPassword = (props: Props) => {
     const { user, forgotPassword } = props;
+    // console.log(forgotPassword)
 
     if(user?.id) return (<Navigate to="/" replace={true} />)
     
@@ -28,7 +29,7 @@ const ForgotPassword = (props: Props) => {
             </Helmet>
 
             <div className="auth_page_container">
-                <ForgotPasswordCard user={props.user} forgotPassword={forgotPassword} />
+                <ForgotPasswordCard forgotPassword={forgotPassword} />
             </div>
         </React.Fragment>
 

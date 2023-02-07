@@ -36,15 +36,31 @@ export const useAuth = (
 
         await axios
             .post('/register', props)
-            .then(() => {
-                refetch();
-                navigate('/verification-link-sent');
-                setToastNotifications(prev => {
-                    return[
-                        ...prev,
-                        {id: generateUid(), type:"success", message:"本登録のご案内のメールを送信しました"},
-                    ];
-                });
+            .then((res) => {
+                if(res.data.status === 'verification-link-sent') {
+                    refetch();
+                    navigate('/verification-link-sent');
+                    setToastNotifications(prev => {
+                        return[
+                            ...prev,
+                            {id: generateUid(), type:"success", message:"本登録のご案内のメールを送信しました"},
+                        ];
+                    });
+                }else if(res.data.status === 'name.validation.unique') {
+                    setToastNotifications(prev => {
+                        return[
+                            ...prev,
+                            {id: generateUid(), type:"error", message:"このユーザー名は既に使われています。"},
+                        ];
+                    });
+                }else if(res.data.status === 'email.validation.unique') {
+                    setToastNotifications(prev => {
+                        return[
+                            ...prev,
+                            {id: generateUid(), type:"error", message:"このメールアドレスは既に使われています。"},
+                        ];
+                    });
+                }
             })
             .catch((error: any) => {
                 if (error.response.status !== 422) throw error;
@@ -134,11 +150,12 @@ export const useAuth = (
     };
 
 
-    const forgotPassword = async (
+    const forgotPassword = async(
         { setStatus, email }:{
             setStatus: Dispatch<SetStateAction<any>>,
             email: string
-        }) => {
+        }
+    ) => {
         if (processing.current) return;
         processing.current = true;
 
@@ -157,7 +174,7 @@ export const useAuth = (
             .finally(()=>{
                 processing.current = false;
             });
-    };
+    }
 
     const resetPassword = async ({ ...props }: {
         email: string,

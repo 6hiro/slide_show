@@ -14,6 +14,7 @@ use Illuminate\Validation\Rules;
 use App\Mail\NewUserIntroduction;
 use Illuminate\Contracts\Mail\Mailer;
 use App\Services\UserService;
+use Illuminate\Support\Facades\DB;
 
 class RegisteredUserController extends Controller
 {
@@ -44,6 +45,16 @@ class RegisteredUserController extends Controller
         ]);
         // $username_pattern ='/^[0-9a-zA-Z_]+$/';
         // if(preg_match($username_pattern, $request->name,)) {}
+
+        $user_name = DB::select('select * from users where UPPER(name) = ? ', [strtoupper($request->name)]);
+        // $user_name = DB::select('select * from users where name = ? COLLATE utf8mb4_unicode_ci', [$request->name]);
+        // $user_email = DB::select('select * from users where email = ? COLLATE utf8mb4_unicode_ci', [$request->email]);
+        $user_email = DB::select('select * from users where UPPER(email) = ? ', [strtoupper($request->email)]);
+
+
+        if($user_name) return ['status' =>"name.validation.unique"];
+        if($user_email) return ['status' =>'email.validation.unique'];
+
 
         $user = User::create([
             'name' => $request->name,

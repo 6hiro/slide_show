@@ -11,8 +11,8 @@ use App\Http\Controllers\Auth;
 use App\Http\Controllers\Embed;
 use App\Http\Controllers\StripePayment;
 // use App\Models\Tag;
-use App\Models\user as U;
-use Illuminate\Support\Facades\DB;
+// use App\Models\user as U;
+// use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\Auth as A;
 
 // app/Http/Controllers/Payment/PaymentController.php
@@ -32,21 +32,20 @@ use Illuminate\Support\Facades\DB;
 
 Route::prefix('v1')->group(function (){
     
-    Route::get('/date', function (Request $request) {
+    // Route::get('/date', function (Request $request) {
+    //     $name = $request->name;
 
-        $name = $request->name;
-
-        if(env('DB_CONNECTION') === 'mysql'){
-            $user = DB::select('select * from users where UPPER(name) = ? ', [strtoupper($name)]);
-            // $user = DB::select('select * from users where email = ? COLLATE utf8mb4_unicode_ci', [$email]);
-            // $user = DB::select('select * from users where name = ? COLLATE utf8mb4_unicode_ci', [$name]);
-        }else{
-            $user = DB::select('select * from users where UPPER(name) = ? ', [strtoupper($name)]);
-        }
+    //     if(env('DB_CONNECTION') === 'mysql'){
+    //         $user = DB::select('select * from users where UPPER(name) = ? ', [strtoupper($name)]);
+    //         // $user = DB::select('select * from users where email = ? COLLATE utf8mb4_unicode_ci', [$email]);
+    //         // $user = DB::select('select * from users where name = ? COLLATE utf8mb4_unicode_ci', [$name]);
+    //     }else{
+    //         $user = DB::select('select * from users where UPPER(name) = ? ', [strtoupper($name)]);
+    //     }
        
-        if($user) return ["user" => $user];
-    });
-    Route::get('/checkout/success', [StripePayment\PaymentController::class, 'success'])->name('checkout.success');
+    //     if($user) return ["user" => $user];
+    // });
+    // Route::get('/checkout/success', [StripePayment\PaymentController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/cancel', [StripePayment\PaymentController::class, 'cancelOrder'])->name('checkout.cancel');
 
     Route::group(['middleware' => ['auth:sanctum', 'verified']], function(){
