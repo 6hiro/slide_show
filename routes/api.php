@@ -36,7 +36,7 @@ Route::prefix('v1')->group(function (){
     //     // $user = U::query()
     //     //             ->where(DB::raw('BINARY `email`'), 'ogaki.naoto@example.net')
     //     //             ->first();
-        $email = $request->name;
+        $name = $request->name;
         // $user = DB::select('select * from users where email = ? COLLATE utf8mb4_unicode_ci', [$email]);
         $user = DB::select('select * from users where email = ? COLLATE utf8mb4_unicode_ci', [$name]);
        
@@ -50,7 +50,7 @@ Route::prefix('v1')->group(function (){
         if($user) return ["user" => $user];
 
         return [
-                "email" => $email,
+                "email" => $name,
         //         "a" => "abc"==="ABc",
         //     // "payment" => $payment->st_cus_id,
         //     // "end" => date("Y-m-d H:i:s", "1677587232"),
