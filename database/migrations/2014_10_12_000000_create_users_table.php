@@ -38,6 +38,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->date('unbaned_on')->nullable(); // YYYY-MM-DD
 
+            $table->collation = 'utf8mb4_bin';
+
             /**
              * Illuminate\Database\Schema
              * Create a new date-time column on the table.
