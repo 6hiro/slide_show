@@ -23,6 +23,7 @@ class CreateTagsTable extends Migration
             // $table->timestamps(6);
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
+            $table->collation = 'utf8mb4_bin';
         });
     }
 

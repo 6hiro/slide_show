@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('payment_id')->nullable()->constrained();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
+            $table->collation = 'utf8mb4_bin';
         });
     }
 

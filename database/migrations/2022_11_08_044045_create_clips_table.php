@@ -39,6 +39,8 @@ class CreateClipsTable extends Migration
             // ミリ秒
             $table->dateTime('created_at', 3)->nullable();
             $table->dateTime('updated_at', 3)->nullable();
+            
+            $table->collation = 'utf8mb4_bin';
         });
 
         Schema::table('clips', function (Blueprint $table) 

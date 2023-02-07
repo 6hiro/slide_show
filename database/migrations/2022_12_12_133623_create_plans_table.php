@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('st_plan_id', 255);
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
+            $table->collation = 'utf8mb4_bin';
         });
     }
 

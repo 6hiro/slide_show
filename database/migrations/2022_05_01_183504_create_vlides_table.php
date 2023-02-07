@@ -37,6 +37,7 @@ class CreateVlidesTable  extends Migration
             
             $table->dateTime('created_at', 3)->nullable();
             $table->dateTime('updated_at', 3)->nullable();
+            $table->collation = 'utf8mb4_bin';
         });
     }
 
