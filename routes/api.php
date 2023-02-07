@@ -38,7 +38,7 @@ Route::prefix('v1')->group(function (){
     //     //             ->first();
         $name = $request->name;
         // $user = DB::select('select * from users where email = ? COLLATE utf8mb4_unicode_ci', [$email]);
-        $user = DB::select('select * from users where email = ? COLLATE utf8mb4_unicode_ci', [$name]);
+        $user = DB::select('select * from users where name = ? COLLATE utf8mb4_unicode_ci', [$name]);
        
         // select * from users where name = 'vlideS'  COLLATE utf8mb4_unicode_ci;
     //     // $email = 'ogaki.naoto@example.net';
