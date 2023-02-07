@@ -38,7 +38,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->date('unbaned_on')->nullable(); // YYYY-MM-DD
 
-            $table->collation = 'utf8mb4_bin';
 
             /**
              * Illuminate\Database\Schema
@@ -49,6 +48,8 @@ return new class extends Migration
              */
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
+
+            $table->collation = 'utf8mb4_bin';
         });
     }
 
