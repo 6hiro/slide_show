@@ -33,31 +33,18 @@ use Illuminate\Support\Facades\DB;
 Route::prefix('v1')->group(function (){
     
     Route::get('/date', function (Request $request) {
-    //     // $user = U::query()
-    //     //             ->where(DB::raw('BINARY `email`'), 'ogaki.naoto@example.net')
-    //     //             ->first();
-        $name = $request->name;
-        // $user = DB::select('select * from users where email = ? COLLATE utf8mb4_unicode_ci', [$email]);
-        $user = DB::select('select * from users where name = ? COLLATE utf8mb4_unicode_ci', [$name]);
-       
-        // select * from users where name = 'vlideS'  COLLATE utf8mb4_unicode_ci;
-    //     // $email = 'ogaki.naoto@example.net';
-    //     // $user = U::where(DB::raw('BINARY `email`'), $email)->first();
-    //     // $user = U::where('email', 'like', "%{$email}%")->first();
-    //     // $user = U::whereRaw('name like binary \'%{$email}%\' ');
-    //     $user =U::query()
-    //             ->where('email', '=', $email)->get();
-        if($user) return ["user" => $user];
 
-        return [
-                "email" => $name,
-        //         "a" => "abc"==="ABc",
-        //     // "payment" => $payment->st_cus_id,
-        //     // "end" => date("Y-m-d H:i:s", "1677587232"),
-        //     // "current" => date("Y-m-d H:i:s"),
-        //     // "calc" =>  date("Y-m-d H:i:s", "1677587232") > date("Y-m-d H:i:s"),
-        //     // "a" => DateTime::createFromFormat('Y-m-d H:i:s',  date("Y-m-d H:i:s", "1677587232"), new DateTimeZone('Asia/Tokyo'))->format('Y-m-d H:i:s')
-        ];
+        $name = $request->name;
+
+        if(env('DB_CONNECTION') === 'mysql'){
+            $user = DB::select('select * from users where UPPER(name) = ? ', [strtoupper($name)]);
+            // $user = DB::select('select * from users where email = ? COLLATE utf8mb4_unicode_ci', [$email]);
+            // $user = DB::select('select * from users where name = ? COLLATE utf8mb4_unicode_ci', [$name]);
+        }else{
+            $user = DB::select('select * from users where UPPER(name) = ? ', [strtoupper($name)]);
+        }
+       
+        if($user) return ["user" => $user];
     });
     Route::get('/checkout/success', [StripePayment\PaymentController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/cancel', [StripePayment\PaymentController::class, 'cancelOrder'])->name('checkout.cancel');
