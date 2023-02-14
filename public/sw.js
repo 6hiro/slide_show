@@ -25,16 +25,30 @@ self.addEventListener('install', (event) => {
 });
 
 // Listen for requests (HTTP 要求がアプリから発するたびに発生)
-self.addEventListener('fetch', (event) => {
-    event.respondWith(
-        caches.match(event.request).then(() => {
-            return fetch(event.request).catch(() => {
-                caches.match('offline.html')
-            });
-        })
+// self.addEventListener('fetch', (event) => {
+//     event.respondWith(
+//         caches.match(event.request).then(() => {
+//             return fetch(event.request).catch(() => {
+//                 caches.match('offline.html')
+//             });
+//         })
+//     );
+// });
+self.addEventListener('fetch', (e) => {
+    e.respondWith(
+      caches.match(e.request).then((r) => {
+            console.log('[Service Worker] Fetching resource: '+e.request.url);
+        return r || fetch(e.request).then((response) => {
+                  return caches.open(cacheName).then((cache) => {
+            console.log('[Service Worker] Caching new resource: '+e.request.url);
+            cache.put(e.request, response.clone());
+            return response;
+          });
+        });
+      })
     );
-});
-
+  });
+  
 // Activate the SW
 // activate は ServiceWorkerGlobalScope インターフェイスのイベントで、
 // ServiceWorkerRegistration が新しいアクティブワーカー（ServiceWorkerRegistration.active worker）を取得すると発生します。
