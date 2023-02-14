@@ -55,6 +55,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $dates = [
+        'ends_at',
+    ];
+
     // public function getDateFormat()
     // {
     //     return 'Y-m-d H:i:s.v';
@@ -193,6 +197,11 @@ class User extends Authenticatable implements MustVerifyEmail
             ->withPivot(['created_at'])
             ->orderBy('pivot_created_at', 'desc');
             // ->withTimestamps();
+    }
+
+    public function isActive()
+    {
+        return $this->ends_at->gt(now());
     }
 
 

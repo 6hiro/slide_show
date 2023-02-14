@@ -45,7 +45,8 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [env('FRONTEND_URL', 'http://127.0.0.1:8000')],
+    // 'allowed_origins' => [env('FRONTEND_URL', 'http://127.0.0.1:8000')],
+    'allowed_origins' => [config('app.frontend_url')],
 
     'allowed_origins_patterns' => [],
 

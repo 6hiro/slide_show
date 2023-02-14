@@ -65,6 +65,7 @@
         <meta name="theme-color" content="#fff" />
 
         <link rel="stylesheet" href="/css/index.css">
+        <link rel="manifest" href="/manifest.json">
         
 
         {{-- https://developer.twitter.com/en/docs/twitter-for-websites/javascript-api/guides/set-up-twitter-for-websites --}}
@@ -94,21 +95,33 @@
         {{-- {{ phpinfo();}} --}}
 
         <div id="app"></div>
-        {{-- <script>
+        <script>
+            // if ('serviceWorker' in navigator) {
+            //   window.addEventListener('load', () => {
+            //     navigator.serviceWorker
+            //         .register('/js/serviceWorker.js') // スコープは、service-worker.js が存在する階層が自動的に設定される
+            //         .then((reg) => {
+            //             console.log('サービスワーカーの登録成功', reg.scope)
+            //             location.reload();
+            //         })
+            //         .catch((err) => {
+            //             console.log('サービスワーカーの登録失敗', err)
+            //         });
+            //   });
+            // }
             if ('serviceWorker' in navigator) {
-              window.addEventListener('load', () => {
-                navigator.serviceWorker
-                    .register('/js/serviceWorker.js') // スコープは、service-worker.js が存在する階層が自動的に設定される
-                    .then((reg) => {
-                        console.log('サービスワーカーの登録成功', reg.scope)
-                        location.reload();
-                    })
-                    .catch((err) => {
-                        console.log('サービスワーカーの登録失敗', err)
-                    });
-              });
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js').
+                        then(() => {
+                            console.log('ServiceWorker registered')
+                        }).
+                        catch((error) => {
+                            console.warn('ServiceWorker error', error)
+                        })
+                })
             }
-          </script> --}}
+          </script>
+          
     </body>
 
     <script src="/js/index.js"></script>

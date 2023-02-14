@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->decimal('price', 7);
+            // $table->integer('price')->unsigned(); //Without decimals
             $table->string('interval');
             $table->integer('trial_period_days');
             $table->string('lookup_key', 255);

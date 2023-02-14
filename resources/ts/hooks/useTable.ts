@@ -145,30 +145,40 @@ export const createNewRow = ( id: string, text: string, width: number, rowIndex:
         data:  newData
     };
 };
-const defaultRows: TABLE_ROW[] = [
-    {
-        id: generateUid(),
-        rowIndex: 1, 
-        order: 1, 
-        data: [
-                {id: generateUid(), colIndex: 1, text: "", order: 1, width: 100, textAlign: "start"},
-                {id: generateUid(), colIndex: 2, text: "", order: 2, width: 100, textAlign: "start"},
-                // {id: generateUid(), col_index: 3, text: "", order: 3, width: 60, textAlign: "start"}
-        ]
-    },
-    {
-        id: generateUid(),
-        rowIndex: 2, 
-        order: 1, 
-        data: [
-                {id: generateUid(), colIndex: 1, text: "", order: 1, width: 100, textAlign: "start"},
-                {id: generateUid(), colIndex: 2, text: "", order: 2, width: 100, textAlign: "start"},
-                // {id: generateUid(), col_index: 3, text: "", order: 3, width: 60, textAlign: "start"}
-        ]
-    },
-];
+
+
 
 const convertToTable = (id: string, type: string, content: string): TABLE => {
+    const defaultRows: TABLE_ROW[] = [
+        {
+            id: generateUid(),
+            rowIndex: 0, 
+            order: 0, 
+            data: [
+                {id: generateUid(), colIndex: 0, text: ":-", order: 0, width: 100, textAlign: "start"},
+                {id: generateUid(), colIndex: 1, text: ":-", order: 1, width: 100, textAlign: "start"},
+            ]
+        },
+        {
+            id: generateUid(),
+            rowIndex: 1, 
+            order: 1, 
+            data: [
+                {id: generateUid(), colIndex: 0, text: "", order: 0, width: 100, textAlign: "start"},
+                {id: generateUid(), colIndex: 1, text: "", order: 1, width: 100, textAlign: "start"},
+            ]
+        },
+        {
+            id: generateUid(),
+            rowIndex: 2, 
+            order: 2, 
+            data: [
+                {id: generateUid(), colIndex: 0, text: "", order: 0, width: 100, textAlign: "start"},
+                {id: generateUid(), colIndex: 1, text: "", order: 1, width: 100, textAlign: "start"},
+            ]
+        },
+    ];
+    
     // const TextAlignRegExp = /^(\:?-+\:?)$/;
     // const isTextAlign = (cell: string) => cell.match(TextAlignRegExp);
     const rows: TABLE_ROW[] =  content

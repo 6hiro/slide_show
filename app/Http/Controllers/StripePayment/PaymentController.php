@@ -231,6 +231,23 @@ class PaymentController extends Controller
                         $user->customer_id = $customer->id;
                         $user->save();
                     }
+                }else{
+                    $stripe = new \Stripe\StripeClient(
+                        env('STRIPE_SECRET')
+                        // 'sk_test_51MCCw9GiBbliBhx0IqD4TuLbeummonfLfZaoCt4Ig7lg12XliigGVW0YYwcccxqk89G4L4BfMxTzxsfEcOsHqZfa00E5Yk3Z4V'
+                    );
+                    $customer = $stripe->customers->retrieve(
+                        // 'cus_NGqcXV2FX3Fpuy',
+                        $customer->id,
+                        []
+                    );
+                    if($customer){
+                        $user = User::where('email', $customer->email)->first();
+                        if($user->customer_id !== $customer->id){
+                            $user->customer_id = $customer->id;
+                            $user->save();
+                        }
+                    }
                 }
                 // return;
             // https://stripe.com/docs/payments/checkout/fulfill-orders?locale=ja-JP#create-event-handler
@@ -257,11 +274,11 @@ class PaymentController extends Controller
                     $email = $session->customer_details->email;
                    
                     // $user = User::find( $order->user_id );
-                    // if($user) {
-                    //     $user->stripe_id = $session->customer; // cus_xxxx
-                    //     // $user->ends_at = $ends_at;
-                    //     $user->save();
-                    // }
+                    if($user) {
+                        $user->stripe_id = $session->customer; // cus_xxxx
+                        // $user->ends_at = $ends_at;
+                        $user->save();
+                    }
                 }
 
 
@@ -271,7 +288,9 @@ class PaymentController extends Controller
             //     $subscriptionSchedule = $event->data->object;
             //     error_log($payload);
             // case 'invoice.payment_succeeded': // Invoiceの支払いが成功したとき
-            //     $invoice = $event->data->object;
+                // $invoice = $event->data->object;
+                // $invoice->customer;
+                // $invoice->hosted_invoice_url;
             // case 'invoice.paid':
             //     $invoice = $event->data->object;
             //     $customer_email = $invoice->$customer_email;
@@ -292,13 +311,13 @@ class PaymentController extends Controller
                 }
                 
 
-            // case 'customer.subscription.deleted': // ユーザーのサブスクリプションを終了させたとき
-            //         $subscription = $event->data->object;
-            //         $stripe_id = $subscription->customer // cus_xxxx
-            //         $user = User::where('stripe_id', $stripe_id)->first();
-            //         if(!$user) return;
-            //         $user->ends_at = null;
-            // // ... handle other event types
+            case 'customer.subscription.deleted': // ユーザーのサブスクリプションを終了させたとき
+                $subscription = $event->data->object;
+                $stripe_id = $subscription->customer // cus_xxxx
+                $user = User::where('stripe_id', $stripe_id)->first();
+                if(!$user) return;
+                $user->ends_at = null;
+            // ... handle other event types
             default:
                 echo 'Received unknown event type ' . $event->type;
         }

@@ -26,6 +26,14 @@ return new class extends Migration
             $table->bigInteger('date')->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
+
+            // $table->dateTime('active_until');
+
+            // $table->uuid('user_id');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->uuid('plan_id');
+            // $table->foreign('plan_id')->references('id')->on('plans');
+
             $table->collation = 'utf8mb4_bin';
         });
     }
