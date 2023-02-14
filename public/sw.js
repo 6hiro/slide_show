@@ -13,7 +13,7 @@
 const CACHE_NAME = 'vlides-v1';
 // const urlsToCache = ['/index.html', '/offline.html'];
 const urlsToCache = [
-    // '/', 
+    '/', 
     '/js/index.js', 
     'css/index.css', 
     '/offline.html', 
