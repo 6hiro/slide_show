@@ -12,7 +12,7 @@
 // https://blog.capilano-fw.com/?p=6722
 const CACHE_NAME = 'vlides-v1';
 // const urlsToCache = ['/index.html', '/offline.html'];
-const urlsToCache = ['/', '/js/index.js', 'css/index.css', '/offline.html'];
+const urlsToCache = ['/', '/js/index.js', 'css/index.css', '/offline.html', 'images/Logo.png'];
 
 // Install SW (Service Worker がインストールされたとき)
 self.addEventListener('install', (event) => {
@@ -40,10 +40,13 @@ self.addEventListener('fetch', (e) => {
             console.log('[Service Worker] Fetching resource: '+e.request.url);
         return r || fetch(e.request).then((response) => {
                   return caches.open(cacheName).then((cache) => {
-            console.log('[Service Worker] Caching new resource: '+e.request.url);
-            cache.put(e.request, response.clone());
-            return response;
-          });
+                console.log('[Service Worker] Caching new resource: '+e.request.url);
+                cache.put(e.request, response.clone());
+                return response;
+            })
+            .catch(() => {
+                caches.match('offline.html')
+            });
         });
       })
     );
