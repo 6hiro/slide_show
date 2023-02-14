@@ -37,11 +37,11 @@ const EditIconForm = (props: Props) => {
         const { currentTarget } = e;
 
         if( !currentTarget.files ) return;
-        if(currentTarget.files[0].size/1024/1024 > 2) { // .size: バイト単位
+        if(currentTarget.files[0].size/1024/1024 > 8) { // .size: バイト単位
             props.setNotifications([...props.notifications ,{
                 id: generateUid(), 
                 type:"error", 
-                message: "画像のサイズは 2mb 未満にしてください。"
+                message: "画像のサイズは 8mb 未満にしてください。"
             }] );
 
             return;
@@ -132,7 +132,7 @@ const EditIconForm = (props: Props) => {
                     </div>
                     <div className='rules'>
                         <div className="rule" >
-                            <span> ファイルサイズは 2 MB までです</span>
+                            <span> ファイルサイズは 8 MB までです</span>
                         </div>    
                         <div className="rule" >
                             <span> jpeg, png, jpg に対応しています</span>
