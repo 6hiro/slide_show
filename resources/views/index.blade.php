@@ -45,12 +45,12 @@
 
 
         {{-- react に変更があったとき自動で --}}
-        {{-- @viteReactRefresh
+        @viteReactRefresh
 
         @vite([
             // 'resources/sass/app.scss', 
             'resources/ts/index.tsx'
-        ]) --}}
+        ])
         
         <link rel="icon" href="/images/Logo.png">
         {{-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> --}}
@@ -64,7 +64,7 @@
         <link rel="mask-icon" href="/favicon.svg" color="#FFFFFF" />
         <meta name="theme-color" content="#fff" />
 
-        <link rel="stylesheet" href="/css/index.css">
+        {{-- <link rel="stylesheet" href="/css/index.css"> --}}
         <link rel="manifest" href="/manifest.json">
         
 
@@ -95,40 +95,25 @@
         {{-- {{ phpinfo();}} --}}
 
         <div id="app"></div>
-        <script>
-            // if ('serviceWorker' in navigator) {
-            //   window.addEventListener('load', () => {
-            //     navigator.serviceWorker
-            //         .register('/js/serviceWorker.js') // スコープは、service-worker.js が存在する階層が自動的に設定される
-            //         .then((reg) => {
-            //             console.log('サービスワーカーの登録成功', reg.scope)
-            //             location.reload();
-            //         })
-            //         .catch((err) => {
-            //             console.log('サービスワーカーの登録失敗', err)
-            //         });
-            //   });
-            // }
+        {{-- <script>
             if ('serviceWorker' in navigator) {
+                // ページ全体が、スタイルシートや画像などのすべての依存するリソースを含めて読み込まれたときに発生
                 window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/sw.js').
-                        then(() => {
-                            console.log('ServiceWorker registered')
-                        }).
-                        catch((error) => {
+                    // スコープは、sw.js が存在する階層が自動的に設定される
+                    navigator.serviceWorker
+                        .register('/sw.js')
+                        .then((registration) => {
+                            console.log('ServiceWorker registered', registration.scope)
+                        })
+                        .catch((error) => {
                             console.warn('ServiceWorker error', error)
                         })
                 })
             }
-          </script>
+          </script> --}}
           
     </body>
 
-    <script src="/js/index.js"></script>
+    {{-- <script src="/js/index.js"></script> --}}
 
-
-    {{-- <script src="/build/assets/index.ff75fa7b.js"></script> --}}
-    {{-- <script src="/build/registerSW.js"></script> --}}
-    {{-- <script src="/build/sw.js"></script> --}}
-    {{-- <script src="/build/workbox-7369c0e1.js"></script> --}}
 </html>
