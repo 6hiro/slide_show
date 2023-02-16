@@ -2,7 +2,7 @@
 
 .slide{
     margin: 32px 20px;
-    line-height: 40px;
+    line-height: 23px;
     letter-spacing: 0.02em;
 }
 .table_title {
@@ -145,6 +145,9 @@ aside.slide{ // aleart message
         flex: 1;
         margin-left: 0.6em;
         min-width: 0;
+        // strong {
+        //     background: -webkit-linear-gradient( transparent 65%, $pink 0% );
+        // }
         a{
             color: $blue;
             &:hover {
@@ -234,7 +237,7 @@ blockquote.slide{
     // background: #f2f2f2;
     // background: #f6f8fa;
     border-left: 4px solid #d6d6d7;
-    padding: 0rem 0.8rem;
+    padding: 0.2rem 0.8rem;
     // color: #505c64;
     overflow-wrap: break-word;
     // white-space: pre-wrap;

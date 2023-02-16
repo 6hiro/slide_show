@@ -65,7 +65,7 @@
         <meta name="theme-color" content="#fff" />
 
         <link rel="stylesheet" href="/css/index.css">
-        <link rel="manifest" href="/manifest.json">
+        {{-- <link rel="manifest" href="/manifest.json"> --}}
         
 
         {{-- https://developer.twitter.com/en/docs/twitter-for-websites/javascript-api/guides/set-up-twitter-for-websites --}}

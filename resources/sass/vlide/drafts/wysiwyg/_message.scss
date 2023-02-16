@@ -1,6 +1,6 @@
 aside.message_element{ // aleart message
     @include flex(flex-start, unset);
-    padding: 1em 1em;
+    padding: 1.4em 1em;
     border-radius: 5px;
     background: #fff3dd;
     border: 2px solid #ffb84c;
@@ -9,14 +9,16 @@ aside.message_element{ // aleart message
     font-size: 1em;
     line-height: 1.6;
     overflow-wrap: break-word;
-    white-space: pre-wrap;
+    // white-space: pre-wrap;
+    white-space: pre-line;
+    
     
     .message_icon{
         position: relative;
-        padding-top: 0.4em;
-        top: 0.05em;
+        // padding-top: 0.4em;
+        top: 0em;
         width: 1.4em;
-        height: 1.8em;
+        height: 1.4em;
         color: #ffb84c;
     }
     
@@ -33,7 +35,8 @@ aside.message_element{ // aleart message
         code {
             background-color: rgba(0,0,0,.06);
             border-radius: 3px;
-            padding: 0.1em 0.35em;
+            padding: 0.1em 0;
+            // padding: 0.1em 0.35em;
         }
     }
 }

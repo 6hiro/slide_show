@@ -44,6 +44,7 @@
         }
         .input_menu{
             color: $placeholderColor;
+            border-radius: 6px;
             // padding: 10px 10px;
 
             &__item {
@@ -61,9 +62,9 @@
                 flex-shrink: 0;
                 justify-content: space-between;
                 background-color: #fff;
-                border-radius: 6px;
                 border: 0;
                 min-width: 40px;
+                
                 &:hover {
                     background-color: #f2f2f2;
                 }
