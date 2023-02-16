@@ -45,12 +45,12 @@
 
 
         {{-- react に変更があったとき自動で --}}
-        @viteReactRefresh
+        {{-- @viteReactRefresh
 
         @vite([
             // 'resources/sass/app.scss', 
             'resources/ts/index.tsx'
-        ])
+        ]) --}}
         
         <link rel="icon" href="/images/Logo.png">
         {{-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> --}}
@@ -64,7 +64,7 @@
         <link rel="mask-icon" href="/favicon.svg" color="#FFFFFF" />
         <meta name="theme-color" content="#fff" />
 
-        {{-- <link rel="stylesheet" href="/css/index.css"> --}}
+        <link rel="stylesheet" href="/css/index.css">
         <link rel="manifest" href="/manifest.json">
         
 
@@ -114,6 +114,6 @@
           
     </body>
 
-    {{-- <script src="/js/index.js"></script> --}}
+    <script src="/js/index.js"></script>
 
 </html>
