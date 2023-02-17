@@ -386,25 +386,25 @@ const Detail = (props: Props) => {
                                                 ? "unset" 
                                                 : "blur(2px)",
                                         }}
-                                        onClick={e => {
-                                            const {target} = e;
-                                            if(target instanceof HTMLImageElement && target.id === "slide__img"){
-                                                // const nextSibling = target.nextSibling;
-                                                // if(nextSibling instanceof HTMLImageElement){
-                                                    // console.log(target.src)
-                                                    if(target.src.slice(0,34)===`${siteURL}/api/v1/image?f=`){
-                                                    // if(nextSibling.src.slice(0,37)===`http://127.0.0.1:8000/api/v1/image?f=`){
-                                                        const path = target.src.split("image?f=").length===2 
-                                                            ? target.src.split("image?f=")[1]
-                                                            : null;
-                                                        if(path && path.length < 300){
-                                                            setQuote("!"+path);
-                                                            toggleForm(true);
-                                                        }
-                                                    }
-                                                // }
-                                            }
-                                        }}
+                                        // onClick={e => {
+                                        //     const {target} = e;
+                                        //     if(target instanceof HTMLImageElement && target.id === "slide__img"){
+                                        //         // const nextSibling = target.nextSibling;
+                                        //         // if(nextSibling instanceof HTMLImageElement){
+                                        //             // console.log(target.src)
+                                        //             if(target.src.slice(0,34)===`${siteURL}/api/v1/image?f=`){
+                                        //             // if(nextSibling.src.slice(0,37)===`http://127.0.0.1:8000/api/v1/image?f=`){
+                                        //                 const path = target.src.split("image?f=").length===2 
+                                        //                     ? target.src.split("image?f=")[1]
+                                        //                     : null;
+                                        //                 if(path && path.length < 300){
+                                        //                     setQuote("!"+path);
+                                        //                     toggleForm(true);
+                                        //                 }
+                                        //             }
+                                        //         // }
+                                        //     }
+                                        // }}
                                     >
                                         <Slide type={t.type} content={t.content} time={t.time} toc={toc} />
                                     </div>

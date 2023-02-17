@@ -18,6 +18,7 @@ export const DecoratedText = (props: Props) => {
     // 抽象構文木(AST)を作成
     const ast = tokenizer(props.content);
     // ast.children?.length  && console.log(ast)
+    // console.log(ast)
 
     if(ast.children?.length === 0) return null;
     // if(ast.children?.length === 1) return <>{ast.children[0].content}</>
@@ -56,16 +57,18 @@ const _addElementRecursively = (token: Token) => {
                 }else if(token.elmType==="link"){
                     return <a 
                                 key={token.id}
-                                href={token.content ? token.content : ""}
+                                // href={token.content}
+                                href={token.attributes ? token.attributes[1].attrValue : ""}
                                 // style={{color: "#00f"}}
                                 target="_blank" rel="noopener noreferrer"
                             >
                                 {token.content ? token.content : ""}
                             </a>
                 }else if(token.elmType==="url"){
-                    return  <a key={token.id} href={token.attributes ? token.attributes[1].attrValue : ""} target="_blank" rel="noopener noreferrer">
+                    return  <a key={token.id} href={token.content ? token.content : ""} target="_blank" rel="noopener noreferrer">
+                    {/* return  <a key={token.id} href={token.attributes ? token.attributes[1].attrValue : ""} target="_blank" rel="noopener noreferrer"> */}
                                 {/* {token.attributes ? token.attributes[1].attrValue : ""} */}
-                                <span style={{color:"#3b49df"}}>{token.content}</span>
+                                <span style={{color:"#3b49df"}}>{token.content}ppp</span>
                             </a>
                 }else if(token.elmType==="linkCard"){
                     if(token.attributes && token.attributes[1].attrValue.slice(0,20) === 'https://twitter.com/'){

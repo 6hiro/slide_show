@@ -2,8 +2,9 @@
 
 .slide{
     margin: 32px 20px;
-    line-height: 23px;
+    line-height: 28px;
     letter-spacing: 0.02em;
+    font-size: 16px;
 }
 .table_title {
     text-align: start;
@@ -127,7 +128,7 @@ aside.slide{ // aleart message
     border: 2px solid #ffb84c;
     box-shadow: $boxShadowWhite;
     color: #000000a6;
-    font-size: 1em;
+    font-size: 16px;
     line-height: 1.6;
     overflow-wrap: break-word;
     // white-space: pre-wrap;
@@ -206,7 +207,7 @@ h3.slide {
     overflow-wrap: break-word;
     // white-space: pre-wrap;
     white-space: pre-line;
-    font-size: 18px;
+    font-size: 16px;
     // line-height: 32px;
     a{
         // text-decoration: underline;
