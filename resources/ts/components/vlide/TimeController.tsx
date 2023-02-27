@@ -244,6 +244,7 @@ const TimeController = memo(( props: TimeControllerProps) => {
             className="videoContainer" 
             id="videoContainer"
             onPointerUp={handleMouseUp}
+            style={{pointerEvents: `${isLoading ? "none" : "auto"}`}}
         >
             {audio}
                
